@@ -5,6 +5,11 @@
 
 * [Configuration](#configuration)    
 * [Template Drive form](#template-drive-form)    
+* [Validators](#validators)    
+* [Default form values](#default-form-values)    
+* [FormGroup](#formgroup)    
+* [Reactive form](#reactive-form)    
+* [Full example](#full-example)    
 
 
 ## Configuration
@@ -69,49 +74,48 @@ onSubmit(form: NgForm) {
   console.log(form);
 }
 ```
-console
 
+**Some interesting properties**
 
+```dirty <bool>``` : *true* if some values has been modified
+```touched / untouched <bool>``` : *true* if the user has clicked on a field
+```valid / invalid <bool>``` : useful in case of using validators
+```value <Object>``` : contains the values of the fields
 
-Quelques propriétés intéressantes :
+### @ViewChild values
+[Back to top](#forms)   
 
-dirty <bool> : vrai si une valeur a été modifiée
-touched / untouched <bool> : vrai si l’utilisateur a cliqué sur un champ du formulaire 
-valid / invalid <bool> : utile dans le cas d’utilisation de validators (champ email par exemple)
-value <Object> : contient les valeurs des champs
+Manage form with *@ViewChild* is useful when you want to get access on the form's properties before it's submission. Which it's not possible with the classic method. This permit to preload input's values for example.
 
+*Vue file*
 
-Méthode @ViewChild
-
-L’accès au formulaire via l’utilisation de @ViewChild est utile lorsqu’on désire accéder aux propriétés du formulaire avant ça soumission. Ce qui n’est pas possible via la méthode classique. 
-Cette méthode peut-être utilisée afin de pouvoir pré-remplir des champs de saisie par exemple.
-
-Vue
-
+```
 <form (ngSubmit)="onSubmit()" #f="ngForm">
-         <div id="user-data">
-           <div class="form-group">
-             <label for="username">Username</label>
-             <input type="text" id="username" class="form-control" ngModel name="username">
-           </div>
-           <button class="btn btn-default" type="button">Suggest an Username</button>
-           <div class="form-group">
-             <label for="email">Mail</label>
-             <input type="email" id="email" class="form-control" ngModel name="email">
-           </div>
-         </div>
-         <div class="form-group">
-           <label for="secret">Secret Questions</label>
-           <select id="secret" class="form-control" ngModel name="secret">
-             <option value="pet">Your first Pet?</option>
-             <option value="teacher">Your first teacher?</option>
-           </select>
-         </div>
-         <button class="btn btn-primary" type="submit">Submit</button>
-       </form>
+ <div id="user-data">
+  <div class="form-group">
+   <label for="username">Username</label>
+   <input type="text" id="username" class="form-control" ngModel name="username">
+  </div>
+  <button class="btn btn-default" type="button">Suggest an Username</button>
+  <div class="form-group">
+   <label for="email">Mail</label>
+   <input type="email" id="email" class="form-control" ngModel name="email">
+  </div>
+ </div>
+ <div class="form-group">
+  <label for="secret">Secret Questions</label>
+  <select id="secret" class="form-control" ngModel name="secret">
+   <option value="pet">Your first Pet?</option>
+   <option value="teacher">Your first teacher?</option>
+  </select>
+ </div>
+ <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+```
 
-Controller
+*Controller file*
 
+```
 import { Subscription } from 'rxjs';
 import { UserService } from './user.service';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
@@ -122,94 +126,108 @@ import { NgForm } from '@angular/forms';
  templateUrl: './app.component.html',
  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy{
+export class AppComponent implements OnInit, OnDestroy {
  @ViewChild('f', {static: false}) signupForm: NgForm;
- 
+
  constructor(private userService: UserService) {}
- // onSubmit(form: NgForm) {
- //   console.log(form);
- // }
  
  onSubmit() {
-   console.log(this.signupForm);
+  console.log(this.signupForm);
  }
 }
- 
+```
 
+## Validators
+[Back to top](#forms)   
 
-Validators (lesson 191)
+This is the way of display a red border when the user touch the input and show a help text if email is not valid.
 
-Afficher un cadre rouge autour des champs de saisie lorsqu’ils ont été touchés et afficher un texte d’aide sur le champ email si ce dernier est invalide 
-
+```
 <div class="form-group">
-             <label for="email">Mail</label>
-             <input
-               type="email"
-               id="email"
-               class="form-control"
-               ngModel
-               name="email"
-               required
-               email
-               #email="ngModel">
-               <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email !</span>
-           </div>
+ <label for="email">Mail</label>
+ <input
+  type="email"
+  id="email"
+  class="form-control"
+  ngModel
+  name="email"
+  required
+  email
+  #email="ngModel">
+ <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email !</span>
+</div>
+```
 
-app.component.css
+*app.component.css*
 
+```
 input.ng-invalid.ng-touched {
  border: 1px solid red;
 }
+```
+
+### Pattern validator
+
+```
+this.recipeForm = new FormGroup({
+     'name': new FormControl(recipeName, Validators.required),
+     'amount': new FormControl(imageUrl, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]) // requis et nombre positif
+   });
+```
+
+## Default form values
+[Back to top](#forms)   
 
 
-Valeurs par défaut
-A retenir
+no binding => tells to Angular that it is a formControl
+one-way binding => To set formControl default value
+two-way binding => To get value in realtime
 
-no binding => pour dire à angular que c’est un formControl
-one-way binding => pour donner une valeur par défaut à un formControl
-two-way binding => pour obtenir instantanément la valeur d’un élément
-Méthode One-way binding
+### One-way binding method
 
-Pour positionner les valeurs par défaut dans un formulaire, il suffit d’utiliser le property binding avec [ngModel].
+Just use property binding by using ```[ngModel]```
 
-Vue
+*Vue file*
 
+```
 <select id="secret" class="form-control" ngModel name="secret" [ngModel]="defaultQuestion">
-             <option value="pet">Your first Pet?</option>
-             <option value="teacher">Your first teacher?</option>
-           </select>
+ <option value="pet">Your first Pet?</option>
+ <option value="teacher">Your first teacher?</option>
+</select>
+```
 
-Controller
+*Controller file*
 
-export class AppComponent implements OnInit, OnDestroy{
+```
+export class AppComponent {
  defaultQuestion = 'pet';
-…
+ ...
 }
+```
 
-Ceci pré-sélectionnera l’item “pet” dans la combo
+This will select *pet* in the dropdown list
 
-FormGroup (lesson 194)
+## FormGroup
+[Back to top](#forms)   
 
-ngModelGroup
+*controller file*
 
-Pré-remplir les champs
-
+```
  suggestUserName() {
    const suggestedName = 'Superuser';
  
-   // pré-remplir un champ unitairement - solution 1
+   // set specific field default value - solution 1
    this.signupForm.control.get('username').setValue(suggestedName);
  
-   // pré-remplir un champ unitairement - solution 2
+   // set specific field default value - solution 2
    this.signupForm.form.patchValue({
-     userData: {	// userData est le nom du ngFormGroup 
+     userData: {	// userData is the ngFormGroup's name
        username: suggestedName
      }
    });
  
- 
-   // pré-remplir tout le formulaire
-   // !! il faut obligatoirement que l'objet json liste TOUS les champs du formulaire
+   // set whole form default values
+   // !! The json object MUST list all the form's fields
    this.signupForm.setValue({
      userData: {
        username: suggestedName,
@@ -219,24 +237,30 @@ Pré-remplir les champs
      gender: 'male'
    });
  }
+```
 
-Vue
+*Vue file*
 
+```
 <div id="user-data"
-         ngModelGroup="userData"
-         #userData="ngModelGroup">
-           <div class="form-group">
-             <label for="username">Username</label>
-             <input
-             type="text"
-             id="username"
-             class="form-control"
-             ngModel
-             name="username"
-             required>
-           </div>
+   ngModelGroup="userData"
+   #userData="ngModelGroup">
+     <div class="form-group">
+       <label for="username">Username</label>
+       <input
+       type="text"
+       id="username"
+       class="form-control"
+       ngModel
+       name="username"
+       required>
+     </div>
+</div>
+```
 
-Récupérer les valeurs
+*Get form's values*
+
+```
 import { Subscription } from 'rxjs';
 import { UserService } from './user.service';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
@@ -269,14 +293,15 @@ export class AppComponent implements OnInit, OnDestroy{
    this.dataset.gender = this.signupForm.value.gender;
  }
 }
+```
  
+## Reactive Form
+[Back to top](#forms)   
 
+First you need to import ```ReactiveFormsModule``` into *app.module.ts*
 
-Reactive Form
-
-Importer ReactiveFormsModule dans le app.module.ts
-
- 
+*app.module.ts*
+```
 @NgModule({
  declarations: [
    AppComponent,
@@ -293,22 +318,23 @@ Importer ReactiveFormsModule dans le app.module.ts
  providers: [],
  bootstrap: [AppComponent]
 })
+```
 
+*Vue file*
 
-Vue 
+You have to tell Angular to associate the form with the formGroup
 
-Il faut dire à Angular d’associer le formulaire (la balise <form>) à notre formGroup
+```<form [formGroup]=”signupForm”>```
 
-<form [formGroup]=”signupForm”>
+Then you have to associate each field with each formControl defined in the controller
 
-Ensuite il faut associer chaque champ du formulaire à chaque formControl définis dans le controller 
+```<input type=”text” id=”username” formControl=”username”>```
 
-<input type=”text” id=”username” formControl=”username”>
+Accessing form's data
 
-Récupération des valeurs
+*Controller file*
 
-Controller
-
+```
 export class FormComponent implements OnInit {
  
  genders = ['male', 'female'];
@@ -328,15 +354,14 @@ export class FormComponent implements OnInit {
    console.log(this.signupForm.value.email);
    console.log(this.signupForm.value.gender);
  }
- 
 }
- 
+```
 
+## Full example
+[Back to top](#forms)   
 
-Exemple complet
-
-Vue
-
+*Vue file*
+```
 <div class="container">
    <h3>Reactive Form</h3>
    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
@@ -359,10 +384,11 @@ Vue
        <button class="btn btn-primary" type="submit">Create</button>
    </form>
 </div>
+```
 
+*Controller file*
 
-Controller
-
+```
 import { CustomValidators } from './custom-validator';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
@@ -393,11 +419,12 @@ export class FormComponent implements OnInit {
    console.log(this.projectForm);
  }
 }
- 
+```
 
+*Custom validator* 
 
-Custom validator
-
+Create custom validator file
+```
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 export class CustomValidators {
@@ -421,23 +448,14 @@ export class CustomValidators {
        return promise;
    }
 }
+```
 
-Validators
+## FormArray
+[Back to top](#forms)   
 
-this.recipeForm = new FormGroup({
-     'name': new FormControl(recipeName, Validators.required),
-     'amount': new FormControl(imageUrl, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]) // requis et nombre positif
-   });
+*Controller file*
 
-Styling
-
-input.ng-invalid.ng-touched {
- border: 1px solid red;
-}
-
-FormArray
-Implémentation
-
+```
 for (let ingredient of recipe.ingredients) {
          recipeIngredients.push(
            new FormGroup({
@@ -447,7 +465,7 @@ for (let ingredient of recipe.ingredients) {
          );
        }
  
-// binding sur le formulaire
+   // form binding
    this.recipeForm = new FormGroup({
      'name': new FormControl(recipeName, Validators.required),
      'imagePath': new FormControl(imageUrl, Validators.required),
@@ -455,29 +473,36 @@ for (let ingredient of recipe.ingredients) {
      'ingredients': recipeIngredients
    });
  
+```
 
-Fetching pour création dynamique des FormControls
+FormControl dynamic creation
 
+```
 /**
   * Récupérer la liste des ingrédients pour le FormControl
   */
  getControls() {
    return (this.recipeForm.get('ingredients') as FormArray).controls;
  }
+ ```
  
+*Vue file*
  
+``` 
 <div class="row"
-                   *ngFor="let ingredientCtrl of getControls(); let i = index"
-                   [formGroupName]="i"
-                   style="margin-top: 10px;">
-                       <div class="col-xs-8">
-                           <input type="text" class="form-control" formControlName="name">
-                       </div>
-                       <div class="col-xs-2">
-                           <input type="number" class="form-control" formControlName="amount">
-                       </div>                  
+  *ngFor="let ingredientCtrl of getControls(); let i = index"
+  [formGroupName]="i"
+  style="margin-top: 10px;">
+  <div class="col-xs-8">
+        <input type="text" class="form-control" formControlName="name">
+  </div>
+  <div class="col-xs-2">
+        <input type="number" class="form-control" formControlName="amount">
+  </div>                  
+```
 
 Suppression d’un élément du FormArray
+```
 
 /**
   * Supprimer l'ingrédient sélectionné
@@ -486,10 +511,13 @@ Suppression d’un élément du FormArray
  onDeleteIngredient(index: number) {
    (this.recipeForm.get('ingredients') as FormArray).removeAt(index);
  }
+```
 
 
  Suppression de tous les éléments du FormArray
+```
 
 onDeleteAllIngredients() {
    (this.recipeForm.get('ingredients') as FormArray).clear();
  }
+```
