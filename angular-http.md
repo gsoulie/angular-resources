@@ -23,28 +23,28 @@ In order to use HttpClient module, you need to import it
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  imports: [..., HttpClientModule]
+	imports: [..., HttpClientModule]
 })
 ```
 
 ### Using HttpClient
 
 ```
-import { HttpClient } from ‘@angular/common/http’;
+import { HttpClient } from '@angular/common/http';
 constructor(private http: HttpClient) { }
 
 onSendData(postData: { title: string, content: string }) {
-	this.http.post(‘http://…’, postData)
+	this.http.post('http://…', postData)
 	.subscribe(responseData => {
 		console.log(responseData); // display firebase automatic id
-  });
+  	});
 }
 
 onFetchData() {
-	this.http.get(‘http://…’)
-  .subscribe(data => {
-
-  });
+	this.http.get('http://…')
+	.subscribe(data => {
+		// some stuff here
+	});
 }
 
 ```
