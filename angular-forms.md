@@ -475,7 +475,7 @@ for (let ingredient of recipe.ingredients) {
  
 ```
 
-FormControl dynamic creation
+*FormControl dynamic creation*
 
 ```
 /**
@@ -501,11 +501,11 @@ FormControl dynamic creation
   </div>                  
 ```
 
-Suppression d’un élément du FormArray
-```
+*Delete item from FormArray*
 
+```
 /**
-  * Supprimer l'ingrédient sélectionné
+  * Delete the selected item
   * @param index
   */
  onDeleteIngredient(index: number) {
@@ -514,9 +514,9 @@ Suppression d’un élément du FormArray
 ```
 
 
- Suppression de tous les éléments du FormArray
-```
+*Remove all elements from FormArray*
 
+```
 onDeleteAllIngredients() {
    (this.recipeForm.get('ingredients') as FormArray).clear();
  }
