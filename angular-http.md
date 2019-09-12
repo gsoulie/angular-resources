@@ -62,12 +62,12 @@ onFetchData() {
 	this.http.get('http://…')
 	.pipe(map(reponseData => {
 		const postsArray = [];
-    for (const key in responseData) {
+	for (const key in responseData) {
 	    if (responseData.hasOwnProperty(key)) {
-	      postsArray.push({ ...responseData[key], id: key});
-      }
-    }
-    return postsArray;
+	    	postsArray.push({ ...responseData[key], id: key});
+     	    }
+    	}
+    	return postsArray;
   }))
   .subscribe(data => {
     // some stuff here
