@@ -55,9 +55,6 @@ To get sweet styling, it is recommended to install bootstrap with ```npm install
 ## Tips 
 [Back to top](#prerequisites)   
 
-##  Dynamic stlying 
-[Back to top](#prerequisites)   
-
 ### ... operator
 
 The **...** operator allows to copy all of the existing properties of an object. This is very useful if we want to return a copy of an object with all of its properties and adding to it a new property.
