@@ -6,6 +6,7 @@
 * [Relative route "relativeTo"](#relative-route-"relativeTo")     
 * [Child routes](#child-routes)    
 * [Angular routing strategie Hash](#angular-routing-strategie-hash)    
+* [Reset routing params](#reset-routing-params)     
 
 ## routerLink
 
@@ -84,4 +85,29 @@ const routes: Routes = [
  exports: [RouterModule]
 })
 export class AppRoutingModule { }
+```
+
+## Reset routing params
+[Back to top](#navigation)  
+
+```
+import { Subscription } from ‘rxjs/Subscription’;
+
+export class UserComponent implements OnInit, OnDestroy {
+	user: {id: number, name: string};
+	paramSubscription: Subscription;
+
+	constructor(private route: ActivatedRoute) {}
+	
+	ngOnInit() {
+		this.paramSubscription = this.route.params
+		.subscribe((params: Params) => {
+			this.user.id = params[‘id’];
+			this.user.name = params[‘name’];
+		}
+}
+
+ngOnDestroy() {
+	this.paramSubscription.unsubscribe();
+}
 ```
