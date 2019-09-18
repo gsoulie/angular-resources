@@ -9,7 +9,7 @@
 
 ## routerLink
 
-```routerLink="<my-route>"``` directive append the wanted route to the currentroute. So if you are on the *localhost/servers* route and you use ```routerLink="servers"``` so the final route will be *localhost/servers/servers*
+```routerLink="<my-route>"``` directive append the wanted route to the current route. So if you are on the *localhost/servers* route and you use ```routerLink="servers"``` so the final route will be *localhost/servers/servers*
 
 To avoid that issue, you can use the following syntax ```routerLink="../servers"``` or navigate by code with  ```this.router.navigate(['servers'])``` or ```this.router.navigateByUrl('servers')```. By using navigation by code, the *Router* component rebuilt all the route from the root */*
 
