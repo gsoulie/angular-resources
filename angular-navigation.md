@@ -31,8 +31,8 @@ const routes: Routes = [
 ];
 ```
 
-**Use case** from the */servers* page wich list all the servers, we want to navigate on a server's detail page when clicking it in the list, to reach the */servers/<id>* route.
-Then from the server's detail page we want to redirect on */servers/<id>/edit* when clicking on the "Edit" button.
+**Use case** from the */servers* page wich list all the servers, we want to navigate on a server's detail page when clicking it in the list, to reach the */servers/id* route.
+Then from the server's detail page we want to redirect on */servers/id/edit* when clicking on the "Edit" button.
 
 To do that, we just need to use the ```relativeTo``` option provided by the ```route.navigate``` method :
 
