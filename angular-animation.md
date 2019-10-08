@@ -160,3 +160,11 @@ export class HomeComponent implements OnInit {
   
 }
 ```
+
+Some style can be added into the transition
+
+```
+ transition('shrunken <=> *', animate(800, style({
+        borderRadius: '100px' 
+      }
+```
