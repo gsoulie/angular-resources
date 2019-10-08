@@ -39,6 +39,7 @@ export class AppModule { }
 ```
 
 ### Basic example
+[Back to top](#animations)  
 
 In this example, we have a square div represented by ```<div [@divState]="state">```. When clicking on the button, we animate the square div
 
@@ -86,4 +87,9 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
 > **Tip** if you want to use the same duration for the two way transition, you can use the following syntax ```transition('normal <=> highlighted', animate(300))```
 
+> **Tip** If you have more than 2 states you can use ```transition('normal <=> *', animate(300))```
+
+## Control style during transition
 [Back to top](#animations)  
+
+
