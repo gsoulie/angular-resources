@@ -168,3 +168,18 @@ Some style can be added into the transition
         borderRadius: '100px' 
       }
 ```
+
+Or more complex
+
+```
+ transition('shrunken <=> *', animate(800, [
+      style({
+        backgroundColor: 'orange'
+      }),
+      animate(1000, style({
+        borderRadius: '50px'
+      })),
+      animate(500)
+    ])
+   ])
+```
