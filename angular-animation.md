@@ -83,3 +83,5 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   }
 }
 ```
+
+> **Tip** if you want to use the same duration for the two way transition, you can use the following syntax ```transition('normal <=> highlighted', animate(300))
