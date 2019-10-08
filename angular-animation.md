@@ -76,7 +76,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   ]
 })
 
-export class RecipeListComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
   state = 'normal';
   
   onAnimate() {
@@ -92,4 +92,71 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 ## Control style during transition
 [Back to top](#animations)  
 
+*home.html*
 
+```
+<button class="btn btn-warning" (click)="onAnimate()">animation</button>
+<button class="btn btn-success" (click)="onShrink()">shrink</button>
+
+<div [@divState]="state" style="width: 100px; height: 100px"></div>
+<br>
+<div [@wildState]="wildState" style="width: 100px; height: 100px" (mouseenter)="onShrink()" (mouseleave)="onAnimate()"></div>
+```
+
+*home.ts*
+
+```
+import { trigger, state, style, transition, animate } from '@angular/animations';
+
+@Component({
+  selector: 'app-recipe-list',
+  templateUrl: './recipe-list.component.html',
+  styleUrls: ['./recipe-list.component.css'],
+  animations: [
+    trigger('divState', [
+      state('normal', style({
+        backgroundColor: 'red',
+        transform: 'translateX(0)'
+      })),
+      state('highlighted', style({
+        backgroundColor: 'blue',
+        transform: 'translateX(100px)'
+      })),
+      transition('normal => highlighted', animate(300)),
+      transition('highlighted => normal', animate(1000))
+    ]),
+    trigger('wildState', [
+      state('normal', style({
+        backgroundColor: 'red',
+        transform: 'translateX(0) scale(1)'
+      })),
+      state('highlighted', style({
+        backgroundColor: 'blue',
+        transform: 'translateX(100px) scale(1)'
+      })),
+      state('shrunken', style({
+        backgroundColor: 'green',
+        borderRadius: '100px',
+        transform: 'translateX(0) scale(0.5)'
+      })),
+      transition('normal => highlighted', animate(300)),
+      transition('highlighted => normal', animate(1000)),
+      transition('shrunken <=> *', animate(800))
+    ])
+  ]
+})
+export class HomeComponent implements OnInit {
+  
+  state = "normal";
+  wildState = 'normal';
+  
+  onAnimate() {
+    this.state === 'normal' ? this.state = 'highlighted' : this.state = 'normal';
+    this.wildState === 'normal' ? this.wildState = 'highlighted' : this.wildState = 'normal';
+  }
+  onShrink() {
+    this.wildState = 'shrunken';
+  }
+  
+}
+```
