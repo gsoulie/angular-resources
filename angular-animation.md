@@ -3,6 +3,7 @@
 # Animations    
 
 * [Basics](#basics)      
+* [Liste animations](#list-animations)     
 
 
 
@@ -182,4 +183,66 @@ Or more complex
       animate(500)
     ])
    ])
+```
+
+## List animations
+[Back to top](#animations)  
+
+*home.html*
+
+```
+<div class="row">
+    <div class="col-xs-12">
+        <input type="text" #input>
+        <button class="btn btn-primary" (click)="onAdd(input.value)">Add Item</button>
+        <hr>
+        <ul class="list-group">
+            <li class="list-group-item" [@list1] (click)="onDeleteItem(item)" *ngFor="let item of list">{{ item }}</li>
+        </ul>
+    </div>
+</div>
+```
+
+*home.ts*
+```
+import { trigger, state, style, transition, animate } from '@angular/animations';
+
+@Component({
+  selector: 'app-recipe-list',
+  templateUrl: './recipe-list.component.html',
+  styleUrls: ['./recipe-list.component.css'],
+  animations: [
+    trigger('list1', [
+      state('in', style({
+        opacity: 1,
+        transform: 'translateX(0)'
+      })),
+      transition('void => *', [
+        style({
+          opacity: 0,
+          transform: 'translateX(-100px)'
+        }),
+        animate(300)
+      ]),
+      transition('* => void', [
+        animate(300, style({
+          transform: 'translateX(100px)',
+          opacity: 0
+        }))
+      ]),
+    ]),
+  ]
+})
+export class HomeComponent implements OnInit {
+  list = ['tomatoes', 'kiwi', 'banana'];
+  
+  onAdd(value) {
+    this.list.push(value);
+  }
+
+  onDeleteItem(value) {
+    const index = this.list.indexOf(value);
+    this.list.splice(index, 1);
+  }
+}
 ```
