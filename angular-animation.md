@@ -3,7 +3,7 @@
 # Animations    
 
 * [Basics](#basics)      
-* [Liste animations](#list-animations)     
+* [List animations](#list-animations)     
 
 
 
