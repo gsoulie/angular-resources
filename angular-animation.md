@@ -290,6 +290,12 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
             offset: 1
           }),
       ]),
+      transition('* => void', [
+        animate(300, style({
+          transform: 'translateX(100px)',
+          opacity: 0
+        }))
+      ]),
     ]),
   ]
 })
