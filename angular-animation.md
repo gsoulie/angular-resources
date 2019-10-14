@@ -4,6 +4,7 @@
 
 * [Basics](#basics)      
 * [List animations](#list-animations)     
+* [keyframes](#keyframes)    
 
 
 
@@ -229,6 +230,65 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
           transform: 'translateX(100px)',
           opacity: 0
         }))
+      ]),
+    ]),
+  ]
+})
+export class HomeComponent implements OnInit {
+  list = ['tomatoes', 'kiwi', 'banana'];
+  
+  onAdd(value) {
+    this.list.push(value);
+  }
+
+  onDeleteItem(value) {
+    const index = this.list.indexOf(value);
+    this.list.splice(index, 1);
+  }
+}
+```
+
+## Keyframes
+[Back to top](#animations)  
+
+Keyframes defines a set of animation styles, associating each style with an optional offset value.
+
+*home.ts*
+```
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+
+@Component({
+  selector: 'app-recipe-list',
+  templateUrl: './recipe-list.component.html',
+  styleUrls: ['./recipe-list.component.css'],
+  animations: [
+    trigger('list2', [
+      state('in', style({
+        opacity: 1,
+        transform: 'translateX(0)'
+      })),
+      transition('void => *', [
+        animate(1000, keyframes([
+          style({
+            transform: 'translateX(-100px)'
+            opacity: 0,
+            offset: 0
+          }),
+          style({
+            transform: 'translateX(-50px)'
+            opacity: 0.5,
+            offset: 0.3
+          }),
+          style({
+            transform: 'translateX(-20px)'
+            opacity: 1,
+            offset: 0.8
+          }),
+          style({
+            transform: 'translateX(0px)'
+            opacity: 1,
+            offset: 1
+          }),
       ]),
     ]),
   ]
