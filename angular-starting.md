@@ -27,8 +27,8 @@ To get sweet styling, it is recommended to install bootstrap with ```npm install
 
 ```
 "styles": [
-    "src/styles.css",	
-    "node_modules/bootstrap/dist/css/bootstrap.min.css"
+    "node_modules/bootstrap/dist/css/bootstrap.min.css",
+    "src/styles.css"
 ]
 
 ```
