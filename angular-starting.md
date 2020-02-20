@@ -3,6 +3,7 @@
 # Prerequisites    
 
 * [Starting](#starting)     
+* [Configure Material UI](#configure-material-ui)    
 * [Configure bootstrap](#configure-bootstrap)    
 * [CLI](#cli)    
 * [NgModel](#ngmodel)    
@@ -18,6 +19,13 @@ npm install -g @angular/cli
 ng new <YOUR-APP-NAME>
 cd <YOUR-APP-NAME>
 ng serve
+```
+
+## Configure Material UI
+[Back to top](#prerequisites)   
+
+```
+ng add @angular/material
 ```
 
 ## Configure Bootstrap
