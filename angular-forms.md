@@ -70,9 +70,17 @@ First you need to import ```FormsModule``` in your *app.module.ts* file
 *controller file*
 
 ```
+@ViewChild('f') courseForm: NgForm;
+
+/*
 onSubmit(form: NgForm) {
   console.log(form);
 }
+*/
+ onSubmit(form: NgForm) {
+	  console.log(form.value.username);
+	  console.log(form.value.email);
+ }
 ```
 
 **Some interesting properties**
