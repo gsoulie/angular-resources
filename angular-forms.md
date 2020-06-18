@@ -266,6 +266,34 @@ onDeleteAllIngredients() {
 ```
 
 
+## FormBuilder
+
+FormBuilder simplify the way to declarate FormGroup and FormControl.
+
+````
+userForm: FormGroup;
+
+constructor(private fb: FormBuilder) { }
+
+initForm() {
+    // With FormBuilder
+    this.userForm = this.fb.group({
+      name: [null, Validators.required],
+      surname: [null, Validators.required],
+      age: []
+    });
+
+    // Classic method
+    this.userForm = new FormGroup({
+      name: new FormControl(null, Validators.required),
+      surname: new FormControl(null, Validators.required),
+      age: new FormControl(null)
+    });
+  }
+
+````
+
+
 ## Template Drive Form
 [Back to top](#forms)   
 
