@@ -5,6 +5,7 @@
 
 * [Configuration](#configuration)    
 * [Reactive form](#reactive-form)    
+* [FormBuilder](#formbuilder)     
 * [Template Drive form](#template-drive-form)    
 * [Validators](#validators)    
 * [Default form values](#default-form-values)    
