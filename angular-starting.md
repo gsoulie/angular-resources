@@ -8,6 +8,7 @@
 * [CLI](#cli)    
 * [NgModel](#ngmodel)    
 * [Tips](#tips)    
+* [isDevMode](#isDevMode)    
 
 
 
@@ -111,3 +112,12 @@ It is possible to use *else* case in ```ngIf``` directive
     my sample text if not true
 </ng-template>
 ```
+
+## isDevMode
+
+````
+if (isDevMode()) {
+    login = 'user';
+    password = 'test';
+}
+````
