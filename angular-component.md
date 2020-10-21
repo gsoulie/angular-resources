@@ -3,7 +3,7 @@
 # Components    
 
 * [Dropdown directive](#dropdown-directive)     
-* [mat-table](#mattable)      
+* [mat-table](#mat-table)      
 * [Fullcalendar](#fullcalendar)     
 * [mat-button-toggle-group](#mat-button-toggle-group)     
 
@@ -84,7 +84,7 @@ export class DropdownDirective {
 </nav>
 ```
 
-## MatTable
+## mat-table
 [Back to top](#components)  
 
 
