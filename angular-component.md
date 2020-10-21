@@ -3,8 +3,9 @@
 # Components    
 
 * [Dropdown directive](#dropdown-directive)     
-* [MatTable](#mattable)      
+* [mat-table](#mattable)      
 * [Fullcalendar](#fullcalendar)     
+* [mat-button-toggle-group](#mat-button-toggle-group)     
 
 
 ## Dropdown directive
@@ -208,4 +209,120 @@ vdom.js:3 Uncaught Error: Please import the top-level full calendar lib before a
     at __webpack_require__ (bootstrap:79)
     at Module../src/app/Modules/app-routing.module.ts (app-routing.module.ts:1)
     at __webpack_require__ (bootstrap:79)
+````
+
+## mat-button-toggle-group
+[Back to top](#components)     
+
+Customize *mat-button-toggle-group* buttons 
+
+First, add the following import in you *material.module.ts* file
+
+````
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+````
+
+Global styling to set in *style.scss*
+
+````
+.section-label {
+  color: #56686D;
+  font-weight: bold;
+  font-size: 16px;
+}
+mat-button-toggle-group {
+  border: none !important;
+  background-color: transparent !important;
+}
+mat-button-toggle-group .mat-button-toggle-label-content {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: inline-block;
+  line-height: 36px;
+  padding: 0 16px;
+  position: relative;
+  line-height: 35px !important;
+  background-color: transparent !important;
+}
+.mat-button-toggle {
+  margin-right: 10px;
+}
+.mat-button-toggle {
+  border-radius: 12px !important;
+  color: #56686D !important;
+}
+.mat-button-toggle-checked {
+  background-color: #56686D !important;
+  border-radius: 12px !important;
+  color: white !important;
+}
+````
+
+*View file*
+
+````
+<div class="search-div">
+      <div class="search-row">
+        <mat-label class="section-label">
+          Par activité
+        </mat-label>
+        <mat-button-toggle-group (click)="selectByActivity($event)" #activityToggle="matButtonToggleGroup">
+          <mat-button-toggle value="1">Actif</mat-button-toggle>
+          <mat-button-toggle value="2">Inactif</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <div class="search-row">
+        <mat-label class="section-label">
+          Par état
+        </mat-label>
+        <mat-button-toggle-group (click)="selectByState($event)" #stateToggle="matButtonToggleGroup">
+          <mat-button-toggle value="3">En cours</mat-button-toggle>
+          <mat-button-toggle value="4">Clôturé</mat-button-toggle>
+          <mat-button-toggle value="5">Prévisionnel</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+````
+
+*Style file*
+
+````
+ .search-div {
+    background-color: #DAE8EB;
+    margin-top: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+  }
+  .search-row {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding-right: 10px;
+  }
+  .search-row mat-select {
+    margin-top: 10px;
+  }
+  mat-button-toggle-group {
+    margin-top: 20px;
+  }
+````
+
+*Controller file*
+
+````
+@ViewChild('activityToggle', { static: false }) activityToggle: MatButtonToggleGroup;
+@ViewChild('stateToggle', { static: false }) stateToggle: MatButtonToggleGroup;
+
+selectByState(ev) {
+  console.log(this.stateToggle.value);
+}
+selectByActivity(ev) {
+  console.log(this.activityToggle.value);
+}
+  
 ````
