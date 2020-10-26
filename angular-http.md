@@ -89,6 +89,8 @@ onDelete() {
 ## Error handling
 [Back to top](#http)   
 
+[see doc](https://pusher.com/tutorials/error-handling-angular-part-2)      
+
 ### Classic method
 
 ```
