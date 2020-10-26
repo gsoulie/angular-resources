@@ -35,7 +35,7 @@ Voici quelques bonnes pratiques "officielles" (https://angular.io/guide/stylegui
 * Utiliser de préférence l'anglais pour les noms de variables, fonctions, classes etc... Les commentaires peuvent rester en français.
 * Les noms de classes commencent par une majuscule (Upper CameCalse)
 * Les noms d'interface on les préfixe avec I ex : IMonInterface
-* Les noms de variables en camel case
+* Les noms de variables / fonctions en camel case
 * Typer autant que possible les variables, les paramètres de fonctions, les paramètres de retours de web services etc...
 * Utilisation du mot clé "const" pour les "variables" qui ne sont pas réaffectée (normalement l'ide vous le dit)
 * Ne pas utiliser le mot clé "var", on lui préfère "let" 
@@ -95,10 +95,16 @@ src
 |  |     |  |
 |  |     |  + shared
 |  |     |  |   |
-|  |     |  |   + user.service.ts
-|  |     |  |   + user.service.spec.ts
-|  |     |  |   + user.model.ts
-|  |     |  |   + user.guard.ts
+|  |     |  |   + services
+|  |     |  |   |    |
+|  |     |  |   |    + user.service.ts
+|  |     |  |   + models
+|  |     |  |   |   |
+|  |     |  |   |   + user.model.ts
+|  |     |  |   |
+|  |     |  |   + guards
+|  |     |  |   |   |
+|  |     |  |   |   + user.guard.ts
 |  |     |  |   + ...
 |  |     |  |
 |  |     |  + user.module.ts
