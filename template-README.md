@@ -3,7 +3,7 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
 
 * [Extensions VSCode](#extension-vscode-utiles)      
-* [Bonnes pratiques générales](#bonnes-pratiques-générales)      
+* [Bonnes pratiques générales](#bonnes-pratiques-generales)      
 * [Architecture projet](#architecture-projet)      
 * [Variables d'environnement DEV / PROD](#variables-d-environnement-dev-/-prod)      
 * [Syntaxe appels de fonctions](#syntaxe-appels-de-fonctions)       
@@ -23,7 +23,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - Angular 10 snippets
 - Angular Essentials (Version 9)
 
-## Bonne pratiques générales
+## Bonne pratiques generales
+[Sommaire](#readme)     
 
 La règle importante à toujours garder en tête que **chaque composant / service doit avoir une responsabilité unique**. Il faut simplifier au maximum chaque composant / service pour garantir une lisibilité et une maintenanbilité efficace.
 
@@ -67,6 +68,7 @@ Pour vous faciliter la vie, après avoir créé une fonction, il suffit de se pl
 va vous générer le squelette type JSDoc qui va bien avec les paramètres.
 
 ## Architecture projet
+[Sommaire](#readme)     
 
 Il est recommandé de créer un répertoire par feature ou domaine fonctionnel. Pour chaque grosse feature, créer un répertoire *shared* contenant les models, services, fichiers modules, etc... associés à la feature ou au domaine.
 
