@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
 
-* [Extensions VSCode](#extension-vscode-utiles)      
+* [Extensions VSCode utiles](#extension-vscode-utiles)      
 * [Bonnes pratiques générales](#bonnes-pratiques-générales)      
 * [Architecture projet](#architecture-projet)      
 * [Variables d'environnement DEV / PROD](#variables-environnement)      
