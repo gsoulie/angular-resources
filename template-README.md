@@ -145,6 +145,59 @@ Toutes les images du projet doivent être contenu dans le répertoire /src/asset
 
 Les fonts sont stockées dans le répertoire */src/assets/fonts*
 
+### Styles css
+
+Les styles globaux à l'application doivent être déclarés dans le fichier *src/style.scss*
+
+#### variables.scss
+
+Le fichier *src/variables.scss* permet de déclarer les *@font-face* et les variables utiles à l'application :
+
+ex :
+
+````
+@font-face {
+  font-family: "Roboto-Black";
+  src: url("src/assets/fonts/Roboto-Black.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto-Light";
+  src: url("src/assets/fonts/Roboto-Light.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --color-darkgrey: #23272D;
+  --color-mediumgrey: #3F464B;
+  --color-mediumgrey2: #5B6164;
+  --color-mediumgrey3: #CFD1D2;
+  --color-lightgrey: #ECEDED;
+  --color-labelgrey: #D9D9D9;
+  --color-yellow: #FFD400;
+  --color-lightblue: #75C4D5;
+  --color-mediumblue: #009CBE;
+  --color-green: #70B62C;
+
+  --font-default-size: 16px;
+}
+````
+
+Ces variables sont ensuite utilisables directement dans toutes les feuilles de style de la manière suivante :
+
+````
+.title {
+  color: var(--color-darkgrey);
+  font-size: var(--font-default-size);
+  font-family: "Roboto-Black";
+}
+````
+
 ### Création d'un composant
 
 Les composants sont à créer dans le répertoire *src/app/components*. Créer si possible un sous-répertoire par domaine fonctionnel.
