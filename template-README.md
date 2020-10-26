@@ -264,7 +264,7 @@ Installer Angular Material :
 ng add @angular/material
 ````
 
-Pour faciliter l'intégration des modules Angular Material, il est conseillé de créer un fichier un fichier *material.module.ts* permettant d'y déclarer tous les imports des modules Angular Material. 
+Pour faciliter l'intégration des modules Angular Material, il est conseillé de créer un fichier *material.module.ts* permettant d'y déclarer tous les imports des modules Angular Material. 
 Attention, certains composants Angular Material n'ont pas le même chemin d'import ````from '@angular/material'```` selon votre version d'angular. Si vous constatez une erreur d'import vérifiez donc le chemin d'import et modifiez-le au besoin. 
 
 
