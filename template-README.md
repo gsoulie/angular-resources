@@ -3,7 +3,7 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
 
 * [Extensions VSCode](#extension-vscode-utiles)      
-* [Bonnes pratiques générales](#bonnes-pratiques-generales)      
+* [Bonnes pratiques générales](#bonnes-pratiques-générales)      
 * [Architecture projet](#architecture-projet)      
 * [Variables d'environnement DEV / PROD](#variables-d-environnement-dev-/-prod)      
 * [Syntaxe appels de fonctions](#syntaxe-appels-de-fonctions)       
@@ -23,7 +23,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - Angular 10 snippets
 - Angular Essentials (Version 9)
 
-## Bonne pratiques generales
+## Bonnes pratiques générales
 [Sommaire](#readme)     
 
 La règle importante à toujours garder en tête que **chaque composant / service doit avoir une responsabilité unique**. Il faut simplifier au maximum chaque composant / service pour garantir une lisibilité et une maintenanbilité efficace.
@@ -140,6 +140,7 @@ src
 
 
 ### Répertoire shared (src/app/shared)
+[Sommaire](#readme)     
 
 Ce répertoire contient les fichiers partagés de l'application et ou du composant. On peut retrouver un répertoire shared sous *app/shared* pour tout le code qui est partagé de manière globale à l'application et retrouver ce répertoire dans chaque composant *app/components/<mon-compo>* pour y mettre tout le code qui va être partagé par les sous-composants d'un même domaine fonctionnel / feature
 
@@ -151,16 +152,19 @@ Ce répertoire contient les fichiers partagés de l'application et ou du composa
 - répertoire enum : contient tous les fichiers d'énumération de valeurs / constantes
 
 ### Assets du projet
+[Sommaire](#readme)     
 
 Toutes les images du projet doivent être contenu dans le répertoire /src/assets/imgs. Il est possible de créer des sous-répertoire pour classer si besoin
 
 Les fonts sont stockées dans le répertoire */src/assets/fonts*
 
 ### Styles css
+[Sommaire](#readme)     
 
 Les styles globaux à l'application doivent être déclarés dans le fichier *src/style.scss*
 
 #### variables.scss
+[Sommaire](#readme)     
 
 Le fichier *src/variables.scss* permet de déclarer les *@font-face* et les variables de style utiles à l'application :
 
@@ -210,6 +214,7 @@ Ces variables sont ensuite utilisables directement dans toutes les feuilles de s
 ````
 
 ## Variables d'environnement DEV / PROD
+[Sommaire](#readme)     
 
 Le répertoire environments permet de gérer les variables liées à l'environnement d'exécution comme par exemple les url des serveurs DEV / PROD
 
@@ -221,6 +226,7 @@ import { environment, SERVER_URL } from '../../environments/environment';
 ````
 
 ## Syntaxe appels de fonctions
+[Sommaire](#readme)     
 
 Dans le cas d'une fonction utilisant beaucoup de paramètres dont certains sont facultatifs, préférer l'utilisation d'un paramètre unique de type objet json pour faciliter l'appel.
 
@@ -250,6 +256,7 @@ maFunct({param1, param2 = 0, param3, param4, param5, param6}:
 ````
 
 ## Angular Material
+[Sommaire](#readme)     
 
 Installer Angular Material :
 
@@ -262,6 +269,7 @@ Attention, certains composants Angular Material n'ont pas le même chemin d'impo
 
 
 ## Git
+[Sommaire](#readme)     
 
 ### Bonnes pratiques
  
@@ -299,6 +307,7 @@ On peut ensuite la pousser sur le dépôt distant :
 
 
 ## Commandes
+[Sommaire](#readme)     
 
 ### Création d'un composant
 
@@ -349,3 +358,5 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ### Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md)
+
+[Sommaire](#readme)     
