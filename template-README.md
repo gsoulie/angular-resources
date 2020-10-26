@@ -5,7 +5,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 * [Extensions VSCode](#extension-vscode-utiles)      
 * [Bonnes pratiques générales](#bonnes-pratiques-générales)      
 * [Architecture projet](#architecture-projet)      
-* [Variables d'environnement DEV / PROD](#variables-d-environnement-dev-/-prod)      
+* [Variables d'environnement DEV / PROD](#variables-environnement)      
 * [Syntaxe appels de fonctions](#syntaxe-appels-de-fonctions)       
 * [Angular Material](#angular-material)      
 * [Git](#git)      
@@ -213,7 +213,7 @@ Ces variables sont ensuite utilisables directement dans toutes les feuilles de s
 }
 ````
 
-## Variables d'environnement DEV / PROD
+## Variables environnement
 [Sommaire](#readme)     
 
 Le répertoire environments permet de gérer les variables liées à l'environnement d'exécution comme par exemple les url des serveurs DEV / PROD
