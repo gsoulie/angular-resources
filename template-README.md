@@ -26,7 +26,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Bonnes pratiques générales
 [Sommaire](#readme)     
 
-La règle importante à toujours garder en tête que **chaque composant / service doit avoir une responsabilité unique**. Il faut simplifier au maximum chaque composant / service pour garantir une lisibilité et une maintenanbilité efficace.
+La règle importante à toujours garder en tête est que **chaque composant / service doit avoir une responsabilité unique**. Il faut simplifier au maximum chaque composant / service pour garantir une lisibilité et une maintenanbilité optimale.
 
 ### Conventions et bonnes pratiques
 
