@@ -2,6 +2,15 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
 
+* [Extensions VSCode](#extension-vscode-utiles)      
+* [Bonnes pratiques générales](#bonnes-pratiques-générales)      
+* [Architecture projet](#architecture-projet)      
+* [Variables d'environnement DEV / PROD](#variables-d-environnement-dev-/-prod)      
+* [Syntaxe appels de fonctions](#syntaxe-appels-de-fonctions)       
+* [Angular Material](#angular-material)      
+* [Git](#git)      
+* [Commandes](#commandes)      
+
 ## Extension VSCode utiles
 
 - Angular schematics
@@ -151,7 +160,7 @@ Les styles globaux à l'application doivent être déclarés dans le fichier *sr
 
 #### variables.scss
 
-Le fichier *src/variables.scss* permet de déclarer les *@font-face* et les variables utiles à l'application :
+Le fichier *src/variables.scss* permet de déclarer les *@font-face* et les variables de style utiles à l'application :
 
 ex :
 
@@ -198,32 +207,6 @@ Ces variables sont ensuite utilisables directement dans toutes les feuilles de s
 }
 ````
 
-### Création d'un composant
-
-Les composants sont à créer dans le répertoire *src/app/components*. Créer si possible un sous-répertoire par domaine fonctionnel.
-
-````ng g c components/<ma-feature>/<mon-composant> --module app````
-
-### Création d'un service
-
-Les services sont à créer dans le répertoire *shared/services* global à l'application si c'est un service partagé globalement ou dans le répertoire spécifique du composant lié. 
-
-Créer **un service par domaine fonctionnel**
-
-````ng g s shared/services/<mon-service>````
-
-### Création d'un pipe
-
-Les pipes sont à créer dans le répertoire *shared/pipe* global à l'application ou dans le répertoire spécifique du composant lié.
-
-````ng g p shared/pipes/<mon-pipe>````
-
-### Création d'un guard
-
-Les guards sont à créer dans le répertoire *shared/guards*  global à l'application ou dans le répertoire spécifique du composant lié.
-
-````ng g g shared/guards/<mon-guard>````
-
 ## Variables d'environnement DEV / PROD
 
 Le répertoire environments permet de gérer les variables liées à l'environnement d'exécution comme par exemple les url des serveurs DEV / PROD
@@ -235,7 +218,7 @@ Exemple d'utilisation dans le service data.
 import { environment, SERVER_URL } from '../../environments/environment';
 ````
 
-## Ecriture et appels de fonctions
+## Syntaxe appels de fonctions
 
 Dans le cas d'une fonction utilisant beaucoup de paramètres dont certains sont facultatifs, préférer l'utilisation d'un paramètre unique de type objet json pour faciliter l'appel.
 
@@ -314,6 +297,32 @@ On peut ensuite la pousser sur le dépôt distant :
 
 
 ## Commandes
+
+### Création d'un composant
+
+Les composants sont à créer dans le répertoire *src/app/components*. Créer si possible un sous-répertoire par domaine fonctionnel.
+
+````ng g c components/<ma-feature>/<mon-composant> --module app````
+
+### Création d'un service
+
+Les services sont à créer dans le répertoire *shared/services* global à l'application si c'est un service partagé globalement ou dans le répertoire spécifique du composant lié. 
+
+Créer **un service par domaine fonctionnel**
+
+````ng g s shared/services/<mon-service>````
+
+### Création d'un pipe
+
+Les pipes sont à créer dans le répertoire *shared/pipe* global à l'application ou dans le répertoire spécifique du composant lié.
+
+````ng g p shared/pipes/<mon-pipe>````
+
+### Création d'un guard
+
+Les guards sont à créer dans le répertoire *shared/guards*  global à l'application ou dans le répertoire spécifique du composant lié.
+
+````ng g g shared/guards/<mon-guard>````
 
 ### Development server
 
