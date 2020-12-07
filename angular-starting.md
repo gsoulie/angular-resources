@@ -3,6 +3,7 @@
 # Prerequisites    
 
 * [Starting](#starting)     
+* [Update Angular](#update-cli)     
 * [Configure Material UI](#configure-material-ui)    
 * [Configure bootstrap](#configure-bootstrap)    
 * [CLI](#cli)    
@@ -21,6 +22,11 @@ ng new <YOUR-APP-NAME>
 cd <YOUR-APP-NAME>
 ng serve
 ```
+## Update cli
+
+````
+npm install -g @angular/cli@latest
+````
 
 ## Configure Material UI
 [Back to top](#prerequisites)   
