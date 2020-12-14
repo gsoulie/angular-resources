@@ -7,6 +7,7 @@
 * [Child routes](#child-routes)    
 * [Angular routing strategie Hash](#angular-routing-strategie-hash)    
 * [Reset routing params](#reset-routing-params)     
+* [Tab routing with routing back from modale](#tab-routing-with-routing-back-from-modale)      
 
 ## routerLink
 
@@ -111,3 +112,106 @@ ngOnDestroy() {
 	this.paramSubscription.unsubscribe();
 }
 ```
+
+## Tab Routing with routing back from modale
+[Back to top](#navigation)
+
+Here is a full sample of tab routing with routing back integration from child modale. 
+
+Use case : main page *home-tabs* gets 3 tabs (home, queries, lists). From *queries* and *lists* tabs we have a button which open a new modale named *results*
+
+*app.routing.module.ts*
+```
+// Contains the route of the home-tabs page
+const routes: Routes = [
+ 
+  {
+    path: '',
+    loadChildren: () => import('./home-tabs/home-tabs.module').then( m => m.HomeTabsPageModule)
+  },
+]
+```
+
+*home-tabs-routing.module.ts*
+
+````
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { QueriesPage } from '../pages/queries/queries.page';
+import { HomeTabsPage } from './home-tabs.page';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: HomeTabsPage,
+    children: [
+      {
+        path: 'home',
+        loadChildren: () => import('./../pages/home/home.module').then(m => m.HomePageModule)
+      },
+      {
+        path: 'queries',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('./../pages/queries/queries.module').then(m => m.QueriesPageModule)
+          },
+          {
+            path: 'results/:queryId',	// in this case we want to pass a parameter
+            loadChildren: () => import('./../pages/results/results.module').then( m => m.ResultsPageModule)
+          }
+        ]
+      },
+      {
+        path: 'lists',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('./../pages/lists/lists.module').then(m => m.ListsPageModule)
+          },
+          {
+            path: 'results',
+            loadChildren: () => import('./../pages/results/results.module').then( m => m.ResultsPageModule)
+          }
+        ]
+        
+      },
+    ]
+  },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+ 
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class HomeTabsPageRoutingModule {}
+
+````
+
+Navigate on *results* modale 
+
+````
+// Navigating from queries page 
+<ion-item tappable routerLink="results/{{ item.queryId }}" routerDirection="forward">
+
+// Navigating from lists page
+<ion-button routerLink="results">results</ion-button>
+````
+
+Routing back from modale to current tab
+
+````
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+````
