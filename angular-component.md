@@ -6,6 +6,7 @@
 * [mat-table](#mat-table)      
 * [Fullcalendar](#fullcalendar)     
 * [mat-button-toggle-group](#mat-button-toggle-group)     
+* [Swiper](#swiper)      
 
 
 ## Dropdown directive
@@ -326,3 +327,9 @@ selectByActivity(ev) {
 }
   
 ````
+
+## Swiper
+[Back to top](#components)  
+
+https://swiperjs.com/angular
+https://www.npmjs.com/package/ngx-swiper-wrapper
