@@ -598,8 +598,8 @@ Maintenant, utilisons ce layout dans un autre composant :
 <app-layout>
 ````
 	
-Et voilà ! Le slot de transclusion<article class="content__article">…</article> remplacera le<ng-content></ng-content> dans notre layout.
-Simple, me direz-vous, mais imaginons avoir besoin de plusieurs blocs de contenu dynamique… C’est possible ! <ng-content> accepte un attribut select, qui nous permet de nommer un slot. Modifions notre layout pour accepter un 2nd slot.
+Le slot de transclusion ````<article class="content__article">…</article>```` remplacera le ````<ng-content></ng-content>```` dans notre layout.
+Maintenant, imaginons avoir besoin de plusieurs blocs de contenu dynamique… C'est possible ! ````<ng-content>```` accepte un attribut select, qui nous permet de nommer un slot. Modifions notre layout pour accepter un 2nd slot.
 
 *layout.component.html*
 ````
@@ -615,7 +615,7 @@ Simple, me direz-vous, mais imaginons avoir besoin de plusieurs blocs de contenu
 </section>
 ````
 	
-Notez que l’on utilise select=[cardNav] && select=[cardContent]. Les “[]” veulent dire “à remplacer uniquement si l’élément possède l’attribut card-…”.
+Notez que l’on utilise ````select=[cardNav] && select=[cardContent]````. Les "[]" veulent dire "à remplacer uniquement si l'élément possède l'attribut *card-…*".
 Et notre composant :
 	
 *articles.component.html*
