@@ -231,14 +231,14 @@ search(name: string): Observable<string[]> {
 
 ### Chaining observables
 
-In this example, we "chain" a promise converted as an observable with an other observable.
+Dans cet exemple on souhaite chaîner une promise convertie en observable, avec un second observable. On souhaite néanmoins que le second observable ne soit pas joué avant la fin du premier.
 
-Use case : The *requestApi* function return an observable which is the result of a http request. But, all of our http requests need a bearer token to secure the api. So, before sending the http request, we need to fetch the user's accessToken which is stored into the local storage. 
-Fetching data from local storage is an asynchonous task and is performed by using a Promise.
+Cas d'utilisation : La fonction *requestApi* retourne un observable qui est le résultat d'une requête http. Cependant, dans cet exemple, toutes les requêtes http nécessitent un Bearer token pour sécuriser l'api. Donc avant d'envoyer la requête http, il faut récupérer un *accessToken* qui est stocké en local storage.
+Hors, la récupération de données en local storage est une tâche asynchrone réalisée par une Promise.
 
-The problem : Waiting the end of the promise before sending the http request.
+La problématique : Attendre la fin de la promise avant d'envoyer la requête http.
 
-The solution : Converting the promise and chain it with the http obsevable by using **switchMap** RxJS operator
+La solution : Convertir la promise en observable et la chainer avec l'observable http en utilisant l'opérateur **switchMap** RxJS
 
 ````
 // Manage HTTP Quesries
