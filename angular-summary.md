@@ -634,12 +634,12 @@ Et notre composant :
     </article> 
        
     <article cardContent class="content__article">
-       <h2>Article 1</h2>
+       <h2>Article 2</h2>
        <p>Mon super résumé...</p>
     </article>   
      
     <article cardContent class="content__article">
-       <h2>Article 1</h2>
+       <h2>Article 3</h2>
        <p>Mon super résumé...</p>
     </article>
 <app-layout>
