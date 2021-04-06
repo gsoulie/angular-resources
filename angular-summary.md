@@ -3,6 +3,8 @@
 * [Observable](#observable)        
 * [rxjs](#rxjs)       
 * [Directive](#directive)      
+* [ng-content](#ng-content)     
+* [ng-template](#ng-template)      
 
 ## Observable
 [Back to top](#angular-essentials)
