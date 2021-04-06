@@ -310,8 +310,8 @@ ngOnInit(): void {
 ## rxjs
 [Back to top](#angular-essentials)      
 
-https://rxjs-dev.firebaseapp.com/guide/subject
-https://makina-corpus.com/blog/metier/2017/premiers-pas-avec-rxjs-dans-angular
+https://rxjs-dev.firebaseapp.com/guide/subject        
+https://makina-corpus.com/blog/metier/2017/premiers-pas-avec-rxjs-dans-angular         
 
 ### opérateurs
 
@@ -322,7 +322,7 @@ https://makina-corpus.com/blog/metier/2017/premiers-pas-avec-rxjs-dans-angular
 |tap|obsolète|
 
 
-[Understanding RxJS operators](https://www.digitalocean.com/community/tutorials/rxjs-operators-for-dummies-forkjoin-zip-combinelatest-withlatestfrom)    
+[Understanding RxJS operators](https://www.digitalocean.com/community/tutorials/rxjs-operators-for-dummies-forkjoin-zip-combinelatest-withlatestfrom)        
 
 *Starting code sample*
 ````
