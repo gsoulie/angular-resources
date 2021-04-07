@@ -561,6 +561,28 @@ export class CardContentDirective {
 
 ````
 
+## HostBinding
+
+````
+@Directive({
+	selector: '[appHighlight]'
+})
+export class HightlightDirective {
+
+	@HostBinding('style.backgroundColor') bg = 'red';
+	
+	constructor() {	}
+	
+	@HostListener('mouseenter') mouseenter() {
+		this.bg = 'blue';
+	}
+	
+	@HostListener('mouseleave') mouseleave() {
+		this.bg = 'red';
+	}
+}
+````
+
 ## ng-content
 [Back to top](#angular-essentials)    
 
