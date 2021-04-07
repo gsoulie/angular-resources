@@ -44,6 +44,13 @@ getAlertMsg(): Observable<string> {
 	map(notif => notif.code + ' : ' + notif.message)
    );
 }
+
+ fetchUsersAndEmail() {
+    return this.http.get(this.url).pipe(
+      // Adapt each item in the raw data array
+      map((data: User[]) => data.map(item => item.name + ' - ' + item.email))
+    );
+  }
 ````
 
 **filter**     
