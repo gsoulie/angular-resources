@@ -458,6 +458,8 @@ export class HighlightDirective {
 ### Ajouter des propriétés à une directive
 [Back to top](#angular) 
 
+**TRES IMPORTANT** : Les paramètres passés à une directive ne sont **PAS** accessibles depuis le constructeur. Ils ne sont accessibles uniquement depuis les listeners. On ne peut donc pas utiliser un paramètre comme valeur par défaut.
+
 ````
 <div [appHighlight]="'red'" [isMaj]="true"">TEXT</div>
 ````
