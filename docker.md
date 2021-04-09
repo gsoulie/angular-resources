@@ -103,7 +103,7 @@ RUN Remove-Item -Force "C:/setup/IISCORS.log"
 
 ````
 
-*exmeple 4*
+*exemple 4*
 ````
 FROM node:8
 
@@ -146,12 +146,12 @@ dans un même environnement
 
 Un docker compose est formé d'un fichier *docker-compose.yaml* qui doit se trouver à la racine du projet
 
-Le fichier commence toujours par l'argument **version**. Ensuite l'ensemble des conteneurs doivent être définis sous l'argument **services**.
-L'argument **image** permet de spécifier l'image à utiliser. Il est possible d'utiliser l'argument **build** en spécifiant le chemin du fichier dockerfile voulu.
-L'argument **restart** défini la politique de redémarrage du conteneur
-L'argument **environment** permet de définir les variables d'environnement dont on peut avoir besoin
-L'argument **depends_on** permet de créer une dépendance entre 2 conteneurs. Dans notre exemple, docker démarrera le service *db* avant *wordpress* puisque ce dernier dépend de *db*
-L'argument **ports** permet de d'exposer un port de notre machine vers le conteneur.
+Le fichier commence toujours par l'argument **version**. Ensuite l'ensemble des conteneurs doivent être définis sous l'argument **services**.        
+L'argument **image** permet de spécifier l'image à utiliser. Il est possible d'utiliser l'argument **build** en spécifiant le chemin du fichier dockerfile voulu.     
+L'argument **restart** défini la politique de redémarrage du conteneur      
+L'argument **environment** permet de définir les variables d'environnement dont on peut avoir besoin       
+L'argument **depends_on** permet de créer une dépendance entre 2 conteneurs. Dans notre exemple, docker démarrera le service *db* avant *wordpress* puisque ce dernier dépend de *db*       
+L'argument **ports** permet de d'exposer un port de notre machine vers le conteneur.      
 
 ### exemple : monter un environnement wordpress
 
