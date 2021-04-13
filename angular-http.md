@@ -78,7 +78,7 @@ onFetchData() {
 ## DELETE
 [Back to top](#http)    
 
-If your nackend support *delete* http method (like Firebase), you can simply use *delete* http method to clean a specific node in your database.
+If your backend support *delete* http method (like Firebase), you can simply use *delete* http method to clean a specific node in your database.
 
 ```
 onDelete() {
