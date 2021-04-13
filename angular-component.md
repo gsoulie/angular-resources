@@ -186,7 +186,7 @@ export class HomeComponent implements OnInit {
 ## Fullcalendar
 [Back to top](#components)  
 
-[Documentation](https://fullcalendar.io/docs/angular)       
+[Documentation](https://fullcalendar.io/docs/angular)         
 
 During the installation, it's possible to import specific calendar's modules. As example, here we import core, daygrid, timegrid, list and interaction :
 
@@ -331,5 +331,5 @@ selectByActivity(ev) {
 ## Swiper
 [Back to top](#components)  
 
-https://swiperjs.com/angular
-https://www.npmjs.com/package/ngx-swiper-wrapper
+https://swiperjs.com/angular         
+https://www.npmjs.com/package/ngx-swiper-wrapper       
