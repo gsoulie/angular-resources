@@ -21,7 +21,7 @@ Le docker file est le fichier qui permet de définir une image
 |Key|description|
 |-|-|
 |FROM|déterminer l'image de base (utilisable une seule fois)|
-|RUN|exécuter une commande dans le conteneur (plus il y a de commandes RUN plus le dockerfile sera lourd, il est conseiller de limiter le nombre de commandes RUN)|
+|RUN|exécuter une commande dans le conteneur (plus il y a de commandes RUN plus le dockerfile sera lourd, il est conseillé de limiter le nombre de commandes RUN)|
 |ADD|copier ou télécharger des fichiers dans l'image|
 |WORKDIR|modifier le répertoire de travail (équivalent cd) l'ensemble des commandes suivantes seront exécutées dans le nouveau path|
 |EXPOSE|permet d'indiquer le port d'écoute|
