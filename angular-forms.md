@@ -3,9 +3,10 @@
 
 # Forms    
 
-* [Configuration](#configuration)    
 * [Reactive form](#reactive-form)    
+* [Full example](#full-example)    
 * [FormBuilder](#formbuilder)     
+* [FormArray](#formarray)   
 * [Template Drive form](#template-drive-form)    
 * [Validators](#validators)    
 * [Default form values](#default-form-values)    
@@ -13,36 +14,12 @@
 * [Full example](#full-example)    
 
 
-## Configuration
-[Back to top](#forms)   
-
-First you need to import ```FormsModule``` in your *app.module.ts* file
-
-*app.module.ts*
-
-```
-@NgModule({
- declarations: [
-   AppComponent,
-   HomeComponent,
-   UserComponent
- ],
- imports: [
-   BrowserModule,
-   FormsModule,
-   AppRoutingModule
- ],
- providers: [],
- bootstrap: [AppComponent]
-})
-```
-
 ## Reactive Form
 [Back to top](#forms)   
 
 **Reactive Forms is the BEST WAY to implement forms !**
 
-First you need to import ```ReactiveFormsModule``` into *app.module.ts*
+First you need to import ```FormsModule and ReactiveFormsModule``` into *app.module.ts*
 
 *app.module.ts*
 ```
@@ -194,6 +171,90 @@ export class CustomValidators {
 }
 ```
 
+## FormBuilder
+[Back to top](#forms)   
+
+FormBuilder is useful to simplify form creation.
+
+*view.html*
+
+````
+<div class="content">
+    <form #f [formGroup]="sampleFormGroup" (ngSubmit)="submitForm()">
+        <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name">
+        </mat-form-field>
+        <mat-label>required</mat-label>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Firstname</mat-label>
+            <input matInput formControlName="firstname">
+        </mat-form-field>
+        <mat-label>required</mat-label>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+        </mat-form-field><br>
+        <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput formControlName="password">
+        </mat-form-field>
+        <mat-label>minimum 4 caractères</mat-label><br><br>
+        <button mat-raised-button [disabled]="sampleFormGroup.invalid" type="submit">Submit values</button>
+    </form>
+    <p>
+        Form is valid ? {{ sampleFormGroup.valid }}
+    </p>
+    <p>
+        form values : {{ sampleFormGroup.value | json }}
+    </p>
+    <p>
+        form values : {{ sampleFormGroup.status | json }}
+    </p>
+</div> 
+````
+
+*controller.ts*
+
+````
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.scss']
+})
+export class FormComponent implements OnInit {
+
+  sampleFormGroup: FormGroup
+
+  constructor(private fb: FormBuilder) { }
+
+  ngOnInit(): void {
+    this.initializeForm();
+  }
+  initializeForm(): void {
+    this.sampleFormGroup = this.fb.group({
+      name: ['guillaume', Validators.required],
+      firstname: ['SOULIE', Validators.required],
+      email: ['', [Validators.email, Validators.required]],
+      password: ['', [Validators.minLength(4), Validators.required]]
+    });
+  }
+
+  submitForm(): void {
+    console.log(this.sampleFormGroup.get('name').value);
+    console.log(this.sampleFormGroup.get('firstname').value);
+    console.log(this.sampleFormGroup.get('email').value);
+    console.log(this.sampleFormGroup.get('password').value);
+  }
+}
+
+````
+
 ## FormArray
 [Back to top](#forms)   
 
@@ -266,39 +327,10 @@ onDeleteAllIngredients() {
  }
 ```
 
-
-## FormBuilder
-
-FormBuilder simplify the way to declarate FormGroup and FormControl.
-
-````
-userForm: FormGroup;
-
-constructor(private fb: FormBuilder) { }
-
-initForm() {
-    // With FormBuilder
-    this.userForm = this.fb.group({
-      name: [null, Validators.required],
-      surname: [null, Validators.required],
-      age: []
-    });
-
-    // Classic method
-    this.userForm = new FormGroup({
-      name: new FormControl(null, Validators.required),
-      surname: new FormControl(null, Validators.required),
-      age: new FormControl(null)
-    });
-  }
-
-````
-
-
 ## Template Drive Form
 [Back to top](#forms)   
 
-### Classic method
+### Classic method, not recommanded
 
 *view file*
 
