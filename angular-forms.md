@@ -180,7 +180,7 @@ FormBuilder is useful to simplify form creation.
 
 ````
 <div class="content">
-    <form #f [formGroup]="sampleFormGroup" (ngSubmit)="submitForm()">
+    <form [formGroup]="sampleFormGroup" (ngSubmit)="submitForm()">
         <mat-form-field appearance="fill">
             <mat-label>Name</mat-label>
             <input matInput formControlName="name">
@@ -238,8 +238,8 @@ export class FormComponent implements OnInit {
   }
   initializeForm(): void {
     this.sampleFormGroup = this.fb.group({
-      name: ['guillaume', Validators.required],
-      firstname: ['SOULIE', Validators.required],
+      name: ['Paul', Validators.required],
+      firstname: ['DOE', Validators.required],
       email: ['', [Validators.email, Validators.required]],
       password: ['', [Validators.minLength(4), Validators.required]]
     });
