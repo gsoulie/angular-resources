@@ -314,6 +314,43 @@ ngOnInit(): void {
 }
 ````
 
+
+### Unsubscribe to all
+
+Astuce pour économiser du code lors du désabonnement aux observable. La méthode suivante permet de faciliter l'action de désabonnement à plusieurs observable en une seule ligne. Cette méthode s'appuie sur le package **subsink**
+
+[subsink documentation](https://www.npmjs.com/package/subsink)       
+
+````
+npm install subsink
+````
+
+*utilisation*
+````
+export class SomeComponent implements OnDestroy {
+  private subs = new SubSink();
+
+  ...
+
+  this.subs.add(observable$.subscribe(...)); 
+
+  this.subs.add(observable$.subscribe(...)); 
+
+  // Ajout de plusieurs souscription en même temps
+  this.subs.add( 
+    observable$.subscribe(...),
+    anotherObservable$.subscribe(...)
+  ); 
+
+  ...
+
+  // Désabonnement
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
+}
+````
+
 ## rxjs
 [Back to top](#angular-essentials)      
 
