@@ -4,6 +4,7 @@
 
 * [ngclass](#ngclass)     
 * [ngstyle](#ngstyle)      
+* [hostbinding](#hostbinding)     
 
 https://www.learn-angular.fr/les-directives/         
 https://www.digitalocean.com/community/tutorials/angular-using-renderer2    
