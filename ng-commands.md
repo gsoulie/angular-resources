@@ -2,10 +2,21 @@
 
 # Commandes
 
+* [Démarrage](#démarrage)    
 * [Commandes basiques](#commandes-basiques)         
 * [Mettre à jour Angular](#mettre-a-jour-angular)     
 * [Mettre à jour npm](#mettre-a-jour-npm)        
 
+## Démarrage
+
+````
+npm install -g @angular/cli
+ng new <YOUR-APP-NAME>
+cd <YOUR-APP-NAME>
+ng serve
+````
+  
+## Commandes basiques
 ````
 ng g c components/home --module app
 ng g s shared/services/myService --skipTests
