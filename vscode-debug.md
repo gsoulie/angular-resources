@@ -82,5 +82,3 @@ http-server dist/your-project-name // move on the project directory to start htt
 // open a web browser and go on http://localhost:8080/
 ````
 
-Il est maintenant possible de modifier le fichier json de configuration présent dans le répertoire *assets* et faire un ctrl-f5 pour voir la modification des variables.
-
