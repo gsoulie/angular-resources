@@ -1,4 +1,4 @@
-[< Back to main Menu](https://github.com/gsoulie/Mobile-App-Development/blob/master/angular-formation.md)    
+[< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)    
 
 # ng-content
 https://wizbii.tech/un-layout-dynamique-avec-ng-content-d00e27ab26d9      
