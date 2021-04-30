@@ -28,6 +28,7 @@
 	* Material icons
 	* Global sass variable
 	* Theming     
+	* Dynamic styling
 * [Adapter pattern](https://github.com/gsoulie/angular-resources/blob/master/ng-adapter-pattern.md)     
 * [Pipe](https://github.com/gsoulie/angular-resources/blob/master/angular-pipe.md)     
 * [Flex layout](https://github.com/gsoulie/angular-resources/blob/master/ng-flex-layout.md)     
