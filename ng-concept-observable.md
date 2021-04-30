@@ -10,6 +10,7 @@
 * [Exemples](#exemples)     
 * [Chaîner les observables](#chaîner-les-observables)     
 * [Unsubscribe to all](#unsubscribe-to-all)      
+* [Subject](#subject)     
 
 
 ## Liens
@@ -361,4 +362,18 @@ export class SomeComponent implements OnDestroy {
 }
 ````
 
+## Subject
 [Back to top](#observables)
+
+[ngConf](https://www.youtube.com/watch?v=_q-HL9YX_pk&ab_channel=ng-conf)     
+
+- **Subject** => seuls les subscribers reçoivent les données 
+
+- **BehaviorSubject** => envoyer la dernière data aux nouveaux subscribers
+
+- **ReplaySubject** => Rejouer les anciennes data aux nouveaux subscribers
+
+- **AsyncSubject** => ne retourne que la valeur la plus faîche aux subscribers (l'envoi se fait lors du completed). C'est à dire
+que le subject peut recevoir x data, mais les subscribers ne recevront que la dernière. Utile si uniquement la données la plus récente nous intéresse
+
+
