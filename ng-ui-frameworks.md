@@ -5,6 +5,7 @@
 * [Frameworks](#frameworks)       
 * [Icons](#icons)      
 * [Theming](#theming)     
+* [Variables sass](#variables-sass)     
 
 [officials links](https://angular.io/resources?category=development)       
 
@@ -237,9 +238,9 @@ Mettre à jour le *angular.json* pour pointer sur ce fichier thème
 </mat-card>
 ````
 
-### Global sass variables
+## Variables sass
 
-Regrouper les variables sass dans le fichier *src/variables.scss*
+Pour rendre les variables sass accessibles dans toutes l'application, les regrouper dans le fichier *src/variables.scss* en les encadrant dans un tag **:root**
 
 *variables.scss*
 
@@ -274,4 +275,6 @@ Il suffit ensuite d'injecter le fichier variable.scss dans le *angular.json*
   background-color: var(--mediumgrey);
 }
 ````
+
+Si les variables ne sont pas encadrées par le **:root** elles ne sont accessibles qu'à condition d'importer le ficier *variables.scss* dans chaque feuille de style dans lesquelles on souhaite charger ces variables
 [Back to top](#ui)    
