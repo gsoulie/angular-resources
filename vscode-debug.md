@@ -73,3 +73,14 @@ Depuis le volet debug on a alors accès aux variables du scope dans le volet *va
 
 ## Testing prod build
 [Back to top](#debugging-in-vscode)
+
+This show how to test a production build (*build --prod*) artifact in local machine :
+
+````
+npm install http-server -g	// install http server in local
+http-server dist/your-project-name // move on the project directory to start http server
+// open a web browser and go on http://localhost:8080/
+````
+
+Il est maintenant possible de modifier le fichier json de configuration présent dans le répertoire *assets* et faire un ctrl-f5 pour voir la modification des variables.
+
