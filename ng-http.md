@@ -2,7 +2,28 @@
 
 # Codes retour http
 
+* [Catch](#catch)     
 * [Http interceptor](#http-interceptor)     
+
+## Catch
+
+Capturer les erreurs http unitairement dans l'observable
+
+````
+import { map, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+
+fetchData() {
+	return this.http.get('http://...')
+	.pipe(
+		map (...),
+		catchError(errorResp => {
+			// send to analytics server…
+			return throwError(errorResp);
+		})
+	);
+}
+````
 
 ## HTTP Interceptor
 
