@@ -2,7 +2,363 @@
 
 # Observables
 
-* [](#)         
+* [Liens](#liens)         
+* [Opérateurs](#operateurs)    
+* [Cold et Hot](#cold-et-hot)      
+* [Observables imbriqués](#observables-imbriqués)     
+* [Bonnes pratiques](#bonnes-pratiques)      
+* [Exemples](#exemples)     
+* [Chaîner les observables](#chaîner-les-observables)     
+* [Unsubscribe to all](#unsubscribe-to-all)      
 
+
+## Liens
+https://makina-corpus.com/blog/metier/2017/premiers-pas-avec-rxjs-dans-angular       
+https://guide-angular.wishtack.io/angular/observables/creation-dun-observable       
+https://www.youtube.com/watch?v=TrDqaABq-UY&ab_channel=DevoxxFR         
+[RxJS operators](https://www.learnrxjs.io/learn-rxjs/operators)       
+[RxJS Best practices](https://blog.strongbrew.io/rxjs-best-practices-in-angular/)     
+
+on utilise les observables pour représenter l'arrivée de données synchrone ou asynchrone.
+
+on peut recevoir une seule données ex : appel http
+ou plusieurs données étalées dans le temps ex : websocket
+
+l'observable a 3 type de notifications :
+
+- next chaque arrivée d'une data
+- error va casser l'observable, plus rien ne se passe
+- complete est la terminaison, plus rien ne se passe
+
+## Opérateurs
+
+**pipe** : opérateur principal qui va permettre le branchement de plusieurs autres opérateurs à la suite les uns des autres et ainsi travailler sur le flux de données
+ 
+ex :
+````
+import {filter, map} from 'rxjs/operators;
+
+getAlertMsg(): Observable<string> {
+	const notif: Observable<Notification> = this.getNotifications();
+
+   return notif.pipe(
+	filter(notif => notif.type === 'ALERT'),
+	map(notif => notif.code + ' : ' + notif.message)
+   );
+}
+
+ fetchUsersAndEmail() {
+    return this.http.get(this.url).pipe(
+      // Adapt each item in the raw data array
+      map((data: User[]) => data.map(item => item.name + ' - ' + item.email))
+    );
+  }
+````
+
+**filter**     
+**every**      
+**map**       
+**reduce**      
+
+> Important : les opérateurs appliqués **ne modifient jamais l'observable d'origine**, ils produisent une copie et renvoient un nouvel observable.
+
+
+Pour pouvoir récupérer les données d'un observable, il faut s'y abonner via subscribe.
+
+La souscription peut prendre 3 paramètres (next, error et complete) soit :
+subscribe(value, error, ())
+ou un objet de type observer
+subscribe({value, error, ()})
+
+> Important : Toujours penser à annuler les souscription !!
+
+## Cold et Hot 
+[Back to top](#observables)
+
+- **cold (unicast)** = source démarrée pour chaque souscription. 10 souscriptions = 10 démarrage. recommence du début pour chaque utilisateur
+ex appel http, redémarre à chaque appel
+
+- **hot (multicasted)** = 1 seule source diffusé à tout le monde (toutes les souscriptions) simultanément. Si on arrive en cours de route on aura pas les données depuis le début.
+ex données qui arrivent sur une websocket
+
+> remarque : on peut transformer un cold en hot
+
+### Création 
+of(1, 2, 3); est un observable qui fait next(1); next(2); next(3); complete();
+
+Création d'un hot observable
+On va utiliser un Subject qui est à la fois un Observer et un hot Observable
+
+````
+const subject = new Subject<number>();
+subject.subscribe(v => console.log('observerA : ' + v));
+subject.next(1);
+// observerA : 1
+subject.subscribe(v => console.log('observerB : ' + v));
+subject.next(2);
+// observerA : 2
+// observerB : 2
+````
+
+**behaviorSubject** : permet de conserver un état (valeur courante)
+
+**ReplaySubject** : quand on souscrit on reçoit les dernières valeurs qui ont été mises en cache
+
+**fromPromise(p)** : créer un observable à partir d'une promise
+**toPromise()** : créer une promise à partir d'un observable
+**fromEvent()** : créer un observable à partir d'un event (ex click bouton)
+
+## Cold vers Hot
+[Back to top](#observables)
+
+Exemple : du cas d'une requête http
+
+### share() : partager un cold à tout un ensemble de souscripteurs
+````
+// attention exécution se fait à la première souscription. Si on souscrit et que la réponse est déjà arrivée on aura rien
+const hot$ = cold$.pipe(share());
+````
+
+### shareReplay(5) 
+
+> Important notion NR. Voir rubrique exemple plus bas
+
+````
+const hot$ = cold$.pipe(shareReplay(1));
+// si la réponse été déjà passée, au moment de la souscription on reçoit immédiatement la réponse (il rejoue le dernier résultat à chaque nouvelle souscription)
+// remarque, ne rejoue PAS la requête
+````
+
+## Observable imbriqués 
+[Back to top](#observables)
+
+### Aplatir 
+
+|action|opération|opérateur unique|
+|-|-|-|
+|exécution parallèle|map(), mergeAll()|mergeMap()|
+|exécuter à la suite|map(), concatAll()|concatMap()|
+|annuler la précédente|map(), switch()|switchMap()|
+|annuler la nouvelle|map(), exhaust()|exhaustMap()|
+
+**switchMap** utilisé dans le cas d'une complétion automatique. On veut les résultat de la dernière requête (ce que l'utilisateur a tappé en dernier)
+=> A chaque nouvelle frappe on annule la requête précédente
+
+**exhaustMap** : tant que le traitement en cours n'est pas terminé on ne tient pas compte des traitements suivants
+
+## Bonnes pratiques
+[Back to top](#observables)
+
+### Services asynchrones 
+
+Quand on fait un service qui retourne un observable, **on ne souscrit JAMAIS à l'observable dans le service** pour renvoyer les données directement,
+car on ne sait pas quand les données arriveront
+
+### Erreurs
+
+Remonter les erreurs là où on peut les traiter.
+
+interception : catchError
+rééssayer : retry ou retryWhen
+
+ex : 
+
+````
+find(id: string): Observable<Resource> {
+	const url = `http://.../.../${id}`;
+	return this.httpClient.get<Resource>(url)
+	.pipe(
+		catchError(error => {
+			if (error && error.status === 404) {
+				return of(null);
+			}
+			throw error;
+		});
+		);
+}
+````
+
+## Exemples
+[Back to top](#observables)
+
+### cold to hot observable
+On veut créer une liste de livres qui ne va pas souvent être mise à jour, on utilise une requête http (cold donc)
+pour renseigner la liste. Le soucis c'est que pour chaque souscription, on va rejouer la requête.
+
+Si on ne veut pas que cela se produise, on va convertir le cold en hot observable
+
+*1 requête http*
+````
+list$: Observable<Book[]>;
+
+constructor(private httpClient: HttpClient) {
+	this.list$ = this.buildRequestObservable();
+}
+
+buildRequestObservable() {
+	return this.httpClient
+	.get<Book[]>(url, {param: params})
+	.pipe(
+		shareReplay(1);
+		);
+}
+
+getList(): Observable<Book[]> {
+	return this.list$;
+}
+````
+
+Si on souhaite maintenant rafraichir nos data toutes les heures (uniquement si il y a une nouvelle souscription), il suffira d'ajouter un interval 
+
+*1 requête http max / 1h*
+````
+constructor(private httpClient: HttpClient) {
+	this.list$ = this.buildRequestObservable();
+	setInterval(() => {
+		this.list$ = this.buildRequestObservable(),
+	}, 3600 * 1000);
+}
+...
+
+````
+
+### auto-complete de recherche
+
+````
+this.countryList$ = this.countryControl.valueChanges
+.pipe(
+	map(name => name.trim()),
+	filter(name => length >= 2), // filtrer uniquement si au moins 2 caractères
+	debounceTime(200), //attente 200ms après dernière valeur, avant envoi requête
+	distinctUntilChanged(), // filtrer uniquement si valeur différente de la valeur précédente
+	switchMap(name => this.countryService.search(name))
+	);
+
+
+search(name: string): Observable<string[]> {
+	name = name && name.trim();
+	if (name) {
+		const url = 'https://.......';
+		return this.httpClient.get<Country[]>(url + name)
+		.pipe(
+		map(countries => countries.map(country => country.translations.fr)),
+		catchError(error => of([]))
+		);
+	}
+	return of([]);
+}
+````
+
+## Chainer les observables
+[Back to top](#observables)
+
+Dans cet exemple on souhaite chaîner une promise convertie en observable, avec un second observable. On souhaite néanmoins que le second observable ne soit pas joué avant la fin du premier.
+
+Cas d'utilisation : La fonction *requestApi* retourne un observable qui est le résultat d'une requête http. Cependant, dans cet exemple, toutes les requêtes http nécessitent un Bearer token pour sécuriser l'api. Donc avant d'envoyer la requête http, il faut récupérer un *accessToken* qui est stocké en local storage.
+Hors, la récupération de données en local storage est une tâche asynchrone réalisée par une Promise.
+
+La problématique : Attendre la fin de la promise avant d'envoyer la requête http.
+
+La solution : Convertir la promise en observable et la chainer avec l'observable http en utilisant l'opérateur **switchMap** RxJS
+
+````
+// Manage HTTP Quesries
+  requestApi({action, method = 'GET', datas = {}}:
+  { action: string, method?: string, datas?: any}): Observable<any> {
+    const methodWanted = method.toLowerCase();
+    const urlToUse = this.url + action;
+    let req: Observable<any>;// = null;
+
+    return from(this.auth.getValidToken()).pipe(switchMap((res: TokenResponse) => {
+      console.debug(res.accessToken);
+      const httpOptions = {
+        headers: new HttpHeaders({'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + res.accessToken})
+      };      
+  
+      switch (methodWanted) {
+        case 'post' :
+          req = this.http.post(urlToUse, datas, httpOptions);
+          break;
+        case 'put' :
+          req = this.http.put(urlToUse, datas, httpOptions);
+          break;
+        case 'delete' :
+          req = this.http.delete(urlToUse, httpOptions);
+          break;
+        case 'patch' :
+          req = this.http.patch(urlToUse, datas, httpOptions);
+          break;
+        default:
+          req = this.http.get(urlToUse + '?' + datas, httpOptions);
+          break;
+      }
+      return req;
+    }));
+  }
+````
+
+*data.service.ts*
+
+````
+fetchNewPublications({filterUserQueryIds = [], start = 0, size = apiConfig.defaultLength, sortBy = apiConfig.SORT.idte, disableStats = true}:
+  {filterUserQueryIds?: number[], start?: number, size?: number, sortBy?: string, disableStats?: boolean}): Observable<ServiceResult> {
+
+    let parameters = `SortOrder=${sortBy}&StartIndex=${start}&Length=${size}`;
+    parameters += filterUserQueryIds.length > 0 ? `&filterUserQueryIds=${filterUserQueryIds}` : '';
+
+    return this.apiHelper.requestApi({
+      action: apiConfig.services.scientificstudy.getNewScientificStudies,
+      method: 'get', datas: parameters});
+  }
+````
+
+*controller.ts*
+
+````
+ngOnInit(): void {
+	this.dataService.fetchNewPublications()
+	.subscribe((res) => {
+		// some stuff here
+	});
+}
+````
+
+## Unsubscribe to all
+[Back to top](#observables)
+
+Astuce pour économiser du code lors du désabonnement aux observable. La méthode suivante permet de faciliter l'action de désabonnement à plusieurs observable en une seule ligne. Cette méthode s'appuie sur le package **subsink**
+
+[subsink documentation](https://www.npmjs.com/package/subsink)       
+
+````
+npm install subsink
+````
+
+*utilisation*
+````
+export class SomeComponent implements OnDestroy {
+  private subs = new SubSink();
+
+  ...
+
+  this.subs.add(observable$.subscribe(...)); 
+
+  this.subs.add(observable$.subscribe(...)); 
+
+  // Ajout de plusieurs souscription en même temps
+  this.subs.add( 
+    observable$.subscribe(...),
+    anotherObservable$.subscribe(...)
+  ); 
+
+  ...
+
+  // Désabonnement
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
+}
+````
 
 [Back to top](#observables)
