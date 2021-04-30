@@ -10,8 +10,7 @@
 	* [Bonnes pratiques](https://github.com/gsoulie/angular-resources/blob/master/ng-best-practices.md)     
 	* [Optimisations](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)     
 	* [Opérateurs](https://github.com/gsoulie/angular-resources/blob/master/ng-operators.md)    
-* [Concepts]()     
-	* [Destructuration d'objet]()    
+* Concepts       
 	* [Promise](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-promise.md)      
 	* [Observable](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-observable.md)      
 	* [RxJS](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-rxjs.md)      
