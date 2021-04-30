@@ -3,6 +3,7 @@
 # Navigation
 
 * [Généralités](#généralités)         
+* [Relative route relativeTo](#relative-route)     
 * [Routes enfants](#routes-endants)     
 * [Deep linking](#deep-linking)   
 * [Naviguer depuis la vue](#naviguer-depuis-la-vue)     
@@ -27,8 +28,39 @@ La route par défaut, doit toujours être à la fin du fichier de routing !!
 
 > A savoir : *href* recharge la page, pas le *routerLink*
 
-## Routes enfants
+## Relative route
 
+Soit le routage suivant :
+
+````
+const routes: Routes = [
+ { path: '', component: HomeComponent},
+ { path: 'users', component: UsersComponent, children: [
+   { path: ':id', component: UserComponent},
+ ]},
+ { path: 'servers', component: ServersComponent, children: [
+   { path: ':id', component: ServerComponent},
+   { path: ':id/edit', component: EditServerComponent},
+ ]},
+];
+````
+
+**Exemple** : depuis la page /servers on liste tous les serveurs, ensuite nous souhaitons naviguer sur la page de détail d'un serveur en cliquant dans la liste pour atteindre la route */servers/id*. 
+Ensuite, depuis la page de détail, on souhaite rediriger vers la route */servers/id/edit* lorsqu'on clique sur le bouton Editer.
+
+Pour réussir cela, il suffit d'utiliser l'option **relativeTo** fournie par la fonction route.navigate :
+
+````
+onEdit() {
+   this.router.navigate(['edit'], {relativeTo: this.route});
+}
+````
+
+Ceci aura pour effet de concaténer 'edit' au chemin courant (/servers/) qui sera récupéré par l'option *relativeTo: this.route*
+
+
+## Routes enfants
+[Back to top](#navigation)     
 ````
 const ROUTES: Routes = [
 	{ path: 'user', children: [
