@@ -74,15 +74,6 @@ export class HighlightDirective {
 }
 ````
 
-## ngClass
-[Back to top](#directives)    
-
-Selon le contexte, si un traitement conditionnel est utilisé plusieurs fois dans l'appli et/ou avec de l'algo à faire, utiliser une directive.
-
-Si c'est un cas très ponctuel, utiliser ````[ngClass]````
-
-````<label [ngClass]="{'myCssClass': i > 5 ? true : false}">my content</label>````
-
 ### Exemple 1
 
 *directive.ts*
@@ -152,6 +143,15 @@ export class CardContentDirective {
 }
 
 ````
+
+## ngClass
+[Back to top](#directives)    
+
+Selon le contexte, si un traitement conditionnel est utilisé plusieurs fois dans l'appli et/ou avec de l'algo à faire, utiliser une directive.
+
+Si c'est un cas très ponctuel, utiliser ````[ngClass]````
+
+````<label [ngClass]="{'myCssClass': i > 5 ? true : false}">my content</label>````
 
 ## ngStyle
 [Back to top](#directives)
