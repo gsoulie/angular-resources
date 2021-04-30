@@ -25,6 +25,7 @@
 * [Directives](https://github.com/gsoulie/angular-resources/blob/master/ng-directive.md)     
 * [UI](https://github.com/gsoulie/angular-resources/blob/master/ng-ui-frameworks.md)
 	* Frameworks
+	* Material icons
 	* Global sass variable
 	* Theming     
 * [Adapter pattern](https://github.com/gsoulie/angular-resources/blob/master/ng-adapter-pattern.md)     
