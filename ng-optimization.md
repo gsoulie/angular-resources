@@ -2,9 +2,6 @@
 
 # Optimisations
 
-* [](#)         
-
-
 ## Optimisation lancement application
 [Back to top](#optimisations) 
 
@@ -70,4 +67,31 @@ On peut aussi manuellement désactiver / réactiver l'écoute des zones pour un 
 this.cd.detach();	// ne sera plus mis à jour
 this.cd.reattach();	// se remet à jour
 ````
+
+## Optimisation JS
+[Back to top](#optimisations)
+
+### JSON parse vs litteral
+
+https://www.youtube.com/watch?v=h34Dbdl9twc&list=PLiO4ScU0Pxp0cAxMqGCtRmvRGA5vjId7b&ab_channel=DevTheory
+
+*exemple*
+````
+const data1 = { foo: 42, bar: 13 };
+
+const data2 = JSON.parse('{ "foo": 42, "bar": 13 }'); // jusqu'à 2x plus rapide suivant le navigateur
+````
+
+> Remarque : la différence est surtout effective sur de très gros objets. Dans l'exemple ci-dessus, le gain est négligeable
+
+### Memoization
+
+https://whatthefork.is/memoization
+https://www.youtube.com/watch?v=jmnI7PKsCVQ&list=PLiO4ScU0Pxp0cAxMqGCtRmvRGA5vjId7b&index=2&ab_channel=DevTheory
+
+### Animation au scroll
+https://www.youtube.com/watch?v=x0Dvpu2jcUo&list=PLiO4ScU0Pxp0cAxMqGCtRmvRGA5vjId7b&index=3&ab_channel=DevTheory
+
+méthode plus performante pour déclencher des éléments lors d'un scroll (exemple dpage web bootstrap avec des animations lors du scroll qui font apparaître des éléments) SANS utiliser l'event scroll mais le IntersectionObserver qui est plus performant et très simple d'utilisation
+
 [Back to top](#optimisations)
