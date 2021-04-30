@@ -1,6 +1,10 @@
 [< Back to main Menu](https://github.com/gsoulie/Mobile-App-Development/blob/master/angular-formation.md)    
 
 # Directives
+
+
+https://www.learn-angular.fr/les-directives/         
+https://www.digitalocean.com/community/tutorials/angular-using-renderer2    
     
 Les directives permettent de modifier les éléments du DOM. **Leur responsabilité est relative à la vue**
 
