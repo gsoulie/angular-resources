@@ -8,6 +8,12 @@ main.ts permet de définir le type d'application (mobile, web, ...). Ensuite il 
 app.module.ts
 app.component.ts
 
+## Cycle de vie du projet
+
+1 - main.ts
+2 - app.module.ts => déclare tous les composants/directive/pipe/services de l'appli
+3 - app.component.ts => c'est le bootstrap component
+
 ## Cycle de vie d'un composant
 
 | Order   |
