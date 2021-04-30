@@ -2,6 +2,10 @@
 
 # Variables environnement
 
+* [Solution avec assets http](#solution-avec-assets-http)     
+* [APP_INITIALIZER](#app_initializer)       
+* [Solution avec factory](#solution-avec-factory)     
+
 Dans certains cas il est nécessaire de pouvoir changer certaines variables d'environnement après compilation (ex : déploiement multi-sites, multi-environnements etc...)
 
 Angular met à disposition un répertoire *environnements* contenant les fichiers *environment.prod.ts* et *environment.ts*. Ces fichier sont pratiques dans le cas du déploiement d'une application simple, sur un environnement unique. Mais pose quelques problèmes dans le cas d'un déploiement plus complexe. 
@@ -30,7 +34,7 @@ Par exemple :
 }
 ````
 
-### Solution 1 : Utilisation des assets avec HttpClient
+## Solution avec assets http
 
 Ensuite la lecture peut se faire au lancement de l'application via un httpClient
 
@@ -82,7 +86,7 @@ export class DataService {
 }
 ````
 
-### APP_INITIALIZER 
+## APP_INITIALIZER 
 
 APP_INITIALIZE est un type multi-provider qui permet de spécifier une factory qui retourne une promise. Quand la promise est *complete* l'application continue son exécution. Ainsi, lorsqu'on arrive à l'endroit du code code où nous avons besoin des informations de configuration, on est certain qu'elles ont été chargées.
 
@@ -105,12 +109,14 @@ Dernier point vraiment **important**, sans ça le code n'attendra pas d'avoir te
 
 *multi* : true est appliqué car APP_INITIALIZER autorise plusieurs instances de ce provider. Toutes les instances sont exécutées simultanément mais le code ne continuera pas tant que toutes les instances (Promises) ne sont pas terminées.
 
-### Solution 2 : Utilisation d'une factory dans le APP_INITIALIZER app.module.ts
-[Back to top](#angular)   
+## Solution avec factory
+[Back to top](#variables-environnement)
+
+Cette solution utilise une factory dans le APP_INITIALIZER app.module.ts
 
 https://www.prestonlamb.com/blog/loading-app-config-in-app-initializer
 
-#### exemple perso
+### exemple perso
 
 *interfaces*
 ````
@@ -210,8 +216,8 @@ export class AppconfigService {
 ````
 
 
-#### Exemple complexe
-[Back to top](#angular)   
+### Exemple complexe
+[Back to top](#variables-environnement)    
 
 *exemple*
 
