@@ -8,6 +8,25 @@
 ## Spread et Rest
 [Back to top](#operateurs) 
 
+L'opérateur **...** permet de copier toutes les propriétés d'un objet. Peut être utile si l'on souhaite retourner une copie d'un objet avec toutes ses propriétés en y ajoutant en plus des nouvelles.
+
+````
+// Here, we are useing the map operator on the dataset to ensure that each recipe
+// has at least a non null list of ingredients.
+// If it doesn't, we initialize that list with an empty array.
+this.http.get<Recipe[]>(this.firebaseDatabase)
+.pipe(map(recipes => { js
+    return recipes.map(recipe => {
+    return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []}  // '...' operator copy all of the existing object properties 
+    });
+}))
+.subscribe(recipes => {
+    this.recipeService.onInitializeRecipes(recipes);
+});
+````
+
+**Exemples génériques**
+
 ````
 let arr = [1, 2, 3]; 
 
