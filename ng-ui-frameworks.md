@@ -4,6 +4,7 @@
 
 * [Frameworks](#frameworks)       
 * [Icons](#icons)      
+* [Theming](#theming)     
 
 [officials links](https://angular.io/resources?category=development)       
 
@@ -155,3 +156,122 @@ Installation : ```npm install --save bootstrap```, ensuite ajouter la configurat
 Liste des icônes Material : https://www.angularjswiki.com/fr/angular/angular-material-icons-list-mat-icon-list/       
 
 [Back to top](#ui)
+
+
+## Theming
+[Back to top](#ui)     
+
+[Documentation](https://material.angular.io/guide/theming)     
+
+Créer un fichier src/mon-theme.scss contenant la structure suivante (attention le fichier doit être de type **scss**):
+
+````
+@import '~@angular/material/theming';
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$my-app-primary: mat-palette($mat-green);
+$my-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$my-app-warn:    mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as `color` or `typography`.
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($my-app-theme);
+
+.alternate-theme {
+  $alternate-primary: mat-palette($mat-light-blue);
+  $alternate-accent:  mat-palette($mat-yellow, 400);
+  $alternate-theme: mat-light-theme($alternate-primary, $alternate-accent);
+  @include angular-material-theme($alternate-theme);
+}
+
+````
+
+Mettre à jour le *angular.json* pour pointer sur ce fichier thème
+
+````
+"styles": [
+      {
+	"input": "src/mon-theme.scss"
+      },
+      "src/styles.scss"
+],
+````
+
+*Utilisation*
+
+````
+<mat-card>
+      Main Theme:
+      <button mat-raised-button color="primary">
+        Primary
+      </button>
+      <button mat-raised-button color="accent">
+        Accent
+      </button>
+      <button mat-raised-button color="warn">
+        Warning
+      </button>
+    </mat-card>
+    <br>
+    <mat-card class="alternate-theme">
+      Alternate Theme:
+      <button mat-raised-button color="primary">
+        Primary
+      </button>
+      <button mat-raised-button color="accent">
+        Accent
+      </button>
+      <button mat-raised-button color="warn">
+        Warning
+      </button>
+</mat-card>
+````
+
+### Global sass variables
+
+Regrouper les variables sass dans le fichier *src/variables.scss*
+
+*variables.scss*
+
+````
+:root
+{
+  --darkgrey: #23272D;
+  --mediumgrey: #3F464B;
+  --mediumgrey2: #5B6164;
+  --lightgrey: #ECEDED;
+  --labelgrey: #D9D9D9;
+  --yellow: #FFD400;
+  --lightblue: #75C4D5;
+  --mediumblue: #009CBE;
+  --green: #70B62C;
+}
+````
+
+Il suffit ensuite d'injecter le fichier variable.scss dans le *angular.json* 
+
+````
+...
+"styles": [
+              {"input":"src/variables.scss"}
+            ],
+````
+
+*component.scss file*
+
+````
+.container {
+  background-color: var(--mediumgrey);
+}
+````
+[Back to top](#ui)    
