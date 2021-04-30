@@ -6,6 +6,7 @@
 * [Icons](#icons)      
 * [Theming](#theming)     
 * [Variables sass](#variables-sass)     
+* [Dynamic styling](#dynamic-styling)     
 
 [officials links](https://angular.io/resources?category=development)       
 
@@ -277,4 +278,28 @@ Il suffit ensuite d'injecter le fichier variable.scss dans le *angular.json*
 ````
 
 Si les variables ne sont pas encadrées par le **:root** elles ne sont accessibles qu'à condition d'importer le ficier *variables.scss* dans chaque feuille de style dans lesquelles on souhaite charger ces variables
+
+
+## Dynamic styling
+[Back to top](#ui)    
+
+### ngStlye
+
+````
+<p [ngStyle]="backgroundColor: getColor()}"></p>
+
+<label [ngStyle]="{'background-color':myVar < 5 ? 'blue' : 'green'}">my content</label>
+````
+
+### ngClass
+
+````<label [ngClass]="{'myCssCustomClass': i > 5 ? true : false }">my content</label>````
+
+### Form input error
+
+````
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+````
 [Back to top](#ui)    
