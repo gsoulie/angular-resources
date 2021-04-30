@@ -135,14 +135,7 @@ On peut aussi définir plusieurs classes à l'aide d'une chaîne séparée par d
 }
 ````
 
-## Naviguer depuis le controller
-[Back to top](#navigation)
-
-````
-this.route.navigate(['./ticket', 'edit', idTicket], {relativeTo: this.activatedRoute});	// => /ticket/edit/12
-````
-
-*Récupérer les paramètres de route dans le controller*
+### Récupérer les paramètres de route dans le controller
 ````
 ngOnInit() {
 	//this.ticketId = this.activatedRoute.snapshot.params.id // ATTENTION one shot !! ne sera plus mis à jour
@@ -153,6 +146,37 @@ ngOnInit() {
 ````
 
 > **IMPORTANT** - **BONNE PRATIQUE** : il faut récupérer le paramètre dans un observable pour éviter la problématique d'appel multiple d'une même route avec un paramètre différent. En effet Angular ne recréé pas un composant si on vient déjà de ce dernier. De fait il ne rééxécute pas la logique codée dans ngOnInit() (appel ws pour récupération des données par exemple).
+
+### Reset des paramètres de routage
+
+````
+import { Subscription } from ‘rxjs/Subscription’;
+
+export class UserComponent implements OnInit, OnDestroy {
+	user: {id: number, name: string};
+	paramSubscription: Subscription;
+
+	constructor(private route: ActivatedRoute) {}
+	
+	ngOnInit() {
+		this.paramSubscription = this.route.params
+		.subscribe((params: Params) => {
+			this.user.id = params[‘id’];
+			this.user.name = params[‘name’];
+		}
+}
+
+ngOnDestroy() {
+	this.paramSubscription.unsubscribe();
+}
+````
+
+## Naviguer depuis le controller
+[Back to top](#navigation)
+
+````
+this.route.navigate(['./ticket', 'edit', idTicket], {relativeTo: this.activatedRoute});	// => /ticket/edit/12
+````
 
 ## Lazy-loading routes
 [Back to top](#navigation)
