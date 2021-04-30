@@ -1,3 +1,5 @@
+[< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)    
+
 # Angular Dialog Template
 
 This template explain how to create an angular material mat-dialog generic template using *ng-container*
