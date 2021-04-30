@@ -327,4 +327,6 @@ export class Config extends ConfigService {
 }
 ````
 
+Il est maintenant possible de modifier le fichier json de configuration présent dans le répertoire *assets* et faire un ctrl-f5 pour voir la modification des variables.
+
 [Back to top](#variables-environnement)
