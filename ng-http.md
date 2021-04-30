@@ -2,7 +2,7 @@
 
 # Codes retour http
 
-*[Http interceptor](#http-interceptor)     
+* [Http interceptor](#http-interceptor)     
 
 ## HTTP Interceptor
 
