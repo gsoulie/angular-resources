@@ -7,6 +7,7 @@
 * [Theming](#theming)     
 * [Variables sass](#variables-sass)     
 * [Dynamic styling](#dynamic-styling)     
+* [Angular Material tips](https://github.com/gsoulie/angular-resources/blob/master/ng-material-tips.md)       
 
 [officials links](https://angular.io/resources?category=development)       
 
