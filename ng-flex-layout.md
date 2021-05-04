@@ -25,10 +25,11 @@ npm install -s @angular/flex-layout
   </mat-toolbar>
 <div class="content">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
-        <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let num of [1,2,3,4,5,6,7]">
+        <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="33%" fxFlex.xl="20%" *ngFor="let num of [1,2,3,4,5,6,7]">
         
         <!-- Utiliser le redimenssionnement classique sans le slider -->
-            <!-- <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let num of [1,2,3,4,5,6,7]"> -->
+            <!-- <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="33%" fxFlex.xl="20%" *ngFor="let num of [1,2,3,4,5,6,7]">-->
+            <!-- Documentation on sizing : https://github.com/angular/flex-layout/wiki/Responsive-API -->
             <mat-card class="mat-elevation-z4" appCardBorder>
             <mat-card-header>
                 <mat-card-title>Himalayan Peaks</mat-card-title>
