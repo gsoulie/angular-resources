@@ -5,6 +5,7 @@
 [Tutorial flex-layout](https://zoaibkhan.com/blog/create-a-responsive-card-grid-in-angular-using-flex-layout-part-1/)       
 [Flex-layout Demos](https://tburleson-layouts-demos.firebaseapp.com/#/responsive)      
 [Documentation](https://github.com/angular/flex-layout/wiki/API-Documentation)      
+[Dimensions](https://github.com/angular/flex-layout/wiki/Responsive-API)     
 
 ### installation
 
