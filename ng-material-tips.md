@@ -10,7 +10,7 @@ Pour surcharger les composant Angular Material, il est important d'utiliser le c
 
 La surcharge de composant Angular Material requiert souvent l'utilisation du combinator **::ng-deep**.
 
-L'application de la pseudo-classe **::ng-deep** à n'importe quelle règle CSS désactive complètement l'encapsulation de la vue pour cette règle. Tout style avec *::ng-deep* appliqué **devient un style global** !. Afin d'étendre le style spécifié au composant actuel et à tous ses descendants, assurez-vous d'inclure le sélecteur d'hôte **:host** avant *::ng-deep*. Sans ça, le style surchargé avec *::ng-deep* sera appliqué partout dans le projet.
+L'application de la pseudo-classe **::ng-deep** à n'importe quelle règle CSS **désactive complètement l'encapsulation** de la vue pour cette règle. Tout style avec *::ng-deep* appliqué **devient un style global** !. Afin d'étendre le style spécifié au composant actuel et à tous ses descendants, assurez-vous d'inclure le sélecteur d'hôte **:host** avant *::ng-deep*. Sans ça, le style surchargé avec *::ng-deep* sera appliqué partout dans le projet.
 
 ## Surcharge de style
 
