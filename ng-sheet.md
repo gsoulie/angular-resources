@@ -40,3 +40,4 @@
 * [template générique mat-dialog](https://github.com/gsoulie/angular-resources/blob/master/angular-dialog-template.md)      
 * [Local storage](https://github.com/gsoulie/angular-resources/blob/master/ng-local-storage.md)     
 * [Animations](#animations)     
+* [Images](https://github.com/gsoulie/angular-resources/blob/master/ng-image.md)       
