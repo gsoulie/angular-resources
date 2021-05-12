@@ -208,6 +208,94 @@ export class HomeComponent implements OnInit {
 
 Pour définir un style particulier à une colonne, il suffit d'ajouter une classe *.mat-column-* suffixée par la valeur de l'attribut **matColumnDef** 
 
+### mat-table avec checkbox
+
+*view file*
+
+````
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Checkbox Column -->
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+      (click)="selection.toggle(row)">
+  </tr>
+</table>
+
+````
+
+*controller file*
+
+````
+import {SelectionModel} from '@angular/cdk/collections';
+import {Component} from '@angular/core';
+import {MatTableDataSource} from '@angular/material';
+
+export interface PeriodicElement {
+  name: string;
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  {position: 1, name: 'Hydrogen'},
+  {position: 2, name: 'Helium'},
+  {position: 3, name: 'Lithium'},
+  {position: 4, name: 'Beryllium'},
+  {position: 5, name: 'Boron'},
+  {position: 6, name: 'Carbon'},
+  {position: 7, name: 'Nitrogen'},
+  {position: 8, name: 'Oxygen'},
+  {position: 9, name: 'Fluorine'},
+  {position: 10, name: 'Neon'},
+];
+
+@Component({
+  selector: 'table-selection-example',
+  styleUrls: ['table-selection-example.css'],
+  templateUrl: 'table-selection-example.html',
+})
+export class TableSelectionExample {
+  displayedColumns: string[] = ['select','name'];
+  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  selection = new SelectionModel<PeriodicElement>(true, []);
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+}
+````
+
 ## Fullcalendar
 [Back to top](#components)  
 
