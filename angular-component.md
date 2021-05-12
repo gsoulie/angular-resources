@@ -7,6 +7,7 @@
 * [Fullcalendar](#fullcalendar)     
 * [mat-button-toggle-group](#mat-button-toggle-group)     
 * [Swiper](#swiper)      
+* [mat-dialog](#mat-dialog)      
 
 
 ## Dropdown directive
@@ -183,6 +184,30 @@ export class HomeComponent implements OnInit {
 }
 ````
 
+*style file*
+
+````
+// Set specific width to column
+.mat-column-property2 {
+  width: $property-col-width !important;
+  flex: 0 0 $property-col-width !important;
+}
+
+.table-header {
+  background: #2D2D2D !important;
+  font-weight: bold;
+  border-bottom-right-radius: 15px !important;
+  border-bottom-left-radius: 15px !important;
+}
+.table-row:hover {
+  // background au survol d'une ligne
+  background: #5D5D5D;
+  cursor: pointer;
+}
+````
+
+Pour définir un style particulier à une colonne, il suffit d'ajouter une classe *.mat-column-* suffixée par la valeur de l'attribut **matColumnDef** 
+
 ## Fullcalendar
 [Back to top](#components)  
 
@@ -332,4 +357,28 @@ selectByActivity(ev) {
 [Back to top](#components)  
 
 https://swiperjs.com/angular         
-https://www.npmjs.com/package/ngx-swiper-wrapper       
+https://www.npmjs.com/package/ngx-swiper-wrapper      
+
+## mat-dialog
+[Back to top](#components)  
+
+Masquer le scroll d'une dialog ayant une hauteur de plus de 100%
+
+1 - créer une classe css pour la dialog dans le fichier de style global *style.scss*
+
+````
+.fullHeightDialog .mat-dialog-container {
+  overflow-y: hidden;
+}
+````
+
+2 - Appliquer la classe css lors de l'appel de la modale
+
+````
+const dialogRef = this.dialog.open(PoolDetailComponent, {
+      width: '80%',
+      height: '90%',
+      data: ...,
+      panelClass: 'fullHeightDialog'
+    });
+````
