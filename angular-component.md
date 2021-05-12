@@ -217,18 +217,18 @@ Pour définir un style particulier à une colonne, il suffit d'ajouter une class
 
   <!-- Checkbox Column -->
   <ng-container matColumnDef="select">
-    <th mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef>
       <mat-checkbox (change)="$event ? masterToggle() : null"
                     [checked]="selection.hasValue() && isAllSelected()"
                     [indeterminate]="selection.hasValue() && !isAllSelected()">
       </mat-checkbox>
-    </th>
-    <td mat-cell *matCellDef="let row">
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
       <mat-checkbox (click)="$event.stopPropagation()"
                     (change)="$event ? selection.toggle(row) : null"
                     [checked]="selection.isSelected(row)">
       </mat-checkbox>
-    </td>
+    </mat-cell>
   </ng-container>
 
   <!-- Name Column -->
