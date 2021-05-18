@@ -26,45 +26,89 @@ Permet de simplifier l'écriture des formulaires ReactiveForm
 
 *vue.html*
 ````
-<form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
-    
-    <div>
-        <label>Login</label>
-        <input type="text" formControlName="login" placeholder="">
-    </div>
-    <div>
-        <label>Password</label>
-        <input type="password" formControlName="password" placeholder="">
-    </div>
-    
-    <button type="submit">Submit</button>
-</form>
+ <div class="container">
+
+    <form [formGroup]="poolForm" novalidate>
+
+      <div class="row">
+        <mat-form-field>
+            <mat-label>Sample spot</mat-label>
+            <input matInput type="text" formControlName="sampleSpot" placeholder="">
+        </mat-form-field>
+        <!-- <div *ngIf="poolForm.controls.sampleSpot.touched && poolForm.controls.sampleSpot.errors?.required">
+        * Required
+        </div> -->
+        <div class="spacer"></div>
+        <mat-form-field>
+            <mat-label>Number of sample</mat-label>
+            <input matInput type="number" formControlName="sampleNumber" placeholder="">
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input matInput type="date" formControlName="date">
+        </mat-form-field>
+        <div class="spacer"></div>
+        <mat-form-field>
+          <mat-label>Hour</mat-label>
+          <div>
+              <mat-select formControlName="hour">
+                  <mat-option value="{{ h }}" *ngFor="let h of hours">{{ h }}</mat-option>
+              </mat-select>
+          </div>
+        </mat-form-field>
+        <div class="spacer"></div>
+        <mat-form-field>
+          <mat-label>Minute</mat-label>
+          <div>
+              <mat-select formControlName="minute">
+                <mat-option value="{{ m }}" *ngFor="let m of minutes">{{ m }}</mat-option>
+              </mat-select>
+          </div>
+        </mat-form-field>
+      </div>
+    </form>
+    <button mat-raised-button [disabled]="poolForm.invalid">Custom Submit button</button>
+  </div>
 ````
 
 *controller.ts*
 ````
-loginForm: FormGroup;
+  poolForm: FormGroup;
+  hours = [];
+  minutes = [];
 
-// Méthode avec FormBuilder
-constructor (private fb: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) {}
 
-ngOnInit() {
-	this.loginForm = this.fb.group({
-		login: [isDevMode() ? 'admin' : '', Validators.required],
-		password: [isDevMode() ? 'password' : '', Validators.required]
-	});
-	
-	// Méthode sans FormBuilder
+  ngOnInit(): void {
+    this.initializeForm();
+    this.initializeHourMinute();
+  }
 
-	this.loginForm = new FormGroup({
-		login: new FormControl('admin', Validators.required),
-		password: new FormControl('password', Validators.required)
-	});
-}
+  initializeForm(): void {
+    this.poolForm = this.formBuilder.group({
+      sampleSpot: ['', Validators.required],
+      sampleNumber: ['', Validators.required],
+      date: ['', Validators.required],
+      hour: ['', Validators.required],
+      minute: ['', Validators.required],
+    });
+  }
+
+  initializeHourMinute(): void {
+    for(let i = 0; i < 24; i++) {
+      this.hours.push(i.toString().padStart(2, "0"));
+    }
+    for(let i = 0; i < 60; i++) {
+      this.minutes.push(i.toString().padStart(2, "0"));
+    }
+  }
 
 onSubmit() {
-   console.log(this.fb.value.login);
-   console.log(this.fb.value.password);
+   console.log(this.poolForm.value.sampleSpot);
+   console.log(this.poolForm.value.sampleNumber);
 }
 ````
 
