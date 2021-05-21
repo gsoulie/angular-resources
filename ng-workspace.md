@@ -17,6 +17,22 @@ C'est utile si plusieurs projet doivent partager des composants / classes / serv
 
 Si l'on souhaite utiliser une librairie dans des projets externes au workspace, il faut publier la librairie sur NPM privée ou publique (payant)
 
+
+````
+ng new <mon-workspace> --create-application=false
+
+ensuite dans le workspace :
+
+ng g library <nom_lib>
+
+-> créé la lib et cette dernière contient un fichier src/public.api.ts
+
+
+A la création de la lib, vérifier que son path est ajouté dans la rubrique path du tsconfig.json
+
+-> build la lib la première fois avant de l'utiliser dans un projet
+````
+
 ### Exposer un composant aux autres libs / projets
 
 Comme pour un projet angular classique, lors de la création d'un composant, service etc... dans la lib, vérifier que sa dépendance est ajoutée dans le noeud *exports* du fichier module.ts associé. 
