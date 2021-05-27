@@ -161,7 +161,7 @@ Just add ```pure: false``` to your pipe
 *View file*
 
 ````html
-<button mat-menu-item *ngFor="let enum of filters | keyvalue"
+<button mat-menu-item *ngFor="let enum of filters | keyvalue: originalOrder"
 (click)="subMenuSelection(enum)">
   <span>By {{ enum.value }}</span>
 </button>
@@ -170,6 +170,8 @@ Just add ```pure: false``` to your pipe
 *Controller file*
 
 ````javascript
+import { KeyValue } from '@angular/common';
+
 export enum filters {
   step = 'step',
   name = 'name',
@@ -177,8 +179,25 @@ export enum filters {
   line = 'extrusion line'
 }
 
-subMenuSelection(enumObj): void {
+export class Home {
+ // Preserve original property order
+ originalOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+   return 0;
+ }
+
+ // Order by ascending property value
+ valueAscOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+   return a.value.localeCompare(b.value);
+ }
+
+ // Order by descending property key
+ keyDescOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+   return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
+ }
+
+ subMenuSelection(enumObj): void {
    this.activeFilter = enumObj.value;
    this.filterBy.emit(enumObj.key);
  }
+}
 ````
