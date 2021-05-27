@@ -19,7 +19,7 @@ npm install --save @angular/animations
 
 *app.module.ts*
 
-```
+```javascript
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -47,7 +47,7 @@ In this example, we have a square div represented by ```<div [@divState]="state"
 
 *home.html*
 
-```
+```html
 <button class="btn btn-warning" (click)="onAnimate()">animation</button>
 
 <div [@divState]="state" style="width: 100px; height: 100px"></div>
@@ -55,7 +55,7 @@ In this example, we have a square div represented by ```<div [@divState]="state"
 
 *home.ts*
 
-```
+```javascript
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
@@ -96,7 +96,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 *home.html*
 
-```
+```html
 <button class="btn btn-warning" (click)="onAnimate()">animation</button>
 <button class="btn btn-success" (click)="onShrink()">shrink</button>
 
@@ -107,7 +107,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 *home.ts*
 
-```
+```javascript
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
@@ -165,7 +165,7 @@ export class HomeComponent implements OnInit {
 
 Some style can be added into the transition
 
-```
+```javascript
  transition('shrunken <=> *', animate(800, style({
         borderRadius: '100px' 
       }
@@ -173,7 +173,7 @@ Some style can be added into the transition
 
 Or more complex
 
-```
+```javascript
  transition('shrunken <=> *', animate(800, [
       style({
         backgroundColor: 'orange'
@@ -191,7 +191,7 @@ Or more complex
 
 *home.html*
 
-```
+```html
 <div class="row">
     <div class="col-xs-12">
         <input type="text" #input>
@@ -205,7 +205,7 @@ Or more complex
 ```
 
 *home.ts*
-```
+```javascript
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
@@ -254,7 +254,7 @@ export class HomeComponent implements OnInit {
 Keyframes defines a set of animation styles, associating each style with an optional offset value.
 
 *home.ts*
-```
+```javascript
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 @Component({
