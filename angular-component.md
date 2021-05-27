@@ -17,7 +17,7 @@ In this example we create a dropdown button. The ```appDropdown``` directive sho
 
 *recipe-detail.component.html*
 
-```
+```html
 <div class="row">
    <div class="col-xs-12">
        <div class="btn-group" appDropdown>
@@ -34,7 +34,7 @@ In this example we create a dropdown button. The ```appDropdown``` directive sho
 
 *dropdown.directive.ts* (**To add into the app.module.ts**)
 
-```
+```javascript
 import { Directive, HostListener, HostBinding, ElementRef } from '@angular/core';
  
 @Directive({
@@ -58,7 +58,7 @@ export class DropdownDirective {
 }
 ```
 
-```
+```html
 <nav class="navbar navbar-default">
    <div class="container-fluid">
        <div class="navbar-header">
@@ -92,7 +92,7 @@ export class DropdownDirective {
 
 *View file*
 
-````
+````html
 <button mat-button color="primary" (click)="addItem()">Add item</button>
 
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -136,7 +136,7 @@ export class DropdownDirective {
 
 *Controller file*
 
-````
+````javascript
 import { MatTableDataSource } from '@angular/material';
 export interface PeriodicElement {
   name: string;
@@ -186,7 +186,7 @@ export class HomeComponent implements OnInit {
 
 *style file*
 
-````
+````css
 // Set specific width to column
 .mat-column-property2 {
   width: $property-col-width !important;
@@ -212,7 +212,7 @@ Pour définir un style particulier à une colonne, il suffit d'ajouter une class
 
 *view file*
 
-````
+````html
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <!-- Checkbox Column -->
@@ -248,7 +248,7 @@ Pour définir un style particulier à une colonne, il suffit d'ajouter une class
 
 *controller file*
 
-````
+````javascript
 import {SelectionModel} from '@angular/cdk/collections';
 import {Component} from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
@@ -332,13 +332,13 @@ Customize *mat-button-toggle-group* buttons
 
 First, add the following import in you *material.module.ts* file
 
-````
+````javascript
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 ````
 
 Global styling to set in *style.scss*
 
-````
+````css
 .section-label {
   color: #56686D;
   font-weight: bold;
@@ -376,7 +376,7 @@ mat-button-toggle-group .mat-button-toggle-label-content {
 
 *View file*
 
-````
+````html
 <div class="search-div">
       <div class="search-row">
         <mat-label class="section-label">
@@ -402,7 +402,7 @@ mat-button-toggle-group .mat-button-toggle-label-content {
 
 *Style file*
 
-````
+````css
  .search-div {
     background-color: #DAE8EB;
     margin-top: 20px;
@@ -428,7 +428,7 @@ mat-button-toggle-group .mat-button-toggle-label-content {
 
 *Controller file*
 
-````
+````javascript
 @ViewChild('activityToggle', { static: false }) activityToggle: MatButtonToggleGroup;
 @ViewChild('stateToggle', { static: false }) stateToggle: MatButtonToggleGroup;
 
@@ -454,7 +454,7 @@ Masquer le scroll d'une dialog ayant une hauteur de plus de 100%
 
 1 - créer une classe css pour la dialog dans le fichier de style global *style.scss*
 
-````
+````css
 .fullHeightDialog .mat-dialog-container {
   overflow-y: hidden;
 }
@@ -462,7 +462,7 @@ Masquer le scroll d'une dialog ayant une hauteur de plus de 100%
 
 2 - Appliquer la classe css lors de l'appel de la modale
 
-````
+````javascript
 const dialogRef = this.dialog.open(PoolDetailComponent, {
       width: '80%',
       height: '90%',
