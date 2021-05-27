@@ -40,7 +40,7 @@ It is possible to chain multiple pipes by simply separate them with ```|```. **B
 
 *my-custom-pipe.ts*
 
-```
+```javascript
 import { PipeTransform, Pipe } from '@angular/core';
  
 @Pipe({
@@ -61,7 +61,7 @@ Then import your pipe into the *app.module.ts* file :
 
 *app.module.ts*
 
-```
+```javascript
 @NgModule({
  declarations: [
    ...,
@@ -77,7 +77,7 @@ Then import your pipe into the *app.module.ts* file :
 
 **Pipe with parameters**
 
-```
+```javascript
 @Pipe({
    name: 'shorten'
 })
@@ -103,7 +103,7 @@ In the follwing example, we are using a pipe to find elements in a list like wit
 
 *filterpipe.ts*
 
-```
+```javascript
 @Pipe({
    name: 'filter'
 })
@@ -132,7 +132,7 @@ export class FilterPipe implements PipeTransform {
 
 Then you can use your pipe on ```ngFor```
 
-```
+```html
 <input type="text" [(ngModel)]="filteredStatus">
 <li *ngFor="let server of servers | filter:filteredStatus:'status'">
    {{ server.name }} {{ server.status }}
@@ -148,7 +148,7 @@ But...You can manually force your pipe triggering, but be aware of memory leaks 
 
 Just add ```pure: false``` to your pipe
 
-```
+```javascript
 @Pipe({
    name: 'mycustompipe',
    pure: false
