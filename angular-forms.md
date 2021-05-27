@@ -22,7 +22,7 @@
 First you need to import ```FormsModule and ReactiveFormsModule``` into *app.module.ts*
 
 *app.module.ts*
-```
+```javascript
 @NgModule({
  declarations: [
    AppComponent,
@@ -55,7 +55,7 @@ Accessing form's data
 
 *Controller file*
 
-```
+```javascript
 export class FormComponent implements OnInit {
  
  genders = ['male', 'female'];
@@ -82,7 +82,7 @@ export class FormComponent implements OnInit {
 [Back to top](#forms)   
 
 *Vue file*
-```
+```html
 <div class="container">
    <h3>Reactive Form</h3>
    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
@@ -109,7 +109,7 @@ export class FormComponent implements OnInit {
 
 *Controller file*
 
-```
+```javascript
 import { CustomValidators } from './custom-validator';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
@@ -145,7 +145,7 @@ export class FormComponent implements OnInit {
 *Custom validator* 
 
 Create custom validator file
-```
+```javascript
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 export class CustomValidators {
@@ -178,7 +178,7 @@ FormBuilder is useful to simplify form creation.
 
 *view.html*
 
-````
+````html
 <div class="content">
     <form [formGroup]="sampleFormGroup" (ngSubmit)="submitForm()">
         <mat-form-field appearance="fill">
@@ -218,7 +218,7 @@ FormBuilder is useful to simplify form creation.
 
 *controller.ts*
 
-````
+````javascript
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -260,7 +260,7 @@ export class FormComponent implements OnInit {
 
 *Controller file*
 
-```
+```javascript
 for (let ingredient of recipe.ingredients) {
          recipeIngredients.push(
            new FormGroup({
@@ -282,7 +282,7 @@ for (let ingredient of recipe.ingredients) {
 
 *FormControl dynamic creation*
 
-```
+```javascript
 /**
   * Récupérer la liste des ingrédients pour le FormControl
   */
@@ -293,7 +293,7 @@ for (let ingredient of recipe.ingredients) {
  
 *Vue file*
  
-``` 
+```html
 <div class="row"
   *ngFor="let ingredientCtrl of getControls(); let i = index"
   [formGroupName]="i"
@@ -308,7 +308,7 @@ for (let ingredient of recipe.ingredients) {
 
 *Delete item from FormArray*
 
-```
+```javascript
 /**
   * Delete the selected item
   * @param index
@@ -321,7 +321,7 @@ for (let ingredient of recipe.ingredients) {
 
 *Remove all elements from FormArray*
 
-```
+```javascript
 onDeleteAllIngredients() {
    (this.recipeForm.get('ingredients') as FormArray).clear();
  }
@@ -334,7 +334,7 @@ onDeleteAllIngredients() {
 
 *view file*
 
-```
+```html
 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
   <div id="user-data">
     <div class="form-group">
@@ -360,7 +360,7 @@ onDeleteAllIngredients() {
 
 *controller file*
 
-```
+```javascript
 @ViewChild('f') courseForm: NgForm;
 
 /*
@@ -388,7 +388,7 @@ Manage form with *@ViewChild* is useful when you want to get access on the form'
 
 *Vue file*
 
-```
+```html
 <form (ngSubmit)="onSubmit()" #f="ngForm">
  <div id="user-data">
   <div class="form-group">
@@ -414,7 +414,7 @@ Manage form with *@ViewChild* is useful when you want to get access on the form'
 
 *Controller file*
 
-```
+```javascript
 import { Subscription } from 'rxjs';
 import { UserService } from './user.service';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
@@ -441,7 +441,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
 This is the way of display a red border when the user touch the input and show a help text if email is not valid.
 
-```
+```html
 <div class="form-group">
  <label for="email">Mail</label>
  <input
@@ -459,7 +459,7 @@ This is the way of display a red border when the user touch the input and show a
 
 *app.component.css*
 
-```
+```css
 input.ng-invalid.ng-touched {
  border: 1px solid red;
 }
@@ -467,7 +467,7 @@ input.ng-invalid.ng-touched {
 
 ### Pattern validator
 
-```
+```javascript
 this.recipeForm = new FormGroup({
      'name': new FormControl(recipeName, Validators.required),
      'amount': new FormControl(imageUrl, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]) // requis et nombre positif
@@ -488,7 +488,7 @@ Just use property binding by using ```[ngModel]```
 
 *Vue file*
 
-```
+```html
 <select id="secret" class="form-control" ngModel name="secret" [ngModel]="defaultQuestion">
  <option value="pet">Your first Pet?</option>
  <option value="teacher">Your first teacher?</option>
@@ -497,7 +497,7 @@ Just use property binding by using ```[ngModel]```
 
 *Controller file*
 
-```
+```javascript
 export class AppComponent {
  defaultQuestion = 'pet';
  ...
@@ -511,7 +511,7 @@ This will select *pet* in the dropdown list
 
 *controller file*
 
-```
+```javascript
  suggestUserName() {
    const suggestedName = 'Superuser';
  
@@ -540,7 +540,7 @@ This will select *pet* in the dropdown list
 
 *Vue file*
 
-```
+```html
 <div id="user-data"
    ngModelGroup="userData"
    #userData="ngModelGroup">
@@ -559,7 +559,7 @@ This will select *pet* in the dropdown list
 
 *Get form's values*
 
-```
+```javascript
 import { Subscription } from 'rxjs';
 import { UserService } from './user.service';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
