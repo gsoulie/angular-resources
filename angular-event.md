@@ -15,7 +15,7 @@
 
 *game.component.ts*
 
-```
+```javascript
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
@@ -41,14 +41,14 @@ export class GameComponent implements OnInit {
 
 *app.component.html*
 
-```
+```html
 // listening on "intervalFired" event from app-component-game component
 <app-component-game (intervalFired)="onIntervalFired()"></app-component-game>
 ```
 
 *app.component.ts*
 
-```
+```javascript
 …
 // fonction déclenchée lors de la réception de l’event
 onIntervalFired(firedNumber: number) {
@@ -60,7 +60,7 @@ onIntervalFired(firedNumber: number) {
 
 *edit.component.html*
 
-```
+```html
 <label>Name</label>
 <input #nameInput>
 <label>Amount</label>
@@ -70,7 +70,7 @@ onIntervalFired(firedNumber: number) {
 
 *edit.component.ts*
 
-```
+```javascript
 @ViewChild('nameInput', {static: false}) nameInputRef: ElementRef;
 @ViewChild('amountInput', {static: false}) amountInputRef: ElementRef;
 @Ouput() ingredientAdded = new EventEmitter<{name: string, amount: number}>();
@@ -82,7 +82,7 @@ onAddItem() {
 
 *list.compoment.html*
 
-```
+```html
 <app-edit-component (ingredientAdded)="addIngredient($event)"></app-edit-component>
 <ul>
 	<a *ngFor="let i of ingredients">{{ i.name }} {{ i.amount }}</a>
@@ -91,7 +91,7 @@ onAddItem() {
 
 *list.component.ts*
 
-```
+```javascript
 ingredients: {name: string, amount: number}[] = [];
 addIngredient(newIngredient: {name: string, amount: number}) {
 	this.ingredients.push(newIngredient);
@@ -103,7 +103,7 @@ addIngredient(newIngredient: {name: string, amount: number}) {
 
 *cockpit.component.html*
 
-```
+```html
 <div class="row">
    <div class="col-xs-12">
        <label>Server Name</label>
@@ -117,7 +117,7 @@ addIngredient(newIngredient: {name: string, amount: number}) {
 
 *cockpit.component.ts*
 
-```
+```javascript
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
  
 @Component({
