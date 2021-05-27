@@ -5,6 +5,7 @@
 * [Introduction](#introduction)     
 * [Curstom Pipe](#custom-pipe)    
 * [Using pipe with ngFor](#using-pipe-with-ngfor)    
+* [Iterate on enum object with ngFor and pipe](#iterate-on-enum-object-with-ngfor-and-pipe)        
 
 ## Introduction
 [Back to top](#pipes) 
@@ -153,3 +154,31 @@ Just add ```pure: false``` to your pipe
    pure: false
 })
 ```
+
+## Iterate on enum object with ngFor and pipe
+[Back to top](#pipes) 
+
+*View file*
+
+````html
+<button mat-menu-item *ngFor="let enum of filters | keyvalue"
+(click)="subMenuSelection(enum)">
+  <span>By {{ enum.value }}</span>
+</button>
+````
+
+*Controller file*
+
+````javascript
+export enum filters {
+  step = 'step',
+  name = 'name',
+  date = 'date',
+  line = 'extrusion line'
+}
+
+subMenuSelection(enumObj): void {
+   this.activeFilter = enumObj.value;
+   this.filterBy.emit(enumObj.key);
+ }
+````
