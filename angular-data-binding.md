@@ -17,7 +17,7 @@ Work with components needs to pass and/or update data between them (like list-de
 
 *server-element.component.ts*
 
-```
+```javascript
 export class ServerElementComponent {
 	@Input() element: {type: string, name: string, content: string};
 
@@ -27,7 +27,7 @@ export class ServerElementComponent {
 
 *app.component.ts*
 
-```
+```javascript
 export class AppComponent {
   serverElements = [{type: 'server', name: 'Test server', content: 'just a test'}]
 }
@@ -45,7 +45,7 @@ In the following example, we bind the ```serverCreated``` and ```blueprintCreate
 
 *app.component.html*
  
-```
+```html
 <app-cockpit
    (serverCreated)="onServerAdded($event)"
    (blueprintCreated)="onBlueprintAdded($event)">
@@ -56,7 +56,7 @@ In the following example, we bind the ```serverCreated``` and ```blueprintCreate
 
 *app.component.ts*
  
-```
+```javascript
 import { element } from 'protractor';
 import { Component } from '@angular/core';
  
@@ -94,7 +94,7 @@ export class AppComponent {
   
 *cockpit.component.html*
 
-```
+```html
 <div class="row">
    <div class="col-xs-12">
        <p>Add new servers or blueprint</p>
@@ -117,7 +117,7 @@ export class AppComponent {
 
 *cockpit.component.ts*
  
-```
+```javascript
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
  
 @Component({
