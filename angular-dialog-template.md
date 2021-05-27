@@ -6,7 +6,7 @@ This template explain how to create an angular material mat-dialog generic templ
 
 *template-dialog.component.html*
 
-````
+````html
   <h1 class="test" mat-dialog-title>
     {{ title }}
   </h1>
@@ -24,7 +24,7 @@ This template explain how to create an angular material mat-dialog generic templ
 
 *template-dialob.component.ts*
 
-````
+````javascript
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -64,7 +64,7 @@ export class TemplateDialogComponent implements OnInit {
 
 *home.compoennt.html*
 
-````
+````html
 <button mat-raised-button color="primary" (click)="openDialogWithTemplateRef(myDialog)">Dialog 1</button>
 <button mat-raised-button color="accent" (click)="openDialogWithoutRef()">Dialog 2</button>
 
@@ -118,7 +118,7 @@ export class TemplateDialogComponent implements OnInit {
 
 *home.component.ts*
 
-````
+````javascript
 import { TemplateDialogComponent } from './../template-dialog/template-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
