@@ -13,6 +13,7 @@
 * Concepts       
 	* [Promise](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-promise.md)      
 	* [Observable](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-observable.md)      
+		* async pipe       
 	* [RxJS](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-rxjs.md)      
 	* [ng-content](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-ng-content.md)      
 	* [ng-template](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-ng-template.md)     
