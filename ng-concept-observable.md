@@ -11,6 +11,7 @@
 * [Chaîner les observables](#chaîner-les-observables)     
 * [Unsubscribe to all](#unsubscribe-to-all)      
 * [Subject](#subject)     
+* [async pipe](#async-pipe)    
 
 
 ## Liens
@@ -378,6 +379,8 @@ que le subject peut recevoir x data, mais les subscribers ne recevront que la de
 
 ## async pipe
 [Back to top](#observables)
+
+(https://malcoded.com/posts/angular-async-pipe/)
 
 Le pipe *async* permet de souscrire à des observables à l'intérieur de la vue. Il prend aussi soin de se désabonner des observables automatiquement.
 
