@@ -36,7 +36,7 @@ l'observable a 3 type de notifications :
 **pipe** : opérateur principal qui va permettre le branchement de plusieurs autres opérateurs à la suite les uns des autres et ainsi travailler sur le flux de données
  
 ex :
-````
+````javascript
 import {filter, map} from 'rxjs/operators;
 
 getAlertMsg(): Observable<string> {
@@ -90,7 +90,7 @@ of(1, 2, 3); est un observable qui fait next(1); next(2); next(3); complete();
 Création d'un hot observable
 On va utiliser un Subject qui est à la fois un Observer et un hot Observable
 
-````
+````javascript
 const subject = new Subject<number>();
 subject.subscribe(v => console.log('observerA : ' + v));
 subject.next(1);
@@ -115,7 +115,7 @@ subject.next(2);
 Exemple : du cas d'une requête http
 
 ### share() : partager un cold à tout un ensemble de souscripteurs
-````
+````javascript
 // attention exécution se fait à la première souscription. Si on souscrit et que la réponse est déjà arrivée on aura rien
 const hot$ = cold$.pipe(share());
 ````
@@ -124,7 +124,7 @@ const hot$ = cold$.pipe(share());
 
 > Important notion NR. Voir rubrique exemple plus bas
 
-````
+````javascript
 const hot$ = cold$.pipe(shareReplay(1));
 // si la réponse été déjà passée, au moment de la souscription on reçoit immédiatement la réponse (il rejoue le dernier résultat à chaque nouvelle souscription)
 // remarque, ne rejoue PAS la requête
@@ -164,7 +164,7 @@ rééssayer : retry ou retryWhen
 
 ex : 
 
-````
+````javascript
 find(id: string): Observable<Resource> {
 	const url = `http://.../.../${id}`;
 	return this.httpClient.get<Resource>(url)
@@ -189,7 +189,7 @@ pour renseigner la liste. Le soucis c'est que pour chaque souscription, on va re
 Si on ne veut pas que cela se produise, on va convertir le cold en hot observable
 
 *1 requête http*
-````
+````javascript
 list$: Observable<Book[]>;
 
 constructor(private httpClient: HttpClient) {
@@ -212,7 +212,7 @@ getList(): Observable<Book[]> {
 Si on souhaite maintenant rafraichir nos data toutes les heures (uniquement si il y a une nouvelle souscription), il suffira d'ajouter un interval 
 
 *1 requête http max / 1h*
-````
+````javascript
 constructor(private httpClient: HttpClient) {
 	this.list$ = this.buildRequestObservable();
 	setInterval(() => {
@@ -225,7 +225,7 @@ constructor(private httpClient: HttpClient) {
 
 ### auto-complete de recherche
 
-````
+````javascript
 this.countryList$ = this.countryControl.valueChanges
 .pipe(
 	map(name => name.trim()),
@@ -262,8 +262,8 @@ La problématique : Attendre la fin de la promise avant d'envoyer la requête ht
 
 La solution : Convertir la promise en observable et la chainer avec l'observable http en utilisant l'opérateur **switchMap** RxJS
 
-````
-// Manage HTTP Quesries
+````javascript
+// Manage HTTP Queries
   requestApi({action, method = 'GET', datas = {}}:
   { action: string, method?: string, datas?: any}): Observable<any> {
     const methodWanted = method.toLowerCase();
@@ -301,7 +301,7 @@ La solution : Convertir la promise en observable et la chainer avec l'observable
 
 *data.service.ts*
 
-````
+````javascript
 fetchNewPublications({filterUserQueryIds = [], start = 0, size = apiConfig.defaultLength, sortBy = apiConfig.SORT.idte, disableStats = true}:
   {filterUserQueryIds?: number[], start?: number, size?: number, sortBy?: string, disableStats?: boolean}): Observable<ServiceResult> {
 
@@ -316,7 +316,7 @@ fetchNewPublications({filterUserQueryIds = [], start = 0, size = apiConfig.defau
 
 *controller.ts*
 
-````
+````javascript
 ngOnInit(): void {
 	this.dataService.fetchNewPublications()
 	.subscribe((res) => {
@@ -337,7 +337,7 @@ npm install subsink
 ````
 
 *utilisation*
-````
+````javascript
 export class SomeComponent implements OnDestroy {
   private subs = new SubSink();
 
@@ -376,4 +376,40 @@ export class SomeComponent implements OnDestroy {
 - **AsyncSubject** => ne retourne que la valeur la plus faîche aux subscribers (l'envoi se fait lors du completed). C'est à dire
 que le subject peut recevoir x data, mais les subscribers ne recevront que la dernière. Utile si uniquement la données la plus récente nous intéresse
 
+## async pipe
+[Back to top](#observables)
 
+Le pipe *async* permet de souscrire à des observables à l'intérieur de la vue. Il prend aussi soin de se désabonner des observables automatiquement.
+
+*service.ts*
+````javascript
+fetchData(): Observable<string[]> {
+    return of(['Data 1', 'Data 2', 'Data 3']);
+}
+````
+
+*controller.ts*
+````typescript
+export class AddOrderComponent implements OnInit {
+ 
+  dataset: Observable<string[]>;
+
+  constructor(
+   private dataService: DataService) {}
+
+  ngOnInit(): void {
+    this.dataset = this.dataService.fetchData();
+  }
+````
+
+*view.html*
+````html
+<mat-form-field class="red-select">
+	<mat-label>Laboratory</mat-label>
+	<mat-select [(ngModel)]="selectedData">
+	  <ng-container *ngFor="let d of dataset | async">
+	    <mat-option [value]="d"> {{ d }} </mat-option>
+	  </ng-container>
+	</mat-select>
+</mat-form-field>
+````
