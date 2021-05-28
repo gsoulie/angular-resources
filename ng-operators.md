@@ -10,7 +10,7 @@
 
 L'opérateur **...** permet de copier toutes les propriétés d'un objet. Peut être utile si l'on souhaite retourner une copie d'un objet avec toutes ses propriétés en y ajoutant en plus des nouvelles.
 
-````
+````typescript
 // Here, we are useing the map operator on the dataset to ensure that each recipe
 // has at least a non null list of ingredients.
 // If it doesn't, we initialize that list with an empty array.
@@ -27,7 +27,7 @@ this.http.get<Recipe[]>(this.firebaseDatabase)
 
 **Exemples génériques**
 
-````
+````typescript
 let arr = [1, 2, 3]; 
 
 // let arr2 = [...arr, 4, 5] => [...[1, 2, 3], 4, 5] => [1, 2, 3, 4, 5]
@@ -46,7 +46,7 @@ console.log(obj2); // {a: 1, b: 2, c: 3}
 ## Destructuration objet
 [Back to top](#operateurs) 
 
-````
+````typescript
 const user = [{nom: 'toto', prenom: 'paul'},{nom: 'titi', prenom: 'luc'}];
 let [o1, o2] = user;
 ````
@@ -54,7 +54,7 @@ let [o1, o2] = user;
 ### Destructuration paramètres de fonction
 [Back to top](#operateurs) 
 
-````
+````typescript
 maFunct = ({param1, param2}) {
 
 }
