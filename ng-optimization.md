@@ -26,7 +26,7 @@ zone *Network*: Appel http
 **BONNE PRATIQUE** mettre tous les composants en mode *OnPush()* c'est un gain d'optimisation important.
 Il va faloir ensuite provoquer la mise à jour de la vue à la main.
 Ajouter dans le code suivant 
-````
+````typescript
 @Component{
 	changeDetection: ChangeDetectionStrategy.OnPush;	// il ne va écouter QUE la zone event
 }
@@ -39,7 +39,7 @@ Le mode OnPush est utilisé pour écouter la zone Event uniquement. Le mode Defa
 
 Pour forcer le déclenchement à la main il faudra utiliser 
 
-````
+````typescript
 constructor(private ref: ChangeDetectorRef) {
 
 	setInterval(() => {
@@ -63,7 +63,7 @@ L'utilisation de l'un ou l'autre est à voir au cas par cas mais de manière gé
 
 On peut aussi manuellement désactiver / réactiver l'écoute des zones pour un composant avec :
 
-````
+````typescript
 this.cd.detach();	// ne sera plus mis à jour
 this.cd.reattach();	// se remet à jour
 ````
@@ -76,7 +76,7 @@ this.cd.reattach();	// se remet à jour
 https://www.youtube.com/watch?v=h34Dbdl9twc&list=PLiO4ScU0Pxp0cAxMqGCtRmvRGA5vjId7b&ab_channel=DevTheory
 
 *exemple*
-````
+````typescript
 const data1 = { foo: 42, bar: 13 };
 
 const data2 = JSON.parse('{ "foo": 42, "bar": 13 }'); // jusqu'à 2x plus rapide suivant le navigateur
