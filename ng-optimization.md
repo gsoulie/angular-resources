@@ -2,6 +2,12 @@
 
 # Optimisations
 
+## Général
+- Virtual scroll
+- Pagination
+- Render à la demande
+
+
 ## Optimisation lancement application
 [Back to top](#optimisations) 
 
