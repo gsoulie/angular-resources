@@ -43,7 +43,8 @@
 	* Fullcalendar
 	* mat-button-toggle-group
 	* Swiper
-	* mat-dialog
+	* mat-dialog    
+	* loading spinner     
 * [Tests unitaires](https://github.com/gsoulie/angular-resources/blob/master/ng-unit-test.md)     
 	* testing bundle in dist directory 	
 * [template générique mat-dialog](https://github.com/gsoulie/angular-resources/blob/master/angular-dialog-template.md)      
