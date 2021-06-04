@@ -83,7 +83,7 @@ export class OverlayService {
    private cdkSpinnerCreate() {
     return this.overlay.create({
       hasBackdrop: true,
-      panelClass: 'overlay-spinner',
+      panelClass: 'overlay-spinner',  // pour pouvoir customiser le spinner
       backdropClass: 'dark-backdrop',
       positionStrategy: this.overlay
         .position()
@@ -101,6 +101,17 @@ export class OverlayService {
 
   stopSpinner() {
     this.spinnerTopRef.detach();
+  }
+}
+````
+
+*style.scss*
+
+````typescipt
+// mat-spinner
+.overlay-spinner {
+  .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: red !important;
   }
 }
 ````
