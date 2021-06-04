@@ -107,7 +107,7 @@ export class OverlayService {
 
 *style.scss*
 
-````typescipt
+````css
 // mat-spinner
 .overlay-spinner {
   .mat-progress-spinner circle, .mat-spinner circle {
