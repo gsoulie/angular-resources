@@ -18,7 +18,7 @@ Pour pallier ce problème, il existe plusieurs solutions. Dans tous les cas, la 
 Par exemple :
 
 *assets/env/settings.json*
-````
+````typescript
 {
     "AppSettings": {
 		"Environment": "Develop"
@@ -42,7 +42,7 @@ Ensuite la lecture peut se faire au lancement de l'application via un httpClient
 
 *app.component.ts*
 
-````
+````typescript
 import { Subscription } from 'rxjs';
 import { DataService } from './services/data.service';
 import { Component, OnDestroy } from '@angular/core';
@@ -73,7 +73,7 @@ export class AppComponent implements OnDestroy {
 
 *data-service.ts*
 
-````
+````typescript
 export class DataService {
   private _appSettingsUrl = 'assets/env/settings.json';
 
@@ -90,8 +90,8 @@ export class DataService {
 
 APP_INITIALIZE est un type multi-provider qui permet de spécifier une factory qui retourne une promise. Quand la promise est *complete* l'application continue son exécution. Ainsi, lorsqu'on arrive à l'endroit du code code où nous avons besoin des informations de configuration, on est certain qu'elles ont été chargées.
 
+````typescript
 import { APP_INITIALIZER } from '@angular/core'
-
 @NgModule({
     ....
     providers: [
@@ -103,6 +103,8 @@ import { APP_INITIALIZER } from '@angular/core'
         }
     ]
 )
+````
+
 *load* est une fonction qui retourne une fonction qui retourne une **Promise**. La fonction Promise charge les informations de configuration et les enregistre dans l'application. Une fois que les infos de configuration ont été chargées, il faut resolve la promise **resolve(true)**.
 
 Dernier point vraiment **important**, sans ça le code n'attendra pas d'avoir terminé avant de continuer, *useFactory* **DOIT** pointer vers une fonction qui pointe sur une **Promise**
@@ -119,7 +121,7 @@ https://www.prestonlamb.com/blog/loading-app-config-in-app-initializer
 ### exemple perso
 
 *interfaces*
-````
+````typescript
 export interface IEnvironmentVariable {
     AppSettings: IAppSettings
 }
@@ -133,7 +135,7 @@ export interface IAppSettings {
 
 *app.module.ts*
 
-````
+````typescript
 import { AppconfigService } from './shared/services/appconfig.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
@@ -165,7 +167,7 @@ export class AppModule { }
 ````
 
 *AppConfigService.ts*
-````
+````typescript
 import { IEnvironmentVariable } from './../models/config.interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -203,7 +205,7 @@ export class AppconfigService {
 ````
 
 *app.component.ts*
-````
+````typescript
   env: IEnvironmentVariable;
   settings: IAppSettings;
 
@@ -221,7 +223,7 @@ export class AppconfigService {
 
 *exemple*
 
-````
+````typescript
 import { Config } from 'projects/Apps/Example/src/configs/config';
 import { ApisConfig, ApisConfigurationProvider, ApisServicesModule } from 'apis-helpers';
 import { UncatchedErrorHandler } from 'angular-helpers';
@@ -284,7 +286,7 @@ export function resolveNgxLoggerConfig(): LoggerConfig {
 ````
 
 *config.ts*
-````
+````typescript
 import { Injectable } from '@angular/core';
 import configForTest from './config.json';
 import configEnvForTest from './config.test.json';
