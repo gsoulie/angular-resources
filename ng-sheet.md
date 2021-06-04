@@ -45,6 +45,7 @@
 	* Swiper
 	* mat-dialog
 * [Tests unitaires](https://github.com/gsoulie/angular-resources/blob/master/ng-unit-test.md)     
+	* testing bundle in dist directory 	
 * [template générique mat-dialog](https://github.com/gsoulie/angular-resources/blob/master/angular-dialog-template.md)      
 * [Local storage](https://github.com/gsoulie/angular-resources/blob/master/ng-local-storage.md)     
 * [Animations](#animations)     
