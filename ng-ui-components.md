@@ -61,9 +61,9 @@ export class DialogService {
 ## loading spinner
 [Back to top](#ui-components)
 
-Intégrer un layout transparent noir sur toute une page avec un *<mat-spinner>*. La technique conciste à utiliser le package **cdk portal** (https://material.angular.io/cdk/portal/overview) d'angular material qui permet d'insérer dynamiquement un composant dans un conteneur.
+Intégrer un layout transparent noir sur toute une page avec un *mat-spinner*. La technique conciste à utiliser le package **cdk portal** (https://material.angular.io/cdk/portal/overview) d'angular material qui permet d'insérer dynamiquement un composant dans un conteneur.
   
-Il suffit donc de créer un overlay via le package **cdk Overlay** et de lui *attacher* un portal contenant un *<mat-dialog>*
+Il suffit donc de créer un overlay via le package **cdk Overlay** et de lui *attacher* un portal contenant un *mat-spinner*
   
 Pour plus de généricité, ce traitement peut être placé dans un service 
 
