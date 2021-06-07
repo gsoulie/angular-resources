@@ -22,6 +22,7 @@ cf : https://angular.io/guide/universal
 ## zone.js
 [Back to top](#optimisations) 
 
+[Très bon tutos](https://www.youtube.com/watch?v=SEyaCR7NYXg&ab_channel=YounessHoudass)      
 Un changeDetector par composant. Il gère pour chacun les 3 zones à écouter (events, timers, network).
 Par défaut, Angular écoûte les 3 zones de chacun en permanence.
 
