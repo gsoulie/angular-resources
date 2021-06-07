@@ -20,7 +20,7 @@ https://makina-corpus.com/blog/metier/2017/premiers-pas-avec-rxjs-dans-angular
 [Understanding RxJS operators](https://www.digitalocean.com/community/tutorials/rxjs-operators-for-dummies-forkjoin-zip-combinelatest-withlatestfrom)        
 
 *Starting code sample*
-````
+````typescript
 // 0. Import Rxjs operators
 import { forkJoin, zip, combineLatest, Subject } from 'rxjs';
 import { withLatestFrom, take, first } from 'rxjs/operators';
@@ -57,7 +57,7 @@ color$.next('blue');
 
 zip : les observables sont inséparables, il n'y aura pas de résultat tant que tous les observables n'auront pas répondus. Tous les observables s'attendent.
 
-````
+````typescript
 zip(color$, logo$)
     .subscribe(([color, logo]) => console.log(`${color} shirt with ${logo}`));
 	
@@ -70,7 +70,7 @@ zip(color$, logo$)
 combineLatest : les observables ne s'attendent pas après leur première exécution. Au premier appel, couleur ET logo s'attendent et exécutent le log. une fois fait 
 la première fois, à chaque fois que la couleur OU le logo changera, le log sera déclenché même si un seul des 2 est modifié.
 
-````
+````typescript
 combineLatest(color$, logo$)
     .subscribe(([color, logo]) => console.log(`${color} shirt with ${logo}`));
 ````
@@ -80,7 +80,7 @@ combineLatest(color$, logo$)
 withLatestFrom : de type master - slave. Au début, le master doit rencontrer l'esclave. Après cela, le mater prendra les devants, donnant le commandement, 
 l'action est déclenchée à chaque fois uniquement lorsque le maître renvoie une nouvelle valeur
 
-````
+````typescript
 color$.pipe(withLatestFrom(logo$))
     .subscribe(([color, logo]) => console.log(`${color} shirt with ${logo}`));
 ````
@@ -91,7 +91,7 @@ Le journal sera déclenché chaque fois que la valeur de couleur (principale) su
 ### forkJoin
 
 forkJoin : ne déclenche uniquement lorsqu'il est certain que tous les observables ont répondus.
-````
+````typescript
 forkJoin([color$, logo$])
 .subscribe({
 	next: (data) => {
@@ -106,7 +106,7 @@ Aucun log ne sera déclenché dans ce cas étant donné que les observables colo
 
 Pour les considérés comme terminés, il faut appeler :
 
-````
+````typescript
 // 5. When the two persons(observables) ...
 color$.complete();
 logo$.complete();
