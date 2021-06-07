@@ -68,7 +68,7 @@ Le **detectChanges** est instantané, on force Angular à rafraichir tout de sui
 L'utilisation de l'un ou l'autre est à voir au cas par cas mais de manière générale, préférer le markForCheck qui est moins violent car c'est Angular qui le gère.
 
 
-**ATTENTION : la stratégie OnPush ne fonctionne pas de base avec tous les traitement asynchrone (timer, timeout, promise, observable...). Il faut donc penser à forcer manuellement le rafraichissement ou le cas échéant utiliser le pipe async qui gère tout seul le rafraichissement)**
+**ATTENTION : la stratégie OnPush ne fonctionne pas de base avec tous les traitement asynchrone (timer, timeout, promise, observable...). Il faut donc penser à forcer manuellement le rafraichissement ou le cas échéant utiliser le pipe async qui gère tout seul le rafraichissement en appelant lui même changeDetectorRef**
 
 ### Detacher - Réattacher 
 
