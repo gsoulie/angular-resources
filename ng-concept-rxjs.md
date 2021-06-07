@@ -92,8 +92,15 @@ Le journal sera déclenché chaque fois que la valeur de couleur (principale) su
 
 forkJoin : ne déclenche uniquement lorsqu'il est certain que tous les observables ont répondus.
 ````
-forkJoin(color$, logo$)
-    .subscribe(([color, logo]) => console.log(`${color} shirt with ${logo}`));
+forkJoin([color$, logo$])
+.subscribe({
+	next: (data) => {
+		console.log(`${data[0]} shirt with ${data[1]}`));
+	},
+	error: (err) => {
+
+	}
+});
 ````	
 Aucun log ne sera déclenché dans ce cas étant donné que les observables color$ et logo$ ne sont jamais terminé (on appelle toujours un .next);
 
