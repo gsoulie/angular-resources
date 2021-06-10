@@ -77,10 +77,10 @@ subscribe({value, error, ()})
 ## Cold et Hot 
 [Back to top](#observables)
 
-- **cold (unicast)** = source démarrée pour chaque souscription. 10 souscriptions = 10 démarrage. recommence du début pour chaque utilisateur
+- **cold (unicast ex : un CD)** = source démarrée pour chaque souscription. 10 souscriptions = 10 démarrage. recommence du début pour chaque utilisateur
 ex appel http, redémarre à chaque appel
 
-- **hot (multicasted)** = 1 seule source diffusé à tout le monde (toutes les souscriptions) simultanément. Si on arrive en cours de route on aura pas les données depuis le début.
+- **hot (multicasted ex : une radio)** = 1 seule source diffusé à tout le monde (toutes les souscriptions) simultanément. Si on arrive en cours de route on aura pas les données depuis le début.
 ex données qui arrivent sur une websocket
 
 > remarque : on peut transformer un cold en hot
