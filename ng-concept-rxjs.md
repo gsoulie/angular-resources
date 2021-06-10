@@ -10,6 +10,8 @@ https://makina-corpus.com/blog/metier/2017/premiers-pas-avec-rxjs-dans-angular
 
 ## opérateurs
 
+https://rxmarbles.com/#map
+
 |operator|description|
 |-|-|
 |pipe|permet le chaînage de plusieurs opérateurs|
