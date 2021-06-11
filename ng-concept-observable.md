@@ -377,7 +377,7 @@ search(name: string): Observable<string[]> {
 }
 ````
 
-## Chainer les observables
+## Chaîner les observables
 [Back to top](#observables)
 
 Dans cet exemple on souhaite chaîner une promise convertie en observable, avec un second observable. On souhaite néanmoins que le second observable ne soit pas joué avant la fin du premier.
