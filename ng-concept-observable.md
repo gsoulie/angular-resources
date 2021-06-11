@@ -12,6 +12,7 @@
 * [Unsubscribe to all](#unsubscribe-to-all)      
 * [Subject et BehaviorSubject](#subject-et-behaviorsubject)     
 * [async pipe](#async-pipe)    
+* [Exemples](#exemples)      
 
 
 ## Liens
@@ -526,4 +527,56 @@ export class AddOrderComponent implements OnInit {
 	  </ng-container>
 	</mat-select>
 </mat-form-field>
+````
+
+## Exemples
+[Back to top](#observables)
+
+Chargement et ajout de données avec BehaviorSubject
+
+*component.html*
+````html
+<mat-list>
+        <mat-list-item *ngFor="let u of users">
+            {{ u.id }} {{ u.username }}
+        </mat-list-item>
+</mat-list>    
+````
+
+*component.ts*
+````typescript
+users = [];
+
+ngOnInit() {
+ this.data.users$.subscribe(res => this.users = res);
+ 
+ this.data.fetchUser()
+ .subscribe(res => {
+	this.data.users$.next(res);
+ });
+}
+
+addUser(): void {
+    this.data.addItem({ 
+	id: 999,
+	name: 'unknown',
+	username: 'new user',
+	phone: '999999999',
+	email: 'new.user@gmail.com' });
+}
+````
+
+*service.ts*
+````typescript
+public users$: BehaviorSubject<any[]> = new BehaviorSubject([]);
+
+ fetchUser(): Observable<any> {
+    return this.http.get(this.url + 'users');
+  }
+  
+  addItem(item) {
+    let items = this.users$.getValue(); // récupère les dernières valeurs connues
+    items.push(item);
+    this.users$.next(items);	// mettre à jour les valeurs
+  }
 ````
