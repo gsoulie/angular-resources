@@ -12,7 +12,7 @@
 * [Unsubscribe to all](#unsubscribe-to-all)      
 * [Subject et BehaviorSubject](#subject-et-behaviorsubject)     
 * [async pipe](#async-pipe)    
-* [Exemples](#exemples)      
+* [Exemples code](#exemples-code)      
 
 
 ## Liens
@@ -529,7 +529,7 @@ export class AddOrderComponent implements OnInit {
 </mat-form-field>
 ````
 
-## Exemples
+## Exemples code
 [Back to top](#observables)
 
 Chargement et ajout de données avec BehaviorSubject
