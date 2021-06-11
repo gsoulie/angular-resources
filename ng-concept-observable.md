@@ -368,9 +368,9 @@ export class SomeComponent implements OnDestroy {
 
 [ngConf](https://www.youtube.com/watch?v=_q-HL9YX_pk&ab_channel=ng-conf)     
 
-- **Subject** => seuls les subscribers reçoivent les données 
+- **Subject** => le subject permet de multicaster un observable. Chaque nouveau souscripteur, recevra les données en cours d'émission s'il y en a
 
-- **BehaviorSubject** => envoyer la dernière data aux nouveaux subscribers
+- **BehaviorSubject** => se souvient de la dernière data émise. Permet aux nouveaux souscripteurs d'avoir au moins une data si on subscribe après que l'observable est émis sa dernière donnée
 
 - **ReplaySubject** => Rejouer les anciennes data aux nouveaux subscribers
 
