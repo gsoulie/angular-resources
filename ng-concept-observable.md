@@ -39,6 +39,7 @@ l'observable a 3 type de notifications :
 [ngConf](https://www.youtube.com/watch?v=_q-HL9YX_pk&ab_channel=ng-conf)     
 
 - **Subject** => le subject permet de multicaster un observable. Chaque nouveau souscripteur, recevra les données en cours d'émission s'il y en a. Si un souscripteur arrive après l'émission des données, il n'aura aucune valeur.
+Un Sujet est à la fois un observable et un observateur. Cela nous donne la possibilité d'intégrer nous-mêmes les valeurs suivantes dans le flux
 
 - **BehaviorSubject** => se souvient de la dernière data émise. Permet aux nouveaux souscripteurs d'avoir au moins une data si on subscribe après que l'observable est émis sa dernière donnée.
 
