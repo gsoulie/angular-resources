@@ -532,7 +532,57 @@ export class AddOrderComponent implements OnInit {
 ## Exemples code
 [Back to top](#observables)
 
-Chargement et ajout de données avec BehaviorSubject
+### Rafrtaichir un observable
+*component.html*
+````html
+<input mat-input type="text" [(ngModel)]="cityName">
+<button mat-raised-button (click)="addCity()" [disabled]="cityName == ''">add city</button>
+<mat-list>
+	<mat-list-item *ngFor="let c of cities$ | async">
+    	{{ c.name }} <button (click)="deleteCity(c)">delete</button>
+	</mat-list-item>
+</mat-list>    
+````
+
+*component.ts*
+````typescript
+cityName = '';
+cities$: Observable<{ name: string }[]>;
+citiesRefresh$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+
+ngOnInit() {
+	this.cities$ = this.citiesRefresh$.pipe(switchMap(_ => this.data.fetchCities()))
+}
+
+addCity() {
+    this.data.addCity(this.cityName);
+    this.cityName = '';
+    this.citiesRefresh$.next(true);
+}
+deleteCity(city) {
+    this.data.deleteCity(city);
+    this.citiesRefresh$.next(true);
+}
+````
+
+*service.ts*
+````typescript
+cities = [{ name: 'Atlanta' }, { name: 'Portland' }, { name: 'San Fransisco' }];
+
+fetchCities(): Observable<any[]> {
+	return of(this.cities);
+}
+
+addCity(cityName: string) {
+	this.cities = [...this.cities, { name: cityName }];
+}
+
+deleteCity(city) {
+	this.cities = this.cities.filter(c => c.name !== city.name);
+}
+````
+
+### Chargement et ajout de données avec BehaviorSubject
 
 *component.html*
 ````html
@@ -579,4 +629,56 @@ public users$: BehaviorSubject<any[]> = new BehaviorSubject([]);
     items.push(item);
     this.users$.next(items);	// mettre à jour les valeurs
   }
+````
+
+### Gestion classique d'un observable
+
+*component.ts*
+````typescript
+users: User[] = [];
+
+constructor(userService: UserService) {}
+
+fetchData() {
+	this.userService.fetchUsers()
+	.subscribe(res => {
+		this.users = res;
+	});
+}
+
+addUser(newuser: User): void {
+	this.userService.addUser(newuser)
+	.subscribe(user => {
+		this.users.push(user);
+	});
+}
+
+deleteUser(user: User): void {
+	this.userService.deleteUser(user).subscribe();
+	this.users = this.users.filter(u => u !== users);
+}
+````
+
+*service.ts*
+````typescript
+fetchUsers(): Observable<User[]> {
+	return this.http.get('url');
+}
+
+addUser(user: User): Observable<User> {
+	return this.http.post<User>('url', user, this.httpOptions)
+	.pipe(
+		tap((newUser: User) => this.log(`added ${user.id}`)),
+		catchError(this.handleError('addUser')
+	);
+}
+
+deleteuser(user: User): Observable<User> {
+  const url = `${this.url}/${user.id}`;
+
+  return this.http.delete<User>(url, this.httpOptions).pipe(
+    tap(_ => this.log(`deleted user id=${user.id}`)),
+    catchError(this.handleError<User>('deleteUser'))
+  );
+}
 ````
