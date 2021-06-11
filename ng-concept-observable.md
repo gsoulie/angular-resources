@@ -495,7 +495,7 @@ export class SomeComponent implements OnDestroy {
 
 (https://malcoded.com/posts/angular-async-pipe/)
 
-Le pipe *async* permet de souscrire à des observables à l'intérieur de la vue. Il prend aussi soin de se désabonner des observables automatiquement.
+Le pipe *async* permet de souscrire à des observables à l'intérieur de la vue. Il prend aussi soin de se désabonner des observables automatiquement, il n'est donc plus nécessaire de faire un unsubscribe manuellement.
 
 *service.ts*
 ````javascript
