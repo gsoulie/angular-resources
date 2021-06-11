@@ -3,6 +3,7 @@
 # Observables
 
 * [Liens](#liens)         
+* [Subject et BehaviorSubject](#subject-et-behaviorsubject)     
 * [Opérateurs](#opérateurs)    
 * [Cold et Hot](#cold-et-hot)      
 * [Observables imbriqués](#observables-imbriqués)     
@@ -10,7 +11,6 @@
 * [Exemples](#exemples)     
 * [Chaîner les observables](#chaîner-les-observables)     
 * [Unsubscribe to all](#unsubscribe-to-all)      
-* [Subject et BehaviorSubject](#subject-et-behaviorsubject)     
 * [async pipe](#async-pipe)    
 * [Exemples code](#exemples-code)      
 
@@ -32,6 +32,131 @@ l'observable a 3 type de notifications :
 - next chaque arrivée d'une data
 - error va casser l'observable, plus rien ne se passe
 - complete est la terminaison, plus rien ne se passe
+
+## Subject et BehaviorSubject
+[Back to top](#observables)
+
+[ngConf](https://www.youtube.com/watch?v=_q-HL9YX_pk&ab_channel=ng-conf)     
+
+- **Subject** => le subject permet de multicaster un observable. Chaque nouveau souscripteur, recevra les données en cours d'émission s'il y en a. Si un souscripteur arrive après l'émission des données, il n'aura aucune valeur.
+
+- **BehaviorSubject** => se souvient de la dernière data émise. Permet aux nouveaux souscripteurs d'avoir au moins une data si on subscribe après que l'observable est émis sa dernière donnée.
+
+- **ReplaySubject** => Rejouer les anciennes data aux nouveaux subscribers
+
+- **AsyncSubject** => ne retourne que la valeur la plus faîche aux subscribers (l'envoi se fait lors du completed). C'est à dire
+que le subject peut recevoir x data, mais les subscribers ne recevront que la dernière. Utile si uniquement la données la plus récente nous intéresse
+
+### Exemples concrets
+
+#### Observable classique 
+
+````typescript
+ngOnInit() {
+    const source = interval(1000);
+
+    const subscribe = source.subscribe(val => console.log(`first ${val}`));
+
+    setTimeout(() => {
+      const subscribe2 = source.subscribe(val => console.log(`second ${val}`));
+      subscribe.unsubscribe();
+      setTimeout(() => {
+        subscribe2.unsubscribe();
+      }, 7000);
+    }, 4000);
+}
+
+// trace console 
+first 0
+first 1
+first 2
+first 3
+second 0
+second 1
+second 2
+second 3
+second 4
+second 5
+second 6
+````
+
+> On remarque que chaque nouveau souscripteur rejoue toute la séquence depuis le début
+
+#### Subject
+
+````typescript
+subj1$ = new Subject();
+
+ngOnInit() {
+    const source = interval(1000);
+    const subscribe = source.subscribe(val => this.subj1$.next(val));
+    this.subj1$.subscribe(val => console.log(`first ${val}`));
+
+    setTimeout(() => {
+      this.subj1$.subscribe(val => console.log(`second ${val}`));
+      setTimeout(() => {
+        this.subj1$.unsubscribe();
+      }, 8000);
+    }, 4000);
+}
+
+// trace console 
+first 0
+first 1
+first 2
+first 3
+first 4
+second 4	// <--
+first 5
+second 5
+first 6
+second 6
+first 7
+second 7
+first 8
+second 8
+````
+
+> On remarque ici que le second souscripteur reçoit les données en cours d'émission mais,
+n'a pas connaissance de ce qui a été émis AVANT sa souscription
+
+### BehaviorSubject
+
+````typescript
+subj1$ = new BehaviorSubject(0);	// doit être initialisé avec une valeur
+
+ngOnInit() {
+    const source = interval(1000);
+    const subscribe = source.subscribe(val => this.subj1$.next(val));
+    this.subj1$.subscribe(val => console.log(`first ${val}`));
+
+    setTimeout(() => {
+      this.subj1$.subscribe(val => console.log(`second ${val}`));
+      setTimeout(() => {
+        this.subj1$.unsubscribe();
+      }, 8000);
+    }, 4000);
+}
+
+// trace console
+first 0 // <-- 1er souscripteur reçoit la valeur initiale
+first 0
+first 1
+first 2
+first 3
+second 3 // <-- second souscripteur reçoit la dernière valeur mémorisée
+first 4
+second 4
+first 5
+second 5
+first 6
+second 6
+first 7
+second 7
+````
+
+> Au moment de sa souscription, le nouveau souscripteur reçoit la dernière valeur mémorisée, 
+puis la suite des valeurs en cours d'émission.
 
 ## Opérateurs
 
@@ -264,7 +389,7 @@ La problématique : Attendre la fin de la promise avant d'envoyer la requête ht
 
 La solution : Convertir la promise en observable et la chainer avec l'observable http en utilisant l'opérateur **switchMap** RxJS
 
-````javascript
+````typescript
 // Manage HTTP Queries
   requestApi({action, method = 'GET', datas = {}}:
   { action: string, method?: string, datas?: any}): Observable<any> {
@@ -272,8 +397,9 @@ La solution : Convertir la promise en observable et la chainer avec l'observable
     const urlToUse = this.url + action;
     let req: Observable<any>;// = null;
 
+    // switchMap
     return from(this.auth.getValidToken()).pipe(switchMap((res: TokenResponse) => {
-      console.debug(res.accessToken);
+      
       const httpOptions = {
         headers: new HttpHeaders({'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json',
         Authorization: 'Bearer ' + res.accessToken})
@@ -363,131 +489,6 @@ export class SomeComponent implements OnDestroy {
   }
 }
 ````
-
-## Subject et BehaviorSubject
-[Back to top](#observables)
-
-[ngConf](https://www.youtube.com/watch?v=_q-HL9YX_pk&ab_channel=ng-conf)     
-
-- **Subject** => le subject permet de multicaster un observable. Chaque nouveau souscripteur, recevra les données en cours d'émission s'il y en a. Si un souscripteur arrive après l'émission des données, il n'aura aucune valeur.
-
-- **BehaviorSubject** => se souvient de la dernière data émise. Permet aux nouveaux souscripteurs d'avoir au moins une data si on subscribe après que l'observable est émis sa dernière donnée.
-
-- **ReplaySubject** => Rejouer les anciennes data aux nouveaux subscribers
-
-- **AsyncSubject** => ne retourne que la valeur la plus faîche aux subscribers (l'envoi se fait lors du completed). C'est à dire
-que le subject peut recevoir x data, mais les subscribers ne recevront que la dernière. Utile si uniquement la données la plus récente nous intéresse
-
-### Exemples concrets
-
-#### Observable classique 
-
-````typescript
-ngOnInit() {
-    const source = interval(1000);
-
-    const subscribe = source.subscribe(val => console.log(`first ${val}`));
-
-    setTimeout(() => {
-      const subscribe2 = source.subscribe(val => console.log(`second ${val}`));
-      subscribe.unsubscribe();
-      setTimeout(() => {
-        subscribe2.unsubscribe();
-      }, 7000);
-    }, 4000);
-}
-
-// trace console 
-first 0
-first 1
-first 2
-first 3
-second 0
-second 1
-second 2
-second 3
-second 4
-second 5
-second 6
-````
-
-> On remarque que chaque nouveau souscripteur rejoue toute la séquence depuis le début
-
-#### Subject
-
-````typescript
-subj1$ = new Subject();
-
-ngOnInit() {
-    const source = interval(1000);
-    const subscribe = source.subscribe(val => this.subj1$.next(val));
-    this.subj1$.subscribe(val => console.log(`first ${val}`));
-
-    setTimeout(() => {
-      this.subj1$.subscribe(val => console.log(`second ${val}`));
-      setTimeout(() => {
-        this.subj1$.unsubscribe();
-      }, 8000);
-    }, 4000);
-}
-
-// trace console 
-first 0
-first 1
-first 2
-first 3
-first 4
-second 4	// <--
-first 5
-second 5
-first 6
-second 6
-first 7
-second 7
-first 8
-second 8
-````
-
-> On remarque ici que le second souscripteur reçoit les données en cours d'émission mais,
-n'a pas connaissance de ce qui a été émis AVANT sa souscription
-
-### BehaviorSubject
-
-````typescript
-subj1$ = new BehaviorSubject(0);	// doit être initialisé avec une valeur
-
-ngOnInit() {
-    const source = interval(1000);
-    const subscribe = source.subscribe(val => this.subj1$.next(val));
-    this.subj1$.subscribe(val => console.log(`first ${val}`));
-
-    setTimeout(() => {
-      this.subj1$.subscribe(val => console.log(`second ${val}`));
-      setTimeout(() => {
-        this.subj1$.unsubscribe();
-      }, 8000);
-    }, 4000);
-}
-
-// trace console
-first 0 // <-- 1er souscripteur reçoit la valeur initiale
-first 0
-first 1
-first 2
-first 3
-second 3 // <-- second souscripteur reçoit la dernière valeur mémorisée
-first 4
-second 4
-first 5
-second 5
-first 6
-second 6
-first 7
-second 7
-````
-
-> Au moment de sa souscription, le nouveau souscripteur reçoit la dernière valeur mémorisée, 
-puis la suite des valeurs en cours d'émission.
 
 ## async pipe
 [Back to top](#observables)
