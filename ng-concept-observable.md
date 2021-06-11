@@ -3,7 +3,7 @@
 # Observables
 
 * [Liens](#liens)         
-* [Opérateurs](#operateurs)    
+* [Opérateurs](#opérateurs)    
 * [Cold et Hot](#cold-et-hot)      
 * [Observables imbriqués](#observables-imbriqués)     
 * [Bonnes pratiques](#bonnes-pratiques)      
