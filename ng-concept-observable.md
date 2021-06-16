@@ -584,6 +584,104 @@ deleteCity(city) {
 }
 ````
 
+
+### BehaviourSubject partagé entre plusieurs composants
+
+*service.ts*
+
+````typescript
+export class DataService {
+
+	public users$: BehaviorSubject<any[]> = new BehaviorSubject([]);
+	
+	constructor(private http: HttpClient) { }
+	
+	fetchUsers(): Observable<any> {
+		return this.http.get(this.url + 'users')
+		.pipe(tap(data => {			
+			this.users = data as any[];
+			this.users$.next(this.users);
+		}))
+	}
+	
+	addItem(item) {
+		// TODO appel http pour ajout en base et dans le .pipe mettre le code ci-dessous
+		let items = this.users$.getValue(); // récupère les dernières valeurs connues
+		items.push(item);
+		this.users$.next(items);	// mettre à jour les valeurs
+	}
+	
+	deleteItem(item) {
+		// TODO appel http pour ajout en base et dans le .pipe mettre le code ci-dessous
+		let items = this.users$.getValue(); // récupère les dernières valeurs connues
+		items = items.filter(i => i !== item);
+		this.users$.next(items);	// mettre à jour les valeurs
+	}
+}
+````
+
+*composant1.html*
+````html
+<button mat-raised-button (click)="addUser()">update data</button>
+<mat-list>
+	<mat-list-item *ngFor="let u of users2$ | async">
+    	{{ u.id }} {{ u.username }}
+	<button mat-raised-button (click)="deleteUser(u)">delete</button>
+	</mat-list-item>
+</mat-list>     
+````
+
+*composant1.ts*
+
+````typescript
+users2$: Observable<any[]>;
+
+constructor(private data: DataService) { }
+
+ngOnInit(): void {
+    this.data.fetchUsers()	// appelé uniquement par le premier composant qui va devoir accéder aux data
+      .subscribe(() => {
+        this.users2$ = this.data.users$;
+    
+	})
+}
+
+addUser(): void {
+    this.data.addItem({ 
+	id: 999, name: 'unknown', 
+	username: 'new user', 
+	phone: '999999999', 
+	email: 'new.user@gmail.com' });
+}
+
+deleteUser(user) {
+    this.data.deleteItem(user);
+}
+````
+
+*composant2.html*
+````html
+<mat-list>
+    <mat-list-item *ngFor="let u of users$ | async">
+        {{ u.id }} {{ u.username }}
+    </mat-list-item>
+</mat-list>  
+````
+
+*composant2.ts*
+
+````typescript
+export class ListComponent implements OnInit {
+  users$: BehaviorSubject<any[]> = new BehaviorSubject([]);
+
+  constructor(private data: DataService) { }
+
+  ngOnInit(): void {
+    this.users$ = this.data.users$;
+  }
+}
+````
+
 ### Chargement et ajout de données avec BehaviorSubject
 
 *component.html*
