@@ -2,6 +2,11 @@
 
 # Adapter pattern
 
+* [Adapter pattern](#adapter-pattern)     
+* [loadFromJson](#loadfromjson)     
+
+
+## Adapter pattern 
 Le Model Adapter Pattern permet de simplifier le code des retours d'observable et aussi de respecter la pratique du DRY (Don't repeat yourself)
 
 https://florimond.dev/blog/articles/2018/09/consuming-apis-in-angular-the-model-adapter-pattern/
@@ -103,6 +108,66 @@ export class CourseAdapter implements Adapter<Course> {
       new Date(item.created),
     );
   }
+}
+````
+## LoadFromJson
+[Back to top](#adapter-pattern)
+
+Une autre méthode 
+
+*class.model.ts*
+````typescript
+export class OrderSummary extends ApiMessage {
+
+  constructor(
+    public uid?: number,
+    public orderCode?: string,
+    public orderName?: string,
+    public status?: number,
+    ) {
+      super();
+  }
+
+  public loadFromJson(json: Object): this {
+    this.uid = json['Uid'];
+    this.orderCode = json['OrderCode'];
+    this.orderName = json['OrderName'];
+    this.status = json['StatusUid'];
+    return this;
+  }
+}
+````
+
+*api-message.model.d.ts*
+````typescript
+export declare abstract class ApiMessage {
+    fromHub: boolean;
+    abstract loadFromJson(json: object): this;
+    constructor();
+}
+export declare function createApiMessageInstance<T extends ApiMessage>(c: new () => T): T;
+````
+
+*service.ts*
+
+````typescript
+// récupérer un tableau d'objet
+fetchData(): Observable<T[]> {
+  return this.http.getFromBacterioBusinessApi(url)
+    .pipe(
+      map((jsonArray: Object[]) =>
+        jsonArray.map((jsonItem) =>
+          createApiMessageInstance(OrderSummary).loadFromJson(jsonItem)
+        )
+      )
+    );
+}
+
+
+fetchDetail(): Observable<T> {
+  return this.http
+      .getFromPlanningApi(url)
+      .pipe(map((jsonItem) => createApiMessageInstance(Ressource).loadFromJson(jsonItem)));
 }
 ````
 
