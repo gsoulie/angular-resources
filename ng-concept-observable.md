@@ -586,6 +586,7 @@ deleteCity(city) {
 
 
 ### BehaviourSubject partagé entre plusieurs composants
+[Back to top](#observables)
 
 *service.ts*
 
@@ -683,6 +684,7 @@ export class ListComponent implements OnInit {
 ````
 
 ### Chargement et ajout de données avec BehaviorSubject
+[Back to top](#observables)
 
 *component.html*
 ````html
@@ -732,6 +734,7 @@ public users$: BehaviorSubject<any[]> = new BehaviorSubject([]);
 ````
 
 ### Gestion classique d'un observable
+[Back to top](#observables)
 
 *component.ts*
 ````typescript
@@ -782,3 +785,108 @@ deleteuser(user: User): Observable<User> {
   );
 }
 ````
+
+### Mise à jour des données d'un composant 1 suite à un événement déclenché par un composant 2
+[Back to top](#observables)
+
+Cas d'usage : 
+un composant parent contient 2 composants enfants :
+- le composant child1 permet de modifier une variable
+- le composant child2 doit réagir au changement de cette variable et rafraîchir ses données
+
+Pour parevenir à faire cela, un service déclare un Subject qui va servir de trigger à la mise à jour de la variable et une fonction permettant de mettre à jour la valeur de ce dernier
+
+Le composant child1 va donc simplement appeler la fonction qui met à jour le Subject en lui passant la nouvelle valeur
+Le composant child2 va souscrire à la fonction qui permet de charger les données (via appel http par exemple) et souscrire au Subject afin de pouvoir déclencher un rafraichissement de ses données lorsque le composant child1 déclenchera un .next() du subject
+
+*service.ts*
+
+````typescript
+export class EventService {
+
+  $subj: Subject<string> = new Subject();	// permet d'écoûter le trigger de mise à jour de la variable déclencheur
+
+  constructor() { }
+  
+  fetchData(suffix = ''): Observable<string[]> {
+    let temp = [];
+    for (let i = 0; i < 5; i++) {
+      temp.push('my data ' + suffix);
+    }
+    return of(temp);
+  }
+
+  // trigger de mise à jour de la variable
+  updateSubject(suffix): void {
+    this.$subj.next(suffix);
+  }
+}
+````
+
+*parent.html*
+````html
+<app-event-child1></app-event-child1>
+<app-event-child2></app-event-child2>
+````
+
+*child1.html* déclenche un événement
+````html
+<div class="child1">
+    <h4>Composant child1</h4>
+    <input [(ngModel)]="suffix">
+    <button mat-raised-button (click)="child1Event()">Event</button>
+</div>
+````
+
+*child1.ts*
+````typescript
+export class EventChild1Component {
+  suffix = '';
+  constructor(private eventService: EventService) { }
+
+  child1Event(): void {
+    this.eventService.updateSubject(this.suffix);	// va déclencher un .next() du subject
+  }
+}
+````
+
+*child2.html*
+````html
+<div class="child2">
+    <h4>Composant child 2</h4>
+    <mat-card *ngFor="let c of data">
+        <mat-card-content><h4>{{ c }}</h4></mat-card-content>
+    </mat-card>
+</div>
+````
+
+*child2.ts*
+````typescript
+export class EventChild2Component implements OnInit, OnDestroy {
+
+  data = [];
+  subscriber$: Subscription;	// pour le réaffecter à chaque refresh des data et éviter la création d'un nouveau subscriber à chaque update
+
+  constructor(private eventService: EventService) { }
+
+  ngOnInit(): void {
+    this.fillDataset();
+    
+    // souscription au Subject pour écoûter si un événement est déclenché par child1
+    this.eventService.$subj
+      .subscribe(res => {
+      	// événement détecté, on met à jour les données de child2
+        this.fillDataset(res);
+      });
+  }
+
+  fillDataset(suffix = '') {
+    this.subscriber$ = this.eventService.fetchData(suffix)
+      .subscribe(res => {
+        this.data = res;
+      })
+  }
+  ngOnDestroy(): void { this.subscriber$.unsubscribe(); }
+}
+````
+[Back to top](#observables)
