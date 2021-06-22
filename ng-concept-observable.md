@@ -4,10 +4,10 @@
 
 * [Liens](#liens)         
 * [Subject et BehaviorSubject](#subject-et-behaviorsubject)     
+* [Bonnes pratiques](#bonnes-pratiques)      
 * [Cold et Hot](#cold-et-hot)      
 * [Observables imbriqués](#observables-imbriqués)     
-* [Bonnes pratiques](#bonnes-pratiques)      
-* [Exemples](#exemples)     
+* [Exemples cold et hot](#exemples-cold-et-hot)     
 * [Chaîner les observables](#chaîner-les-observables)     
 * [Unsubscribe to all](#unsubscribe-to-all)      
 * [async pipe](#async-pipe)    
@@ -158,6 +158,47 @@ second 7
 > Au moment de sa souscription, le nouveau souscripteur reçoit la dernière valeur mémorisée, 
 puis la suite des valeurs en cours d'émission.
 
+## Bonnes pratiques
+[Back to top](#observables)
+
+Pour pouvoir récupérer les données d'un observable, il faut s'y abonner via subscribe.
+
+La souscription peut prendre 3 paramètres (next, error et complete) soit :
+````subscribe(value, error, ())````
+ou un objet de type observer
+````subscribe({value, error, ()})````
+
+> Important : Toujours penser à annuler les souscription !!
+
+### Services asynchrones 
+
+Quand on fait un service qui retourne un observable, **on ne souscrit JAMAIS à l'observable dans le service** pour renvoyer les données directement,
+car on ne sait pas quand les données arriveront
+
+### Erreurs
+
+Remonter les erreurs là où on peut les traiter.
+
+interception : catchError
+rééssayer : retry ou retryWhen
+
+ex : 
+
+````javascript
+find(id: string): Observable<Resource> {
+	const url = `http://.../.../${id}`;
+	return this.httpClient.get<Resource>(url)
+	.pipe(
+		catchError(error => {
+			if (error && error.status === 404) {
+				return of(null);
+			}
+			throw error;
+		});
+		);
+}
+````
+
 ## Cold et Hot 
 [Back to top](#observables)
 
@@ -215,48 +256,7 @@ const hot$ = cold$.pipe(shareReplay(1));
 // remarque, ne rejoue PAS la requête
 ````
 
-## Bonnes pratiques
-[Back to top](#observables)
-
-Pour pouvoir récupérer les données d'un observable, il faut s'y abonner via subscribe.
-
-La souscription peut prendre 3 paramètres (next, error et complete) soit :
-````subscribe(value, error, ())````
-ou un objet de type observer
-````subscribe({value, error, ()})````
-
-> Important : Toujours penser à annuler les souscription !!
-
-### Services asynchrones 
-
-Quand on fait un service qui retourne un observable, **on ne souscrit JAMAIS à l'observable dans le service** pour renvoyer les données directement,
-car on ne sait pas quand les données arriveront
-
-### Erreurs
-
-Remonter les erreurs là où on peut les traiter.
-
-interception : catchError
-rééssayer : retry ou retryWhen
-
-ex : 
-
-````javascript
-find(id: string): Observable<Resource> {
-	const url = `http://.../.../${id}`;
-	return this.httpClient.get<Resource>(url)
-	.pipe(
-		catchError(error => {
-			if (error && error.status === 404) {
-				return of(null);
-			}
-			throw error;
-		});
-		);
-}
-````
-
-## Exemples
+## Exemples cold et hot
 [Back to top](#observables)
 
 ### cold to hot observable
@@ -482,6 +482,34 @@ export class AddOrderComponent implements OnInit {
 
 ## Exemples code
 [Back to top](#observables)
+
+### Mémoriser les données d'un observable
+
+*service.ts*
+````typescript
+allTasks$: Observable<Tache[]>;
+tasks: Tache[] = []
+
+fetchTasks(): Observable<Tache[]> {
+	this.allTasks$ = this.http.getFromPlanningApi(`${this.endpoint}`)
+	.pipe(
+		map((jsonArray: Object[]) =>
+		  jsonArray.map((jsonItem) =>
+			createApiMessageInstance(Tache).loadFromJson(jsonItem)
+		  )
+		),
+		shareReplay({
+		  bufferSize: 1,
+		  refCount: true,
+		})
+	);
+	
+	this.allTasks$.subscribe((data) => {
+        	this.tasks = data;
+	});
+	return this.allTasks$;
+}
+````
 
 ### Rafrtaichir un observable
 *component.html*
