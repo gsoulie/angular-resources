@@ -48,7 +48,9 @@ obs.subscribe(res => console.log(res));
 
 #### Combinaison
 
-*forkJoin* important, si au moins 1 observable est en erreur, alors le forkjoin retournera une erreur et aucun résultat pour les observables qui ont succeeded
+*forkJoin* 
+
+> Important : si au moins 1 observable est en erreur, alors le forkjoin retournera une erreur et aucun résultat pour les observables qui ont succeeded
 
 ````typescript
 forkJoinExample() {
@@ -69,8 +71,10 @@ zipExample() {
 ````
 
 *combineLatest*
+
+Utile si utilisation de collections qui changent régulièrement, utilisation de firebase etc...
+
 ````typescript
-// utile si utilisation de collection qui changent régulièrement, utilisation de firebase etc...
 combineLatestExample() {
 	const obs1 = this.http.get('https://swapi.dev/api/people/1');
 	const obs2 = this.http.get('https://swapi.dev/api/people/2');
@@ -101,12 +105,13 @@ mapExample() {
 		return result.films;
 	}))
 }
-
 ````
 
 *switchMap*
+
+Permet de retourner un nouvel observable
+
 ````typescript
-// permet de retourner un nouvel observable
 switchMapExample() {
 	return this.http.get('https://swapi.dev/api/people/1')
 	.pipe(switchMap((res: any) => {
@@ -114,8 +119,6 @@ switchMapExample() {
 		return this.http.get(firstFilm);
 	}))
 }
-
-
 ````
 #### Filtrage
 [Back to top](#rxjs)     
@@ -131,8 +134,10 @@ filterExample() {
 ````
 
 *take*
+
+Emet uniquement la première valeur émise par la source puis fait un *complete()*
+
 ````typescript
-// Emits only the first count values emitted by the source then complete.
 takeExample() {
 	return this.http.get('https://swapi.dev/api/people/1')
 	.pipe(take(1))
@@ -141,10 +146,12 @@ takeExample() {
 ````
 
 *takeUntil*
+
+Maintient l'observable en vie jusqu'à ce que le Subject rattaché soit au statut complete
+
 ````typescript
 private destroy = new Subject();
 
-// Maintient l'observable en vie jusqu'à ce que le Subject rattaché soit au statut complete
 takeUntil() {
 	return this.http.get('https://swapi.dev/api/people/1')
 	.pipe(takeUntik(this.destroy))
@@ -157,8 +164,10 @@ ngOnDestroy() {
 ````
 
 *debounceTime*
+
+Ajouter un délai dans le traitement de la source, très utilisé dans le cas d'une searchbar par exemple
+
 ````typescript
-// Ajouter un délai, très utilisé dans une searchbar
 debouceTimeExample() {
 	return this.myForm.valueChanges.pipe(
 		debounceTime(400) // Ex : Obtenir la valeur d'un champ de saisie après 0.4s
@@ -167,8 +176,10 @@ debouceTimeExample() {
 ````
 
 *distinctUntilChanged*
+
+Emet uniquement si la valeur a changée. Très utilisé dans le cas d'une searchbar par exemple, évite de refaire un appel si l'utilisateur a saisi la même valeur que la précédente
+
 ````typescript
-// Emet uniquement si la valeur a changée
 distinctUntilChangedExample() {
 return this.myForm.valueChanges.pipe(
 		debounceTime(400),
