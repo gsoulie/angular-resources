@@ -4,7 +4,6 @@
 
 * [Liens](#liens)         
 * [Subject et BehaviorSubject](#subject-et-behaviorsubject)     
-* [Opérateurs](#opérateurs)    
 * [Cold et Hot](#cold-et-hot)      
 * [Observables imbriqués](#observables-imbriqués)     
 * [Bonnes pratiques](#bonnes-pratiques)      
@@ -159,48 +158,6 @@ second 7
 > Au moment de sa souscription, le nouveau souscripteur reçoit la dernière valeur mémorisée, 
 puis la suite des valeurs en cours d'émission.
 
-## Opérateurs
-
-**pipe** : opérateur principal qui va permettre le branchement de plusieurs autres opérateurs à la suite les uns des autres et ainsi travailler sur le flux de données
- 
-ex :
-````javascript
-import {filter, map} from 'rxjs/operators;
-
-getAlertMsg(): Observable<string> {
-	const notif: Observable<Notification> = this.getNotifications();
-
-   return notif.pipe(
-	filter(notif => notif.type === 'ALERT'),
-	map(notif => notif.code + ' : ' + notif.message)
-   );
-}
-
- fetchUsersAndEmail() {
-    return this.http.get(this.url).pipe(
-      // Adapt each item in the raw data array
-      map((data: User[]) => data.map(item => item.name + ' - ' + item.email))
-    );
-  }
-````
-
-**filter**     
-**every**      
-**map**       
-**reduce**      
-
-> Important : les opérateurs appliqués **ne modifient jamais l'observable d'origine**, ils produisent une copie et renvoient un nouvel observable.
-
-
-Pour pouvoir récupérer les données d'un observable, il faut s'y abonner via subscribe.
-
-La souscription peut prendre 3 paramètres (next, error et complete) soit :
-subscribe(value, error, ())
-ou un objet de type observer
-subscribe({value, error, ()})
-
-> Important : Toujours penser à annuler les souscription !!
-
 ## Cold et Hot 
 [Back to top](#observables)
 
@@ -237,7 +194,7 @@ subject.next(2);
 **toPromise()** : créer une promise à partir d'un observable
 **fromEvent()** : créer un observable à partir d'un event (ex click bouton)
 
-## Cold vers Hot
+### Cold vers Hot
 [Back to top](#observables)
 
 Exemple : du cas d'une requête http
@@ -258,25 +215,17 @@ const hot$ = cold$.pipe(shareReplay(1));
 // remarque, ne rejoue PAS la requête
 ````
 
-## Observable imbriqués 
-[Back to top](#observables)
-
-### Aplatir 
-
-|action|opération|opérateur unique|
-|-|-|-|
-|exécution parallèle|map(), mergeAll()|mergeMap()|
-|exécuter à la suite|map(), concatAll()|concatMap()|
-|annuler la précédente|map(), switch()|switchMap()|
-|annuler la nouvelle|map(), exhaust()|exhaustMap()|
-
-**switchMap** utilisé dans le cas d'une complétion automatique. On veut les résultat de la dernière requête (ce que l'utilisateur a tappé en dernier)
-=> A chaque nouvelle frappe on annule la requête précédente
-
-**exhaustMap** : tant que le traitement en cours n'est pas terminé on ne tient pas compte des traitements suivants
-
 ## Bonnes pratiques
 [Back to top](#observables)
+
+Pour pouvoir récupérer les données d'un observable, il faut s'y abonner via subscribe.
+
+La souscription peut prendre 3 paramètres (next, error et complete) soit :
+````subscribe(value, error, ())````
+ou un objet de type observer
+````subscribe({value, error, ()})````
+
+> Important : Toujours penser à annuler les souscription !!
 
 ### Services asynchrones 
 
