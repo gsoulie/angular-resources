@@ -25,8 +25,8 @@ https://rxmarbles.com/#map
 |merge|fusionne plusieurs observables en un observable unique. Attention émet pour chaque résultat (si 3 observable, émet 3 fois)|
 |tap|étape permettant l'affectation d'une variable ou de faire du debug (console.log) sans modifier le contenu de la source|
 |filter|permet de filtrer les résultats de la source|
-|every||
-|reduce||
+|every|retourne vrai si toutes les valeurs de la source valident la condition, retourne faux sinon|
+|reduce|applique un accumulateur sur la source et retourne le résultat accumulé lorsque la source complete|
 |take(x)|émet uniquement la première valeur émise par la source et fait un complete()|
 |takeUntil|maintient un observable en vie jusqu'à ce que le Subject rattaché soit complete()|
 |debounceTime|permet d'ajouter un délai au traitement (ex : searchbar)|
@@ -161,6 +161,16 @@ switchMapExample() {
 	}))
 }
 ````
+
+*reduce*
+````typescript
+reduceExample() {
+	const source = of(1, 2, 3, 4);
+	return source.pipe(reduce((acc, val) => acc + val));
+	//output: Sum: 10'
+}
+````
+
 #### Filtrage
 [Back to top](#rxjs)     
 
@@ -171,6 +181,18 @@ filterExample() {
 	return obs.pipe(
 		filter(result => result > 2)
 	)
+}
+````
+
+*every*
+
+````typescript
+everyExample() {
+	const source = of(1, 2, 3, 4, 5);
+	return source.pipe(
+	  //is every value even?
+	  every(val => val % 2 === 0)
+	);
 }
 ````
 
