@@ -6,7 +6,7 @@ https://blog.angular-university.io/angular-ng-template-ng-container-ngtemplateou
 
 *ng-template* défini un template qui n'affiche rien tant qu'il n'est pas utilisé
 
-````
+````html
 <div class="lessons-list" *ngIf="lessons else loading">
   ... 
 </div>
@@ -24,7 +24,7 @@ Il est donc possible d'utiliser un *ng-container*
 
 Le ng-container permet en outre l'injection dynamique d'un template dans une page, un placeholder en quelques sortes
 
-````
+````html
 <ng-container *ngTemplateOutlet="loading"></ng-container>
 
 <ng-template #loading>
@@ -35,7 +35,7 @@ Le ng-container permet en outre l'injection dynamique d'un template dans une pag
 Il est possible de passer un template à un composant enfant :
 
 *parent*
-````
+````html
     <ng-template #testTemplate let-clientVar="client">
         <div class="customTemplate">
             <h1>Hello {{ clientVar }} !</h1>
@@ -47,7 +47,7 @@ Il est possible de passer un template à un composant enfant :
 ````
 
 *enfant app-generic-collapsible-list*
-````
+````html
 <ng-template #defaultTabButtons>
     <div class="default-tab-buttons">
         ...
@@ -59,7 +59,7 @@ Il est possible de passer un template à un composant enfant :
 ````
 
 *enfant controller*
-````
+````typescript
 @Input() itemTemplate: TemplateRef<any>;
 ````
 
@@ -69,7 +69,7 @@ Il est possible de passer un template à un composant enfant :
 
 Les ng-template peuvent prendre des paramètres. Ici le paramètre *when* contient une valeur comme "morning", "afternoon" ou "evening" :
 
-````
+````html
 <ng-template #hello let-when="whenValue">
   Good {{ when }} !
 </ng-template>
@@ -77,13 +77,13 @@ Les ng-template peuvent prendre des paramètres. Ici le paramètre *when* contie
 *let-xxx* permet de définir des variables utilisables dans le ng-template (ici when) à partir de la propriété (ici whenValue) d'un objet passé en "context" du *ngTemplateOutlet*. Ces variables ne sont pas accessible depuis l'extérieur directement. Pour accéder à ces variables depuis le ng-container, il faut créer un contexte (objet json par exemple) qui a un attribut
 ayant le nom de la variable à toucher :
 
-````
+````html
 <ng-container *ngTemplateOutlet="itemTemplate;context:{whenValue: 'morning'}">
 </ng-container>
 ````
 
 #### Exemple 2
-````
+````html
 <ng-template #testTemplate let-clientVar="client">
     <div class="customTemplate">
         <h1>Hello {{ clientVar }} !</h1>
@@ -95,7 +95,7 @@ ayant le nom de la variable à toucher :
 ````
 
 *controller*
-````
+````typescript
 client = "gsoulie";
 ctx = {client: this.client};
 ````
@@ -104,7 +104,7 @@ ctx = {client: this.client};
 
 *View*
 
-````
+````html
 <div *ngFor="let num of [1,2,3,4,5,6,7]">
     <ng-container *ngTemplateOutlet="itemTemplate;context:{client:num}">
     </ng-container>
@@ -112,7 +112,7 @@ ctx = {client: this.client};
 ````
 
 *Controller*
-````
+````typescript
 @Input() itemTemplate: TemplateRef<{client:any}>;
 ````
 
@@ -122,6 +122,4 @@ ATTENTION : ne fonctionne pas avec un jeu de données qui vient d'un observable
 
 https://makina-corpus.com/blog/metier/2019/des-boucles-generiques-de-composants-avec-angular
       
-
-
 [Back to top](#ng-template)
