@@ -7,20 +7,8 @@ https://github.com/gsoulie/angular-resources/blob/master/angular-summary.md#ng-c
 La balise ````<ng-content>```` permet de définir un modèle de vue fixe et de définir un emplacement pour du contenu dynamique.
 Par exemple, imaginons un template dans lequel on aurait un header et du contenu :
 
-*layout.component.ts*
-````
-import { Component, Input, Output } from '@angular/core';
-@Component({
-  selector: 'app-layout',
-  templateUrl: 'card.component.html',
-})
-export class LayoutComponent {
-    @Input() header: string = 'this is header';   
-}
-````
-
 *layout.component.html*
-````
+````html
 <section class="layout">
     <h2 class="layout__header">
         {{ header }}
@@ -31,11 +19,23 @@ export class LayoutComponent {
     </div>
 </section>
 ````
+
+*layout.component.ts*
+````typescript
+import { Component, Input, Output } from '@angular/core';
+@Component({
+  selector: 'app-layout',
+  templateUrl: 'card.component.html',
+})
+export class LayoutComponent {
+    @Input() header: string = 'this is header';   
+}
+````
 	
 Maintenant, utilisons ce layout dans un autre composant :
 
 *articles.component.html*
-````
+````html
 <h1>Notre super App !</h1>
 <app-layout header="Le header de mon layout !">
     <!-- début du contenu dynamique : -->
@@ -51,7 +51,7 @@ Le slot de transclusion ````<article class="content__article">…</article>```` 
 Imaginons avoir besoin de plusieurs blocs de contenu dynamique… C’est possible ! ````<ng-content>```` accepte un attribut ````select````, qui nous permet de nommer un slot. Modifions notre layout pour accepter un 2nd slot.
 
 *layout.component.html*
-````
+````html
 <section class="layout">
     <!-- slot header -->
     <nav class="layout__nav">
@@ -64,11 +64,11 @@ Imaginons avoir besoin de plusieurs blocs de contenu dynamique… C’est possib
 </section>
 ````
 	
-Notez que l’on utilise ````select=[cardNav] && select=[cardContent]````. Les "[]" veulent dire "à remplacer uniquement si l'élément possède l'attribut *card-…*".
+A noter que l'on utilise ````select=[cardNav] && select=[cardContent]````. Les "[]" veulent dire "à remplacer uniquement si l'élément possède l'attribut *card-…*".
 Et notre composant :
 	
 *articles.component.html*
-````
+````html
 <h1>Notre super App !</h1>
 <app-layout>
     <!-- contenu dynamique : nav -->
