@@ -14,7 +14,7 @@ https://rxmarbles.com/#map
 
 |operator|description|
 |-|-|
-|pipe|permet le chaînage de plusieurs opérateurs|
+|pipe|opérateur principal qui permet le chaînage de plusieurs opérateurs|
 |from|converti une entrée en observable (conversion promise en observable)|
 |of|émet des valeurs dans une séquence|
 |map|permet de créer un nouvel Observable à partir de l'Observable d'origine en transformant simplement chacune de ses valeurs|
@@ -25,6 +25,8 @@ https://rxmarbles.com/#map
 |merge|fusionne plusieurs observables en un observable unique. Attention émet pour chaque résultat (si 3 observable, émet 3 fois)|
 |tap|étape permettant l'affectation d'une variable ou de faire du debug (console.log) sans modifier le contenu de la source|
 |filter|permet de filtrer les résultats de la source|
+|every||
+|reduce||
 |take(x)|émet uniquement la première valeur émise par la source et fait un complete()|
 |takeUntil|maintient un observable en vie jusqu'à ce que le Subject rattaché soit complete()|
 |debounceTime|permet d'ajouter un délai au traitement (ex : searchbar)|
@@ -34,10 +36,49 @@ https://rxmarbles.com/#map
 |retry(x)|permet de rééxécuter une requête x fois|
 |shareReplay(x)|permet de mettre en cache des données et éviter d'appeler plusieurs fois un même service si nous n'avons pas besoin d'avoir des données constamment rafraichies|
 
+
+> Important : les opérateurs appliqués **ne modifient jamais l'observable d'origine**, ils produisent une copie et renvoient un nouvel observable.
+
+### Aplatir 
+
+|action|opération|opérateur unique|
+|-|-|-|
+|exécution parallèle|map(), mergeAll()|mergeMap()|
+|exécuter à la suite|map(), concatAll()|concatMap()|
+|annuler la précédente|map(), switch()|switchMap()|
+|annuler la nouvelle|map(), exhaust()|exhaustMap()|
+
+**switchMap** utilisé dans le cas d'une complétion automatique. On veut les résultat de la dernière requête (ce que l'utilisateur a tappé en dernier)
+=> A chaque nouvelle frappe on annule la requête précédente
+
+**exhaustMap** : tant que le traitement en cours n'est pas terminé on ne tient pas compte des traitements suivants
+
 ### Illustration
 [Back to top](#rxjs)     
 
 [source Simon GRIMM](https://www.youtube.com/watch?v=NTs-apc4qz4&ab_channel=SimonGrimmSimonGrimm)     
+
+*pipe*
+
+````javascript
+import {filter, map} from 'rxjs/operators;
+
+getAlertMsg(): Observable<string> {
+	const notif: Observable<Notification> = this.getNotifications();
+
+   return notif.pipe(
+	filter(notif => notif.type === 'ALERT'),
+	map(notif => notif.code + ' : ' + notif.message)
+   );
+}
+
+ fetchUsersAndEmail() {
+    return this.http.get(this.url).pipe(
+      // Adapt each item in the raw data array
+      map((data: User[]) => data.map(item => item.name + ' - ' + item.email))
+    );
+  }
+````
 
 *from*
 ````typescript
