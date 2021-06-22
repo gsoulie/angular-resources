@@ -2,6 +2,8 @@
 
 # ng-template
 
+
+## ng-template
 https://blog.angular-university.io/angular-ng-template-ng-container-ngtemplateoutlet/
 
 *ng-template* défini un template qui n'affiche rien tant qu'il n'est pas utilisé
@@ -16,6 +18,8 @@ https://blog.angular-university.io/angular-ng-template-ng-container-ngtemplateou
     <div>Loading...</div>
 </ng-template>
 ````
+
+## ng-container
 
 Il n'est pas possible d'appliquer plusieurs directives à un même élément, par exemple un *ngIf* et *ngFor* sur un même conteneur.
 Pour palier ce problème, on peut créer une div pour le *ngIf* et une div pour le *ngFor*. Cela fonctionne mais oblige à créer une nouvelle div.
