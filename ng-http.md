@@ -9,7 +9,7 @@
 
 Capturer les erreurs http unitairement dans l'observable
 
-````
+````typescript
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
@@ -33,7 +33,7 @@ Gestion des erreurs Http avec HTTP_INTERCEPTORS
 
 *app.module.ts*
 
-````
+````typescript
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
@@ -56,7 +56,7 @@ export class AppModule {}
 
 *HttpErrorInterceptorService*
 
-````
+````typescript
 import { Observable } from 'rxjs';
 import { Inject, Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpErrorResponse } from '@angular/common/http';
