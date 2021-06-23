@@ -15,7 +15,7 @@ npm install -s @angular/flex-layout
 
 *app.component.html*
 
-````
+````html
 <mat-toolbar color="primary">
     <span>Card view demo</span>
     <div fxHide.lt-md>
@@ -53,7 +53,7 @@ npm install -s @angular/flex-layout
 
 *app.component.scss*
 
-````
+````css
 .flex-container {
     display: flex;
     flex-direction: row;
