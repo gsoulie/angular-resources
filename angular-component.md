@@ -89,6 +89,31 @@ export class DropdownDirective {
 ## mat-table
 [Back to top](#components)  
 
+### Important
+
+Le conditionnement de l'affichage d'une mat-table avec une directive ````*ngIf```` casse la fonctionnalité de tri
+ 
+Il faut donc préférer l'utilisation de la propriété *hidden* de mat-table plutôt qu'un *ngIf*
+
+````html
+<mat-table
+    *ngIf="poolList.length > 0" // => casse le tri
+</mat-table>
+<mat-table 
+    [hidden]="poolList.length <= 0" // => ok
+</mat-table>
+````
+
+De plus, il faut **s'assurer** que le nom donné au *matColumnsDef* corresponde au nom de la propriété de l'élément affiché
+
+````html
+<ng-container matColumnDef="samplingCode">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Sample code </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.samplingCode}} </mat-cell>
+ </ng-container>
+````
+
+### Exemple d'utilisation
 
 *View file*
 
