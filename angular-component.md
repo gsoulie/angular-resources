@@ -93,7 +93,7 @@ export class DropdownDirective {
 
 Le conditionnement de l'affichage d'une mat-table avec une directive ````*ngIf```` casse la fonctionnalité de tri
  
-Il faut donc préférer l'utilisation de la propriété *hidden* de mat-table plutôt qu'un *ngIf*
+Il faut donc préférer l'utilisation de la propriété ````[hidden]```` de mat-table plutôt qu'un ````*ngIf````
 
 ````html
 <mat-table
@@ -104,7 +104,7 @@ Il faut donc préférer l'utilisation de la propriété *hidden* de mat-table pl
 </mat-table>
 ````
 
-De plus, il faut **s'assurer** que le nom donné au *matColumnsDef* corresponde au nom de la propriété de l'élément affiché
+De plus, il faut **s'assurer** que le nom donné au ````matColumnsDef```` corresponde au nom de la propriété de l'élément affiché
 
 ````html
 <ng-container matColumnDef="samplingCode">
