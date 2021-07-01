@@ -19,7 +19,8 @@
 	* [ng-template](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-ng-template.md)     
 	* [Intéraction composant](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-component-interaction.md)      
 	* [Directives structurelles](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-structural-directive.md)   
-* [Astuce](https://github.com/gsoulie/angular-resources/blob/master/ng-tips.md)      
+* [Astuce](https://github.com/gsoulie/angular-resources/blob/master/ng-tips.md)    
+	* Mémoriser une variable de controller       	  
 * [Navigation](https://github.com/gsoulie/angular-resources/blob/master/ng-navigation.md)     
 * [Codes retour http](https://github.com/gsoulie/angular-resources/blob/master/ng-http.md)     
 * [Form](https://github.com/gsoulie/angular-resources/blob/master/ng-form.md)     
