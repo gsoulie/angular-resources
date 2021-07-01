@@ -2,8 +2,15 @@
 
 # Performances   
 
+* [Bonnes pratiques](#bonnes-pratiques)      
 * [Outils](#outils)      
 * [Lazyload modules](#lazyload-modules)      
+
+## Bonnes pratiques
+
+* éviter les ````import * from '<lib>'````, n'importez que les fonctionnalités dont vous avez besoin : ````import { Observable } from 'rxjs'```` au lieu de ````import * from 'rxjs'````
+* charger les composant en lazy-load
+* analyser régulièrement les packages avec lighthouse, source-map-explorer etc... pour déceler les problème au plus tôt
 
 ## Outils
 
