@@ -53,3 +53,4 @@
 * [Animations](#animations)     
 * [Images](https://github.com/gsoulie/angular-resources/blob/master/ng-image.md)       
 * [Identity Server 4 - oidc](https://github.com/manfredsteyer/angular-oauth2-oidc)      
+* [Performances](https://github.com/gsoulie/angular-resources/blob/master/ng-performance.md)
