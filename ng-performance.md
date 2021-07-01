@@ -57,7 +57,7 @@ Visualisation
 
 ````npm run explore````
 
-## Lazyoload modules
+## Lazyload modules
 [Back to top](#performances)
 
 *app-routing.module.ts*
