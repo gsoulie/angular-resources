@@ -11,6 +11,7 @@
 	* [Optimisations](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)     
 	* [Opérateurs](https://github.com/gsoulie/angular-resources/blob/master/ng-operators.md)    
 	* [VSCode](https://github.com/gsoulie/angular-resources/blob/master/ng-vscode.md)       
+	* [Modules](https://github.com/gsoulie/angular-resources/blob/master/ng-module.md)       
 * Concepts       
 	* [Promise](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-promise.md)      
 	* [Observable](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-observable.md)      
