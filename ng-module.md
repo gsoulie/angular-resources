@@ -20,7 +20,8 @@ Voici quelques exemples :
     AppRoutingModule,
     BrowserAnimationsModule,
     AppMaterialModule,
-    AppComponentsModule
+    AppComponentsModule,
+    DirectivesModule,
   ],
   providers: [{
     provide: APP_INITIALIZER,
