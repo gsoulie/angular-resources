@@ -14,7 +14,7 @@ https://florimond.dev/blog/articles/2018/09/consuming-apis-in-angular-the-model-
 Le but est de simplifier le code suivant : 
 
 *course.model.ts*
-````
+````typescript
 export class Course {
   constructor(
     public id: number,
@@ -26,7 +26,7 @@ export class Course {
 ````
 
 *course.service.ts*
-````
+````typescript
 export class CourseService {
   private baseUrl = "http://api.myapp.com/courses";
 
@@ -53,7 +53,7 @@ En utilisant un Adapter :
 
 
 *course.model.ts*
-````
+````typescript
 import { Injectable } from "@angular/core";
 import { Adapter } from "./adapter";
 
@@ -72,7 +72,7 @@ export class CourseAdapter implements Adapter<Course> {
 ````
 
 *course.service.ts*
-````
+````typescript
 export class CourseService {
   private baseUrl = "http://api.myapp.com/courses";
 
@@ -93,7 +93,7 @@ Ceci permet de rendre le code plus adaptable si le backend venait à être modif
 Ex : Côté backend on renomme le paramètre "name" par "label". Il y a juste à modifier l'adapter sans changer la classe initiale sans rien changer d'autre dans le code.
 
 *course.model.ts*
-````
+````typescript
 @Injectable({
   providedIn: 'root'
 })
