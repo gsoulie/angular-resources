@@ -113,6 +113,10 @@ De plus, il faut **s'assurer** que le nom donné au ````matColumnsDef```` corres
  </ng-container>
 ````
 
+### Propriétés
+
+* matSortDisableClear : Par défaut, la mat-table présente 3 sort-direction (asc, desc, "" -> réinitialiser le tri). Cette propriété permet de supprimer le sortDirection = ""
+
 ### Exemple d'utilisation
 
 *View file*
