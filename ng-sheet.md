@@ -53,6 +53,8 @@
 * [template générique mat-dialog](https://github.com/gsoulie/angular-resources/blob/master/angular-dialog-template.md)      
 * [Local storage](https://github.com/gsoulie/angular-resources/blob/master/ng-local-storage.md)     
 * [Animations](#animations)     
-* [Images](https://github.com/gsoulie/angular-resources/blob/master/ng-image.md)       
-* [Identity Server 4 - oidc](https://github.com/manfredsteyer/angular-oauth2-oidc)      
+* [Images](https://github.com/gsoulie/angular-resources/blob/master/ng-image.md)     
+* [Authentification]	
+	* [Identity Server 4 - oidc](https://github.com/manfredsteyer/angular-oauth2-oidc)      
+	* [JWT authorization](https://dev-academy.com/angular-jwt/)      
 * [Performances](https://github.com/gsoulie/angular-resources/blob/master/ng-performance.md)
