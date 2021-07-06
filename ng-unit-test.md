@@ -90,17 +90,22 @@ Ces commandes sont définires dans le fichier **support/commands.ts**
 declare namespace Cypress {
     interface Chainable<Subject = any> {
         //customCommand(param: any): typeof customCommand;
-        navigateTo(route: string): Chainable<Element>
+        checkSpecificRoute(route: string): typeof checkSpecificRoute;
+        navigateTo(route: string): Chainable<Element>;
     }
+}
+
+function checkSpecificRoute(route, setTimeout = true) {
+    cy.wait(1000);
+    cy.get('#menuBtn').click({ force: true });
+    cy.get('mat-menu');
+    cy.get('mat-menu');
+    cy.get(`[routerlink="${route}"]`).click().visit('/' + route, setTimeout ? { timeout: 1000 } : {});
 }
 
 // Commande permettant de tester la navigation des menus
 Cypress.Commands.add('navigateTo', (route) => {
-    cy.get('.btn-div')
-    cy.get('button').click();
-    cy.get('mat-menu');
-    cy.get('mat-menu');
-    cy.get(`[routerlink="${route}"]`).click().visit('/' + route);
+    checkSpecificRoute(route);
 });
 ````
 
