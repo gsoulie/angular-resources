@@ -104,6 +104,6 @@ Cypress.Commands.add('navigateTo', (route) => {
 });
 ````
 
-> Important : décommenter la ligne ````typescript import './commands' ```` dans le fichier *support/index.ts*
+> Important : décommenter la ligne ````typescript import './commands';```` dans le fichier *support/index.ts*
 
 [Back to top](#tests-unitaires)
