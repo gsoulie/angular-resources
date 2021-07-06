@@ -112,3 +112,47 @@ Cypress.Commands.add('navigateTo', (route) => {
 > Important : décommenter la ligne ````typescript import './commands';```` dans le fichier *support/index.ts*
 
 [Back to top](#tests-unitaires)
+
+### Exemples
+
+````typescript
+describe('menu-navigation', () => {
+    it('navigate on users', () => {
+        cy.visit('/users');
+    });
+
+    it('make http call to placeholder api', () => {
+
+        cy.request('GET', 'https://jsonplaceholder.typicode.com/users')
+            .then((response) => {
+                expect(response.status).to.eq(200);
+            })
+
+        /*cy.request('GET', 'https://jsonplaceholder.typicode.com/users').as('users');
+        cy.get('@users').should((response) => {
+            expect(response.body).to.have.length(500)
+            expect(response).to.have.property('headers')
+            expect(response).to.have.property('duration')
+        })*/
+    });
+
+    it('should contains mat-table', () => {
+        cy.get('mat-table');
+    });
+
+    // Clic sur bouton qui redirige vers l'écran liste des posts
+    it('redirect to posts', () => {
+        cy.get('.mat-toolbar > .mat-focus-indicator').click();
+        cy.location('pathname').should('eq', '/posts'); // tester la valeur de la route actuelle
+        cy.wait(2000);
+    });
+
+    // Depuis écran liste des posts, clic sur bouton retour
+    it('redirect back to users', () => {
+        cy.get('.mat-toolbar > .mat-focus-indicator').click();
+        cy.location('pathname').should('eq', '/users');
+    });
+
+})
+````
+[Back to top](#tests-unitaires)
