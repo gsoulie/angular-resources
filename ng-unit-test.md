@@ -49,4 +49,61 @@ npm run e2e
 
 s'assurer que dans le fichier *cypress.json*, la *baseUrl* soit la même que celle sur laquelle l'application ionic / angular est lancée
 
+### Structure des tests
+
+Les tests cypress sont définis dans le répertoire **integration**. Il est possible de créer sa propre arborescence à l'intérieur.
+
+### Exemple de test
+
+````typescript
+describe('Default', () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+
+  it('has title', () => {
+    cy.contains('ng-sandbox features');
+  });
+
+  // contient une mat-list
+  it('has mat-list', () => {
+    cy.get('mat-list');
+  });
+
+  // contient un mat-menu lorsqu'on clique sur le bouton contenu dans la div .btn-div
+  it('has mat-menu', () => {
+    cy.get('.btn-div')
+    cy.get('button').click();
+    cy.get('mat-menu');
+  });
+})
+````
+
+### Commandes personnalisées
+
+Lorsqu'un schéma de test se répète souvent (ex : tester la navigation de plusieurs menus), ou que l'on souhaite définir des fonctions plus complexes, il est possible d'écrire ses propres commandes.
+Ces commandes sont définires dans le fichier **support/commands.ts**
+
+````typescript
+// Important, décommanter le bout de code suivant
+// et déclarer chaque commande custom sinon elle ne seront pas accessibles dans les tests
+declare namespace Cypress {
+    interface Chainable<Subject = any> {
+        //customCommand(param: any): typeof customCommand;
+        navigateTo(route: string): Chainable<Element>
+    }
+}
+
+// Commande permettant de tester la navigation des menus
+Cypress.Commands.add('navigateTo', (route) => {
+    cy.get('.btn-div')
+    cy.get('button').click();
+    cy.get('mat-menu');
+    cy.get('mat-menu');
+    cy.get(`[routerlink="${route}"]`).click().visit('/' + route);
+});
+````
+
+> Important : décommenter la ligne ````typescript import './commands' ```` dans le fichier *support/index.ts*
+
 [Back to top](#tests-unitaires)
