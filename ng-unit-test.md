@@ -3,6 +3,7 @@
 # Tests unitaires
 
 * [Tester le bundle généré dans le répertoire dist](#)         
+* [e2e avec Cypress](#e2e-avec-cypress)     
 
 ## Tester le bundle généré dans le répertoire dist
 
@@ -35,5 +36,17 @@ http-server
 Ou jouer la commande ````http-server .\dist````
 
 Il suffit ensuite d'ouvrir l'url *http://127.0.0.1:8080*
+
+[Back to top](#tests-unitaires)
+
+## e2e avec Cypress
+
+````
+ng add @briebug/cypress-schematic
+npm install --legacy-peer-deps
+npm run e2e
+````
+
+s'assurer que dans le fichier *cypress.json*, la *baseUrl* soit la même que celle sur laquelle l'application ionic / angular est lancée
 
 [Back to top](#tests-unitaires)
