@@ -2,9 +2,7 @@
 
 # Gestion des logs  
 
-* [NGXLogger](#ngxlogger)      
+* [NGXLogger](https://onthecode.co.uk/angular-logging-made-easy-with-ngx-logger/)      
 
-
-## NGXLogger
 
 [Back to top](#gestion-des-logs)   
