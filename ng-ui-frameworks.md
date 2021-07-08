@@ -36,7 +36,7 @@ Créer un fichier **material.module.ts** dans le répertoire **app** (avec app.m
 
 > ATTENTION : selon la version d'angular, tous les composants ne sont pas à importer depuis *@angular/material* bien vérifier dans la doc
 
-````
+````typescript
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -168,7 +168,7 @@ Liste des icônes Material : https://www.angularjswiki.com/fr/angular/angular-ma
 
 Créer un fichier src/mon-theme.scss contenant la structure suivante (attention le fichier doit être de type **scss**):
 
-````
+````typescript
 @import '~@angular/material/theming';
 @include mat-core();
 
@@ -201,7 +201,7 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 
 Mettre à jour le *angular.json* pour pointer sur ce fichier thème
 
-````
+````typescript
 "styles": [
       {
 	"input": "src/mon-theme.scss"
@@ -212,7 +212,7 @@ Mettre à jour le *angular.json* pour pointer sur ce fichier thème
 
 *Utilisation*
 
-````
+````html
 <mat-card>
       Main Theme:
       <button mat-raised-button color="primary">
@@ -246,7 +246,7 @@ Pour rendre les variables sass accessibles dans toutes l'application, les regrou
 
 *variables.scss*
 
-````
+````css
 :root
 {
   --darkgrey: #23272D;
@@ -263,7 +263,7 @@ Pour rendre les variables sass accessibles dans toutes l'application, les regrou
 
 Il suffit ensuite d'injecter le fichier variable.scss dans le *angular.json* 
 
-````
+````typescript
 ...
 "styles": [
               {"input":"src/variables.scss"}
@@ -272,7 +272,7 @@ Il suffit ensuite d'injecter le fichier variable.scss dans le *angular.json*
 
 *component.scss file*
 
-````
+````css
 .container {
   background-color: var(--mediumgrey);
 }
@@ -286,7 +286,7 @@ Si les variables ne sont pas encadrées par le **:root** elles ne sont accessibl
 
 ### ngStlye
 
-````
+````html
 <p [ngStyle]="backgroundColor: getColor()}"></p>
 
 <label [ngStyle]="{'background-color':myVar < 5 ? 'blue' : 'green'}">my content</label>
@@ -298,7 +298,7 @@ Si les variables ne sont pas encadrées par le **:root** elles ne sont accessibl
 
 ### Form input error
 
-````
+````css
 input.ng-invalid.ng-touched {
     border: 1px solid red;
 }
