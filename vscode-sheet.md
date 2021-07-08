@@ -10,7 +10,7 @@
 
 ## Cursive font
 
-Add the following code into *settings.json*
+Download https://github.com/kencrocken/FiraCodeiScript font and Add the following code into vscode *settings.json* for a minimal configuration. Other options are commented in the json below.
 
 *settings.json*
 
@@ -26,7 +26,8 @@ Add the following code into *settings.json*
           "comment",
           "keyword",
           "storage",
-          "keyword.control",
+          "entity.other.attribute-name",
+          /*"keyword.control",
           "keyword.control.from",
           "keyword.control.flow",
           "keyword.operator.new",
@@ -53,7 +54,7 @@ Add the following code into *settings.json*
           "text.html.basic entity.other.attribute-name",
           "tag.decorator.js entity.name.tag.js",
           "tag.decorator.js punctuation.definition.tag.js",
-          "source.js constant.other.object.key.js string.unquoted.label.js",
+          "source.js constant.other.object.key.js string.unquoted.label.js",*/
         ],
         "settings": {
           "fontStyle": "italic",
