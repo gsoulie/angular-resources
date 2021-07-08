@@ -15,6 +15,8 @@ Download a cursive font like :
 * [DankMono]()       
 * [Monoid](https://larsenwork.com/monoid/)       
 
+[customization](https://stackoverflow.com/questions/51110201/italicize-javascripts-reserved-keywords-in-vs-code)    
+
 Add the following code into vscode *settings.json* for a minimal configuration. Other options are commented in the json below.
 
 *settings.json*
@@ -30,9 +32,11 @@ Add the following code into vscode *settings.json* for a minimal configuration. 
         "scope": [
           "comment",
           "keyword",
-          "storage",
+          "constant.language",
+          //"storage",
+          "storage.modifier",   // public, private, protected...
           "entity.other.attribute-name",    // for html attribute
-          /*"keyword.control",
+          /*"keyword.control",    // import, from, export, default, return, if, for, break, continue, try, catch, finally, throw, default, yield, await
           "keyword.control.from",
           "keyword.control.flow",
           "keyword.operator.new",
@@ -51,7 +55,7 @@ Add the following code into vscode *settings.json* for a minimal configuration. 
           "variable.language.super",
           "meta.class",
           "meta.var.expr",
-          "constant.language.null",
+          "constant.language", // true, false, null
           "support.type.primitive",
           "entity.name.method.js",
           "entity.other.attribute-name",
