@@ -26,7 +26,7 @@ Download https://github.com/kencrocken/FiraCodeiScript font and Add the followin
           "comment",
           "keyword",
           "storage",
-          "entity.other.attribute-name",
+          "entity.other.attribute-name",    // for html attribute
           /*"keyword.control",
           "keyword.control.from",
           "keyword.control.flow",
