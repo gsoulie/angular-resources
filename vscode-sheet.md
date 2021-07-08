@@ -10,7 +10,12 @@
 
 ## Cursive font
 
-Download https://github.com/kencrocken/FiraCodeiScript font and Add the following code into vscode *settings.json* for a minimal configuration. Other options are commented in the json below.
+Download a cursive font like :
+* [FiraCode iScript](https://github.com/kencrocken/FiraCodeiScript)    
+* [DankMono]()       
+* [Monoid](https://larsenwork.com/monoid/)       
+
+Add the following code into vscode *settings.json* for a minimal configuration. Other options are commented in the json below.
 
 *settings.json*
 
@@ -64,4 +69,41 @@ Download https://github.com/kencrocken/FiraCodeiScript font and Add the followin
   },
  
 Copy code
+````
+
+You can also specify differents scopes to manage italic for specific item, bold for other etc...
+
+````json
+"editor.tokenColorCustomizations": {
+        "textMateRules": [
+          {
+            "scope": [
+              //following will be in italic (=FlottFlott)
+              "comment",
+              //"entity.name.type.class", //class names
+              "keyword", //import, export, return…
+              "constant", //String, Number, Boolean…, this, super
+              "storage.modifier", //static keyword
+              "storage.type.class.js", //class keyword
+            ],
+            "settings": {
+              "fontStyle": "italic"
+            }
+          },
+          {
+            "scope": [
+              //following will be excluded from italics (VSCode has some defaults for italics)
+              "invalid",
+              "keyword.operator",
+              "constant.numeric.css",
+              "keyword.other.unit.px.css",
+              "constant.numeric.decimal.js",
+              "constant.numeric.json"
+            ],
+            "settings": {
+              "fontStyle": "bold"
+            }
+          }
+        ]
+      }
 ````
