@@ -37,32 +37,36 @@ Créer un fichier **material.module.ts** dans le répertoire **app** (avec app.m
 > ATTENTION : selon la version d'angular, tous les composants ne sont pas à importer depuis *@angular/material* bien vérifier dans la doc
 
 ````typescript
-import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
-import {
-  MatIconModule,
-  MatButtonModule,
-  MatInputModule,
-  MatAutocompleteModule,
-  MatChipsModule,
-  MatListModule,
-  MatGridListModule,
-  MatExpansionModule,
-  MatToolbarModule,
-  MatProgressSpinnerModule,
-  MatDialogModule,
-  MatTooltipModule,
-  MatMenuModule,
-  MatCardModule,
-  MatSelectModule,
-  MatCheckboxModule,
-  MatTableModule,
-  MatDatepickerModule,
-  MatNativeDateModule,
-} from '@angular/material';
-
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { MatSliderModule } from '@angular/material/slider';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   exports: [
@@ -86,11 +90,20 @@ import {
     MatSelectModule,
     MatCheckboxModule,
     MatTableModule,
+    MatNativeDateModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatSortModule,
+    MatStepperModule,
+    MatSlideToggleModule,
+    MatSliderModule,
+    MatDividerModule,
+    MatProgressBarModule,
+    MatBadgeModule,
+    MatButtonToggleModule
   ]
 })
-export class AppMaterialModule {}
+export class AppMaterialModule { }
+
 ````
 
 Ensuite importer ce fichier dans le **app.module.ts**
