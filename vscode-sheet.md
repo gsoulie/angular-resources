@@ -3,12 +3,55 @@
 # VSCode
 
 * [Extensions](https://github.com/gsoulie/angular-resources/blob/master/vscode-extension.md)     
-* [Tasks](https://github.com/gsoulie/ionic-angular-snippets/blob/master/vscode-tasks.json)   
+* [Tasks](#tasks)   
 * [ESLint](https://github.com/gsoulie/angular-resources/blob/master/vscode-eslint.md)   
 * [Debug](https://github.com/gsoulie/angular-resources/blob/master/vscode-debug.md)     
+* [Cursive fonts](#cursive-fonts)      
 
+## Tasks
 
-## Cursive font
+[Tasks examples](https://github.com/gsoulie/ionic-angular-snippets/blob/master/vscode-tasks.json)
+
+> Tips : if you want to group tasks by role, set a same prefix to the task name for all tasks you want to group by
+
+````
+"tasks": [
+    {
+        "label": "00_frontend-serve Angular app",
+        "type": "shell",
+        "command": "ng",
+        "options": {
+            "cwd": "${workspaceFolder}"
+        },
+        "args": [ "serve", "--open" ]
+    },
+    {
+        "label": "00_frontend-build Angular app",
+        "type": "shell",
+        "command": "ng",
+        "options": {
+            "cwd": "${workspaceFolder}"
+        },
+        "args": [ "build", "--prod" ]
+    },
+    {
+        "label": "01_backend-1_serve api",
+        "type": "shell",
+        "command": "npm",
+        "options": { "cwd": "${workspaceFolder}" },
+        "args": [ "run", "nx", "serve", "api" ]
+    },
+    {
+      "label": "01_backend-2_run prisma studio",
+      "type": "shell",
+      "command": "npx",
+      "options": { "cwd": "${workspaceFolder}" },
+      "args": [ "prisma", "studio" ]
+    }
+  ]
+````
+
+## Cursive fonts
 
 Download a cursive font like :
 * [FiraCode iScript](https://github.com/kencrocken/FiraCodeiScript)    
