@@ -27,7 +27,7 @@ fetchData() {
 
 ## HTTP Interceptor
 
-Gestion des erreurs Http avec HTTP_INTERCEPTORS
+### Gestion des erreurs Http avec HTTP_INTERCEPTORS
 
 **A TERMINER**
 
@@ -115,8 +115,37 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
         );
     }
 }
-
 ````   
 
+### Gestion du Bearer token avec Interceptor
+
+Ajouter automatiquement le Bearer token à toutes les requêtes http
+
+````typescript
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { AuthIS4Service } from 'angular-helpers';
+import { Observable } from 'rxjs';
+
+const TOKEN_HEADER_KEY = 'Authorization';
+
+@Injectable()
+export class RclmsAuthInterceptor implements HttpInterceptor {
+    constructor(private authService: AuthIS4Service) { }
+
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        let authReq = req;
+        const token = this.authService.accessToken;
+        if (token != null) {
+          authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
+        }
+        return next.handle(authReq);
+    }
+}
+
+export const authInterceptorProviders = [
+    { provide: HTTP_INTERCEPTORS, useClass: RclmsAuthInterceptor, multi: true }
+];
+````
 
 [Back to top](#codes-retour-http)
