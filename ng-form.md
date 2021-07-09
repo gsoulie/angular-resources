@@ -28,7 +28,7 @@ Permet de simplifier l'écriture des formulaires ReactiveForm
 ````html
  <div class="container">
 
-    <form [formGroup]="poolForm" novalidate>
+    <form [formGroup]="poolForm" novalidate (ngSubmit)="onSubmit()">
 
       <div class="row">
         <mat-form-field>
@@ -70,7 +70,7 @@ Permet de simplifier l'écriture des formulaires ReactiveForm
         </mat-form-field>
       </div>
     </form>
-    <button mat-raised-button [disabled]="poolForm.invalid">Custom Submit button</button>
+    <button mat-raised-button type="submit" [disabled]="poolForm.invalid">Custom Submit button</button>
   </div>
 ````
 
