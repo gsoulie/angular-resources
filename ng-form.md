@@ -25,7 +25,7 @@ Générateur automatique de formulaires : http://zerocodeform.com/
 Permet de simplifier l'écriture des formulaires ReactiveForm
 
 *vue.html*
-````
+````html
  <div class="container">
 
     <form [formGroup]="poolForm" novalidate>
@@ -75,7 +75,7 @@ Permet de simplifier l'écriture des formulaires ReactiveForm
 ````
 
 *controller.ts*
-````
+````typescript
   poolForm: FormGroup;
   hours = [];
   minutes = [];
