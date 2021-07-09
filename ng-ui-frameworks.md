@@ -108,7 +108,7 @@ export class AppMaterialModule { }
 
 Ensuite importer ce fichier dans le **app.module.ts**
 
-````
+````typescript
 import { HomeComponent } from './components/home/home.component';
 import { AppMaterialModule } from './material.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -138,7 +138,7 @@ export class AppModule { }
 
 *Exemple d'utilisation*
 
-````
+````html
   <mat-toolbar color="primary">
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
       <mat-icon>menu</mat-icon>
@@ -159,7 +159,7 @@ export class AppModule { }
 
 Installation : ```npm install --save bootstrap```, ensuite ajouter la configuration dans le **angular.json** sous la rubrique ```architect/build/styles``` :
 
-```
+```typescript
 "styles": [
     "node_modules/bootstrap/dist/css/bootstrap.min.css",
     "src/styles.css"
