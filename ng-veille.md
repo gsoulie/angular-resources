@@ -97,6 +97,8 @@ npm run ng g component cards --project=ui --export	// créer un composant dans l
 npm run ng g service cards --project=ui --export	// créer un service dans la lib "ui"
 ````
 
+16 - Build prod pour déploiement ````ng build --prod myapp && ng build --prod````
+
 ### Création des ENDPOINTS
 
 ````typescript
