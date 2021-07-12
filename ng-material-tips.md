@@ -21,7 +21,7 @@ Afin d'étendre le style spécifié au composant actuel et à tous ses descendan
 
 Customize progress bar colors :
 
-````
+````css
 :host ::ng-deep .mat-progress-bar-fill::after {
     background-color: #E2001A;
 }
@@ -34,7 +34,7 @@ Customize progress bar colors :
 ### mat-badge
 [Back to top](#angular-material-tips)      
 
-````
+````css
 // surcharge de la couleur de fond et de la font
 :host ::ng-deep .mat-badge-content {
     background: #767676 !important;
@@ -44,7 +44,7 @@ Customize progress bar colors :
 
 ### mat-checkbox
 [Back to top](#angular-material-tips)     
-````
+````css
 :host ::ng-deep .mat-checkbox-frame {
     border: 1px solid #707070;
     border-radius: 3px;
