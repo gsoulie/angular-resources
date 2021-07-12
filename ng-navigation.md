@@ -19,7 +19,7 @@
 
 La route par défaut, doit toujours être à la fin du fichier de routing !!
 
-````
+````typescript
 {
 	redirectTo: '/default',
 	path: '**'
@@ -32,7 +32,7 @@ La route par défaut, doit toujours être à la fin du fichier de routing !!
 
 Soit le routage suivant :
 
-````
+````typescript
 const routes: Routes = [
  { path: '', component: HomeComponent},
  { path: 'users', component: UsersComponent, children: [
@@ -50,7 +50,7 @@ Ensuite, depuis la page de détail, on souhaite rediriger vers la route */server
 
 Pour réussir cela, il suffit d'utiliser l'option **relativeTo** fournie par la fonction route.navigate :
 
-````
+````typescript
 onEdit() {
    this.router.navigate(['edit'], {relativeTo: this.route});
 }
@@ -61,7 +61,8 @@ Ceci aura pour effet de concaténer 'edit' au chemin courant (/servers/) qui ser
 
 ## Routes enfants
 [Back to top](#navigation)     
-````
+
+````typescript
 const ROUTES: Routes = [
 	{ path: 'user', children: [
 		{ path: '', component: UserListComponent },
@@ -85,7 +86,7 @@ Deux solution :
 La seconde solution est une meilleure pratique pour éviter d'avoir un fichier app.routes.ts trop conséquent.
 
 *app.routes.ts*
-````
+````typescript
 export const APP_ROUTES: Routes = [
 	{
 		path: 'home'
@@ -96,7 +97,7 @@ export const APP_ROUTES: Routes = [
 ````
 
 *home.routes.ts*
-````
+````typescript
 export const HOME_ROUTES: Routes = [
 	{
 		path: 'child1'
@@ -125,7 +126,7 @@ Ajoute ensuite le router-outlet du Home
 [Back to top](#navigation)   
 
 Syntaxes possibles :
-````
+````html
 <button [routerLink]="['./login']">Navigate</button> <!-- tableau de routes -->
 <button routerLink="/login">Navigate</button> <!-- route seule -->
 <button [routerLink]="['./client', 'product']">Navigate</button> <!-- concatène les 2 routes avec un / automatiquement -->
@@ -139,7 +140,7 @@ Syntaxes possibles :
 
 Vérifie si l'itinéraire lié d'un élément est actuellement actif et vous permet de spécifier une ou plusieurs classes CSS à ajouter à l'élément lorsque l'itinéraire lié est actif.
 
-````
+````html
 <a routerLink="/first-component" routerLinkActive="active">
 ````
 
@@ -147,12 +148,12 @@ Vérifie si l'itinéraire lié d'un élément est actuellement actif et vous per
 
 Chaque fois que l'URL est */user* ou */user/bob*, la classe *active-link* est ajoutée à la balise d'ancrage. Si l'URL change, la classe est supprimée.
 
-````
+````html
 <a routerLink="/user/bob" routerLinkActive="active-link">Bob</a>
 ````
 
 On peut aussi définir plusieurs classes à l'aide d'une chaîne séparée par des espaces ou d'un tableau. 
-````
+````html
 <a routerLink="/user/bob" routerLinkActive="class1 class2">Bob</a>
 <a routerLink="/user/bob" [routerLinkActive]="['class1', 'class2']">Bob</a>
 ````
@@ -160,7 +161,7 @@ On peut aussi définir plusieurs classes à l'aide d'une chaîne séparée par d
 ## Routing parameters
 [Back to top](#navigation)    
 
-````
+````typescript
 {
 	path: 'ticket/edit/:id'
 	component: TicketComponent
@@ -168,7 +169,7 @@ On peut aussi définir plusieurs classes à l'aide d'une chaîne séparée par d
 ````
 
 ### Récupérer les paramètres de route dans le controller
-````
+````typescript
 ngOnInit() {
 	//this.ticketId = this.activatedRoute.snapshot.params.id // ATTENTION one shot !! ne sera plus mis à jour
 	this.activatedRoute.params.subscribe((params) => {
@@ -181,7 +182,7 @@ ngOnInit() {
 
 ### Reset des paramètres de routage
 
-````
+````typescript
 import { Subscription } from ‘rxjs/Subscription’;
 
 export class UserComponent implements OnInit, OnDestroy {
@@ -206,7 +207,7 @@ ngOnDestroy() {
 ## Naviguer depuis le controller
 [Back to top](#navigation)
 
-````
+````typescript
 this.route.navigate(['./ticket', 'edit', idTicket], {relativeTo: this.activatedRoute});	// => /ticket/edit/12
 ````
 
@@ -216,7 +217,7 @@ this.route.navigate(['./ticket', 'edit', idTicket], {relativeTo: this.activatedR
 C'est webpack qui va prendre en charge le lazy loading et créer un chunk du module
 
 *Syntaxe Angular 8*
-````
+````typescript
 {
 	path: 'tickets',
 	loadChildren:() => import('./lazy/Lazy.module').then(m=>m.NomModule)
@@ -240,7 +241,7 @@ https://www.techiediaries.com/angular-router-multiple-outlets/
 
 Le guard retourne toujours un boolean. Soit un boolean directement, soit une promise qui retourne un boolean, soit un observable qui retourne un boolean
 
-````
+````typescript
 CanActivate() {
 	return this.isLogged().then((res) => {
 		if(res){
@@ -259,7 +260,7 @@ CanActivate() {
 
 Connaître la route depuis laquelle on vient
 
-````
+````typescript
 private routerEventsSubscription: Subscription;
 
 ngOnInit() {
@@ -279,7 +280,7 @@ Exemple complet d'un routing via un tagGroup (onglet) avec retour sur le parent 
 Cas d'utilisation : Une page principale contient un tab *home-tabs* contenant 3  onglets (home, queries, lists). Depuis les onglets *queries* et *lists* on a un bouton qui ouvre une modale *results*. A la fermeture de la modale on souhaite revenir sur le tab principal
 
 *app.routing.module.ts*
-```
+```typescript
 // Contains the route of the home-tabs page
 const routes: Routes = [ 
   {
@@ -291,7 +292,7 @@ const routes: Routes = [
 
 *home-tabs-routing.module.ts*
 
-````
+````typescript
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { QueriesPage } from '../pages/queries/queries.page';
@@ -353,7 +354,7 @@ export class HomeTabsPageRoutingModule {}
 
 Naviguer vers la modale *results*
 
-````
+````html
 // Navigating from queries page 
 <ion-item tappable routerLink="results/{{ item.queryId }}" routerDirection="forward">
 
@@ -363,7 +364,7 @@ Naviguer vers la modale *results*
 
 Revenir sur l'onglet parent courant depuis la modale
 
-````
+````html
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
