@@ -10,19 +10,19 @@ Protractor va être déprecié, il est conseillé de basculer sur **cypress** po
 
 ### Reactjs
 => **lib js** : peut être appliqué à un bout de l'application ou à l'entièreté de l'application. Prise en main pas très évidente JSX
-https://www.youtube.com/watch?v=no82oluCZag&ab_channel=LiorCHAMLA
-https://www.youtube.com/user/ucisko/videos
-https://www.youtube.com/watch?v=K3D2rjAUQ3o&ab_channel=FromScratch-D%C3%A9veloppementWeb
+https://www.youtube.com/watch?v=no82oluCZag&ab_channel=LiorCHAMLA       
+https://www.youtube.com/user/ucisko/videos        
+https://www.youtube.com/watch?v=K3D2rjAUQ3o&ab_channel=FromScratch-D%C3%A9veloppementWeb        
 librairie js (!== framework) 
 code en JSX, surcouche JS introduite par REACT => nécessite la librairie Babel pour compiler le JSX react ne sureveille pas les changements de variables. Il faut lui indiquer une sorte de detectChanges() si l'on souhaite mettre à jour la vue lorsque les variables sont modifiées
 
 ### vuejs 3.0
 => framework js : peut être appliqué à une partie de l'application ou à l'entièreté de l'application
-https://www.learmoreseekmore.com/2021/01/ionic-vue-sample-using-vuex-statemanagement.html
-1:41 https://www.youtube.com/watch?v=mQ4zmFy4d7Y&ab_channel=Academind
-https://www.youtube.com/watch?v=5sNXjRE1C-U&ab_channel=LaTechavecBertrand (Option API)
-https://www.youtube.com/watch?v=L5_KLnHjt1M&ab_channel=LaTechavecBertrand (Vue cli, Vue router, Vue X)
-https://www.youtube.com/watch?v=Ts-2sA2az4s&ab_channel=Jojotique
+https://www.learmoreseekmore.com/2021/01/ionic-vue-sample-using-vuex-statemanagement.html       
+1:41 https://www.youtube.com/watch?v=mQ4zmFy4d7Y&ab_channel=Academind       
+https://www.youtube.com/watch?v=5sNXjRE1C-U&ab_channel=LaTechavecBertrand (Option API) 
+https://www.youtube.com/watch?v=L5_KLnHjt1M&ab_channel=LaTechavecBertrand (Vue cli, Vue router, Vue X)    
+https://www.youtube.com/watch?v=Ts-2sA2az4s&ab_channel=Jojotique      
 Plus proche d'angular dans sa syntaxe mais reste un mix entre react et angular utiliser Vue CLI pour créer une structure de projet, Vue Router pour le routing, Vue X pour partager des données entre plusieurs composants.
 
 vuex : pour gérer le state
