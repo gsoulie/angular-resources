@@ -3,6 +3,7 @@
 # Astuces
 
 * [Mémoriser une variable de controller](#mémoriser-une-variable-de-controller)      
+* [Propagation événement](#propagation-événement)      
 
 ## Mémoriser une variable de controller
 
@@ -26,4 +27,33 @@ export class HomeComponent {
 }
 ````
 
-[Back to top](#astuces)     
+## Propagation événement
+[Back to top](#astuces)    
+
+gestion des événements click imbriqués
+
+````html
+<div class="main" (click)="open($event)">
+    <div class="menu">
+        <mat-icon class="popover-menu" [matMenuTriggerFor]="menu" (click)="popoverMenu($event)">more_horiz</mat-icon>
+        <mat-menu #menu="matMenu">
+		...
+	</mat-menu>
+    </div>
+</div>
+````
+
+````typescript
+open(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    // do some stuff here
+}
+
+popoverMenu(event): void {
+    event.stopPropagation();
+    event.preventDefault();
+}
+````
+
+[Back to top](#astuces)    
