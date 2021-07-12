@@ -40,9 +40,7 @@
 * [Pipe](https://github.com/gsoulie/angular-resources/blob/master/angular-pipe.md)     
 	* iterate on enum with pipe      	 
 * [Flex layout](https://github.com/gsoulie/angular-resources/blob/master/ng-flex-layout.md)     
-* [Workspace](https://github.com/gsoulie/angular-resources/blob/master/ng-workspace.md)     
-	* Création workspace
-	* Solution fullstack NX, NestJS, Prisma        
+* [Workspace](https://github.com/gsoulie/angular-resources/blob/master/ng-workspace.md)         
 * [Variables d'environnement](https://github.com/gsoulie/angular-resources/blob/master/ng-env-variable.md)     
 * [UI Components](https://github.com/gsoulie/angular-resources/blob/master/ng-ui-components.md)     
 	* Dropdown directive
@@ -64,3 +62,5 @@
 	* [JWT authorization](https://dev-academy.com/angular-jwt/)      
 * [Performances](https://github.com/gsoulie/angular-resources/blob/master/ng-performance.md)      
 * [Gestion des logs](https://github.com/gsoulie/angular-resources/blob/master/ng-log.md)       
+* [Veille](https://github.com/gsoulie/angular-resources/blob/master/ng-veille.md)         
+	* React,  Vue, Nx, Nest, Prisma     
