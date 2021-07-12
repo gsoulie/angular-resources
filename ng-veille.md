@@ -2,7 +2,7 @@
 
 # Veille
 
-* [technos)(#technos)       
+* [technos](#technos)       
 * [Application fullstack NX, NestJS, Prisma, Angular]
 
 ### e2e
