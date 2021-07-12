@@ -31,6 +31,13 @@ It is possible to chain multiple pipes by simply separate them with ```|```. **B
 {{ myDate | datepipe:’fullDate’ | uppercase}}
 ```
 
+### Pipes natifs
+
+*Première lettre d'un mot*
+````html
+{{ item.value | slice:0:1 }}
+````
+
 ## Custom Pipe
 [Back to top](#pipes) 
 
