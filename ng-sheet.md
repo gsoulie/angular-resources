@@ -41,6 +41,8 @@
 	* iterate on enum with pipe      	 
 * [Flex layout](https://github.com/gsoulie/angular-resources/blob/master/ng-flex-layout.md)     
 * [Workspace](https://github.com/gsoulie/angular-resources/blob/master/ng-workspace.md)     
+	* Création workspace
+	* Solution fullstack NX, NestJS, Prisma        
 * [Variables d'environnement](https://github.com/gsoulie/angular-resources/blob/master/ng-env-variable.md)     
 * [UI Components](https://github.com/gsoulie/angular-resources/blob/master/ng-ui-components.md)     
 	* Dropdown directive
