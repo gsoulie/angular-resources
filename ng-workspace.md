@@ -1,4 +1,6 @@
-[< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)    
+[< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)   
+
+* [Création d'un workspace](#workspace)      
 
 # Workspace
 Un workspace Angular est ensemble d'application et de librairies. Toutes les applications d'un même workspace partageront les mêmes dépendances (angular.json / package.json)
