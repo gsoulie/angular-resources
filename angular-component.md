@@ -8,6 +8,7 @@
 * [mat-button-toggle-group](#mat-button-toggle-group)     
 * [Swiper](#swiper)      
 * [mat-dialog](#mat-dialog)      
+* [mat-input](#mat-input)       
 
 
 ## Dropdown directive
@@ -499,3 +500,35 @@ const dialogRef = this.dialog.open(PoolDetailComponent, {
       panelClass: 'fullHeightDialog'
     });
 ````
+
+## mat-input
+[Back to top](#components)  
+
+La surcharge du style des mat-input doit se faire dans le fichier global *styles.scss*
+
+*style.scss*
+````css
+// label
+.mat-form-field-label {
+  color: orange !important;
+}
+// ligne quand champ inactif
+.mat-form-field-underline {
+  background-color: red !important;
+}
+// ligne quand champ survolé et focus
+.mat-form-field-ripple {
+  background-color: red !important;
+}
+.mat-input-element {
+  color: blue !important;
+}
+// .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+//   color: white !important;
+// }
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: slategray !important;
+}
+````
+
+[Back to top](#components)  
