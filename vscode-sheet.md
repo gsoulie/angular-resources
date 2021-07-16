@@ -14,7 +14,7 @@
 
 > Tips : if you want to group tasks by role, set a same prefix to the task name for all tasks you want to group by
 
-````
+````typescript
 "tasks": [
     {
         "label": "00_frontend-serve Angular app",
