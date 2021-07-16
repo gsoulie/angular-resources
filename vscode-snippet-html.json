@@ -3,12 +3,12 @@
 		"prefix": "ion-card",
 		"body": [
 			"<ion-card>",
-				"<ion-card-header>",
-					"<ion-card-subtitle>Subtitle</ion-card-subtitle>",
-					"<ion-card-title>Title</ion-card-title>",
-				"</ion-card-header>",
-				"<ion-card-content>",
-				"</ion-card-content>",
+				"\t<ion-card-header>",
+					"\t\t<ion-card-subtitle>Subtitle</ion-card-subtitle>",
+					"\t\t<ion-card-title>Title</ion-card-title>",
+				"\t</ion-card-header>",
+				"\t<ion-card-content>",
+				"\t</ion-card-content>",
 			"</ion-card>"
 		]
 	},
@@ -16,8 +16,8 @@
 		"prefix": "ion-list",
 		"body": [
 			"<ion-list>",
-				"<ion-item lines=\"none\" *ngFor=\"let i of items\">",
-				"</ion-item>",
+				"\t<ion-item lines=\"none\" *ngFor=\"let i of $1\">",
+				"\t</ion-item>",
 			"</ion-list>"
 		]
 	}
