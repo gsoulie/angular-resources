@@ -7,6 +7,8 @@
 * [ESLint](https://github.com/gsoulie/angular-resources/blob/master/vscode-eslint.md)   
 * [Debug](https://github.com/gsoulie/angular-resources/blob/master/vscode-debug.md)     
 * [Cursive fonts](#cursive-fonts)      
+* [Snippet typescript](https://github.com/gsoulie/angular-resources/blob/master/vscode-snippet-typescript.json)       
+* [Snippet html](https://github.com/gsoulie/angular-resources/blob/master/vscode-snippet-html.json)       
 
 ## Tasks
 
