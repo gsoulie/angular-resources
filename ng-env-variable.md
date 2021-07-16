@@ -21,7 +21,7 @@ Par exemple :
 ````typescript
 {
     "AppSettings": {
-		"Environment": "Develop"
+	"Environment": "Develop"
         "url": "url-de-prod",
         "api": "https://api-prod"
     }, 
