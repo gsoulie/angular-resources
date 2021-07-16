@@ -49,8 +49,14 @@ export class CourseService {
 }
 ````
 
-En utilisant un Adapter : 
+### En utilisant un Adapter : 
 
+*app/core/adapter.ts*
+````typescript
+export interface Adapter<T> {
+  adapt(item: any): T;
+}
+````
 
 *course.model.ts*
 ````typescript
