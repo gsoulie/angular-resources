@@ -90,6 +90,7 @@ export class DataService {
 
 APP_INITIALIZE est un type multi-provider qui permet de spécifier une factory qui retourne une promise. Quand la promise est *complete* l'application continue son exécution. Ainsi, lorsqu'on arrive à l'endroit du code code où nous avons besoin des informations de configuration, on est certain qu'elles ont été chargées.
 
+*app.module.ts*
 ````typescript
 import { APP_INITIALIZER } from '@angular/core'
 @NgModule({
