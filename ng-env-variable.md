@@ -115,13 +115,15 @@ Dernier point vraiment **important**, sans ça le code n'attendra pas d'avoir te
 ## Solution avec factory
 [Back to top](#variables-environnement)
 
-Cette solution utilise une factory dans le APP_INITIALIZER app.module.ts
+Cette solution utilise une factory dans le APP_INITIALIZER
 
 https://www.prestonlamb.com/blog/loading-app-config-in-app-initializer
 
 ### exemple perso
 
-*interfaces*
+Définir des interfaces :
+
+*interfaces.ts*
 ````typescript
 export interface IEnvironmentVariable {
     AppSettings: IAppSettings
@@ -180,12 +182,8 @@ export class AppconfigService {
   private _config: IEnvironmentVariable;
   configSubject$;
 
-  public get config(): IEnvironmentVariable {
-    return this._config;
-  }
-  public set config(value: IEnvironmentVariable) {
-    this._config = value;
-  }
+  public get config(): IEnvironmentVariable { return this._config; }
+  public set config(value: IEnvironmentVariable) { this._config = value; }
   
   constructor(private _http: HttpClient) {}
 
