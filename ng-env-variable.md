@@ -38,7 +38,7 @@ Par exemple :
 
 Ensuite la lecture peut se faire au lancement de l'application via un httpClient
 
-> ATTENTION : version non optimisée, en effet il est préférable d'injecter le service qui lit les données dans une factory appellée dans le APP_INITIALIZER (voir solution 2)
+> ATTENTION : version non optimisée, en effet il est préférable d'injecter le service qui lit les données dans une factory appellée dans le APP_INITIALIZER ([voir solution 2](#app_initializer))
 
 *app.component.ts*
 
