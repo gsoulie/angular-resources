@@ -1,0 +1,24 @@
+{
+	"Ionic card": {
+		"prefix": "ion-card",
+		"body": [
+			"<ion-card>",
+				"<ion-card-header>",
+					"<ion-card-subtitle>Subtitle</ion-card-subtitle>",
+					"<ion-card-title>Title</ion-card-title>",
+				"</ion-card-header>",
+				"<ion-card-content>",
+				"</ion-card-content>",
+			"</ion-card>"
+		]
+	},
+	"Ionic list": {
+		"prefix": "ion-list",
+		"body": [
+			"<ion-list>",
+				"<ion-item lines=\"none\" *ngFor=\"let i of items\">",
+				"</ion-item>",
+			"</ion-list>"
+		]
+	}
+}
