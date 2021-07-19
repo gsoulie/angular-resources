@@ -92,21 +92,27 @@ declare namespace Cypress {
         //customCommand(param: any): typeof customCommand;
         checkSpecificRoute(route: string): typeof checkSpecificRoute;
         navigateTo(route: string): Chainable<Element>;
+        navigateAll(): Chainable<Element>;
     }
 }
 
 function checkSpecificRoute(route, setTimeout = true) {
     cy.wait(1000);
-    cy.get('#menuBtn').click({ force: true });
-    cy.get('mat-menu');
-    cy.get('mat-menu');
-    cy.get(`[routerlink="${route}"]`).click().visit('/' + route, setTimeout ? { timeout: 1000 } : {});
+    cy.get('.mat-nav-list');
+    cy.get(`[ng-reflect-router-link="/${route}"]`).click().visit('/' + route, setTimeout ? { timeout: 1000 } : {});
+}
+function checkAllRoutes() {
+    menuRoutes.forEach(route => {
+        checkSpecificRoute(route.route, true);
+    });
 }
 
 // Commande permettant de tester la navigation des menus
 Cypress.Commands.add('navigateTo', (route) => {
     checkSpecificRoute(route);
 });
+
+Cypress.Commands.add('navigateAll', checkAllRoutes);
 ````
 
 > Important : décommenter la ligne ````typescript import './commands';```` dans le fichier *support/index.ts*
