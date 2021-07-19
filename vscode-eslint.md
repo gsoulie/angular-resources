@@ -30,7 +30,7 @@ See AirBnb standard
 
 ## eslint.json
 
-*eslint.json*
+*basic eslint.json*
 ````typescript
 {
     "root": true,
@@ -86,4 +86,12 @@ See AirBnb standard
       }
     ]
   }
+````
+
+### Exclude files from linting
+
+*package.json*
+
+````json
+"eslintIgnore": ["*.spec.ts", "toto.ts"],
 ````
