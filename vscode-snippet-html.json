@@ -20,5 +20,23 @@
 				"\t</ion-item>",
 			"</ion-list>"
 		]
+	},
+	"Ionic Refresher": {
+		"prefix": "ion-refresher",
+		"body": [
+			"<ion-refresher slot=\"fixed\" (ionRefresh)=\"refreshData($event)\">",
+				"\t<ion-refresher-content></ion-refresher-content>",
+			"</ion-refresher-content>"
+		]
+	},
+	"Ionic Buttons": {
+		"prefix": "ion-buttons",
+		"body": [
+			"<ion-buttons slot=\"$1\">",
+				"\t<ion-button (click)=\"action()\">",
+				"\t\t<ion-icon slot=\"icon-only\" name=\"$2\"></ion-icon>",
+				"\t</ion-button>",
+			"</ion-buttons>"
+		]
 	}
 }
