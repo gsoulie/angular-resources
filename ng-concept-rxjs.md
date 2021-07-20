@@ -15,7 +15,7 @@ https://rxmarbles.com/#map
 |operator|description|
 |-|-|
 |pipe|opérateur principal qui permet le chaînage de plusieurs opérateurs|
-|from|converti une entrée en observable (conversion promise en observable)|
+|from|convertir une entrée en observable (conversion promise en observable : from(this.myPromiseFunction())|
 |of|émet des valeurs dans une séquence|
 |map|permet de créer un nouvel Observable à partir de l'Observable d'origine en transformant simplement chacune de ses valeurs|
 |switchMap|permet de retourner un nouvel observable à partir du résultat de la source|
