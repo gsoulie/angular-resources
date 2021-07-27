@@ -211,6 +211,14 @@ ngOnDestroy() {
 this.route.navigate(['./ticket', 'edit', idTicket], {relativeTo: this.activatedRoute});	// => /ticket/edit/12
 ````
 
+#### replaceUrl
+
+Permet de redéfinir la route parent. Utile dans le cas d'une validation d'authentification pour éviter ensuite que lorsque l'utilisateur clique sur "back" il revienne sur l'écran de login alors qu'il est déjà authentifié
+
+````typescript
+this.router.navigateByUrl('/tabs', { replaceUrl: true });
+````
+
 ## Lazy-loading routes
 [Back to top](#navigation)
 
