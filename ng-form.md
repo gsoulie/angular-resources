@@ -116,6 +116,26 @@ onSubmit() {
 
 > Exemple complet : https://github.com/gsoulie/angular-resources/blob/master/angular-forms.md#reactive-form
 
+### Afficher une erreur sur un champ invalide
+
+````html
+<ion-item>
+ <ion-input type="email" placeholder="email" formControlName="email"></ion-input>
+</ion-item>
+<div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
+ <span *ngIf="email.errors?.required">Email is required</span>
+ <span *ngIf="email.errors?.email">Email is invalid</span>
+</div>
+
+<ion-item>
+ <ion-input type="password" placeholder="password" formControlName="password"></ion-input>
+</ion-item>
+<div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
+ <span *ngIf="password.errors?.required">password is required</span>
+ <span *ngIf="password.errors?.minLength">password is invalid</span>
+</div>
+````
+
 ## Custom validator
 [Back to top](#form) 
 
