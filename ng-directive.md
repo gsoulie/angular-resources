@@ -6,6 +6,12 @@
 * [ngstyle](#ngstyle)      
 * [hostbinding](#hostbinding)     
 
+## Snippets
+
+https://github.com/gsoulie/ionic-angular-snippets#directives-usage
+
+## Général
+
 https://www.learn-angular.fr/les-directives/         
 https://www.digitalocean.com/community/tutorials/angular-using-renderer2    
     
