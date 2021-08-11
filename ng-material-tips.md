@@ -5,6 +5,7 @@
 Pour surcharger les composant Angular Material, il est important d'utiliser le combinator **::ng-deep** (qui remplace l'ancienne syntaxe */deep/*).
 * [Comprendre ::ng-deep](#comptendre-ng-deep)     
 * [Surcharge de style](#surcharge-de-style)      
+* [mat-input](#mat-input)      
 
 ## Comprendre ng-deep
 
@@ -49,6 +50,39 @@ Customize progress bar colors :
     border: 1px solid #707070;
     border-radius: 3px;
 }
+````
+
+### mat-input
+[Back to top](#angular-material-tips)    
+
+*styles.scss*
+````css
+.mat-input-element {
+  padding: 10px !important;
+  border: 2px solid $color-border-grey !important;
+  border-radius: 5px !important;
+  color: $color-text !important;
+  font-size: 20px !important;
+  font-family: $font-family-bold !important;
+  width: auto;
+}
+.mat-input-element::placeholder{
+  color: $color-text;
+  font-size: 20px;
+  font-family: $font-family-bold;
+}
+````
+
+### mat-form-field
+[Back to top](#angular-material-tips)    
+
+Pour masquer le sous-lignage de l'input, il suffit de positionner la propriété *appearance* à **none**
+
+*view.html*
+````html
+<mat-form-field appearance="none">
+    <input matInput placeholder="my text">
+</mat-form-field>
 ````
 
 [Back to top](#angular-material-tips)      
