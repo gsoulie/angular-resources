@@ -4,8 +4,12 @@
 
 Pour surcharger les composant Angular Material, il est important d'utiliser le combinator **::ng-deep** (qui remplace l'ancienne syntaxe */deep/*).
 * [Comprendre ::ng-deep](#comptendre-ng-deep)     
-* [Surcharge de style](#surcharge-de-style)      
-* [mat-input](#mat-input)      
+* [Surcharge de style](#surcharge-de-style)     
+* [mat-progress-bar](#mat-progress-bar)       
+* [mat-badge](#mat-badge)      
+* [mat-checkbox](#mat-checkbox)      
+* [mat-input](#mat-input)   
+* [mat-form-field](#mat-form-field)          
 
 ## Comprendre ng-deep
 
