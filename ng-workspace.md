@@ -5,21 +5,24 @@
 * [Partage des assets](#partage-des-assets)       
 
 # Workspace
+
+https://octoperf.com/blog/2019/08/22/kraken-angular-workspace-multi-application-project/#create-an-application
+
 Un workspace Angular est ensemble d'application et de librairies. Toutes les applications d'un même workspace partageront les mêmes dépendances (angular.json / package.json)
 
 générer un workspace : ````ng new <mon-workspace> --createApplication=false --directory=frontends --interactive=false````      
 générer une application : ````ng g application <mon-application> --style=scss --routing=true````       
-générer une librairie : ````ng g library <ma-lib>```` **Attention** au paramétrage du *newProjectRoot* dans le *angular.json*
+générer une librairie : ````ng g library <ma-lib>```` **Attention** au paramétrage du *newProjectRoot* dans le *angular.json*       
 générer un composant dans un projet/lib du workspace (spécifier le projet/lib) : ````ng g component components/mon-compo --project=<ma-lib>````
 
-> Remarque : lorsqu'un composant est créé dans une lib, il ne faut pas oublier de le déclarer dans le fichier **src/public-api.ts** de la lib (ou de le rajouter dans le *index.ts*, voir chapitre configuration plus bas) 
+> **Remarque** : lorsqu'un composant est créé dans une lib, il ne faut pas oublier de le déclarer dans le fichier **src/public-api.ts** de la lib (ou de le rajouter dans le *index.ts*, voir chapitre configuration plus bas) 
 
 installation angular material dans chaque projet
 ````
 ng add @angular/material --project=my-project-1
 ng add @angular/material --project=my-project-2
 ````
-Il faut ensuite penser à créer un fichier *material.module.ts* dans chaque projet (TODO : à voir comment le mutualiser dans une lib)
+Il faut ensuite penser à créer un fichier *material.module.ts* dans chaque projet (TODO : à voir comment le mutualiser dans une lib) et ajouter 
 
 Si on ne spécifie pas dans quel projet / lib on souhaite générer un composant, ce dernier sera généré dans la cible par défaut spécifiée dans le angular.json sous la clé "defaultProject"
 
@@ -27,9 +30,6 @@ la création d'une application dans un workspace diffère de la création d'un p
 
 Une librairie est en fait un projet angular dans lequel on peut déclarer des classes / services / composants que l'on va ensuite partager dans un **MEME** workspace. 
 C'est utile si plusieurs projet doivent partager des composants / classes / services / helpers etc...
-
-Si l'on souhaite utiliser une librairie dans des projets externes au workspace, il faut publier la librairie sur NPM privée ou publique (payant)
-
 
 ````
 ng new <mon-workspace> --create-application=false
@@ -45,6 +45,8 @@ A la création de la lib, vérifier que son path est ajouté dans la rubrique pa
 
 -> build la lib la première fois avant de l'utiliser dans un projet
 ````
+
+> **Remarque** : Si l'on souhaite utiliser une librairie dans des projets externes au workspace, il faut publier la librairie sur NPM privée ou publique (payant)
 
 ### Exposer un composant aux autres libs / projets
 
