@@ -7,10 +7,19 @@
 # Workspace
 Un workspace Angular est ensemble d'application et de librairies. Toutes les applications d'un même workspace partageront les mêmes dépendances (angular.json / package.json)
 
-générer un workspace : ````ng new <mon-workspace> --create-application=false````      
-générer une librairie : ````ng g library <ma-lib>````       
-générer une application : ````ng g application <mon-application>````       
-générer un composant dans un projet/lib du workspace (spécifier le projet/lib) : ````ng g c composant/mon-compo --project=<ma-lib>````
+générer un workspace : ````ng new <mon-workspace> --createApplication=false --directory=frontends --interactive=false````      
+générer une application : ````ng g application <mon-application> --style=scss --routing=true````       
+générer une librairie : ````ng g library <ma-lib>```` **Attention** au paramétrage du *newProjectRoot* dans le *angular.json*
+générer un composant dans un projet/lib du workspace (spécifier le projet/lib) : ````ng g component components/mon-compo --project=<ma-lib>````
+
+> Remarque : lorsqu'un composant est créé dans une lib, il ne faut pas oublier de le déclarer dans le fichier **src/public-api.ts** de la lib (ou de le rajouter dans le *index.ts*, voir chapitre configuration plus bas) 
+
+installation angular material dans chaque projet
+````
+ng add @angular/material --project=my-project-1
+ng add @angular/material --project=my-project-2
+````
+Il faut ensuite penser à créer un fichier *material.module.ts* dans chaque projet (TODO : à voir comment le mutualiser dans une lib)
 
 Si on ne spécifie pas dans quel projet / lib on souhaite générer un composant, ce dernier sera généré dans la cible par défaut spécifiée dans le angular.json sous la clé "defaultProject"
 
