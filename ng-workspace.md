@@ -1,6 +1,8 @@
 [< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)   
 
 * [Création d'un workspace](#workspace)      
+* [Configuration](#configuration)       
+* [Partage des assets](#partage-des-assets)       
 
 # Workspace
 Un workspace Angular est ensemble d'application et de librairies. Toutes les applications d'un même workspace partageront les mêmes dépendances (angular.json / package.json)
@@ -61,5 +63,129 @@ Afin de ne pas avoir à redéployer les librairies à chaque modification et per
 
 Par défaut ces redirections se font vers le répertoire "dist" du workspace.     
 
+## Configuration
+[Back to top](#workspace)
+
+### tsconfig.json
+
+Pour faciliter le partage des librairies avec les autres projets du workspace, des ````paths```` sont créés automatiquement dans le fichier *tsconfig.json*
+
+````json
+...
+"compilerOptions": {
+    ...
+    "paths": {
+      "my-lib-one": [
+        "dist/my-lib-one/my-lib-one",
+        "dist/my-lib-one"
+      ],
+      "my-lib-two": [
+        "dist/my-lib-two/my-lib-two",
+        "dist/my-lib-two"
+      ]
+    },
+````
+
+Ces paths permettent d'utiliser un nom court lors de l'import (plutôt que d'importer depuis le chemin complet de la lib) et indiquent la cible de l'import lors de son utilisation : ````import { ItemData } from 'my-lib-one';````
+
+Par défaut, les imports vont chercher le code dans le répertoire **dist**, c'est pour cela qu'il faut compiler au moins une fois les libs pour avoir quelque chose. Ceci a pour conséquence que les modifications "à chaud" d'un élément d'une lib, ne soit pas reporté dans le projet qui l'utilise et qui est en cours d'exécution avec un "ng serve". 
+Il faut donc à chaque modification d'une lib, la recompiler pour ensuite avoir les modifications répercutées dans le projet appelant.
+
+Pour gagner en confort et effcicatié lors de la phase de développement, il est possible de modifier ces paths pour qu'ils pointent directement sur les répertoires des librairies :
+
+*tsconfig.json* **modifié**
+
+````json
+...
+"compilerOptions": {
+    ...
+    "paths": {
+      "my-lib-one": [
+        //"dist/my-lib-one/my-lib-one", // en mode production
+        //"dist/my-lib-one" // en mode production
+        "projects/Libs/my-lib-one/src/lib"  // en mode dev pour avoir les mises à jour à chaud lors d'un serve
+      ],
+      "my-lib-two": [
+        //"dist/my-lib-two/my-lib-two", // en mode production
+        //"dist/my-lib-two" // en mode production
+        "projects/Libs/my-lib-two/src/lib"  // en mode dev pour avoir les mises à jour à chaud lors d'un serve
+      ]
+    },
+````
+
+De cette manière, une modification à chaud d'une librairie sera instantanément pris en compte dans l'exécution du projet appelant.
+
+> ATTENTION : il faut penser à refaire pointer les pahts sur le chemin **dist** lors de la compiltaion de production avant déploiement en production.
+
+
+Configuration des éléments à exporter des librairies pour les rendre accessible dans les projets via les paths définis :
+
+créer des fichiers index.ts 
+
+### @Injectable()
+
+Attention à ce que les éléments des librairies (projet de type lib) ne contiennent pas de ````@Injectable()````, sinon cela pourrait générer une erreur du type ````An unhandled exception occurred: Internal error: unknown identifier []```` lors de la compilation
+
+
+## Partage des assets
+
+https://medium.com/@nit3watch/angular-shared-assets-with-multiple-apps-nrwl-nx-b4801c05c771
+
+### arborescence
+[Back to top](#workspace)
+
+### configuration projet
+[Back to top](#workspace)
+
+*angular.json* initial
+
+````json
+...
+  "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/my-project",
+            "index": "projects/my-project/src/index.html",
+            "main": "projects/my-project/src/main.ts",
+            "polyfills": "projects/my-project/src/polyfills.ts",
+            "tsConfig": "projects/my-project/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/my-project/src/favicon.ico",
+              "projects/my-project/src/assets"
+            ],
+````
+
+*angular.json* modifié
+
+````json
+...
+  "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/my-project",
+            "index": "projects/my-project/src/index.html",
+            "main": "projects/my-project/src/main.ts",
+            "polyfills": "projects/my-project/src/polyfills.ts",
+            "tsConfig": "projects/my-project/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/my-project/src/favicon.ico",
+              "projects/my-project/src/assets",
+              {
+                "glob": "**/*",
+                "input": "projects/Libs/my-shared-lib/src/assets",
+                "output": "./assets"
+              }
+            ],
+````
+
+Utilisation des assets dans un projet 
+
+````html
+<img src="../assets/icons/icon_activite_18_bleu.svg">
+````
 
 [Back to top](#workspace)
