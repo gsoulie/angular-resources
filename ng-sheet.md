@@ -41,7 +41,9 @@
 * [Pipe](https://github.com/gsoulie/angular-resources/blob/master/angular-pipe.md)     
 	* iterate on enum with pipe      	 
 * [Flex layout](https://github.com/gsoulie/angular-resources/blob/master/ng-flex-layout.md)     
-* [Workspace](https://github.com/gsoulie/angular-resources/blob/master/ng-workspace.md)         
+* [Workspace](https://github.com/gsoulie/angular-resources/blob/master/ng-workspace.md)      
+	* configuration et partage de lib       
+	* sharing assets	    
 * [Variables d'environnement](https://github.com/gsoulie/angular-resources/blob/master/ng-env-variable.md)     
 * [UI Components](https://github.com/gsoulie/angular-resources/blob/master/ng-ui-components.md)     
 	* Dropdown directive
