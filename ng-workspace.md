@@ -54,8 +54,7 @@ Comme pour un projet angular classique, lors de la création d'un composant, ser
 Ensuite il faut ajouter sa dépendance dans le fichier *public.api.ts*       
 
 ````
-//export * from './lib/composant/mon-composant';
-ex : export * from './lib/componants/demo-composant/demo-composant.component';
+export * from './lib/composant/mon-composant';
 ````
 
 Ensuite il faut faire un build de la lib : ````ng build lib-demo````
@@ -66,13 +65,7 @@ Les composants / services etc... de la lib sont maintenant accessibles à toutes
 
 Si un projet du workspace souhaite rajouter des features à un composant / service / classe du workspace, il faut alors créer un nouveau composant / classe / service et le faire "extend" du composant / classe / service initial
 
-**Liaison entre les applications et les librairies**
-
-> Remarque : la modification d'un élément d'une lib n'est pas répercuté à chaud dans les applications en cours d'exécution. Il faut obligatoirement recompiler la lib puis relancer les applications pour voir apparaître les modifications.
-
-Afin de ne pas avoir à redéployer les librairies à chaque modification et permettre la mise à jour du code à chaud il faut configurer le fichier *tsconfig.json* du projet en définissant des redirections vers les chemins physique des fichiers. 
-
-Par défaut ces redirections se font vers le répertoire "dist" du workspace.     
+    
 
 ## Configuration
 [Back to top](#workspace)
@@ -101,9 +94,11 @@ Ces paths permettent d'utiliser un nom court lors de l'import (plutôt que d'imp
 
 Par défaut, les imports vont chercher le code dans le répertoire **dist**, c'est pour cela qu'il faut compiler au moins une fois les libs pour avoir quelque chose. 
 Ceci a pour conséquence que les modifications "à chaud" d'un élément d'une lib, ne soient pas reportées en direct dans le projet qui l'utilise et qui est en cours d'exécution avec un "ng serve". 
-Il faut donc **à chaque modification d'une lib**, la recompiler pour ensuite avoir les modifications répercutées dans le projet appelant.
+Il faut donc **à chaque modification d'une lib**, la recompiler puis ensuite relancer les applications pour voir les modifications répercutées dans le projet appelant.
 
-Pour gagner en confort et effcicatié lors de la phase de développement, il est possible de modifier ces paths pour qu'ils pointent directement sur les répertoires des librairies :
+Afin de ne pas avoir à redéployer les librairies à chaque modification et permettre la mise à jour du code à chaud il faut configurer le fichier *tsconfig.json* du projet en définissant des redirections vers les chemins physique des fichiers. 
+
+Par défaut ces redirections se font vers le répertoire "dist" du workspace. 
 
 *tsconfig.json* **modifié**
 
