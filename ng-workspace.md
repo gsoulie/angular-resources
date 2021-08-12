@@ -166,7 +166,7 @@ https://medium.com/@nit3watch/angular-shared-assets-with-multiple-apps-nrwl-nx-b
 
 Si l'on souhaite regrouper les assets communs (images, pictos, fonts...) dans une lib pour pouvoir les partager à plusieurs projets, il suffit de créer un répertoire ````projects/Libs/my-lib/src/assets```` dans lequel on va y déposer les éléments.
 
-Ensuite il faloir partager ce répertoire en ajoutant son chemin dans la propriété **assets** de chaque projet / lib dans le fichier **angular.json**. Voir chapitre suivant.
+Ensuite il faloir partager ce répertoire en ajoutant son chemin dans la propriété **assets** de chaque projet / lib dans le fichier **angular.json** (Voir chapitre suivant)
 
 ### configuration projet
 [Back to top](#workspace)
