@@ -8,6 +8,13 @@
 
 https://octoperf.com/blog/2019/08/22/kraken-angular-workspace-multi-application-project/#create-an-application
 
+## Git
+
+> **Important** : Avant de créer le workspace, dans le répertoire qui va accueillir le projet, il est recommandé de créer un sous-répertoire à l'intérieur duquel seront jouées les commandes de création du workspace.
+Sans ça, l'ajout du projet sur git ne pourra se faire correctement et le répertoire contenant le workspace sera vide
+
+## Création
+
 Un workspace Angular est ensemble d'application et de librairies. Toutes les applications d'un même workspace partageront les mêmes dépendances (angular.json / package.json)
 
 générer un workspace : ````ng new <mon-workspace> --createApplication=false --directory=frontends --interactive=false````      
