@@ -88,8 +88,9 @@ Pour faciliter le partage des librairies avec les autres projets du workspace, d
 
 Ces paths permettent d'utiliser un nom court lors de l'import (plutôt que d'importer depuis le chemin complet de la lib) et indiquent la cible de l'import lors de son utilisation : ````import { ItemData } from 'my-lib-one';````
 
-Par défaut, les imports vont chercher le code dans le répertoire **dist**, c'est pour cela qu'il faut compiler au moins une fois les libs pour avoir quelque chose. Ceci a pour conséquence que les modifications "à chaud" d'un élément d'une lib, ne soit pas reporté dans le projet qui l'utilise et qui est en cours d'exécution avec un "ng serve". 
-Il faut donc à chaque modification d'une lib, la recompiler pour ensuite avoir les modifications répercutées dans le projet appelant.
+Par défaut, les imports vont chercher le code dans le répertoire **dist**, c'est pour cela qu'il faut compiler au moins une fois les libs pour avoir quelque chose. 
+Ceci a pour conséquence que les modifications "à chaud" d'un élément d'une lib, ne soient pas reportées en direct dans le projet qui l'utilise et qui est en cours d'exécution avec un "ng serve". 
+Il faut donc **à chaque modification d'une lib**, la recompiler pour ensuite avoir les modifications répercutées dans le projet appelant.
 
 Pour gagner en confort et effcicatié lors de la phase de développement, il est possible de modifier ces paths pour qu'ils pointent directement sur les répertoires des librairies :
 
@@ -115,16 +116,45 @@ Pour gagner en confort et effcicatié lors de la phase de développement, il est
 
 De cette manière, une modification à chaud d'une librairie sera instantanément pris en compte dans l'exécution du projet appelant.
 
-> ATTENTION : il faut penser à refaire pointer les pahts sur le chemin **dist** lors de la compiltaion de production avant déploiement en production.
+> **ATTENTION** : il faut penser à refaire pointer les pahts sur le chemin **dist** lors de la compiltaion de production avant déploiement en production.
 
+### Configurer les Libs
 
-Configuration des éléments à exporter des librairies pour les rendre accessible dans les projets via les paths définis :
+Pour rendre accessibles les éléments d'une lib vers les projets / libs du workspace, un fichier **public-api.ts** est automatiquement créé et doit contenir les exports de chaque éléments à exposer.
 
-créer des fichiers index.ts 
+Cependant si les paths sont paramétrés pour pointer sur des chemins de type ````projects/Libs/my-lib/src/lib````, alors le compilateur s'attends à trouver un fichier index lui indiquant les chemins de tous les éléments à importer.
+Hors comme le chemin pointe sur le répertoire **/lib** se dernier ne contient pas de fichier **public-api.ts** puisque ce dernier se trouve à la racine **/src**. On peut donc créer un fichier **index.ts** dans le répertoire lib qui contiendra les exports : 
+
+exemple *index.ts*
+
+````typescript
+// Components
+export * from './lib/components/test-compo/test-compo.module';
+export * from './components/test-compo/test-compo.component';
+
+export * from './lib/components/select-option/select-option.module';
+export * from './components/select-option/select-option.component';
+
+// Models
+export * from './models/api-messasge.model';
+export * from './models/test.model';
+
+// Services
+export * from './services/api-helper.service';
+export * from './services/auth.service';
+````
+
+Il faudra alors modifier le fichier *public-api.ts* en conséquence :
+
+*public-api.ts*
+
+````typescript
+export * from './lib/index';
+````
 
 ### @Injectable()
 
-Attention à ce que les éléments des librairies (projet de type lib) ne contiennent pas de ````@Injectable()````, sinon cela pourrait générer une erreur du type ````An unhandled exception occurred: Internal error: unknown identifier []```` lors de la compilation
+**Attention** à ce que les éléments des librairies (projet de type lib) ne contiennent pas de ````@Injectable()````, sinon cela pourrait générer une erreur du type ````An unhandled exception occurred: Internal error: unknown identifier []```` lors de la compilation
 
 
 ## Partage des assets
