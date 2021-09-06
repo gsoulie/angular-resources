@@ -11,6 +11,7 @@ Pour surcharger les composant Angular Material, il est important d'utiliser le c
 * [mat-input](#mat-input)   
 * [mat-form-field](#mat-form-field)          
 * [mat-slide-toggle](#mat-slide-toggle)     
+* [mat-dialog](#mat-dialog)     
 
 ## Comprendre ng-deep
 
@@ -109,6 +110,78 @@ Pour masquer le sous-lignage de l'input, il suffit de positionner la propriété
   background-color: white !important;
   border: 1px solid #D8E0ED;
 }
+````
+### mat-dialog
+[Back to top](#angular-material-tips)    
+
+*modale.html*
+````html
+<div class="dialog-title">
+  <button mat-icon-button aria-label="Fermer fenêtre de confirmation"
+   class="close-button"
+   (click)="close()">
+    <img src="./assets/icons/icon_close_w.svg">
+  </button>
+</div>
+<mat-dialog-content>
+  {{ message }}
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    aria-label="Ne pas supprimer la saisie"
+    [autofocus]="false"
+    mat-button
+    class="btn-rounded-std btn-basic-white"
+    (click)="cancel()">Non</button>
+    <button
+    aria-label="Confirmer la suppression de la saisie"
+    mat-button class="btn-white"
+    (click)="validate()">Oui</button>
+</mat-dialog-actions>
+````
+*global style.scss*
+
+````css
+.dialog-overlay {
+  mat-dialog-container {
+    background-color: $color-dark-grey !important;
+    color: white !important;
+    border-radius: 10px !important;
+    padding: 0 30px 30px 30px !important;
+    font-family: $font-family-bold;
+  }
+}
+````
+
+*modale.scss*
+````css
+@import "../../../styles/variables.scss";
+.dialog-title {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+mat-dialog-actions {
+  button {
+    flex-grow: 1;
+  }
+}
+.btn-white {
+  border-radius: 50px !important;
+  text-transform: none;
+  font-family: $font-family-medium !important;
+  font-size: 16px;
+  height: 44px !important;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: white !important;
+  color: $color-dark-grey !important;
+}
+.mat-icon-button ::ng-deep .mat-button-focus-overlay {
+  display: none !important;
+}
+
 ````
 
 [Back to top](#angular-material-tips)    
