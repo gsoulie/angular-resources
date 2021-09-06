@@ -10,6 +10,7 @@ Pour surcharger les composant Angular Material, il est important d'utiliser le c
 * [mat-checkbox](#mat-checkbox)      
 * [mat-input](#mat-input)   
 * [mat-form-field](#mat-form-field)          
+* [mat-slide-toggle](#mat-slide-toggle)     
 
 ## Comprendre ng-deep
 
@@ -89,4 +90,25 @@ Pour masquer le sous-lignage de l'input, il suffit de positionner la propriété
 </mat-form-field>
 ````
 
+### mat-slide-toggle
 [Back to top](#angular-material-tips)      
+
+*home.component.scss*
+````css
+:host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: #009DE0 !important;
+}
+:host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: white !important;
+  border: 1px solid #009DE0;
+}
+:host ::ng-deep .mat-slide-toggle-bar {
+  background-color: #D8E0ED !important;
+}
+:host ::ng-deep .mat-slide-toggle-thumb {
+  background-color: white !important;
+  border: 1px solid #D8E0ED;
+}
+````
+
+[Back to top](#angular-material-tips)    
