@@ -75,10 +75,6 @@ Customize progress bar colors :
     top: 2px;
     left: 2px;
   }
-  & .mat-checkbox-ripple .mat-ripple-element,
-  .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-    background-color: red !important;
-  }
 }
 ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
   background-color: #48CE8B !important;
