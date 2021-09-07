@@ -51,10 +51,45 @@ Customize progress bar colors :
 
 ### mat-checkbox
 [Back to top](#angular-material-tips)     
+
+*html* ````html <mat-checkbox class="custom-frame">Indeterminate</mat-checkbox>````
+
 ````css
-:host ::ng-deep .mat-checkbox-frame {
-    border: 1px solid #707070;
-    border-radius: 3px;
+::ng-deep .custom-frame {
+  & .mat-checkbox-background, .mat-checkbox-frame {
+    border-radius: 70% !important;
+    border-color: #009DE0;
+    height: 24px;
+    width: 24px;
+  }
+
+  & .mat-checkbox-checkmark-path {
+    stroke: white !important;
+  }
+
+  & .mat-checkbox-checkmark {
+    width: 20px;
+    top: 2px;
+    left: 2px;
+  }
+  & .mat-checkbox-ripple .mat-ripple-element,
+  .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: red !important;
+  }
+}
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: #48CE8B !important;
+
+  & .mat-checkbox-background, .mat-checkbox-frame {
+    border-radius: 70% !important;
+    border-color: #48CE8B;
+    height: 24px;
+    width: 24px;
+  }
+}
+::ng-deep .mat-checkbox-inner-container {
+  height: 24px !important;
+  width: 24px !important;
 }
 ````
 
