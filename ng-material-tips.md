@@ -8,6 +8,7 @@ Pour surcharger les composant Angular Material, il est important d'utiliser le c
 * [mat-progress-bar](#mat-progress-bar)       
 * [mat-badge](#mat-badge)      
 * [mat-checkbox](#mat-checkbox)      
+* [mat-radio-button](#mat-radio-button)      
 * [mat-input](#mat-input)   
 * [mat-form-field](#mat-form-field)          
 * [mat-slide-toggle](#mat-slide-toggle)     
@@ -89,6 +90,32 @@ Customize progress bar colors :
 ::ng-deep .mat-checkbox-inner-container {
   height: 24px !important;
   width: 24px !important;
+}
+````
+
+### mat-radio-button 
+[Back to top](#angular-material-tips)    
+
+````<mat-radio-button class="custom-radio">Indeterminate</mat-checkbox>````
+
+*global.scss*
+````css
+.custom-radio {
+  & .mat-radio-outer-circle {
+    border-color: $color-light-blue;
+    height: 24px;
+    width: 24px;
+  }
+  & .mat-radio-inner-circle {
+    background-color: $color-status-green !important;
+    height: 32px;
+    width: 32px;
+    left: -4px;
+    top: -4px;
+  }
+}
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: $color-status-green !important;
 }
 ````
 
