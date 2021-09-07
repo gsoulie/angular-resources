@@ -52,7 +52,10 @@ Customize progress bar colors :
 ### mat-checkbox
 [Back to top](#angular-material-tips)     
 
-*html* ````html <mat-checkbox class="custom-frame">Indeterminate</mat-checkbox>````
+*html* 
+````html 
+<mat-checkbox class="custom-frame">Indeterminate</mat-checkbox>
+````
 
 ````css
 ::ng-deep .custom-frame {
