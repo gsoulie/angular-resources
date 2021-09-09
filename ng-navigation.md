@@ -162,19 +162,33 @@ On peut aussi définir plusieurs classes à l'aide d'une chaîne séparée par d
 [Back to top](#navigation)    
 
 ````typescript
-{
-	path: 'ticket/edit/:id'
-	component: TicketComponent
-}
+{ path: 'fiche-saisie/:id/edit', component: FicheSaisieComponent },
+{ path: 'fiche-saisie/:shiftId', component: FicheSaisieComponent },
+````
+
+````html
+<button mat-button [routerLink]="['/fiche-saisie', '1']">création fiche saisie</button>
+<button mat-button [routerLink]="['/fiche-saisie', '1', 'edit']">édition fiche saisie</button>
 ````
 
 ### Récupérer les paramètres de route dans le controller
+
+Exemple, on a un mode création qui reçoit un paramètre *shiftId* et un mode edition qui reçoit un paramètre *id*. Il est important de donner des noms différents aux paramètres dans ce cas précis (utilisation d'un même composant en mode création et édition), afin de pouvoir déterminer si nous somme en mode création ou édition.
+
 ````typescript
+shiftId;
+entryId;
+editMode = false;
+
 ngOnInit() {
 	//this.ticketId = this.activatedRoute.snapshot.params.id // ATTENTION one shot !! ne sera plus mis à jour
-	this.activatedRoute.params.subscribe((params) => {
-		this.ticketId = params.idTicket;
-	});
+	this.activatedRoute.params.subscribe((params: Params) => {
+	      this.shiftId = params['shiftId'];
+	      this.entryId = params['id'];
+	      this.editMode = this.entryId !== undefined;
+	      console.warn(`shiftId = ${this.shiftId}\r\n entryId = ${this.entryId}\r\n=> edit mode ? ${this.editMode}`);
+
+        });
 }
 ````
 
