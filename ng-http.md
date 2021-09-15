@@ -121,31 +121,115 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
 
 Ajouter automatiquement le Bearer token à toutes les requêtes http
 
-````typescript
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { AuthIS4Service } from 'angular-helpers';
-import { Observable } from 'rxjs';
+*httpInterceptorService*
 
-const TOKEN_HEADER_KEY = 'Authorization';
+````typescript
+import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable()
-export class RclmsAuthInterceptor implements HttpInterceptor {
-    constructor(private authService: AuthIS4Service) { }
+export class HttpInterceptorService implements HttpInterceptor {
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        let authReq = req;
-        const token = this.authService.accessToken;
-        if (token != null) {
-          authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
+  constructor(private authService: AuthService) { }
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let authReq = req;
+    // Ne pas activer l'ajout du token sur l'api d'authentification
+    if (req.urlWithParams.indexOf('/api/User/Login') <= 0) {
+
+      authReq = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${this.authService.getToken()}`
         }
-        return next.handle(authReq);
+      });
     }
+    return next.handle(authReq);
+  }
 }
+````
 
-export const authInterceptorProviders = [
-    { provide: HTTP_INTERCEPTORS, useClass: RclmsAuthInterceptor, multi: true }
-];
+*auth.service.ts*
+
+````typescript
+import { ApiHelperService } from './api-helper.service';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, from, Observable } from 'rxjs';
+import { tap, map } from 'rxjs/operators';
+import { UserService } from '../api/services';
+
+const TOKEN_KEY = 'my-token';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+
+  isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+  token = '';
+
+  constructor(private http: HttpClient, private apiHelper: ApiHelperService, private userService: UserService) {
+    //this.loadToken();
+  }
+
+  async loadToken() {
+    const token = await localStorage.get({ key: TOKEN_KEY });
+    if (token && token.value) {
+      console.log('set token: ', token.value);
+      this.token = token.value;
+      this.isAuthenticated.next(true);
+    } else {
+      this.isAuthenticated.next(false);
+    }
+  }
+
+  getToken() {
+    return localStorage.getItem(TOKEN_KEY);
+  }
+
+  login(credentials: {login; password}): Observable<any> {
+      return this.userService.apiUserLoginPost$Plain({
+        body: credentials
+      })
+      .pipe(
+        map((data: any) => JSON.parse(data)),
+        map((data: any) => {
+          localStorage.setItem(TOKEN_KEY,data.token)
+          return data
+        }),
+        tap(_ => {
+          this.isAuthenticated.next(true);
+      }));
+  }
+
+  logout(): void {
+    this.isAuthenticated.next(false);
+    return localStorage.removeItem(TOKEN_KEY);
+  }
+}
+````
+
+*app.module.ts*
+
+````typescript
+import { HttpInterceptorService } from 'my-services';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [ComponentsModule,],
+  providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorServiceService,
+      multi   : true,
+    },
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
 ````
 
 [Back to top](#codes-retour-http)
