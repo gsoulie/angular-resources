@@ -5,6 +5,7 @@
 * [Mémoriser une variable de controller](#mémoriser-une-variable-de-controller)      
 * [Propagation événement](#propagation-événement)      
 * [Conversion Date vers chaîne YYYY-MM-DD](#conversion-date-vers-chaîne-yyyy-mm-dd)     
+* [Gérer les dates en locale FR](#gérer-les-dates-en-locale-fr)      
 
 ## Mémoriser une variable de controller
 
@@ -65,4 +66,23 @@ const today = new Date();
 console.log(today.toISOString().slice(0, 10));
 ````
 
+## Gérer les dates en locale FR
+
+*app.module.ts*
+
+````typescript
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr, 'fr');
+import { LOCALE_ID } from '@angular/core';
+
+@NgModule({
+  declarations: [...],
+  imports: [...],
+  providers: [
+    {provide: LOCALE_ID, useValue: 'fr' }	// Ajouter le LOCAL_ID niveau projet
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+````
 [Back to top](#astuces)    
