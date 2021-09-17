@@ -24,6 +24,7 @@
 * [Astuce](https://github.com/gsoulie/angular-resources/blob/master/ng-tips.md)    
 	* Mémoriser une variable de controller       	  
 	* Propagation événement      
+	* Convertir un objet Date en chaîne 'YYYY-MM-DD'      
 * [Navigation](https://github.com/gsoulie/angular-resources/blob/master/ng-navigation.md)     
 * [Codes retour http](https://github.com/gsoulie/angular-resources/blob/master/ng-http.md)     
 * [Form](https://github.com/gsoulie/angular-resources/blob/master/ng-form.md)     
