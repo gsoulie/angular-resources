@@ -4,6 +4,7 @@
 
 * [Mémoriser une variable de controller](#mémoriser-une-variable-de-controller)      
 * [Propagation événement](#propagation-événement)      
+* [Conversion Date vers chaîne YYYY-MM-DD](#conversion-date-vers-chaîne-yyyy-mm-dd)     
 
 ## Mémoriser une variable de controller
 
@@ -54,6 +55,14 @@ popoverMenu(event): void {
     event.stopPropagation();
     event.preventDefault();
 }
+````
+
+## Conversion Date vers chaîne YYYY-MM-DD
+[Back to top](#astuces)    
+
+````typescript
+const today = new Date();
+console.log(today.toISOString().slice(0, 10));
 ````
 
 [Back to top](#astuces)    
