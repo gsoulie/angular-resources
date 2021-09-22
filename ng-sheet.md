@@ -71,3 +71,5 @@
 	* React,  Vue, Nx, Nest, Prisma     
 * [Divers](https://github.com/gsoulie/angular-resources/blob/master/ng-divers.md)
 	* Accès client lourd depuis front web 
+* [Erreurs connues](https://github.com/gsoulie/angular-resources/blob/master/ng-issues.md)
+	* partage d'une dataset commun entre plusieurs composants enfants
