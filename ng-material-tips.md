@@ -13,6 +13,7 @@ Pour surcharger les composant Angular Material, il est important d'utiliser le c
 * [mat-form-field](#mat-form-field)          
 * [mat-slide-toggle](#mat-slide-toggle)     
 * [mat-dialog](#mat-dialog)     
+* [mat-select](#mat-select)     
 
 ## Comprendre ng-deep
 
@@ -243,6 +244,59 @@ mat-dialog-actions {
   display: none !important;
 }
 
+````
+
+### mat-select
+[Back to top](#angular-material-tips)    
+
+*html*
+
+````html
+<mat-select
+  panelClass="comboOverlay"
+  placeholder="Select entry"
+  [(ngModel)]="selectedEntry">
+    <mat-option [value]="w.id" *ngFor="let w of wharf">{{ w.title }}</mat-option>
+</mat-select>
+````
+
+*style.scss*
+
+````css
+.mat-select {
+  padding: 10px 0 10px 0 !important;
+  border: 2px solid $color-border-grey !important;
+  border-radius: 5px !important;
+  color: $color-text !important;
+  font-family: $font-family-base !important;
+  font-size: 16px !important;
+  width: auto;
+  text-align: center !important;
+}
+.mat-select-value-text, .mat-select-placeholder {
+  color: $color-text;
+  font-family: $font-family-base !important;
+  font-size: 16px !important;
+}
+.mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+  background: $color-light-grey !important;
+}
+.mat-option.mat-active {
+  background: $color-light-grey !important;
+  color: $color-dark-blue-font !important;
+  font-weight: bold;
+}
+
+.comboOverlay.mat-select-panel {
+  background-color: white !important;
+
+  .mat-option-text {
+    color: $color-text !important;
+  }
+  .mat-option.mat-active {
+    color: $color-dark-blue-font !important;
+  }
+}
 ````
 
 [Back to top](#angular-material-tips)    
