@@ -2,7 +2,7 @@
 
 # Erreurs connues
 
-* [Partage d'un dataset commun entre plusieurs composants enfants]       
+* Partage d'un dataset commun entre plusieurs composants enfants      
 
 ## Partage d'un dataset commun entre plusieurs composants enfants
 
@@ -49,6 +49,10 @@ convertedItems = [];
 ngOnInit() {
     this.convertedItems = JSON.parse(JSON.stringify(this.items));
 }
+
+ checkItem(itemIndex): void {
+    this.convertedItems[itemIndex].checked = !this.convertedItems[itemIndex].checked;
+  }
 ````
 
 *child.component.html*
@@ -59,6 +63,6 @@ ngOnInit() {
     <button *ngFor="let i of convertedItems; let itemIndex = index"
     (click)="checkItem(itemIndex)"
     mat-button
-    [ngClass]="t?.checked ? 'btn-dark-blue' : 'btn-light-grey-stroked'">{{ i.label }}</button>
+    [ngClass]="i?.checked ? 'btn-dark-blue' : 'btn-light-grey-stroked'">{{ i.label }}</button>
   </div>
 ````
