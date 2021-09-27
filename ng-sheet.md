@@ -67,6 +67,7 @@
 	* [JWT authorization](https://dev-academy.com/angular-jwt/)      
 * [Performances](https://github.com/gsoulie/angular-resources/blob/master/ng-performance.md)      
 * [Gestion des logs](https://github.com/gsoulie/angular-resources/blob/master/ng-log.md)       
+* [Téléchargement de fichiers](https://github.com/gsoulie/angular-resources/blob/master/ng-download.md)       
 * [Veille](https://github.com/gsoulie/angular-resources/blob/master/ng-veille.md)         
 	* React,  Vue, Nx, Nest, Prisma     
 * [Divers](https://github.com/gsoulie/angular-resources/blob/master/ng-divers.md)
