@@ -141,6 +141,25 @@ Customize progress bar colors :
 }
 ````
 
+#### Customiser un input de type="time"
+
+Exemple, afficher un champ ````<input matInput type="time">```` pour lequel la partie minute est bloquée et non modifiable et pour lequel le bouton "horloge" qui affiche les rouleaux natifs n'est pas visible (pour éviter de pouvoir saisir des minutes).
+
+*html*
+````html
+<input matInput type="time" step="3600" [(ngModel)]="startTime" (change)="changeTime()">
+````
+
+*css*
+````css
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background: none !important;
+  display:none !important;
+}
+````
+
+**Explications :** le paramètre ````step="3600"```` permet l'incrémentation du champ par pas de 1h (via les flèches haut/bas).
+
 ### mat-form-field
 [Back to top](#angular-material-tips)    
 
