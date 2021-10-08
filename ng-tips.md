@@ -6,6 +6,7 @@
 * [Propagation événement](#propagation-événement)      
 * [Conversion Date vers chaîne YYYY-MM-DD](#conversion-date-vers-chaîne-yyyy-mm-dd)     
 * [Gérer les dates en locale FR](#gérer-les-dates-en-locale-fr)      
+* [dayjs](#dayjs)     
 
 ## Mémoriser une variable de controller
 
@@ -86,3 +87,22 @@ import { LOCALE_ID } from '@angular/core';
 export class AppModule { }
 ````
 [Back to top](#astuces)    
+
+## Dayjs
+
+*home.ts*
+
+````typescript
+import * as dayjs from 'dayjs';
+import 'dayjs/locale/fr' // import locale
+dayjs.locale('fr');
+
+currentDate = dayjs();
+let listeJours = [];
+
+// Lister tous les jours du mois de la date en cours
+for (let i = 1; i <= this.currentDate.daysInMonth(); i++) {
+    listeJours.push(dayjs(new Date(this.currentDate.year(), this.currentDate.month(), i)));
+}
+console.table(listeJours);
+````
