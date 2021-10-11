@@ -319,3 +319,147 @@ mat-dialog-actions {
 ````
 
 [Back to top](#angular-material-tips)    
+
+*home.html*
+
+````typescript
+<app-header
+  class="entry-header"
+  [title]="'Annuler ma saisie'"
+  [subTitle]="'Informations'"
+  (cancelShift)="cancelShift($event)"
+  (saveEntry)="save($event)"></app-header>
+<app-sub-header
+  [leftInfo]="currentEntry?.date | date:'EEE d MMMM' | titlecase"
+  [rightInfo]="shiftLabel">
+</app-sub-header>
+
+<div class="scrolling-content">
+</div>
+````
+
+*home.scss*
+
+````css
+.entry-header {
+  position: fixed !important;
+  top: 0px !important;
+  width: 100%;
+  background: transparent !important;
+  z-index: 20;
+}
+.scrolling-content {
+  z-index: 10;
+  position: relative;
+  width: 100%;
+  //top: 180px !important;
+  margin-bottom: 60px;
+}
+````
+
+*app-header.html*
+
+````html
+<mat-toolbar class="header-toolbar">
+  <div class="header-toolbar-overlay">
+    <button mat-icon-button (click)="close()" aria-label="Annuler la saisie">
+      <img src="../assets/icons/icon_close_w.svg">
+    </button>
+    <span>{{ title }}</span>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button (click)="save()" aria-label="Enregistrer la saisie">
+      <mat-icon>save</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+````
+````css
+.mat-icon-button ::ng-deep .mat-button-focus-overlay {
+  display: none !important;
+}
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+.header-toolbar {
+  background-color: transparent !important;
+  height: 64px;
+  padding: 0px !important;
+}
+.header-toolbar-overlay {
+  background-color: $color-dark-blue;
+  color: white;
+  font-family: $font-family-base;
+  font-size: 16px;
+  height: 64px;
+  width: 100%;
+  border-radius: 0 0 30px 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 20px 0 20px;
+}
+.header-toolbar-content {
+  background-color: $color-dark-blue-header;
+  color: white;
+  font-family: $font-family-base;
+  font-size: 16px;
+  border-radius: 0 0 30px 30px;
+  padding: 20px;
+  margin-top: -1px;
+}
+.header-toolbar-content-section-title {
+  color: white;
+  font-family: $font-family-bold;
+  font-size: 16px;
+  width: 100%;
+}
+````
+
+*app-sub-header.html*
+
+````html
+<div class="header-toolbar-content top-spacer">
+  <span class="header-toolbar-content-section-title">Informations</span>
+  <div class="bottom-line">
+    <div class="bottom-line-col">
+      <img aria-label="Date de la saisie" src="../assets/icons/icon_calendrier_18_bleu.svg">
+      <span class="text-white">{{ leftInfo }}</span>
+    </div>
+    <div class="bottom-line-col">
+      <img aria-label="Plage horaire du shift sélectionné" src="../assets/icons/icon_horloge_18_bleu.svg">
+      <span class="text-white">{{ rightInfo }}</span>
+    </div>
+  </div>
+</div>
+````
+
+````css
+.top-spacer {
+  padding-top: 78px;
+}
+.bottom-line {
+  padding-top: 10px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+.bottom-line-col {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  img {
+    margin-right: 10px;
+  }
+}
+.mat-icon-button ::ng-deep .mat-button-focus-overlay {
+  display: none !important;
+}
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+````
