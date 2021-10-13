@@ -326,6 +326,326 @@ export class TableSelectionExample {
 }
 ````
 
+
+### mat-table avec ruptures
+
+*home.html*
+
+````html
+<h1 [style.marginTop]="'50px'">Table unique avec travail sur le jeu de données</h1>
+<div class="example-container mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+ 
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Etat</th>
+      <td mat-cell *matCellDef="let element"
+      [attr.colspan]="element.header ? fullDataColumns.length : 1"
+      [class.rupture-row]="element.header"
+      [class.left-indicator]="!element.header"
+      > {{element.header ? element.date : element.status }} </td>
+    </ng-container>       
+    <ng-container matColumnDef="agent">
+      <th mat-header-cell *matHeaderCellDef>Agent</th>
+      <td mat-cell *matCellDef="let element" 
+      [attr.colspan]="element.header ? 0 : 1"
+      [class.hidden]="element.header"> 
+        <mat-label *ngIf="!element.header">{{ element.agent.prenom }} <b>{{ element.agent.nom }}</b></mat-label>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="shift">
+        <th mat-header-cell *matHeaderCellDef>Shift</th>
+        <td mat-cell *matCellDef="let element"
+        [class.hidden]="element.header"
+        [attr.colspan]="element.header ? 0 : 1"> {{element.header ? '' : element.shift }} </td>
+      </ng-container>
+    <ng-container matColumnDef="driving">
+      <th mat-header-cell *matHeaderCellDef class="centered-cell">Conduite</th>
+      <td mat-cell *matCellDef="let element" 
+      class="centered-cell"
+      [attr.colspan]="element.header ? 0 : 1"
+      [class.hidden]="element.header"> {{element.header ? '' : element.driving }} </td>
+    </ng-container>
+    <ng-container matColumnDef="maintening">
+      <th mat-header-cell *matHeaderCellDef class="centered-cell">Atelier</th>
+      <td mat-cell *matCellDef="let element" 
+      class="centered-cell"
+      [attr.colspan]="element.header ? 0 : 1"
+      [class.hidden]="element.header"> {{element.header ? '' : element.maintening }} </td>
+    </ng-container>
+    <ng-container matColumnDef="basket">
+      <th mat-header-cell *matHeaderCellDef class="centered-cell">Panier</th>
+      <td mat-cell *matCellDef="let element" 
+      class="centered-cell"
+      [attr.colspan]="element.header ? 0 : 1"
+      [class.hidden]="element.header"> 
+        <div *ngIf="!element.header" class="basket-container">
+            <div *ngIf="!element.header"
+            [class.no-basket-alert]="!element.basketAlert"
+            [class.basket-alert]="element.basketAlert">
+                {{element.basket}} 
+        </div> 
+        </div>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="movement">
+      <th mat-header-cell *matHeaderCellDef class="centered-cell">Déplacement</th>
+      <td mat-cell *matCellDef="let element" 
+      class="centered-cell"
+      [attr.colspan]="element.header ? 0 : 1"
+      [class.hidden]="element.header"> {{element.header ? '' : element.movement }} </td>
+    </ng-container>
+    <ng-container matColumnDef="dirt">
+      <th mat-header-cell *matHeaderCellDef class="centered-cell">Salissure</th>
+      <td mat-cell *matCellDef="let element" 
+      class="centered-cell"
+      [attr.colspan]="element.header ? 0 : 1"
+      [class.hidden]="element.header"> {{element.header ? '' : element.dirt }} </td>
+    </ng-container>
+    <ng-container matColumnDef="height">
+      <th mat-header-cell *matHeaderCellDef class="centered-cell">Hauteur</th>
+      <td mat-cell *matCellDef="let element" 
+      class="centered-cell"
+      [attr.colspan]="element.header ? 0 : 1"
+      [class.hidden]="element.header"> {{element.header ? '' : element.height }} </td>
+    </ng-container>
+    <ng-container matColumnDef="hour">
+      <th mat-header-cell *matHeaderCellDef>Heure supp</th>
+      <td mat-cell *matCellDef="let element" 
+      [attr.colspan]="element.header ? 0 : 1"
+      [class.hidden]="element.header"> {{element.header ? '' : element.suppHour }} </td>
+    </ng-container>
+    <ng-container matColumnDef="option">
+      <th mat-header-cell *matHeaderCellDef class="centered-cell">Option</th>
+      <td mat-cell *matCellDef="let element" 
+      class="centered-cell"
+      [attr.colspan]="element.header ? 0 : 1"
+      [class.hidden]="element.header"> {{element.header ? '' : element.option }} </td>
+    </ng-container>
+    <ng-container matColumnDef="comment">
+      <th mat-header-cell *matHeaderCellDef class="centered-cell">
+        <img src="./../assets/images/icon_commentaire_16_blanc.svg">
+      </th>
+      <td mat-cell *matCellDef="let element" 
+      class="centered-cell"
+      [attr.colspan]="element.header ? 0 : 1"
+      [class.hidden]="element.header"> {{element.header ? '' : element.comment }} </td>
+    </ng-container>
+    <ng-container matColumnDef="action" class="centered-cell">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element" 
+      class="centered-cell"
+      [attr.colspan]="element.header ? 0 : 1"
+      [class.hidden]="element.header">
+            <button mat-button 
+            class="btn-rounded-std btn-light-blue"
+            *ngIf="!element.header">Valider</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="fullDataColumns; sticky: true" class="table-header"></tr>
+    <tr mat-row *matRowDef="let row; columns: fullDataColumns;"></tr>
+  </table>
+</div>
+````
+
+````typescript
+  dataSource = new MatTableDataSource<any>([]);
+  fullDataColumns: string[] = [];
+
+  constructor(private mock: MockService) { }
+
+  ngOnInit() {
+    this.fullDataColumns = this.mock.fullDataColumns;
+    this.dataSource = new MatTableDataSource(this.mock.ruptures2);
+  }
+````
+
+*mock.service.ts*
+
+````typescript
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MockService {
+
+  dataset = [
+    { date: '2021-10-13', status: 'SentForApproval', agent: { nom: 'AvecUnNomSuperLong', prenom: 'Jean-Sébastien' }, shift: 'Shift matin 6/13', driving: 2, maintening: 1, wharf: 'G', basket: 1, basketAlert: true, movement: 0, dirt: 2, height: 3, suppHour: '', option: false, comment: 'Oui' },
+    {
+      date: '2021-10-13', status: 'SentForApproval', agent: { nom: 'Nom', prenom: 'Prénom' }, shift: 'Shift matin 6/13', driving: 2, maintening: 1, wharf: 'G',
+      basket: 1, basketAlert: true, movement: 0, dirt: 2, height: 3, suppHour: '', option: false, comment: 'Non'
+    },
+    {
+      date: '2021-10-13', status: 'SentForApproval', agent: { nom: 'Nom', prenom: 'Prénom' }, shift: 'Shift matin 6/13', driving: 2, maintening: 1, wharf: 'G',
+      basket: 1, basketAlert: true, movement: 0, dirt: 2, height: 3, suppHour: '', option: false, comment: 'Non'
+    },
+    {
+      date: '2021-10-13', status: 'SentForApproval', agent: { nom: 'Nom', prenom: 'Prénom' }, shift: 'Shift matin 6/13', driving: 2, maintening: 1, wharf: 'G',
+      basket: 1, basketAlert: false, movement: 0, dirt: 2, height: 3, suppHour: '', option: false, comment: 'Non'
+    },
+   
+    {
+      date: '2021-10-14', status: 'SentForApproval', agent: { nom: 'Nom', prenom: 'Prénom' }, shift: 'Shift matin 6/13', driving: 2, maintening: 1, wharf: 'G',
+      basket: 1, basketAlert: false, movement: 0, dirt: 2, height: 3, suppHour: '', option: false, comment: 'Non'
+    },
+    {
+      date: '2021-10-14', status: 'SentForApproval', agent: { nom: 'Nom', prenom: 'Prénom' }, shift: 'Shift matin 6/13', driving: 2, maintening: 1, wharf: 'G',
+      basket: 1, basketAlert: false, movement: 0, dirt: 2, height: 3, suppHour: 'Vacations spéciales', option: false, comment: 'Non'
+    },
+    {
+      date: '2021-10-14', status: 'ExportedWithFixes', agent: { nom: 'Nom', prenom: 'Prénom' }, shift: 'Shift matin 6/13', driving: 2, maintening: 1, wharf: 'G',
+      basket: 1, basketAlert: false, movement: 0, dirt: 2, height: 3, suppHour: '', option: false, comment: 'Non'
+    },
+   
+  ];
+
+  ruptures2 = [];
+
+  fullDataColumns: string[] = ['status', 'shift', 'agent', 'driving', 'maintening', 'basket',
+    'movement', 'dirt', 'height', 'hour', 'option', 'comment', 'action'];
+  ruptureColumn = ['date'];
+
+  constructor() {
+    this.buildDataset();    
+  }
+
+  buildDataset() {
+    let compareDate = '';
+    for (let i = 0; i < this.dataset.length; i++) {
+      if (i === 0) {
+        compareDate = this.dataset[i].date;
+   
+        let row = JSON.parse(JSON.stringify(this.dataset[i])); // casser la référence sinon écrase les valeurs des lignes suivantes
+        row['header'] = true;
+        this.ruptures2.push(row);
+        console.table(this.ruptures2);
+
+        let row2 = JSON.parse(JSON.stringify(this.dataset[i]));
+        row2['header'] = false;
+        this.ruptures2.push(row2);
+        console.table(this.ruptures2);
+
+      } else {
+        if (compareDate !== this.dataset[i].date) {
+          compareDate = this.dataset[i].date;
+
+          let row = JSON.parse(JSON.stringify(this.dataset[i]));
+          row['header'] = true;
+          this.ruptures2.push(row);
+
+          let row2 = JSON.parse(JSON.stringify(this.dataset[i]));
+          row2['header'] = false;
+          this.ruptures2.push(row2);
+          console.table(this.ruptures2);
+        } else {
+          let row = JSON.parse(JSON.stringify(this.dataset[i]));
+          row['header'] = false;
+          this.ruptures2.push(row);
+        }
+      }
+    }
+  }
+}
+````
+
+*home.css*
+
+````css
+table {
+  width: 100% !important;
+}
+.example-container {
+    height: 600px;
+    overflow: auto;
+}
+.table-header {
+    background: #2D2681 !important;
+    font-weight: bold !important;
+    color: white !important;
+    border-top-left-radius: 5px !important;
+    border-top-right-radius: 5px !important;
+    .mat-header-cell {
+        color: #EDF0F8;
+        font-size: 16px !important;
+    }
+}
+
+// Définir la hauteur minimal d'une ligne
+tr.mat-footer-row,
+tr.mat-row {
+  height: 20px !important;
+}
+// ligne de rupture  
+.rupture-row {
+    background-color: #D8E0ED;
+    height: 30px !important;
+}
+.hidden {
+    width: 0px !important;
+}
+// retrait du padding right de la table
+th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
+    padding-right: 0px !important;
+}
+th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+  padding-left: 10px;
+}
+.left-indicator {
+  border-left: 3px solid red;
+}
+.centered-cell {
+  text-align: center !important;
+}
+td.mat-cell {
+  word-wrap: break-word !important;
+}
+.mat-cell {
+  word-wrap: break-word !important;
+}
+.mat-header-cell {
+  word-wrap: break-word !important;
+}
+.basket-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.basket-alert {
+  background-color: #F5575D;
+  color: white;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+}
+.no-basket-alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+  }
+  .btn-rounded-std {
+    border-radius: 50px !important;
+    text-transform: none;
+    font-size: 16px;
+    height: 30px !important;
+    line-height: 30px !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: transparent !important;
+  }
+  .btn-light-blue {
+    color: white;
+    background-color: #009DE0 !important;
+  }
+````
+
 ## Fullcalendar
 [Back to top](#components)  
 
