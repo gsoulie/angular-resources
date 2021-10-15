@@ -34,7 +34,7 @@
         "options": {
             "cwd": "${workspaceFolder}"
         },
-        "args": [ "build", "--prod" ]
+        "args": [ "build", "--configuration=production" ]
     },
     {
         "label": "01_backend-1_serve api",
