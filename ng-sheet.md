@@ -38,7 +38,7 @@
 	* Global sass variable
 	* Theming     
 	* Dynamic styling     
-	* [Angular material tips](https://github.com/gsoulie/angular-resources/blob/master/ng-material-tips.md)     
+	* [Surcharges angular material](https://github.com/gsoulie/angular-resources/blob/master/ng-material-tips.md)     
 	* [Css](https://github.com/gsoulie/angular-resources/blob/master/ng-material-tips.md)     
 * [Adapter pattern](https://github.com/gsoulie/angular-resources/blob/master/ng-adapter-pattern.md)     
 * [Pipe](https://github.com/gsoulie/angular-resources/blob/master/angular-pipe.md)     
