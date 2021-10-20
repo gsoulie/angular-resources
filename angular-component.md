@@ -646,6 +646,43 @@ td.mat-cell {
   }
 ````
 
+### Filtrage avec prédicat
+
+En partant du jeu de données de l'exemple précédant
+
+````typescript
+ngOnInit(): void {
+    this.dataSource = new MatTableDataSource(this.dataset);
+    
+    // création du prédicat pour choisir les colonnes à filtrer
+    this.dataSource.filterPredicate = (data, filter: string) => {
+      return data.status.toLowerCase().indexOf(filter.toLowerCase()) !== -1 ||
+      data.agent.nom.toLowerCase().indexOf(filter.toLowerCase()) !== -1 ||
+      data.agent.prenom.toLowerCase().indexOf(filter.toLowerCase()) !== -1 ||
+      data.shift.toLowerCase().indexOf(filter.toLowerCase()) !== -1 ||
+      data.suppHour.toLowerCase().indexOf(filter.toLowerCase()) !== -1
+     };
+  }
+  
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = filterValue;
+  }
+````
+
+````html
+<input matInput (keyup)="applyFilter($event)" placeholder="Valeur à filtrer" #input>
+<table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Etat</th>
+        <td mat-cell *matCellDef="let element" class="left-indicator"> {{ element.status }} </td>
+      </ng-container>
+   ...
+</table>
+````
+
 ## Fullcalendar
 [Back to top](#components)  
 
