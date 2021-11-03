@@ -40,14 +40,6 @@
 	* Dynamic styling     
 	* [Surcharges angular material](https://github.com/gsoulie/angular-resources/blob/master/ng-material-tips.md)     
 	* [Css](https://github.com/gsoulie/angular-resources/blob/master/ng-material-tips.md)     
-* [Adapter pattern](https://github.com/gsoulie/angular-resources/blob/master/ng-adapter-pattern.md)     
-* [Pipe](https://github.com/gsoulie/angular-resources/blob/master/angular-pipe.md)     
-	* iterate on enum with pipe      	 
-* [Flex layout](https://github.com/gsoulie/angular-resources/blob/master/ng-flex-layout.md)     
-* [Workspace](https://github.com/gsoulie/angular-resources/blob/master/ng-workspace.md)      
-	* configuration et partage de lib       
-	* sharing assets	    
-* [Variables d'environnement](https://github.com/gsoulie/angular-resources/blob/master/ng-env-variable.md)     
 * [UI Components](https://github.com/gsoulie/angular-resources/blob/master/ng-ui-components.md)     
 	* Dropdown directive
 	* mat-table
@@ -56,6 +48,14 @@
 	* Swiper
 	* mat-dialog    
 	* loading spinner     
+* [Adapter pattern](https://github.com/gsoulie/angular-resources/blob/master/ng-adapter-pattern.md)     
+* [Pipe](https://github.com/gsoulie/angular-resources/blob/master/angular-pipe.md)     
+	* iterate on enum with pipe      	 
+* [Flex layout](https://github.com/gsoulie/angular-resources/blob/master/ng-flex-layout.md)     
+* [Workspace](https://github.com/gsoulie/angular-resources/blob/master/ng-workspace.md)      
+	* configuration et partage de lib       
+	* sharing assets	    
+* [Variables d'environnement](https://github.com/gsoulie/angular-resources/blob/master/ng-env-variable.md)     
 * [Tests unitaires](https://github.com/gsoulie/angular-resources/blob/master/ng-unit-test.md)     
 	* testing bundle in dist directory 	
 	* e2e avec Cypress      
