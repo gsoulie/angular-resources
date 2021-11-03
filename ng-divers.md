@@ -3,3 +3,42 @@
 # Divers
 
 * [Accès client lourd depuis frontend](https://www.synolia.com/synolab/back-office/lancer-client-lourd-lien-uri-scheme/)          
+* [Détection activité utilisateur](détection-activité-utilisateur)      
+
+## Détection activité utilisateur
+
+https://stackblitz.com/edit/angular-h9wcuw?file=src%2Fapp%2Fapp.component.ts
+
+permet de détecter si un utilisateur manipule ou non l'application. Peut-être utile pour mettre en place une mécanique de rafraichissement de token d'authentification lorsqu'on détecte que l'utilisateur est actif
+
+*app.component.ts*
+
+````typescript
+import { Component, HostListener } from '@angular/core';
+import { Subject } from 'rxjs';
+
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
+})
+export class AppComponent {
+  userActivity;
+
+  userInactive: Subject<any> = new Subject();
+  constructor() {
+    this.setTimeout();
+    this.userInactive.subscribe(() => console.log('user has been inactive for 3s'));
+  }
+
+  setTimeout() {
+    this.userActivity = setTimeout(() => this.userInactive.next(undefined), 3000);
+  }
+
+  @HostListener('window:mousemove') refreshUserState() {
+    clearTimeout(this.userActivity);
+    this.setTimeout();
+  }
+}
+
+````
