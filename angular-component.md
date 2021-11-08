@@ -683,6 +683,12 @@ ngOnInit(): void {
 </table>
 ````
 
+### mat-table avec observable
+
+mat-table avec observable + tri : https://stackblitz.com/edit/angular-6fomv1-h2hdk3?file=app%2Ftable-basic-example.ts
+https://stackblitz.com/edit/angular-ivy-seskzc?file=src%2Fapp%2Fuser.ts
+https://stackblitz.com/edit/angular-6fomv1?file=app%2Ftable-basic-example.ts
+
 ## Fullcalendar
 [Back to top](#components)  
 
