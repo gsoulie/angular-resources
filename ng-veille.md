@@ -56,6 +56,10 @@ setup() {
 }
 ````
 
+### Nuxt JS
+
+Est un framework Vuejs : auto-import des composants, SEO simplifié, store intégré, Server-side rendering etc... permet d'organiser les projets Vue avec une structure par répertoire (comme pour angular)
+
 ### svelte
 => framework js très proche de React et Vue mais améliore les performances car il effectue le plus gros du travail lors de la compilation. paquets moins volumineux. En contrepartie, certaines notions utilisent une syntaxe spécifique,
 svelte **ne gère pas tout seul** la mise à jour des références et mutations de tableaux, il faut donc s'en charger manuellement pour être sûr que la vue se mette à jour
