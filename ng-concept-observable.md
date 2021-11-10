@@ -161,6 +161,81 @@ puis la suite des valeurs en cours d'émission.
 ## Bonnes pratiques
 [Back to top](#observables)
 
+https://adrien.pessu.net/post/angular_best_practices/
+https://nicolasfazio.ch/programmation/angular/angular-creer-service-reactif-observables
+https://makina-corpus.com/front-end/mise-en-pratique-rxjs-angular
+
+Eviter la création d'une subscription avec les appels API qui ne retournent qu'un seul résultat (non pas un flux comme pour les sockets) 
+
+````this.apiService.getUsers().pipe(take(1)).subscribe(result => this.users = result); // évite de unsubscribe manuellement````
+
+**Eviter** autant que possible de récupérer les données avec un observable avec subscribe directement dans un composant.
+Il est préférable de récupérer les données dans un service dédié ex :
+
+**A éviter**
+
+*service.ts*
+````typescript
+  load(): Observable<any[]> {
+    return this._http.get('https://reqres.in/api/users').pipe(
+      map((response: {data: any[]}) => response.data),
+      tap(data => this.users = data)
+    );
+  }
+````
+
+*composant.ts*
+
+````typescript
+ ngOnInit() {
+    // BAD PATTERN: 
+    // create service logic inside component
+    this._service.load().subscribe(
+      res => this.users = res
+    )
+  }
+````
+
+**A Privilégier**
+
+*service.ts*
+````typescript
+  private _users: BehaviorSubject<any> = new BehaviorSubject(null);
+  public users$: Observable<any> = this._users.asObservable();
+
+  constructor(
+    private _http: HttpClient
+  ) {}
+
+  async load() {
+    await this._http.get('https://reqres.in/api/users')
+      .pipe(first())
+      .toPromise()
+      .then((response: {data: any[]}) => {
+        // on assign la reponse à la Behavior Subject
+        this._users.next(response.data);
+      })
+      .catch(err => console.log(err))
+  }
+````
+
+*component.ts*
+
+````typescript
+users$: Observable<any[]>;
+
+  constructor(
+    private _service: UsersService
+  ) {}
+  
+ngOnInit() {
+    this._service.load();
+    this.users$ = this._service.users$;
+  }
+````
+
+#### Souscription
+
 Pour pouvoir récupérer les données d'un observable, il faut s'y abonner via subscribe.
 
 La souscription peut prendre 3 paramètres (next, error et complete) soit :
