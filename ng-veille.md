@@ -180,5 +180,30 @@ export class CardsController {
     }
 }
 ````  
-  [Back to top](#veille)     
+[Back to top](#veille)     
+
+## Flutter
+
+Framework Google pour créer des application mobile android / ios. Basé sur le langage DART
+particularité : il génère du code natif pour chaque plateforme
+
+Contrairement à React Native, Google a choisi la solution la plus compliquée, à savoir recréer l’ensemble des composants graphiques en Flutter. Cette direction qui demande un travail colossal a un énorme avantage : les développeurs sont toujours certains d’avoir le rendu souhaité sur les différentes plateformes. Exit la gestion des versions sur Android, où Holo et Material n’ont cessé d’évoluer au fil du temps.
+
+En contrepartie, cela veut dire qu’en utilisant Flutter dans son application, il est nécessaire d’incorporer ce code, qui vient alourdir l’apk/ipa finale..
+
+Flutter met à disposition une grande variété de bibliothèques d’éléments d’IU standard pour Android et iOS.
+
+Il reste cependant aussi adapté au développement d’applications web de bureau classiques. Les applications développées avec Flutter prennent l’aspect d’applications typiques des systèmes correspondants et se comportent également de manière similaire, sans que le programmeur, c’est-à-dire vous, n’ait besoin de prêter attention à ces caractéristiques.
+
+Le Flutter SDK se base sur le langage de programmation Dart également développé par Google. Il se veut le successeur moderne du langage JavaScript classique et, tout comme ce dernier, il s’exécute directement sur les navigateurs, sous forme d’application web. Les programmes Dart peuvent aussi être exécutés directement sur un serveur.
+
+Dans le navigateur, ils sont employés avec le transcompilateur Dart2js dans JavaScript.
+
+### Flutter vs Ionic
+
+Ionic et Flutter partagent la même philosophie à savoir proposer une codebase unique pour développer des application mobile et web
+
+La différence fondamentale est que Ionic est entièrement basé sur les technologies et standards web, quand Flutter utilise son propre écosystème, son propre moteur de rendu...
+
+[Back to top](#veille)     
   
