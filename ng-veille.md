@@ -196,6 +196,13 @@ Flutter met à disposition une grande variété de bibliothèques d’éléments
 Il reste cependant aussi adapté au développement d’applications web de bureau classiques. Les applications développées avec Flutter prennent l’aspect d’applications typiques des systèmes correspondants et se comportent également de manière similaire, sans que le programmeur, c’est-à-dire vous, n’ait besoin de prêter attention à ces caractéristiques.
 
 Le Flutter SDK se base sur le langage de programmation Dart également développé par Google. Il se veut le successeur moderne du langage JavaScript classique et, tout comme ce dernier, il s’exécute directement sur les navigateurs, sous forme d’application web. Les programmes Dart peuvent aussi être exécutés directement sur un serveur.
+Lors de la compilation, le compilateur Dart génère du code natif pour chaque plateforme.
+
+> Important : Flutter n'utilise pas les composant UI natifs comme REACT et n'utilise pas de composant Web comme Ionic, il propose sa propre bibliothèque de composant
+
+> Important : Flutter accède aux fonctionnalités native des devices via des plugins comme Ionic (Cordova)
+
+> Important : Les bundle Flutter sont plus volumineux du fait qu'il embarque son propre écosystème
 
 Dans le navigateur, ils sont employés avec le transcompilateur Dart2js dans JavaScript.
 
