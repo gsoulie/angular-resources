@@ -23,7 +23,7 @@ https://www.youtube.com/watch?v=TrDqaABq-UY&ab_channel=DevoxxFR
 
 on utilise les observables pour représenter l'arrivée de données synchrone ou asynchrone.
 
-on peut recevoir une seule données ex : appel http
+on peut recevoir une seule données ex : appel http (cold observable)
 ou plusieurs données étalées dans le temps ex : websocket
 
 l'observable a 3 type de notifications :
