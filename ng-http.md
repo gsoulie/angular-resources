@@ -74,6 +74,11 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
 ): Observable<HttpEvent<any>> {
+
+    // Intercepter et loguer la REQUËTE
+    this.logRequest(request);
+
+    // Intercepter et traiter la REPONSE
     return next.handle(request)
         .pipe(
             retry(1),
