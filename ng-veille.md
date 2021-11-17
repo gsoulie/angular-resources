@@ -70,7 +70,11 @@ En contrepartie, certaines notions utilisent une syntaxe spécifique, svelte **n
 > codebase : html, css, js
 
 ### Prisma 
-=> Couche de mapping object relationnel entre nodejs et typescript
+=> Est un ORM (Object Relational Mapper), soit un ensemble de classes permettant de manipuler les tables d’une base de données relationnelle comme s’il s’agissait d’objets.
+
+Un ORM est une couche d’abstraction d’accès à la base de données qui donne l’illusion de ne plus travailler avec des requêtes mais de manipuler des objets.
+
+> En bref : Couche de mapping object relationnel entre nodejs et typescript
 
 ### NestJS 
 => framework NodeJS, compatible TS qui permet de faire du backend avec la même architecture / syntaxe qu'un front angular. Cela facilite la maintenance et l'organisation d'un projet NodeJS. Il vient en complément de Express. 
