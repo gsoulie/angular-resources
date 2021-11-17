@@ -586,7 +586,7 @@ fetchTasks(): Observable<Tache[]> {
 }
 ````
 
-### Rafrtaichir un observable
+### Rafrtaichir les données d'un observable
 *component.html*
 ````html
 <input mat-input type="text" [(ngModel)]="cityName">
