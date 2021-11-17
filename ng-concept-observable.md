@@ -161,9 +161,9 @@ puis la suite des valeurs en cours d'émission.
 ## Bonnes pratiques
 [Back to top](#observables)
 
-https://adrien.pessu.net/post/angular_best_practices/
-https://nicolasfazio.ch/programmation/angular/angular-creer-service-reactif-observables
-https://makina-corpus.com/front-end/mise-en-pratique-rxjs-angular
+https://adrien.pessu.net/post/angular_best_practices/       
+https://nicolasfazio.ch/programmation/angular/angular-creer-service-reactif-observables        
+https://makina-corpus.com/front-end/mise-en-pratique-rxjs-angular       
 
 Eviter la création d'une subscription avec les appels API qui ne retournent qu'un seul résultat (non pas un flux comme pour les sockets) 
 
