@@ -3,7 +3,7 @@
 # Observables
 
 * [Liens](#liens)         
-* [Subject et BehaviorSubject](#subject-et-behaviorsubject)     
+* [Notions Subject et BehaviorSubject](#notions-subject-et-behaviorsubject)     
 * [Bonnes pratiques](#bonnes-pratiques)      
 * [Cold et Hot](#cold-et-hot)      
 * [Observables imbriqués](#observables-imbriqués)     
@@ -32,7 +32,7 @@ l'observable a 3 type de notifications :
 - error va casser l'observable, plus rien ne se passe
 - complete est la terminaison, plus rien ne se passe
 
-## Subject et BehaviorSubject
+## Notions Subject et BehaviorSubject
 [Back to top](#observables)
 
 [ngConf](https://www.youtube.com/watch?v=_q-HL9YX_pk&ab_channel=ng-conf)     
