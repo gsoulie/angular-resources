@@ -29,7 +29,7 @@ fetchData() {
 
 ### Gestion des erreurs Http avec HTTP_INTERCEPTORS
 
-**A TERMINER**
+https://www.youtube.com/watch?v=OHbWHO1Iq5o&ab_channel=ng-conf      
 
 *app.module.ts*
 
