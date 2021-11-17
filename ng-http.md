@@ -64,7 +64,7 @@ import { throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 
-@Injectable()	// <--- IMPORTANT on n'injecte pas l'interceptor au niveau 'root'
+@Injectable()	// <--- IMPORTANT on n'injecte pas l'interceptor au niveau 'root', il doit être injecté au MÊME endroit que le module HttpClient
 
 export class HttpErrorInterceptorService implements HttpInterceptor {
 
