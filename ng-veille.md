@@ -62,7 +62,8 @@ Est un framework Vuejs : auto-import des composants, SEO simplifié, store inté
 
 ### Svelte
 => framework-**compilateur** js très proche de React et Vue mais améliore les performances car il effectue le plus gros du travail lors de la compilation ce qui implique des paquets moins volumineux. 
-C'est donc plutôt un hybride, à la fois **framework** et **compilateur**. **Aucune librairie** à embarquer, **pas de DOM virtuel** contrairement à React / Vue / Angular / Ionic... propose un cadre de travail, avec ses méthodes et ses fonctionnalités, mais en plus il va compiler votre code en temps réel en JavaScript natif.
+C'est donc plutôt un hybride, à la fois **framework** et **compilateur**. **Aucune librairie** à embarquer, **pas de DOM virtuel** contrairement à React / Vue / Angular / Ionic... 
+Il propose un cadre de travail, avec ses méthodes et ses fonctionnalités, mais en plus il va compiler votre code en temps réel en JavaScript natif.
 
 En contrepartie, certaines notions utilisent une syntaxe spécifique, svelte **ne gère pas tout seul** la mise à jour des références et mutations de tableaux, il faut donc s'en charger manuellement pour être sûr que la vue se mette à jour.
 
@@ -77,11 +78,13 @@ En contrepartie, certaines notions utilisent une syntaxe spécifique, svelte **n
 	- gère le mode monorepos
 
 ### NX
-Nx est une suite d'outils permettant la gestion des solutions monorepos. Il permet dont de créer une application fullstack angular / nodejs (prisma + nestJS). Nx est un framework de construction intelligent et extensible qui vous aide à développer, 
-tester, créer et mettre à l'échelle des applications Angular avec une prise en charge entièrement intégrée d'outils modernes tels que Jest, Cypress, Storybook, ESLint, NgRx, etc
+Nx est une suite d'outils permettant la gestion des solutions monorepos. 
+Il permet dont de créer une application fullstack angular / nodejs (prisma + nestJS). 
+Nx est un framework de construction intelligent et extensible qui vous aide à développer, tester, créer et mettre à l'échelle des applications Angular avec une prise en charge entièrement intégrée d'outils modernes tels que Jest, Cypress, Storybook, ESLint, NgRx, etc
 NX est donc une extension d'angular CLI. Il suffit de lui coupler NEST (ou simplement NodeJS) (+ Prisma en bonus) pour créer un projet fullstack mono-repo
 
 ### snowpack
+
 ### deno 
 concurrent nodejs pour le backend
 
