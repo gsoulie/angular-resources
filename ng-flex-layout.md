@@ -6,6 +6,7 @@
 
 https://css-irl.info/to-grid-or-to-flex/       
 https://webdesign.tutsplus.com/articles/flexbox-vs-css-grid-which-should-you-use--cms-30184       
+https://www.youtube.com/watch?v=qOUtkN6M52M&ab_channel=HeydonPickering      
 
 **Grid** est **2D** (ligne ET colonne), **Flex** est **1D** (ligne OU colonne)
 
