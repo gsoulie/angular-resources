@@ -14,7 +14,7 @@ Pour surcharger les composant Angular Material, il est important d'utiliser le c
 * [mat-slide-toggle](#mat-slide-toggle)     
 * [mat-dialog](#mat-dialog)     
 * [mat-select](#mat-select)     
-* [unités % vs vh](#unités-%-vs-vh)     
+* [unités % vs vh](#unites-%-vs-vh)     
 
 ## Comprendre ng-deep
 
