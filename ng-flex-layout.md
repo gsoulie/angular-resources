@@ -22,6 +22,8 @@ Les questions à se poser sont les suivantes :
 
 Il est à noter que *grid* permet aussi de gérer le responsive via l'utilisation de ````auto-fill```` et ````minmax```` là où flexbox nécessite l'utilisation de media-queries pour le faire.
 
+Le but de Flexbox est de laisser le contenu décider de la place qu'il prend et de la disposition qu'il aura afin de toujours remplir au maximum l’espace disponible à l'écran.
+
 Les 2 méthodes se combinent très bien ensemble et il est recommandé de les utiliser ensemble.
 
 *html*
