@@ -223,5 +223,12 @@ Ionic et Flutter partagent la même philosophie à savoir proposer une codebase 
 
 La différence fondamentale est que Ionic est entièrement basé sur les technologies et standards web, quand Flutter utilise son propre écosystème, son propre moteur de rendu...
 
+## Remix
+[Back to top](#veille)     
+
+Remix est un jeune framework **fullstack javascript** (2021) gratuit basé sur **React** et qui utilise **nodeJS** pour faire du server-side rendering (SSR). 
+
+
+
 [Back to top](#veille)     
   
