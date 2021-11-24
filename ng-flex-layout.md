@@ -107,6 +107,20 @@ Les 2 méthodes se combinent très bien ensemble et il est recommandé de les ut
 }
 ````
 
+### Les unités de mesure
+
+**L'unité de mesure pour les éléments fixes :** Le pixel (px) est l'unité de mesure la plus utilisée pour tout ce qui concerne les tailles d’éléments destinés à rester fixe.
+
+**Les unités de mesure pour les éléments à tailles variables**
+
+Pour des tailles dites variables (qui ont pour but de s'adapter à la réduction de la taille de l’écran afin d’avoir un résultat visuel identique) plusieurs possibilités peuvent être utilisées :
+
+- Le pourcentage (**%**), permet de s'adapter proportionnellement à son élément parent
+- Le Viewport Height (**vh**), est une unité qui s'adapte proportionnellement à la hauteur de l'écran
+- Le Viewport Width (**vw**), s'adapte proportionnellement à la largeur de l’écran
+- Le cadratin (**em**), est utilisé pour tout ce qui est de type texte. La police de cette unité de mesure s'adapte à la taille de l'élément parent qui la contient
+Cependant, pour CSS Grid, il est conseillé d’utiliser l'unité appelée fractionnaire (**fr**), développée exclusivement pour ce module. Elle s’adapte à l'espace disponible sans tenir compte des éléments qui sont fixes.
+
 
 ## Flex-Layout
 
