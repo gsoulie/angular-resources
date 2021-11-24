@@ -20,7 +20,7 @@ Les questions à se poser sont les suivantes :
 - Suis-je sur le point d'utiliser *calc()* pour ajuster un positionnement ? Si **oui** alors celà veut dire qu'il faut que je m'oriente vers **grid**
 - Le layout étant divisé en 12 colonnes, qu'est-ce que je souhaite faire lorsque l'on a plus de 9 items et moins de 12 (un débordement sur un multiple de 3 donc). Souhaite-t-on que le dernier item prenne toute la largeur de la dernière ligne, ou faut il qu'il soit centré ?
 
-Il est à noter que *grid* permet aussi de gérer le responsive via l'utilisation de ````auto-fill```` et ````minmax```` là où flexbox nécessite l'utilisation de media-queries pour le faire.
+Il est à noter que *grid* permet aussi de gérer le responsive via l'utilisation de ````auto-fill```` et ````minmax```` là où flexbox nécessite l'utilisation de media-queries pour le faire. Il **permet aussi le chevauchement d'éléments**, là où flexbox nécessite l'utilisation de **marges négatives**
 
 Le but de Flexbox est de laisser le contenu décider de la place qu'il prend et de la disposition qu'il aura afin de toujours remplir au maximum l’espace disponible à l'écran.
 
