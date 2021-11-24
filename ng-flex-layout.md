@@ -11,8 +11,13 @@ https://webdesign.tutsplus.com/articles/flexbox-vs-css-grid-which-should-you-use
 
 En résumé, Grid est à 2 dimensions, il crée des colonnes ET des lignes réelles. Le contenu s'alignera de l'un à l'autre, comme vous le lui demandez, ce que ne fera pas Flexbox qui est sur 1 seule dimension.
 
-Un des paramètres qui rentre en compte dans le choix d'une méthode ou d'une autre est le fait de devoir utiliser *calc()*. Si vous êtes amenés à utiliser *calc()* pour ajuster un positionnement, alors c'est qu'il faut utiliser *grid* au lieu de *flexbox*. 
-Un second paramètre à prendre en compte est qu'un layout est divisé en 12 colonnes, il faut donc se poser la question de ce que l'on souhaite faire lorsque l'on a plus de 9 items et moins de 12 (un débordement sur un multiple de 3 donc). Souhaite-t-on que le dernier item prenne toute la largeur de la dernière ligne, ou faut il qu'il soit centré ?
+### Lequel choisir ?
+
+Les questions à se poser sont les suivantes :
+
+- Ais-je besoin de gérer le flux sur 1 ou 2 dimensions ?
+- Suis-je sur le point d'utiliser *calc()* pour ajuster un positionnement ? Si **oui** alors celà veut dire qu'il faut que je m'oriente vers **grid**
+- Le layout étant divisé en 12 colonnes, qu'est-ce que je souhaite faire lorsque l'on a plus de 9 items et moins de 12 (un débordement sur un multiple de 3 donc). Souhaite-t-on que le dernier item prenne toute la largeur de la dernière ligne, ou faut il qu'il soit centré ?
 
 Il est à noter que *grid* permet aussi de gérer le responsive via l'utilisation de ````auto-fill```` et ````minmax```` là où flexbox nécessite l'utilisation de media-queries pour le faire.
 
