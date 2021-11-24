@@ -121,6 +121,47 @@ export class CourseAdapter implements Adapter<Course> {
 
 Une autre méthode 
 
+### Version simplifiée 
+
+*class.ts*
+
+````typescript
+export class Article {
+    public static fromJson(json: Object): Article {
+        return new Article(
+            json['author'],
+            json['title'],
+            json['body'],
+            new Date(json['published'])
+        );
+    }
+
+    constructor(public author: string,
+                public title: string,
+                public body: string,
+                public published: Date) {
+    }
+}
+````
+
+*service.ts*
+
+````typescript
+export class DataService {
+  constructor(protected http: HttpClient) {}
+
+  public getArticles(): Observable<Article[]> {
+    return this.http.get('http://localhost:3000/articles/').pipe(
+      map(
+        (jsonArray: Object[]) => jsonArray.map(jsonItem => Article.fromJson(jsonItem))
+      )
+    );
+  }
+}
+````
+
+### Version plus complexe (structurée)
+
 *class.model.ts*
 ````typescript
 export class OrderSummary extends ApiMessage {
