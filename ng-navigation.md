@@ -52,7 +52,7 @@ Pour réussir cela, il suffit d'utiliser l'option **relativeTo** fournie par la 
 
 ````typescript
 onEdit() {
-   this.router.navigate(['edit'], {relativeTo: this.route});
+   this.router.navigate(['edit'], {relativeTo: this.activatedRoute});
 }
 ````
 
