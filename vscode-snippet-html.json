@@ -38,5 +38,29 @@
 				"\t</ion-button>",
 			"</ion-buttons>"
 		]
+	},
+	"Ionic Fab Buttons": {
+		"prefix": "ion-fab",
+		"body": [
+			"<ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">",
+				"\t<ion-fab-button (click)=\"action()\">",
+				"\t\t<ion-icon name=\"$2\"></ion-icon>",
+				"\t</ion-fab-button>",
+			"</ion-fab>"
+		]
+	},
+	"Ionic Back button": {
+		"prefix": "ion-back-buttons",
+		"body": [
+			"<ion-buttons slot=\"start\">",
+			"\t<ion-back-button defaultHref=\"/\"></ion-back-button>",
+			"</ion-buttons>"
+		]
+	},
+	"Ionic standard button": {
+		"prefix": "ion-button",
+		"body": [
+			"<ion-button (click)=\"$1\"></ion-button>"
+		]
 	}
 }
