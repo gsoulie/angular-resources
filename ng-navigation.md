@@ -14,6 +14,7 @@
 * [Guards](#guards)   
 * [Route source](#route-source)   
 * [Tab routing avec retour depuis modale ](#tab-routing-avec-retour-depuis-modale)   
+* [Routing back previous](#routing-back-previous)       
 
 ## Généralités
 
@@ -394,5 +395,16 @@ Revenir sur l'onglet parent courant depuis la modale
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+````
+	
+## Routing back previous
+[Back to top](#navigation)
+
+````typescript
+constructor(private location: Location) { }
+	
+ back(): void {
+    this.location.back();
+ }
 ````
 [Back to top](#navigation)
