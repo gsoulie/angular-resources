@@ -9,6 +9,7 @@
 * [Swiper](https://github.com/gsoulie/angular-resources/blob/master/angular-component.md#swiper)      
 * [mat-dialog](#mat-dialog)       
 * [loading spinner](#loading-spinner)       
+* [virtual scroll](#virtual-scroll)       
 
 ## fullcalendar
 
@@ -132,3 +133,56 @@ export class OverlayService {
   }
 }
 ````
+
+## virtual scroll
+[Back to top](#ui-components)
+
+````
+npm install @angular/cdk
+````
+
+*app.module.ts*
+
+````typescript
+import { ScrollingModule } from '@angular/cdk/scrolling';
+ 
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    HomePageRoutingModule,
+    ScrollingModule
+  ],
+  declarations: [HomePage]
+})
+````
+
+*home.html*
+
+````html
+  <cdk-virtual-scroll-viewport itemSize="56" minBufferPx="900" maxBufferPx="1350">
+    <ion-list>
+      <ion-item *cdkVirtualFor="let item of items" tappable (click)="selectItem(item)">
+        <ion-avatar slot="start">
+          <img src="https://loremflickr.com/100/100" />
+        </ion-avatar>
+        <ion-label>
+          {{ item }}
+        </ion-label>
+      </ion-item>
+ 
+    </ion-list>
+ 
+  </cdk-virtual-scroll-viewport>
+````
+
+*home.css* **IMPORTANT !! il faut renseigner la hauteur du viewport**
+````css
+cdk-virtual-scroll-viewport {
+  height: calc(100% - 68px);
+  width: 100%;
+}
+````
+
+[Back to top](#ui-components)
