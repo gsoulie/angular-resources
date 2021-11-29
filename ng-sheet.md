@@ -48,6 +48,7 @@
 	* Swiper
 	* mat-dialog    
 	* loading spinner     
+	* virtual scroll       
 * [Adapter pattern](https://github.com/gsoulie/angular-resources/blob/master/ng-adapter-pattern.md)     
 * [Pipe](https://github.com/gsoulie/angular-resources/blob/master/angular-pipe.md)     
 	* iterate on enum with pipe      	 
