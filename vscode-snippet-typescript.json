@@ -94,6 +94,29 @@
   
 		]
 	},
+	"Alert Confirmation": {
+		"prefix": "alert",
+		"body": [
+			"const alert = await this.alertCtrl.create({",
+				"\theader: 'Confirmation',",
+				"\tmessage: 'Êtes-vous certain de vouloir annuler vos modifications ?',",
+				"\tbuttons: [",
+					"\t\t{",
+					"\t\t\ttext: 'Annuler',",
+					"\t\t\trole: 'cancel',",
+					"\t\t\tcssClass: 'secondary',",
+					"\t\t\thandler: (blah) => {",
+					"\t\t\t}",
+					"\t\t}, {",
+					"\t\t\ttext: 'Okay',",
+					"\t\t\thandler: () => {",
+					"\t\t\t}",
+					"\t\t}",
+				"\t\t]",
+				"\t});",
+			"await alert.present();",
+		]
+	},
 	"ApiMessage loadFromJson": {
 		"prefix": "loadFromJson",
 		"body": [
