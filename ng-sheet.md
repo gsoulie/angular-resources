@@ -35,6 +35,7 @@
 * [UI](https://github.com/gsoulie/angular-resources/blob/master/ng-ui-frameworks.md)
 	* Frameworks
 	* [Material icons](https://www.angularjswiki.com/fr/angular/angular-material-icons-list-mat-icon-list/)       
+	* Svg custom et mat-icon
 	* Global sass variable
 	* Theming     
 	* Dynamic styling     
