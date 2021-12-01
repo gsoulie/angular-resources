@@ -4,6 +4,7 @@
 
 * [Frameworks](#frameworks)       
 * [Icons](#icons)      
+* [Svg custom et mat-icon](#svg-custom-et-mat-icon)       
 * [Theming](#theming)     
 * [Variables sass](#variables-sass)     
 * [Dynamic styling](#dynamic-styling)     
@@ -168,11 +169,144 @@ Installation : ```npm install --save bootstrap```, ensuite ajouter la configurat
 ```
 
 ## Icons
+[Back to top](#ui)
 
 Liste des icônes Material : https://www.angularjswiki.com/fr/angular/angular-material-icons-list-mat-icon-list/       
 
+## Svg custom et mat-icon
 [Back to top](#ui)
 
+### Traitement des svg
+
+L'utilisation de svg custom avec **mat-icon** nécessite quelques règles. Notamment, l'utilisation de svg avec un format **SANS** classes css dans le code :
+
+**FORMAT A EVITER**
+
+````html
+<svg xmlns="http://www.w3.org/2000/svg" width="22.044" height="26" viewBox="0 0 22.044 26"><defs>
+<style>.a,.b{fill:none;stroke:#767676;stroke-width:2px;}.a{stroke-miterlimit:10;}
+.b{stroke-linecap:round;stroke-linejoin:round;}</style></defs>
+<g transform="translate(1.022 1)">
+<path class="a" d="M750.259,434.341a2.038,2.038,0,0,1-.134.731,6.268,6.268,0,0,0-2.252-.334,6.2,6.2,0,0,0-1.829.336,2.05,2.05,0,0,1-.134-.734,2.175,2.175,0,0,1,4.349,0Z" transform="translate(-738.111 -432.23)"/>
+<path class="b" d="M735.872,460H718.9a1.511,1.511,0,0,1-1.39-2.188l3.221-6.193a3.345,3.345,0,0,0,.38-1.544v-2.207a6.222,6.222,0,0,1,8.244-5.841,6.03,6.03,0,0,1,4.163,5.682v2.265a3.756,3.756,0,0,0,.426,1.738l3.238,6.223A1.426,1.426,0,0,1,735.872,460Z" transform="translate(-717.342 -439.181)"/>
+<path class="a" d="M749.655,511.531a2.539,2.539,0,0,1-5.075,0,2.33,2.33,0,0,1,.112-.721h4.851A2.334,2.334,0,0,1,749.655,511.531Z" transform="translate(-737.144 -489.994)"/></g></svg>
+````
+
+**FORMAT à privilégier**
+
+````html
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24.204" viewBox="0 0 24 24.204">
+  <g id="icon-biscuit-24" transform="translate(1 1)">
+    <g id="Groupe_379" data-name="Groupe 379" transform="translate(-444.79 -287.413)">
+      <path id="Tracé_105" data-name="Tracé 105" d="M446.009,289.033a4.819,4.819,0,0,1,3.607-1.62,4.876,4.876,0,0,1,3.42,1.421l1.692,1.693a1.483,1.483,0,0,0,2.1,0l1.483-1.484a5.029,5.029,0,0,1,7.2-.051,4.831,4.831,0,0,1-.138,6.7l-1.691,1.693a1.485,1.485,0,0,0,0,2.1l1.5,1.5a5.018,5.018,0,0,1,.055,7.174,4.892,4.892,0,0,1-6.7-.136l-1.691-1.692a1.483,1.483,0,0,0-2.1,0l-1.547,1.547a4.989,4.989,0,0,1-6.289.744,4.809,4.809,0,0,1-2.115-4.021,4.749,4.749,0,0,1,1.4-3.422l1.7-1.7a1.485,1.485,0,0,0,0-2.1l-1.512-1.512A5.01,5.01,0,0,1,446.009,289.033Z" fill="none" stroke="#767676" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <line id="Ligne_36" data-name="Ligne 36" x1="0.927" y2="0.927" transform="translate(462.26 292.465)" fill="none" stroke="#767676" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <line id="Ligne_37" data-name="Ligne 37" x1="0.927" y2="0.927" transform="translate(458.004 293.248)" fill="none" stroke="#767676" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
+````
+
+Pour pouvoir ensuite changer la couleur des svg à la volée via le css, il faut "nettoyer" le fichier svg de tous ses attributs contenants une couleur *#xxxxx*
+
+Par exemple le svg ci-dessus donnerai ceci une fois nettoyé :
+
+````html
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24.204" viewBox="0 0 24 24.204">
+  <g id="icon-biscuit-24" transform="translate(1 1)">
+    <g id="Groupe_379" data-name="Groupe 379" transform="translate(-444.79 -287.413)">
+      <path id="Tracé_105" data-name="Tracé 105" d="M446.009,289.033a4.819,4.819,0,0,1,3.607-1.62,4.876,4.876,0,0,1,3.42,1.421l1.692,1.693a1.483,1.483,0,0,0,2.1,0l1.483-1.484a5.029,5.029,0,0,1,7.2-.051,4.831,4.831,0,0,1-.138,6.7l-1.691,1.693a1.485,1.485,0,0,0,0,2.1l1.5,1.5a5.018,5.018,0,0,1,.055,7.174,4.892,4.892,0,0,1-6.7-.136l-1.691-1.692a1.483,1.483,0,0,0-2.1,0l-1.547,1.547a4.989,4.989,0,0,1-6.289.744,4.809,4.809,0,0,1-2.115-4.021,4.749,4.749,0,0,1,1.4-3.422l1.7-1.7a1.485,1.485,0,0,0,0-2.1l-1.512-1.512A5.01,5.01,0,0,1,446.009,289.033Z" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <line id="Ligne_36" data-name="Ligne 36" x1="0.927" y2="0.927" transform="translate(462.26 292.465)" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <line id="Ligne_37" data-name="Ligne 37" x1="0.927" y2="0.927" transform="translate(458.004 293.248)" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
+
+````
+[Back to top](#ui)
+
+### Service registry
+
+Ensuite pour utiliser les svg avec des *mat-icon* il faut "enregistrer" les svg au lancement de l'application avec un **MatIconRegistry**
+
+Pour se faire, créer le service ci-dessous
+
+*icon.service.ts*
+
+````typescript
+import { Injectable } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+
+export enum Icons {
+  Gris = 'icon-gris',	// <-- Nom du fichier svg sans l'extension
+  Orange = 'icon-orange',
+  Rouge = 'icon-rouge',
+  Incolore = 'icon-incolore'
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class IconsService {
+
+  constructor(
+    private matIconRegistery: MatIconRegistry,
+    private domSanitizer: DomSanitizer) { }
+
+  public registerIcons(): void {
+    this.loadIcons(
+      Object.values(Icons),
+      'assets');
+  }
+
+  private loadIcons(iconsKey: string[], iconUrl: string): void {
+    iconsKey.forEach(key => {
+      this.matIconRegistery.addSvgIcon(
+        key,
+        this.domSanitizer.bypassSecurityTrustResourceUrl(`${iconUrl}/${key}.svg`));
+    });
+  }
+}
+````
+
+Injecter le service dans *app.component.ts* et enregistrer les icônes
+
+*app.component.ts*
+
+````typescript
+import { IconsService } from './services/icons.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent implements OnInit, OnDestroy {
+
+  constructor(private iconService: IconsService) {
+    this.iconService.registerIcons();
+  }
+}
+
+````
+[Back to top](#ui)
+
+### Utilisation
+
+````html
+<mat-icon svgIcon="icon-incolore" class="strokeBlue"></mat-icon>
+<mat-icon svgIcon="icon-incolore" class="strokeGreen"></mat-icon>
+````
+
+````css
+.strokeBlue {
+  stroke: blue !important;
+}
+.strokeGreen {
+  stroke: green !important;
+}
+````
 
 ## Theming
 [Back to top](#ui)     
