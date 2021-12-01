@@ -12,6 +12,7 @@
 * [Unsubscribe to all](#unsubscribe-to-all)      
 * [async pipe](#async-pipe)    
 * [Exemples code](#exemples-code)      
+* [Tester la taille du contenu](#tester-la-taille-du-contenu)     
 
 
 ## Liens
@@ -941,4 +942,21 @@ export class EventChild2Component implements OnInit, OnDestroy {
   ngOnDestroy(): void { this.subscriber$.unsubscribe(); }
 }
 ````
+
+## tester la taille du contenu
+[Back to top](#observables)
+
+Tester le *length* d'un observable pour pouvoir agir sur la vue
+
+````html
+<mat-list *ngIf="(items$ | async)?.length > 0; else nodata">
+    ...
+</mat-list>
+
+ <ng-template #nodata>
+   <h1>Aucune donnée trouvée</h1>
+ </ng-template>
+````
+
+
 [Back to top](#observables)
