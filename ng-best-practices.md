@@ -1,11 +1,11 @@
 [< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)    
 
-# Bonnes pratiques
+# Bonnes pratiques et NR
 
 * [Model Adapter Pattern](#model-adapter-pattern)     
 * [Blocs conditionnels](#blocs-conditionnels)        
 * [Pipe](#pipe)      
-
+* [Numérique Responsable](https://github.com/gsoulie/angular-resources/edit/master/ng-nr.md)      
 
 ## Model Adapter Pattern
 
@@ -30,4 +30,5 @@ Il est bien d'encadrer les blocs conditionnels *ngIf* avec des **ng-content**
 
 Tout traitement qui modifie la vue doit préférablement utiliser les pipes plutôt qu'une méthode. Les pipes sont très optimisés et offrent un gain de performance énorme.
 
-[Back to top](#bonnes-pratiques)
+[Back to top](#bonnes-pratiques-et-nr)
+
