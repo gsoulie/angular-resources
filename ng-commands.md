@@ -20,12 +20,15 @@ ng serve
 ````
 ng g c components/home --module app
 ng g s shared/services/myService --skipTests
+ng build --configuration=production
 ````
 
 ## Mettre à jour angular
 [Back to top](#angular) 
 
-To update Angular CLI to a new version, you must update both the global package and your project's local package.
+Consulter le site : https://update.angular.io
+
+Pour mettre à jour angular, il faut mettre à jour à la fois le package global et le package local d'un projet
 
 note : lancer l'invité de commande en mode administrateur
 
@@ -44,12 +47,11 @@ npm install
 ````
 
 ### Solution 2
-The Angular team recommends updating the CLI and Core first:
+
+L'équipe Angular préconise de mettre à jour en premier le CLI et le Core :
 
 ````$ ng update @angular/cli @angular/core````
-Afterward, update the rest of the Angular packages if there are no errors.
-
-Another resource to check out is the Angular update guide: https://update.angular.io. Select the version your app is currently on, then the version you’re updating to. The guide will show you what to do before, during, and after the update. In my experience, updating is painless since there’s very little manual work to do. 
+Après quoi, mettre à jour le reste des packages Angular.
 
 ## Mettre a jour npm
 [Back to top](#commandes)
