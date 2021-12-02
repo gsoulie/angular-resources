@@ -12,7 +12,7 @@ Quelques bonnes pratiques pour optimiser le code Angular / Ionic
 * Faire la chasse au fonts non utilisés
 * Observable ````pipe(first)```` ou conversion en promise lorsqu'un observable n'est pas nécessaire
 * Systématiquement ````unsubscribe```` chaque souscription à un observable
-* Utiliser des images JPEG (compressées avec Tiny par ex...) et SVG
+* Utiliser des images JPEG (compressées avec TinyPNG par ex...) et SVG
 * Compiler en aot (ahead-of-time) : par défaut en mode prod. Sinon build en mode JIT
 * Configurer les app Angular comme des PWA : ````ng add @angular/pwa && ng build — prod````. Et configurer le service worker pour mettre certaines ressources en cache
 * Limiter le nombre de module tiers utilisés. utiliser autant que possible ce qui est faisable directement en JS ou Angular
