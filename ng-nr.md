@@ -20,8 +20,8 @@ Quelques bonnes pratiques pour optimiser le code Angular / Ionic
 <mat-item *ngFor="let u of users; tackBy: trackUserId">{{ user.name }}</mat-item>
 ````
 ````typescript
-	users = [...]
-	trackUserId(index, user) { return user.id }
+users: any[] = [...]
+trackUserId(index, user) { return user.id }
 ````
 
 [Back to top](#numérique-responsable)
