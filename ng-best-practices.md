@@ -2,16 +2,17 @@
 
 # Bonnes pratiques et NR
 
-* [Workflow](#workflow)      
+* [Workflow complet](#workflow-complet)      
 * [Model Adapter Pattern](#model-adapter-pattern)     
 * [Blocs conditionnels](#blocs-conditionnels)        
 * [Pipe](#pipe)      
 * [Numérique Responsable](https://github.com/gsoulie/angular-resources/edit/master/ng-nr.md)      
 
-## Workflow
+## Workflow complet
 
-Workflow complet TDD, Dev, PR
+Workflow complet TDD, Dev, PR, Ci/CD
 
+https://eliteionic.com/tutorials/simple-project-management-workflow-for-ionic-developers/        
 https://www.youtube.com/watch?v=CdsJrIpGWSg&ab_channel=JoshuaMorony
 
 
