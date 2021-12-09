@@ -2,10 +2,18 @@
 
 # Bonnes pratiques et NR
 
+* [Workflow](#workflow)      
 * [Model Adapter Pattern](#model-adapter-pattern)     
 * [Blocs conditionnels](#blocs-conditionnels)        
 * [Pipe](#pipe)      
 * [Numérique Responsable](https://github.com/gsoulie/angular-resources/edit/master/ng-nr.md)      
+
+## Workflow
+
+Workflow complet TDD, Dev, PR
+
+https://www.youtube.com/watch?v=CdsJrIpGWSg&ab_channel=JoshuaMorony
+
 
 ## Model Adapter Pattern
 
