@@ -106,7 +106,7 @@ Dans cet exemple, le composant parent **Home** contient plusieurs composants wid
 
 Afin de pouvoir déclencher les fonctions de chaque sous-composant **weather-widget** et **velocity-widget** depuis le composant **widget-wrapper**, chaque sous-composant **doit implémenter une interface** permettant de définir les propriétés attendues dans le wrapper afin que chaque sous-composant parateg les même propriétés et que le wrapper puisse ainsi faire appel à ces propriétés / fonctions de manière générique.
 
-Chaque sous-composant doit déclarer un **provider** basé sur un **InjectionToken** afin de pouvoir fournir dynamiquement une référence du sous-composant au composant wrapper
+Chaque sous-composant doit déclarer un **provider** basé sur un **InjectionToken** afin de pouvoir fournir dynamiquement une référence du sous-composant au composant wrapper (description complète plus bas)
 
 ````
 providers: [{
