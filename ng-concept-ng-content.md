@@ -3,7 +3,7 @@
 # ng-content
 
 * [Généralités](#généralités)      
-* [Design pattern - Bridge](#design-pattern-bridge)      
+* [Design pattern - Bridge](#design-pattern--bridge)      
 
 
 https://wizbii.tech/un-layout-dynamique-avec-ng-content-d00e27ab26d9      
