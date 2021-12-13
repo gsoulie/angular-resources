@@ -15,6 +15,7 @@ Pour surcharger les composant Angular Material, il est important d'utiliser le c
 * [mat-dialog](#mat-dialog)     
 * [mat-select](#mat-select)     
 * [unités % vs vh](#unites-%-vs-vh)     
+* [custom css menu](#custom-css-menu)       
 
 ## Comprendre ng-deep
 
@@ -471,5 +472,10 @@ mat-dialog-actions {
 l'utilisation de l'unité **%** permet à un élément d'avoir une dimension en pourcentage par rapport à son parent.
 
 L'utilisation de l'unité **vh** (viewport height) ou **vw** (viewport width) permet à un élément d'avoir une dimension en pourcentage par rapport au **viewport** et par conséquent permet de s'adapter en cas d'un zoom de l'affichage contrairement à l'utilisation des **%** pour lesquels le pourventage sera toujours le même lors d'un zoom / dézoom
+
+## Custom css menu
+[Back to top](#angular-material-tips)    
+
+https://www.youtube.com/watch?v=ArTVfdHOB-M&ab_channel=OnlineTutorials
 
 [Back to top](#angular-material-tips)    
