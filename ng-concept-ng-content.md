@@ -1,6 +1,11 @@
 [< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)    
 
 # ng-content
+
+* [Généralités](#généralités)      
+* [Design pattern - Bridge](#design-pattern-bridge)      
+
+
 https://wizbii.tech/un-layout-dynamique-avec-ng-content-d00e27ab26d9      
 https://github.com/gsoulie/angular-resources/blob/master/angular-summary.md#ng-content    
 
@@ -93,5 +98,183 @@ Et notre composant :
     </article>
 <app-layout>
 ````
+
+## Design patter - Bridge
+[Back to top](#ng-content)
+
+
+
+*home.html*
+
+````html
+<app-widget-wrapper>
+    <!-- ng-content -->
+    <app-weather-widget></app-weather-widget>
+</app-widget-wrapper>
+
+<app-widget-wrapper>
+    <!-- ng-content -->
+    <app-velocity-widget></app-velocity-widget>
+</app-widget-wrapper>
+
+<app-widget-wrapper>
+    <!-- ng-content -->
+    <p>Other content here...</p>
+</app-widget-wrapper>
+````
+
+*widget-wrapper.html*
+
+````html
+<div class="header">
+    <h1>Widget</h1>
+    <button mat-stroked-button (click)="onRefresh()">Refresh</button>
+</div>
+<mat-divider></mat-divider>
+<section>
+    <ng-content></ng-content>
+</section>
+````
+
+*widget-wrapper.component.ts*
+
+````typescript
+import { IWidget } from './../widgets/widget.interface';
+import { WIDGET } from './../widgets/widget.token';
+import { Component, ContentChild, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-widget-wrapper',
+  templateUrl: './widget-wrapper.component.html',
+  styleUrls: ['./widget-wrapper.component.scss']
+})
+export class WidgetWrapperComponent implements OnInit {
+
+  // méthode générique pour gérer un nombre inconnu de widget
+  // CHAQUE widget DOIT déclarer un providers pointant sur le InjectionToken WIDGET qui référence le composant du widget
+  @ContentChild(WIDGET as any, { static: true }) widget: IWidget;  // static: true est obligatoire pour pouvoir accéder à la référence dans le ngOnInit (avant que le changeDetectorRef soit passé) 
+
+  //// widget unique connu. CHAQUE widget DOIT implémenter l'interface IWidget
+  //@ContentChild(VelocityWidgetComponent, { static: true }) widget: VelocityWidgetComponent;
+
+  ngOnInit() {
+    this.widget.load();
+  }
+  onRefresh() {
+    this.widget.refresh();
+  }
+}
+
+````
+
+*velocity-widget.html*
+````html
+<mat-spinner class="loader" color="danger" diameter="20" *ngIf="isRefreshing"></mat-spinner>
+
+<div [class.content-loading]="isRefreshing">
+    <h5>Last print</h5>
+    <section>
+        <mat-icon name="widget-icon">assessment</mat-icon>
+        <div class="value">Planned: <strong>25</strong></div>
+        <div class="value">Archived: <strong>20</strong></div>
+    </section>
+</div>
+````
+
+*velocity-widget.component.ts*
+
+````typescript
+import { WIDGET } from './../widget.token';
+import { IWidget } from './../widget.interface';
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-velocity-widget',
+  templateUrl: './velocity-widget.component.html',
+  styleUrls: ['./velocity-widget.component.scss'],
+  providers: [{
+    provide: WIDGET,
+    useExisting: VelocityWidgetComponent
+  }]
+})
+export class VelocityWidgetComponent implements OnInit, IWidget {
+
+  isRefreshing = false;
+
+  load() {
+    console.log('Loading velocity data...')
+  }
+
+  refresh(): void {
+    this.isRefreshing = true;
+    setTimeout(() => {
+      this.isRefreshing = false;
+    }, 2500);
+  }
+}
+
+````
+
+*weather-widget.html*
+````html
+<mat-progress-bar class="loader" mode="buffer" *ngIf="isLoading"></mat-progress-bar>
+
+<h5>Current weather</h5>
+<section [class.loading]="isLoading">
+    <mat-icon name="widget-icon" color="warm">wb_sunny</mat-icon>
+    <div class="value">+25</div>
+</section>
+````
+
+*weather-widget.component.ts*
+
+````typescript
+import { WIDGET } from './../widget.token';
+import { IWidget } from './../widget.interface';
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-weather-widget',
+  templateUrl: './weather-widget.component.html',
+  styleUrls: ['./weather-widget.component.scss'],
+  providers: [{
+    provide: WIDGET,
+    useExisting: WeatherWidgetComponent
+  }]
+})
+export class WeatherWidgetComponent implements OnInit, IWidget {
+  isLoading = false;
+
+  load() {
+    console.log('Loading weather data...')
+  }
+  refresh() {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2500);
+  }
+
+}
+````
+
+*widget.interface.ts*
+
+````typescript
+export interface IWidget {
+    load: () => void;
+    refresh: () => void;
+}
+````
+
+*widget.token.ts*
+
+````typescript
+import { IWidget } from './widget.interface';
+import { InjectionToken } from "@angular/core";
+
+export const WIDGET = new InjectionToken<IWidget>('Widget');
+````
+
 
 [Back to top](#ng-content)
