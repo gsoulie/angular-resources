@@ -99,10 +99,23 @@ Et notre composant :
 <app-layout>
 ````
 
-## Design patter - Bridge
+## Design pattern - Bridge
 [Back to top](#ng-content)
 
+Dans cet exemple, le composant parent **Home** contient plusieurs composants widget. Ces sous-composants widget **weather-widget** et **velocity-widget** sont injectés dynamiquement dans un composant wrapper **widget-wrapper** via ````<ng-content>````. Ce dernier permet de contenir dynamiquement n'importe quel type de composant.
 
+Afin de pouvoir déclencher les fonctions de chaque sous-composant **weather-widget** et **velocity-widget** depuis le composant **widget-wrapper**, chaque sous-composant **doit implémenter une interface** permettant de définir les propriétés attendues dans le wrapper afin que chaque sous-composant parateg les même propriétés et que le wrapper puisse ainsi faire appel à ces propriétés / fonctions de manière générique.
+
+Chaque sous-composant doit déclarer un **provider** basé sur un **InjectionToken** afin de pouvoir fournir dynamiquement une référence du sous-composant au composant wrapper
+
+````
+providers: [{
+    provide: WIDGET,
+    useExisting: WeatherWidgetComponent
+  }]
+````
+
+#### Home
 
 *home.html*
 
@@ -122,6 +135,8 @@ Et notre composant :
     <p>Other content here...</p>
 </app-widget-wrapper>
 ````
+#### widget-wrapper
+[Back to top](#ng-content)
 
 *widget-wrapper.html*
 
@@ -166,6 +181,8 @@ export class WidgetWrapperComponent implements OnInit {
 }
 
 ````
+#### velocity-widget
+[Back to top](#ng-content)
 
 *velocity-widget.html*
 ````html
@@ -215,6 +232,9 @@ export class VelocityWidgetComponent implements OnInit, IWidget {
 
 ````
 
+#### weather-widget 
+[Back to top](#ng-content)
+
 *weather-widget.html*
 ````html
 <mat-progress-bar class="loader" mode="buffer" *ngIf="isLoading"></mat-progress-bar>
@@ -257,6 +277,9 @@ export class WeatherWidgetComponent implements OnInit, IWidget {
 
 }
 ````
+
+#### interface et injectionToken
+[Back to top](#ng-content)
 
 *widget.interface.ts*
 
