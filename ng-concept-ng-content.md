@@ -281,7 +281,7 @@ export class WeatherWidgetComponent implements OnInit, IWidget {
 #### interface et injectionToken
 [Back to top](#ng-content)
 
-*widget.interface.ts*
+*widget.interface.ts* (paramètres et fonctions que **doivent** implémenter chaque composant)
 
 ````typescript
 export interface IWidget {
