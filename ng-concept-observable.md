@@ -314,7 +314,35 @@ subject.next(2);
 ### Cold vers Hot
 [Back to top](#observables)
 
-Exemple : du cas d'une requête http
+Exemple : Une requête Http est un **cold** observable
+
+Soit le code suivant :
+
+````html
+<div>count : {{ (posts$ | async)?.length }}</div>
+<ul>
+    <li *ngFor="let p of posts$ | async">{{ p.title }}</li>
+</ul>
+````
+
+````typescript
+posts$: Observable<any[]>;
+
+  constructor(private http: HttpClient) { }
+
+  ngOnInit(): void {
+    this.posts$ = this.http.get<any[]>(`https://jsonplaceholder.typicode.com/posts`);
+  }
+````
+
+Dans la console nous observons **2 appels** http, le premier pour ````{{ (posts$ | async)?.length }}```` et le second pour ````*ngFor="let p of posts$ | async"````. En effet le chaque pipe ````async```` créé une souscription et donc un appel.
+
+Pour pallier au problème, il suffit de transformer l'appel http en **hot** observable de la manière suivante : 
+
+````typescript
+this.posts$ = this.http.get<any[]>(`https://jsonplaceholder.typicode.com/posts`)
+      .pipe(shareReplay());
+````
 
 ### share() : partager un cold à tout un ensemble de souscripteurs
 ````javascript
@@ -522,6 +550,8 @@ export class SomeComponent implements OnDestroy {
 (https://malcoded.com/posts/angular-async-pipe/)
 
 Le pipe *async* permet de souscrire à des observables à l'intérieur de la vue. Il prend aussi soin de se désabonner des observables automatiquement, il n'est donc plus nécessaire de faire un unsubscribe manuellement.
+
+**ATTENTION** : chaque utilisation de pipe *async* dans la vue créé une souscription (voir cold vs hot)
 
 *service.ts*
 ````javascript
