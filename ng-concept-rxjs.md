@@ -20,7 +20,7 @@ https://rxmarbles.com/#map
 |map|permet de créer un nouvel Observable à partir de l'Observable d'origine en transformant simplement chacune de ses valeurs|
 |switchMap|permet de retourner un nouvel observable à partir du résultat de la source. Les observables précédents sont abandonnés|
 |forkJoin|retourne un tableau contenant le résultat de chaque observable. Important : retournera une erreur si au moins 1 observable est en erreur|
-|zip|émet UNIQUEMENT si toutes les sources émettent une donnée|
+|zip|combines les résultats de plusieurs observables, émet UNIQUEMENT si toutes les sources émettent une donnée|
 |combineLatest|émet la dernière valeur de chaque observable lorsqu'un des observable émet une valeur|
 |merge|fusionne plusieurs observables en un observable unique. Attention émet pour chaque résultat (si 3 observable, émet 3 fois)|
 |tap|étape permettant l'affectation d'une variable ou de faire du debug (console.log) sans modifier le contenu de la source|
