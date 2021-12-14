@@ -278,6 +278,8 @@ find(id: string): Observable<Resource> {
 ## Cold et Hot 
 [Back to top](#observables)
 
+[source](https://www.youtube.com/watch?v=oKqcL-iMITY&ab_channel=DecodedFrontend)     
+
 - **cold (unicast ex : un CD)** = source démarrée pour chaque souscription. 10 souscriptions = 10 démarrage. recommence du début pour chaque utilisateur
 ex appel http, redémarre à chaque appel
 
