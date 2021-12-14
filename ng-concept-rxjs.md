@@ -18,7 +18,7 @@ https://rxmarbles.com/#map
 |from|créer un observable à partir d'une promise => converti une entrée en observable (conversion promise en observable : from(this.myPromiseFunction())|
 |of|créé un observable à partir de données statiques|
 |map|permet de créer un nouvel Observable à partir de l'Observable d'origine en transformant simplement chacune de ses valeurs|
-|switchMap|permet de retourner un nouvel observable à partir du résultat de la source|
+|switchMap|permet de retourner un nouvel observable à partir du résultat de la source. Les observables précédents sont abandonnés|
 |forkJoin|retourne un tableau contenant le résultat de chaque observable. Important : retournera une erreur si au moins 1 observable est en erreur|
 |zip|émet UNIQUEMENT si toutes les sources émettent une donnée|
 |combineLatest|émet la dernière valeur de chaque observable lorsqu'un des observable émet une valeur|
