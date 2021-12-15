@@ -48,6 +48,15 @@ npm install
 
 ### Mise à jour globale
 
+#### Méthode simple
+
+````
+npm install -g @angular/cli@latest  // dernière version stable
+npm install -g @angular/cli@12 @angular/core@12 // version spécifique
+````
+
+#### Méthode complète
+
 1 - désinstaller globalement Angular
 ````
 npm uninstall -g @angular/cli
