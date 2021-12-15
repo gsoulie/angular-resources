@@ -46,6 +46,25 @@ npm install --save-dev @angular/cli@latest
 npm install
 ````
 
+### Mise à jour globale
+
+1 - désinstaller globalement Angular
+````
+npm uninstall -g @angular/cli
+````
+
+2 - Il faut ensuite mettre à jour le cache de NPM. La commande dépend alors de la version installée. Si vous utilisez une version inférieure à la version 5, il faut utiliser la commande suivante :
+````
+npm cache clean
+A partir de la version 5, la commande à utiliser a été modifiée.
+npm cache verify
+````
+
+Pour finir, il ne reste plus qu'à installer la dernière version d'Angular CLI.
+````
+npm install -g @angular/cli@latest
+````
+
 ### Solution 2
 
 L'équipe Angular préconise de mettre à jour en premier le CLI et le Core :
