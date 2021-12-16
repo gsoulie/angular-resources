@@ -52,6 +52,7 @@
 	* loading spinner     
 	* virtual scroll       
 * [Adapter pattern](https://github.com/gsoulie/angular-resources/blob/master/ng-adapter-pattern.md)     
+* [Api swagger](https://github.com/gsoulie/angular-resources/blob/master/ng-api-swagger.md)     
 * [Pipe](https://github.com/gsoulie/angular-resources/blob/master/angular-pipe.md)     
 	* iterate on enum with pipe      	 
 * [Flex and Grid layouts](https://github.com/gsoulie/angular-resources/blob/master/ng-flex-layout.md)     
