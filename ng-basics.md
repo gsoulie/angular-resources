@@ -42,4 +42,4 @@ app.component.ts
 
 https://medium.com/@simonb90/comprendre-la-viewencapsulation-dans-un-component-angular-83decae8f092      
 
-*Vous pouvez considérer le Shadow DOM comme un “DOM dans un DOM”. C'est son propre arbre DOM isolé avec ses propres éléments et styles, complètement isolé du DOM original*
+*Vous pouvez considérer le Shadow DOM comme un “DOM dans un DOM”. C'est son propre arbre DOM isolé avec ses propres éléments et styles, complètement isolé du DOM original. A noter qu'un shadow dom est toujours rattaché à un élément du DOM (ex : <input type="range"> tout le shadow DOM qui découle du composant range est rattaché à l'élément <input> du DOM)*
