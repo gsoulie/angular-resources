@@ -37,3 +37,7 @@ app.component.ts
 | [(ngModel)] | Two-way binding | 
 
 [Back to top](#notions-de-base)
+
+## ViewEncapsulation et Shadow DOM
+
+https://medium.com/@simonb90/comprendre-la-viewencapsulation-dans-un-component-angular-83decae8f092      
