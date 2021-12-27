@@ -49,6 +49,22 @@ console.log(obj2); // {a: 1, b: 2, c: 3}
 ````typescript
 const user = [{nom: 'toto', prenom: 'paul'},{nom: 'titi', prenom: 'luc'}];
 let [o1, o2] = user;
+
+// va donner : o1 = {nom: 'toto', prenom: 'paul'} et o2 = {nom: 'titi', prenom: 'luc'}
+````
+Autre exemple 
+
+````typescript
+maFunction({from: 1, to: 100});
+
+function maFunction(data: any) {
+
+	const { from, to } = data;
+	
+	// va créér les variables :
+	// from = data.from
+	// to = data.to
+}
 ````
 
 ### Destructuration paramètres de fonction
