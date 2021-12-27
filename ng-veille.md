@@ -16,6 +16,20 @@ https://www.youtube.com/watch?v=K3D2rjAUQ3o&ab_channel=FromScratch-D%C3%A9velopp
 librairie js (!== framework) 
 code en JSX, surcouche JS introduite par REACT => nécessite la librairie Babel pour compiler le JSX react ne sureveille pas les changements de variables. Il faut lui indiquer une sorte de detectChanges() si l'on souhaite mettre à jour la vue lorsque les variables sont modifiées
 
+#### Avantages / Inconvénients par rapport à Angular 
+
+**Avantages**
+* Performant
+* Responsive
+* React est centré sur JavaScript en encapsulant le HTML dans JS. Angular est plus centré sur HTML, qui est moins robuste
+* Réduction du nombre d’opérations sur le DOM (Document Object Model), optimisation et accélération du processus de mises à jour (très utile pour les grosses bases de données)
+
+**Inconvénients**
+* Pas de moteur d'injection de dépendances
+* Peu documenté
+* Connaissance approfondie des bases du web
+
+
 ### vuejs 3.0
 => framework js : peut être appliqué à une partie de l'application ou à l'entièreté de l'application
 https://www.learmoreseekmore.com/2021/01/ionic-vue-sample-using-vuex-statemanagement.html       
@@ -23,7 +37,8 @@ https://www.learmoreseekmore.com/2021/01/ionic-vue-sample-using-vuex-statemanage
 https://www.youtube.com/watch?v=5sNXjRE1C-U&ab_channel=LaTechavecBertrand (Option API)         
 https://www.youtube.com/watch?v=L5_KLnHjt1M&ab_channel=LaTechavecBertrand (Vue cli, Vue router, Vue X)    
 https://www.youtube.com/watch?v=Ts-2sA2az4s&ab_channel=Jojotique      
-Plus proche d'angular dans sa syntaxe mais reste un mix entre react et angular utiliser Vue CLI pour créer une structure de projet, Vue Router pour le routing, Vue X pour partager des données entre plusieurs composants.
+
+Plus proche d'angular dans sa syntaxe mais reste un mix entre react et angular utiliser Vue CLI pour créer une structure de projet, Vue Router pour le routing, Vue X (gestion d'état de la vue) pour partager des données entre plusieurs composants.
 
 vuex : pour gérer le state
 
@@ -55,6 +70,22 @@ setup() {
 	}
 }
 ````
+
+#### Avantages / Inconvénients par rapport à Angular 
+
+**Avantages**
+* Plus performant
+* Syntaxe plus simple pour un non-initié
+* Peut être appliqué à tout ou partie d'une application => pas d'obligation de développer entièrement l'application en Vue contrairement à Angular
+* Plus léger ? Embarque moins de choses, framework moins lourden poids
+* Orienté app web
+* Conçu pour résoudre certains problèmes d'Angular / React
+
+**Inconvénients**
+* Pas vraiment adapté pour les app mobiles (à confirmer avec le support de Vue par Ionic)
+* stabilité
+* manque d'évolutivité (pas encore adapté aux applications complexes)
+* manque de plugins (écart qui tend à se résorber au cour du temps)
 
 ### Nuxt JS
 
