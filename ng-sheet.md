@@ -35,6 +35,7 @@
 * [Directives](https://github.com/gsoulie/angular-resources/blob/master/ng-directive.md)     
 * [UI](https://github.com/gsoulie/angular-resources/blob/master/ng-ui-frameworks.md)
 	* Frameworks
+	* [Google font](https://github.com/gsoulie/angular-resources/blob/master/ng-font.md)     
 	* [Material icons](https://www.angularjswiki.com/fr/angular/angular-material-icons-list-mat-icon-list/)       
 	* Svg custom et mat-icon
 	* Global sass variable
