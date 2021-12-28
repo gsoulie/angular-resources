@@ -102,11 +102,11 @@ Et notre composant :
 ## Design pattern - Bridge
 [Back to top](#ng-content)
 
-[Link](https://www.youtube.com/watch?v=2rQOu9TmuxE&ab_channel=DecodedFrontend)      
+[Decoded frontend tutorial](https://www.youtube.com/watch?v=2rQOu9TmuxE&ab_channel=DecodedFrontend)      
 
 Dans cet exemple, le composant parent **Home** contient plusieurs composants widget. Ces sous-composants widget **weather-widget** et **velocity-widget** sont injectés dynamiquement dans un composant wrapper **widget-wrapper** via ````<ng-content>````. Ce dernier permet de contenir dynamiquement n'importe quel type de composant.
 
-Afin de pouvoir déclencher les fonctions de chaque sous-composant **weather-widget** et **velocity-widget** depuis le composant **widget-wrapper**, chaque sous-composant **doit implémenter une interface** permettant de définir les propriétés attendues dans le wrapper afin que chaque sous-composant parateg les même propriétés et que le wrapper puisse ainsi faire appel à ces propriétés / fonctions de manière générique.
+Afin de pouvoir déclencher les fonctions de chaque sous-composant **weather-widget** et **velocity-widget** depuis le composant **widget-wrapper**, chaque sous-composant **doit implémenter une interface** permettant de définir les propriétés attendues dans le wrapper afin que chaque sous-composant partage les mêmes propriétés et que le wrapper puisse ainsi faire appel à ces propriétés / fonctions de manière générique.
 
 Chaque sous-composant doit déclarer un **provider** basé sur un **InjectionToken** afin de pouvoir fournir dynamiquement une référence du sous-composant au composant wrapper (description complète plus bas)
 
