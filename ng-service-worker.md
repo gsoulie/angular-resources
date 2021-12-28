@@ -10,7 +10,6 @@
 https://blog.bitsrc.io/angular-performance-web-workers-df382c4d3919      
 https://www.youtube.com/watch?v=snnEgzg4-1o&ab_channel=DevTheory     
 https://www.youtube.com/watch?v=nC-ZL5albhw&ab_channel=HackagesLearning      
-https://www.youtube.com/watch?v=5YtNQJQu31Y&ab_channel=Academind      
 
 ## Alertes
 
@@ -85,6 +84,8 @@ self.onmessage = function(e) {
 
 ## Service Worker
 [Back to top](#service-workers---web-workers)    
+
+https://www.youtube.com/watch?v=5YtNQJQu31Y&ab_channel=Academind      
 
 ### Installation
 
