@@ -93,4 +93,4 @@ Ajouter un noeud *dataGroups* pour gérer la mise en cache des données dynamiqu
   ]
 ````
 
-[Back to top](#service-workers--web-workers)    
+[Back to top](#service-workers---web-workers)    
