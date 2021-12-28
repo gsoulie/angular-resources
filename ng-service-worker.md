@@ -103,7 +103,7 @@ self.addEventListener('message', (evt) => {
 
 S'il y a besoin de stopper l'exécution du web worker depuis le thread principal, il suffit d'exécuter la commande ````webWorker.terminate();````
 
-> **ATTENTION** lors de la destruction d'un composant auquel est rattaché un worker, ce dernier n'est pas détruit et continue de tourner !! Il est donc imératif à minima de stopper le worker dans le ````ngOnDestroy```` du composant associé à moins qu'il soit vraiment indispensable de laisser tourner le worker
+> **!!! ATTENTION !!!** lors de la destruction d'un composant auquel est rattaché un worker, ce dernier n'est pas détruit et continue de tourner !! Il est donc imératif à minima de stopper le worker dans le ````ngOnDestroy```` du composant associé à moins qu'il soit vraiment indispensable de laisser tourner le worker
 
 ## Service Worker
 [Back to top](#service-workers---web-workers)    
