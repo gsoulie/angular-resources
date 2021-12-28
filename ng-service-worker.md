@@ -31,7 +31,13 @@ Les services workers sont donc très pratiques pour gérer (mettre en cache):
 
 * assets (images + fonts + css)     
 * traitements de script     
-* données provenant d'API      
+* données provenant d'API     
+
+|| Web Workers  | Service Workers  |
+|-|-|-|
+| Instances    | Many per tab | One for all tabs |
+| Lifespan     | Same as tab  | Independent      |
+| Intended use | Parallelism  | Offline support  |
 
 ## Web Worker
 
