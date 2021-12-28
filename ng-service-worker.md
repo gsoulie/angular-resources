@@ -39,9 +39,11 @@ Les services workers sont donc très pratiques pour gérer (mettre en cache):
 
 ````ng g web-worker app````
 
+Va générer un fichier *app.worker.ts* dans *src/app*
+
 ### Utilisation
 
-*main.js*
+*app.component.ts*
 
 ````typescript
 
@@ -57,7 +59,7 @@ myWorker.onmessage = function(e) {
 }
 ````
 
-*worker.js*
+*app.worker.ts*
 
 ````typescript
 // Receive message from main file
