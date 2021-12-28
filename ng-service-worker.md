@@ -51,11 +51,12 @@ Les services workers sont donc très utiles pour gérer la mise en cache d'infor
 ### Création
 
 ````ng g web-worker <WebWorker-name>````
-````ng g web-worker WebWorker````
-
-Va générer un fichier *app.worker.ts* dans *src/app*
 
 ### Utilisation
+
+````ng g web-worker WebWorker````
+
+Va générer un fichier *app.webWorker.ts* dans *src/app*
 
 *app.component.ts*
 
