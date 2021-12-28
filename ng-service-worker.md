@@ -12,16 +12,16 @@ https://www.youtube.com/watch?v=snnEgzg4-1o&ab_channel=DevTheory
 https://www.youtube.com/watch?v=nC-ZL5albhw&ab_channel=HackagesLearning      
 https://www.youtube.com/watch?v=5YtNQJQu31Y&ab_channel=Academind      
 
+## Alertes
+
+Vérifier support *web workers* sous **safari**
+
 ## Généralités
 
 Le code javascript d'une application web s'exécute dans un thread unique, attaché à une page html. Ceci implique qu'un traitement lourd (calcul de nombres premiers par exemple)
 peut  bloquer ce thread et rendre l'application figée.
 
 Les *workers* fournissent des threads séparés du thread javascript principal et décorellés des pages html, permettant ainsi de réaliser des traitements en tâche de fond sans interférer avec le thread principal
-
-## Alertes
-
-Vérifier support *web workers* sous **safari**
 
 ### Service worker vs Web worker
 
