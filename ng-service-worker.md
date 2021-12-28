@@ -2,6 +2,9 @@
 
 # Service Workers - Web workers
 
+* [Web worker](#web-worker)     
+* [Service worker](#service-worker)      
+
 ## Ressources
 
 https://blog.bitsrc.io/angular-performance-web-workers-df382c4d3919      
