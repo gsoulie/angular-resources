@@ -29,7 +29,7 @@ Les **web workers** sont utilisés pour traiter de lourds calculs (traitement im
 Ils communiquent avec le thread principal via *Web worker API* en créant un objet **Worker** qui va pouvoir communiquer via la méthode **postMessage** pour l'envoi de données
 depuis le worker vers le thread principal **main.js** et via la callback **onmessage** pour écouter le retour du worker depuis le thread principal.
 
-Les **Services workers** sont un autre type de worker, dont l'objectif principal est de jouer un rôle de "proxy" entre le browser et le réseau/cache.
+Les **Services workers** sont un autre type de worker, dont l'objectif principal est de jouer un rôle de "proxy" entre le browser et le réseau/cache et ainsi permettre une expérience utilisateur même en étant hors-ligne.
 
 Les services workers sont donc très utiles pour gérer la mise en cache d'information et permettre le mode hors-ligne : 
 
