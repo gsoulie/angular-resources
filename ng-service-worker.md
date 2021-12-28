@@ -33,7 +33,7 @@ Les services workers sont donc très pratiques pour gérer (mettre en cache):
 * traitements de script     
 * données provenant d'API      
 
-## Web Workers
+## Web Worker
 
 ### Installation
 
