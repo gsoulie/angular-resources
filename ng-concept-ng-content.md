@@ -149,6 +149,7 @@ providers: [{
 </div>
 <mat-divider></mat-divider>
 <section>
+    <!-- contenu dynamique -->
     <ng-content></ng-content>
 </section>
 ````
