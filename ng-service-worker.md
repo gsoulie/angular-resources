@@ -33,11 +33,13 @@ Les services workers sont donc très pratiques pour gérer (mettre en cache):
 * traitements de script     
 * données provenant d'API     
 
+#### En résumé
+
 || Web Workers  | Service Workers  |
 |-|-|-|
-| Instances    | Many per tab | One for all tabs |
-| Lifespan     | Same as tab  | Independent      |
-| Intended use | Parallelism  | Offline support  |
+| Instances    | Plusieurs par composant | Une pour tous |
+| Durée de vie     | La même que le composant  | Indépendant      |
+| Utilisation | Parallelisation  | support Offline  |
 
 ## Web Worker
 
