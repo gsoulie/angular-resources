@@ -85,7 +85,7 @@ self.onmessage = function(e) {
 ## Service Worker
 [Back to top](#service-workers---web-workers)    
 
-https://www.youtube.com/watch?v=5YtNQJQu31Y&ab_channel=Academind      
+[Tutorial Academind](https://www.youtube.com/watch?v=5YtNQJQu31Y&ab_channel=Academind)      
 
 ### Installation
 
