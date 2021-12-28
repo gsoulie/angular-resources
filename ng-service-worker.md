@@ -14,7 +14,15 @@ https://www.youtube.com/watch?v=5YtNQJQu31Y&ab_channel=Academind
 Le code javascript d'une application web s'exécute dans un thread unique, attaché à une page html. Ceci implique qu'un traitement lourd (calcul de nombres premiers par exemple)
 peut  bloquer ce thread et rendre l'application figée.
 
-Les services workers permettent de pallier ce problème. En effet les services workers fournissent un second thread séparé du thread javascript principal et décorellé des pages html.
+Les *workers* permettent de pallier ce problème. En effet les services workers fournissent un second thread séparé du thread javascript principal et décorellé des pages html.
+
+### Service worker vs Web workers
+
+Les **web workers** sont utilisés pour traiter de lourds calculs (traitement images, calcul mathématiques complexes...) en dehors du thread principal, afin de ne pas bloquer ce dernier.
+Ils communiquent avec le thread principal via *Web worker API* en créant un objet **Worker** qui va pouvoir communiquer via la méthode **postMessage** pour l'envoi de données
+depuis le worker vers le thread principal **main.js** et via la callback **onmessage** pour écouter le retour du worker depuis le thread principal.
+
+Les **Services workers** sont un autre type de worker, dont l'objectif principal est d'être un "proxy" entre le browser et le réseau/cache.
 
 Les services workers sont donc très pratiques pour gérer (mettre en cache): 
 
@@ -22,7 +30,46 @@ Les services workers sont donc très pratiques pour gérer (mettre en cache):
 * traitements de script     
 * données provenant d'API      
 
-## Installation
+## Web Workers
+
+### Installation
+
+````ng g web-worker app````
+
+### Utilisation
+
+*main.js*
+
+````typescript
+
+// Create worker
+const myWorker = new Worker('worker.js');	// starting worker thread
+
+// Send message to worker
+myWorker.postMessage('Hello!');
+
+// Receive message from worker
+myWorker.onmessage = function(e) {
+  console.log(e.data);
+}
+````
+
+*worker.js*
+
+````typescript
+// Receive message from main file
+self.onmessage = function(e) {
+  console.log(e.data);
+
+  // Send message to main file
+  self.postMessage(workerResult);
+}
+````
+
+## Service Worker
+[Back to top](#service-workers---web-workers)    
+
+### Installation
 
 ````ng add @angular/pwa````
 
@@ -38,7 +85,7 @@ Ceci va engendrer la création / modification des éléments suivants :
 > **Par défaut**, le service worker n'est activé qu'en mode *production* (voir détail dans *app.module.ts* et *angular.json*). 
 Le fichier *ngsw-worker.js* sera généré dans le répertoire *dist* uniquement après compilation en mode production.
 
-## Configuration ngsw-config.json
+### Configuration ngsw-config.json
 
 Le noeud *assetsGroups* est utilisé pour mettre en cache les ressources statiques
 
