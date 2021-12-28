@@ -22,6 +22,7 @@
 	* [ng-template](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-ng-template.md)     
 	* [Intéraction composant](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-component-interaction.md)      
 	* [Directives structurelles](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-structural-directive.md)   
+	* [Service worker](https://github.com/gsoulie/angular-resources/blob/master/ng-service-worker.md)       
 * [Optimisations et NR](https://github.com/gsoulie/angular-resources/blob/master/ng-nr.md)       
 * [Astuce](https://github.com/gsoulie/angular-resources/blob/master/ng-tips.md)    
 	* Mémoriser une variable de controller       	  
