@@ -35,7 +35,7 @@ Ceci va engendrer la création / modification des éléments suivants :
 * app.module.ts    
 * package.json     
 
-**Par défaut**, le service worker n'est activé qu'en mode *production* (voir détail dans *app.module.ts* et *angular.json*). 
+> **Par défaut**, le service worker n'est activé qu'en mode *production* (voir détail dans *app.module.ts* et *angular.json*). 
 Le fichier *ngsw-worker.js* sera généré dans le répertoire *dist* uniquement après compilation en mode production.
 
 ## Configuration ngsw-config.json
@@ -83,11 +83,11 @@ Ajouter un noeud *dataGroups* pour gérer la mise en cache des données dynamiqu
       ],
       "version": 1,
       "cacheConfig": {
-        "maxAge": "1d", // durée de conservation en cache (ex : 1d, 12h, 50m...)	// voir documentation officielle pour les unités
+        "maxAge": "1d", // durée de conservation en cache (ex : 1d, 12h, 50m...) voir documentation officielle pour les unités
         "maxSize" : 100, // nombre d'entrées à garder en cache
-		"timeout": "10s", // durée d'attente de la réponse du serveur avant de basculer sur le chargement des données en cache
-		"strategy": "freshness" // toujours récupérer les données du backend en premier et si on est offline chercher les données en cache
-		"strategy": "performance" // cache-first, cherche à afficher des données le plus vite possible. Prend en compte le maxAge
+        "timeout": "10s", // durée d'attente de la réponse du serveur avant de basculer sur le chargement des données en cache
+	"strategy": "freshness" // toujours récupérer les données du backend en premier et si on est offline chercher les données en cache
+	//"strategy": "performance" // cache-first, cherche à afficher des données le plus vite possible. Prend en compte le maxAge
       }
     }
   ]
