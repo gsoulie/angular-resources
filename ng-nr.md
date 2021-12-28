@@ -5,6 +5,7 @@
 Quelques bonnes pratiques pour optimiser le code Angular / Ionic
 
 * Maintenir à jour son CLI / RxJS 6 (2021)
+* Auditer chaque page de l'application via **lighthouse** depuis la console chrome
 * Lazy load des composants dans le fichier routing : ````loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)````
 * Supprimer les effets d'animation de transition des pages 
 * Utilisation de fonts standard
