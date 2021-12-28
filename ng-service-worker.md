@@ -1,6 +1,6 @@
 [< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)    
 
-# Service Workers
+# Service Workers - Web workers
 
 ## Ressources
 
@@ -93,4 +93,4 @@ Ajouter un noeud *dataGroups* pour gérer la mise en cache des données dynamiqu
   ]
 ````
 
-[Back to top](#service-workers)    
+[Back to top](#service-workers--web-workers)    
