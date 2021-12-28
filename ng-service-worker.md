@@ -17,7 +17,11 @@ https://www.youtube.com/watch?v=5YtNQJQu31Y&ab_channel=Academind
 Le code javascript d'une application web s'exécute dans un thread unique, attaché à une page html. Ceci implique qu'un traitement lourd (calcul de nombres premiers par exemple)
 peut  bloquer ce thread et rendre l'application figée.
 
-Les *workers* permettent de pallier ce problème. En effet les services workers fournissent un second thread séparé du thread javascript principal et décorellé des pages html.
+Les *workers* fournissent des threads séparés du thread javascript principal et décorellés des pages html, permettant ainsi de réaliser des traitements en tâche de fond sans interférer avec le thread principal
+
+## Alertes
+
+Vérifier support *web workers* sous **safari**
 
 ### Service worker vs Web worker
 
@@ -25,9 +29,9 @@ Les **web workers** sont utilisés pour traiter de lourds calculs (traitement im
 Ils communiquent avec le thread principal via *Web worker API* en créant un objet **Worker** qui va pouvoir communiquer via la méthode **postMessage** pour l'envoi de données
 depuis le worker vers le thread principal **main.js** et via la callback **onmessage** pour écouter le retour du worker depuis le thread principal.
 
-Les **Services workers** sont un autre type de worker, dont l'objectif principal est d'être un "proxy" entre le browser et le réseau/cache.
+Les **Services workers** sont un autre type de worker, dont l'objectif principal est de jouer un rôle de "proxy" entre le browser et le réseau/cache.
 
-Les services workers sont donc très pratiques pour gérer (mettre en cache): 
+Les services workers sont donc très utiles pour gérer la mise en cache d'information et permettre le mode hors-ligne : 
 
 * assets (images + fonts + css)     
 * traitements de script     
