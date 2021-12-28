@@ -38,7 +38,7 @@ Les services workers sont donc très pratiques pour gérer (mettre en cache):
 || Web Workers  | Service Workers  |
 |-|-|-|
 | Instances    | Plusieurs par composant | Une pour tous |
-| Durée de vie     | La même que le composant  | Indépendant      |
+| Durée de vie     | La même que le composant  | Indépendante      |
 | Utilisation | Parallelisation  | support Offline  |
 
 ## Web Worker
