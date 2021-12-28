@@ -19,7 +19,7 @@ peut  bloquer ce thread et rendre l'application figée.
 
 Les *workers* permettent de pallier ce problème. En effet les services workers fournissent un second thread séparé du thread javascript principal et décorellé des pages html.
 
-### Service worker vs Web workers
+### Service worker vs Web worker
 
 Les **web workers** sont utilisés pour traiter de lourds calculs (traitement images, calcul mathématiques complexes...) en dehors du thread principal, afin de ne pas bloquer ce dernier.
 Ils communiquent avec le thread principal via *Web worker API* en créant un objet **Worker** qui va pouvoir communiquer via la méthode **postMessage** pour l'envoi de données
