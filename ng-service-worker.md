@@ -50,7 +50,7 @@ Les services workers sont donc très utiles pour gérer la mise en cache d'infor
 
 ### Installation
 
-````ng g web-worker app````
+````ng g web-worker <WebWorker-name>````
 
 Va générer un fichier *app.worker.ts* dans *src/app*
 
@@ -59,29 +59,42 @@ Va générer un fichier *app.worker.ts* dans *src/app*
 *app.component.ts*
 
 ````typescript
-
-// Create worker
-const myWorker = new Worker('worker.js');	// starting worker thread
-
-// Send message to worker
-myWorker.postMessage('Hello!');
-
-// Receive message from worker
-myWorker.onmessage = function(e) {
-  console.log(e.data);
+export class App implements OnInit{
+    private number
+    private output
+    private webworker: Worker
+    
+    ngOnInit() {
+        if(typeof Worker !== 'undefined') {
+            this.webWorker = new Worker('./webWorker')	// create worker 
+	    //const myWorker = new Worker('worker.js');	// starting worker thread
+            this.webWorker.onmessage = function(data) {
+                this.output = data
+            }
+        }
+    }
+    calcFib() {
+        this.webWorker.postMessage(this.number)
+    }
 }
 ````
 
 *app.worker.ts*
 
 ````typescript
-// Receive message from main file
-self.onmessage = function(e) {
-  console.log(e.data);
-
-  // Send message to main file
-  self.postMessage(workerResult);
+function fibonacci(num) {
+    if (num == 1 || num == 2) {
+        return 1
+    }
+    return fibonacci(num - 1) + fibonacci(num - 2)
 }
+
+// Receive message from main file
+self.addEventListener('message', (evt) => {
+    const num = evt.data
+    // Send message to main file
+    postMessage(fibonacci(num))
+})
 ````
 
 ## Service Worker
