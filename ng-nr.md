@@ -5,7 +5,7 @@
 Quelques bonnes pratiques pour optimiser le code Angular / Ionic
 
 * Maintenir à jour son CLI / RxJS 6 (2021)
-* Auditer chaque page de l'application via **lighthouse** depuis la console chrome. **Attention !** l'audit de *performance* ne sera cohérent que s'il est réalisé sur le projet compilé et hosté en local ou sur un serveur (voir ici : https://github.com/gsoulie/angular-resources/blob/master/ng-unit-test.md#tester-le-bundle-g%C3%A9n%C3%A9r%C3%A9-dans-le-r%C3%A9pertoire-dist). L'audit d'accessibilité, lui, peut-être directement réalisé en mode *serve* classique
+* Auditer chaque page de l'application via **lighthouse** depuis la console chrome. **Attention !** l'audit de *performance* ne sera cohérent que s'il est réalisé sur le projet compilé et hosté en local ou sur un serveur (voir ici : [tester le bundle compilé](https://github.com/gsoulie/angular-resources/blob/master/ng-unit-test.md#tester-le-bundle-g%C3%A9n%C3%A9r%C3%A9-dans-le-r%C3%A9pertoire-dist)    ). L'audit d'accessibilité, lui, peut-être directement réalisé en mode *serve* classique
 * Lazy load des composants dans le fichier routing : ````loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)````
 * Supprimer les effets d'animation de transition des pages 
 * Utilisation de fonts standard
