@@ -213,11 +213,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './velocity-widget.component.html',
   styleUrls: ['./velocity-widget.component.scss'],
   providers: [{
-    provide: WIDGET,
+    provide: WIDGET,	// <-- déclarer le provider
     useExisting: VelocityWidgetComponent
   }]
 })
-export class VelocityWidgetComponent implements OnInit, IWidget {
+export class VelocityWidgetComponent implements OnInit, IWidget {	// <-- implémenter l'interface IWidget
 
   isRefreshing = false;
 
@@ -261,11 +261,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './weather-widget.component.html',
   styleUrls: ['./weather-widget.component.scss'],
   providers: [{
-    provide: WIDGET,
+    provide: WIDGET,	// <-- déclarer le provider
     useExisting: WeatherWidgetComponent
   }]
 })
-export class WeatherWidgetComponent implements OnInit, IWidget {
+export class WeatherWidgetComponent implements OnInit, IWidget {	// <-- implémenter l'interface IWidget
   isLoading = false;
 
   load() {
