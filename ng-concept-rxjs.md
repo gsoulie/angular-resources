@@ -41,14 +41,19 @@ https://rxmarbles.com/#map
 
 *Exemple*
 ````typescript
-const interval$ = interval(1000)            // 0--1--2--3--4--5--6...
+const interval$ = interval(1000)	// 0--1--2--3--4--5--6...
 const new$ = interval$
     .pipe(
-        skip(1),                            // ---1--2--3--4--5--6...
-        take(5),                            // ---1--2--3--4--5|
-        filter(v => v % 2 === 0),           // ------2-----4---|
-        map(v => v + 1)                     // ------3-----5---|
-    )
+      skip(1),				// ---1--2--3--4--5--6...
+      take(5),				// ---1--2--3--4--5|
+      filter(v => v % 2 === 0),		// ------2-----4---|
+      map(v => v + 1)			// ------3-----5---|
+    );
+this.sampleIntervalSubscription$ = new$.subscribe(
+	(data) => console.log(data),
+	(err) => console.log('Error !'),
+	() => console.log('complete !')
+);
 ````
 
 ### Aplatir 
