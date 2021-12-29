@@ -24,7 +24,7 @@ Les *workers* fournissent des threads séparés du thread javascript principal (
 
 ### Service worker vs Web worker
 
-Les **web workers** sont utilisés pour **traiter de lourds calculs** (traitement images, calcul mathématiques complexes...) **en arrière-plan du thread principal**, afin de ne pas bloquer ce dernier.
+Les **web workers** sont utilisés pour **traiter de lourds calculs** (traitement images, calcul mathématiques complexes, encryptage de données...) **en arrière-plan du thread principal**, afin de ne pas bloquer ce dernier.
 Ils communiquent avec le thread principal via *Web worker API* en créant un objet **Worker** qui va pouvoir communiquer via la méthode **postMessage** pour l'envoi de données
 depuis le worker vers le thread principal **main.js** et via la callback **onmessage** pour écouter le retour du worker depuis le thread principal.
 
