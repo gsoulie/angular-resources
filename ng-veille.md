@@ -5,6 +5,12 @@
 * [technos](#technos)       
 * [Application fullstack NX, NestJS, Prisma, Angular](#application-fulllstack-nx-,-nestjs-,-prisma-,-angular)     
 
+### Angular
+
+Le plus populaire des frameworks js, surtout en europe. Aux US react est plus populaire.
+
+Angular est le framework le plus complet (compilation, test, détection des changements etc...), c'est ce qu'il fait aussi que c'est le plus lourd et qu'il est un peu moins performant que React / Vue
+
 ### e2e
 Protractor va être déprecié, il est conseillé de basculer sur **cypress** pour réaliser les tests e2e
 
