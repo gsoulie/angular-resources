@@ -83,3 +83,8 @@
 	* Détection activié utilisateur      
 * [Erreurs connues](https://github.com/gsoulie/angular-resources/blob/master/ng-issues.md)
 	* partage d'une dataset commun entre plusieurs composants enfants
+
+
+# Node JS
+
+* [Les bases](https://github.com/gsoulie/angular-resources/blob/master/node-basics.md)      
