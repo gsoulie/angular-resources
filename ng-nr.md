@@ -13,6 +13,7 @@ Quelques bonnes pratiques pour optimiser le code Angular / Ionic
 * Utilisation de fonts standard
 * privilégier le format de font WOFF2
 * Faire la chasse au fonts non utilisées
+* Utiliser en priorité les **pipe** dans la vue lorsqu'il s'agit de mettre en forme du contenu plutôt que de passer par des fonctions    
 * Observable ````pipe(first)```` ou conversion en promise lorsqu'un observable n'est pas nécessaire
 * Systématiquement ````unsubscribe```` chaque souscription à un observable
 * Utiliser des images JPEG (compressées avec TinyPNG par ex...) et SVG
