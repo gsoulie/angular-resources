@@ -6,7 +6,7 @@
 	* [Ressources](https://github.com/gsoulie/angular-resources/blob/master/ng-resources.md)     
 	* [Commandes](https://github.com/gsoulie/angular-resources/blob/master/ng-commands.md)     
 	* [Arborescence projet](https://github.com/gsoulie/angular-resources/blob/master/ng-treemap.md)     
-	* [Notions de base](https://github.com/gsoulie/angular-resources/blob/master/ng-basics.md)      
+	* [Notions de base - Fonctionnement Javascript](https://github.com/gsoulie/angular-resources/blob/master/ng-basics.md)      
 	* [Bonnes pratiques](https://github.com/gsoulie/angular-resources/blob/master/ng-best-practices.md)     
 	* [Optimisations](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)     
 	* [Opérateurs](https://github.com/gsoulie/angular-resources/blob/master/ng-operators.md)    
