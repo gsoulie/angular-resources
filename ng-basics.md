@@ -8,7 +8,7 @@
 
 JavaScript gère la concurrence grâce à une « boucle d'événements ».
 
-- **File (Queue)** : contient tous les messages (instructions à jouer). Exemple : si on clique 5 fois sur un bouton, on aura 5 messages dans la File en attente d'exécution par la pile.    
+- **File (Queue)** : contient tous les messages (instructions à jouer : fonctions, événements etc...). Exemple : si on clique 5 fois sur un bouton, on aura 5 messages dans la File en attente d'exécution par la pile.    
 - **Pile (Stack)** taille finie : contient toutes les instructions à exécuter / en cours d'exécution    
 - **Tas (Heap)** : zone mémoire utilisée pour faire fonctionner les instructions. La heap est gérée par le garbage collector      
 - **Mono thread** : JS ne peut pas exécuter de tâches en parallèlle. Chaque message sera traité complètement avant tout autre message. Cela permet de savoir que, lorsqu'une fonction s'exécute, on ne peut pas observer l'exécution d'un autre code qui prendrait le pas      
