@@ -6,6 +6,7 @@
 * Angular Language Service        
 * Angular Snippets (v11 john papa)       
 * Peacock (john papa)       
+* Thunder client (postman like) => évite d'installer et d'utiliser postman en plus
 * Prettier Code formatter       
 * Auto close tag       
 * Auto Rename tag      
