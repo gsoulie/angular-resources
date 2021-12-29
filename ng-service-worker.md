@@ -28,7 +28,7 @@ Les **web workers** sont utilisés pour **traiter de lourds calculs** (traitemen
 Ils communiquent avec le thread principal via *Web worker API* en créant un objet **Worker** qui va pouvoir communiquer via la méthode **postMessage** pour l'envoi de données
 depuis le worker vers le thread principal **main.js** et via la callback **onmessage** pour écouter le retour du worker depuis le thread principal.
 
-Ils n'ont pas non plus accès au DOM.
+A noter qu'ils n'ont pas accès au DOM.
 
 Les **Services workers** sont un autre type de worker, dont l'objectif principal est de jouer un rôle de "proxy" entre le browser et le réseau/cache et ainsi permettre une expérience utilisateur même en étant hors-ligne.
 
@@ -130,7 +130,7 @@ Le fichier *ngsw-worker.js* sera généré dans le répertoire *dist* uniquement
 
 Le noeud *assetsGroups* est utilisé pour mettre en cache les ressources statiques
 
-"installMode": "prefetch", // charge les données même si on en a pas encore besoin
+"installMode": "prefetch", // charge les données même si on en a pas encore besoin        
 "installMode": "lazy", // charge les données au moment où l'on en a besoin
 
 #### mise en cache font google
@@ -160,7 +160,17 @@ Dans le cas de l'utilisation d'une font google ou autre via une url, ajouter l'u
 
 #### mise en cache données statiques (api)
 
-Ajouter un noeud *dataGroups* pour gérer la mise en cache des données dynamiques
+Imaginons qu'une application utilise l'api jsonplaceholder pour lister des posts : 
+
+*home.component.html*
+````
+ ngOnInit(): void {
+    this.http.get<Post[]>('https://jsonplaceholder.typicode.com/posts')
+    .subscribe(res => this.posts = res);
+  }
+````
+
+Pour pouvoir mettre en cache les résultats de l'api, ajouter un noeud **dataGroups** dans le fichier *ngsw-config.json* pour gérer la mise en cache des données dynamiques
 
 ````typescript
 "dataGroups": [
