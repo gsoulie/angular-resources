@@ -14,27 +14,27 @@ https://rxmarbles.com/#map
 
 |operator|description|
 |-|-|
-|pipe|opérateur principal qui permet le chaînage de plusieurs opérateurs|
-|from|créer un observable à partir d'une promise => converti une entrée en observable (conversion promise en observable : from(this.myPromiseFunction())|
-|of|créé un observable à partir de données statiques|
-|map|permet de créer un nouvel Observable à partir de l'Observable d'origine en transformant simplement chacune de ses valeurs|
-|switchMap|permet de retourner un nouvel observable à partir du résultat de la source. Les observables précédents sont abandonnés|
-|forkJoin|retourne un tableau contenant le résultat de chaque observable. Important : retournera une erreur si au moins 1 observable est en erreur|
-|zip|combines les résultats de plusieurs observables, émet UNIQUEMENT si toutes les sources émettent une donnée|
+|catchError|permet de traiter une erreur proprement|
 |combineLatest|émet la dernière valeur de chaque observable lorsqu'un des observable émet une valeur|
-|merge|fusionne plusieurs observables en un observable unique. Attention émet pour chaque résultat (si 3 observable, émet 3 fois)|
-|tap|étape permettant l'affectation d'une variable ou de faire du debug (console.log) sans modifier le contenu de la source|
-|filter|permet de filtrer les résultats de la source|
-|every|retourne vrai si toutes les valeurs de la source valident la condition, retourne faux sinon|
-|reduce|applique un accumulateur sur la source et retourne le résultat accumulé lorsque la source complete|
-|take(x)|émet uniquement la première valeur émise par la source et fait un complete()|
-|takeUntil|maintient un observable en vie jusqu'à ce que le Subject rattaché soit complete()|
 |debounceTime|permet d'ajouter un délai au traitement (ex : searchbar)|
 |distinctUntilChanged|émet uniquement si la valeur a changée (ex : searchbar)|
+|every|retourne vrai si toutes les valeurs de la source valident la condition, retourne faux sinon|
+|filter|permet de filtrer les résultats de la source|
 |finalize|appelé après le bloc .subscribe(), permet de gérer la fin d'un chargement (fermer un indicateur de chargement, afficher un toast etc...)|
-|catchError|permet de traiter une erreur proprement|
+|forkJoin|retourne un tableau contenant le résultat de chaque observable. Important : retournera une erreur si au moins 1 observable est en erreur|
+|from|créer un observable à partir d'une promise => converti une entrée en observable (conversion promise en observable : from(this.myPromiseFunction())|
+|map|permet de créer un nouvel Observable à partir de l'Observable d'origine en transformant simplement chacune de ses valeurs|
+|merge|fusionne plusieurs observables en un observable unique. Attention émet pour chaque résultat (si 3 observable, émet 3 fois)|
+|of|créé un observable à partir de données statiques|
+|pipe|opérateur principal qui permet le chaînage de plusieurs opérateurs|
+|reduce|applique un accumulateur sur la source et retourne le résultat accumulé lorsque la source complete|
 |retry(x)|permet de rééxécuter une requête x fois|
 |shareReplay(x)|permet de mettre en cache des données et éviter d'appeler plusieurs fois un même service si nous n'avons pas besoin d'avoir des données constamment rafraichies|
+|switchMap|permet de retourner un nouvel observable à partir du résultat de la source. Les observables précédents sont abandonnés|
+|take(x)|ne récupère que les x premières valeurs émises par la source et fait un complete()|
+|takeUntil|maintient un observable en vie jusqu'à ce que le Subject rattaché soit complete()|
+|tap|étape permettant l'affectation d'une variable ou de faire du debug (console.log) sans modifier le contenu de la source|
+|zip|combines les résultats de plusieurs observables, émet UNIQUEMENT si toutes les sources émettent une donnée|
 
 
 > Important : les opérateurs appliqués **ne modifient jamais l'observable d'origine**, ils produisent une copie et renvoient un nouvel observable.
