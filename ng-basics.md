@@ -4,7 +4,7 @@
 
 ## Event loop Javascript
 
-<img src="https://github.com/gsoulie/angular-resources/blob/master/js.png" align="center" width="800">
+<img src="https://github.com/gsoulie/angular-resources/blob/master/js.png" align="center" width="600">
 
 JavaScript gère la concurrence grâce à une « boucle d'événements ».
 
