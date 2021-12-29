@@ -19,15 +19,15 @@ Note : un web worker possède sa propre heap, sa propre pile et sa propre stack
 
 ## Les 3 fichiers principaux pour créer une appli angular
 
-main.ts permet de définir le type d'application (mobile, web, ...). Ensuite il appelle le module racine (AppModule)
-app.module.ts
-app.component.ts
+**main.ts** permet de définir le type d'application (mobile, web, ...). Ensuite il appelle le module racine (AppModule)     
+**app.module.ts**     
+**app.component.ts**     
 
 ## Cycle de vie du projet
 
-1 - main.ts
-2 - app.module.ts => déclare tous les composants/directive/pipe/services de l'appli
-3 - app.component.ts => c'est le bootstrap component
+1 - main.ts      
+2 - app.module.ts => déclare tous les composants/directive/pipe/services de l'appli      
+3 - app.component.ts => c'est le bootstrap component      
 
 ## Cycle de vie d'un composant
 
