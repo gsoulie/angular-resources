@@ -39,6 +39,18 @@ https://rxmarbles.com/#map
 
 > Important : les opérateurs appliqués **ne modifient jamais l'observable d'origine**, ils produisent une copie et renvoient un nouvel observable.
 
+*Exemple*
+````typescript
+const interval$ = interval(1000)            // 0--1--2--3--4--5--6...
+const new$ = interval$
+    .pipe(
+        skip(1),                            // ---1--2--3--4--5--6...
+        take(5),                            // ---1--2--3--4--5|
+        filter(v => v % 2 === 0),           // ------2-----4---|
+        map(v => v + 1)                     // ------3-----5---|
+    )
+````
+
 ### Aplatir 
 
 |action|opération|opérateur unique|
