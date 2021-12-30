@@ -2,10 +2,43 @@
 
 # Tests unitaires
 
-* [Tests unitaires et e2e tests](#tests-unitaires-et-e2e-tests)     
 * [Tester le bundle généré dans le répertoire dist](#tester-le-bundle-généré-dans-le-répertoire-dist)         
+* [Tests unitaires et e2e tests](#tests-unitaires-et-e2e-tests)     
 * [e2e avec Cypress](#e2e-avec-cypress)     
 
+## Tester le bundle généré dans le répertoire dist
+
+### solution 1 : 
+
+````
+npm i -g serve
+
+// compiler le projet
+ng build --prod
+
+cd dist/<project_name>
+serve -s
+````
+
+Il suffit ensuite de se rendre à l'url proposée pour voir l'application
+
+### solution 2 :
+
+````
+npm install -g http-server
+
+// compiler le projet
+ng build --prod
+
+cd dist/<project_name>
+http-server
+````
+
+Ou jouer la commande ````http-server .\dist````
+
+Il suffit ensuite d'ouvrir l'url *http://127.0.0.1:8080*
+
+[Back to top](#tests-unitaires)
 
 ## Tests unitaires et e2e tests
 
@@ -57,40 +90,6 @@ lors de l'exécution des tests avec ````ng test````
 #### Création des tests
 
 [exemples de tests de services et d'un composant](https://github.com/gsoulie/ionic-angular-snippets/tree/master/unit-testing)      
-
-[Back to top](#tests-unitaires)
-
-## Tester le bundle généré dans le répertoire dist
-
-### solution 1 : 
-
-````
-npm i -g serve
-
-// compiler le projet
-ng build --prod
-
-cd dist/<project_name>
-serve -s
-````
-
-Il suffit ensuite de se rendre à l'url proposée pour voir l'application
-
-### solution 2 :
-
-````
-npm install -g http-server
-
-// compiler le projet
-ng build --prod
-
-cd dist/<project_name>
-http-server
-````
-
-Ou jouer la commande ````http-server .\dist````
-
-Il suffit ensuite d'ouvrir l'url *http://127.0.0.1:8080*
 
 [Back to top](#tests-unitaires)
 
