@@ -2,8 +2,59 @@
 
 # Tests unitaires
 
-* [Tester le bundle généré dans le répertoire dist](#)         
+* [Tests unitaires et e2e tests](#tests-unitaires-et-e2e-tests)     
+* [Tester le bundle généré dans le répertoire dist](#tester-le-bundle-généré-dans-le-répertoire-dist)         
 * [e2e avec Cypress](#e2e-avec-cypress)     
+
+
+## Tests unitaires et e2e tests
+
+Tout d'abord il faut bien différencier les **Tests unitaires** des **End-to-end tests**. Ils n'ont pas les mêmes objectifs et sont complémentaires
+
+### Tests unitaires
+
+Les tests unitaires ont pour objectif de garantir que les les fonctionnalités individuelles de vos composants, services et autres entités
+fonctionnent correctement.
+
+Pour réaliser les TU, Angular s'appuie sur le framework **Jasmine** qui permet d'écrire les tests, et sur **Karma** qui est le *task runner*.
+Ce dernier utilise un fichier de configuration permettant de définir le framework de test utilisé (ici : Jasmine), le fichier de démarrage, le navigateur etc...
+
+Pour lancer les tests il suffit d'exécuter la commande ````ng test````
+
+**TestBed** : Outil de test unitaire fourni par Angular
+
+### End-to-end tests 
+
+Les e2e tests sont différents des TU dans le sens ou leur but est de simuler l'interaction d'un utilisateur avec l'application. Angular 
+compile et exécute l'application en utilisant cypress / protractor pour jouer les tests.
+Les tests e2e s'appuient sur cela en s'assurant que l'interaction de l'utilisateur avec ces composants et services se comporte comme il se doit.
+
+Initialement, Angular utilise **protractor**, mais ce dernier sera déprécié courant 2022, c'est pourquoi il est préférable d'utiliser un autre framework comme
+par exemple **cypress** qui est déjà supporté par Angular / Ionic. 
+
+[protractor deprecation roadmap](https://github.com/angular/protractor/issues/5502)       
+
+
+### Tests unitaires avec Jasmine
+
+#### Configuration
+
+Activer la visualisation du *codeCoverage* permet d'avoir accès à une synthèse de la couverture du code par les tests générée dans le répertoire *coverage/ngv/index.html*
+lors de l'exécution des tests avec ````ng test````
+
+*angular.json*
+
+````typescript
+"test": {
+  "builder": "@angular-devkit/build-angular:karma",
+  "options": {
+		// Some default options here
+	],
+	"codeCoverage": true	// <- à ajouter pour avoir plus d'infos dans la console
+  },
+````
+
+[Back to top](#tests-unitaires)
 
 ## Tester le bundle généré dans le répertoire dist
 
