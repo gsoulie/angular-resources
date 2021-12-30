@@ -70,6 +70,8 @@ par exemple **cypress** qui est déjà supporté par Angular / Ionic.
 
 ### Tests unitaires avec Jasmine
 
+[Documentation officielle](https://angular.io/guide/testing)     
+
 #### Configuration
 
 Activer la visualisation du *codeCoverage* permet d'avoir accès à une synthèse de la couverture du code par les tests générée dans le répertoire *coverage/ngv/index.html*
