@@ -54,6 +54,10 @@ lors de l'exécution des tests avec ````ng test````
   },
 ````
 
+#### Création des tests
+
+[exemples de tests de services et d'un composant](https://github.com/gsoulie/ionic-angular-snippets/tree/master/unit-testing)      
+
 [Back to top](#tests-unitaires)
 
 ## Tester le bundle généré dans le répertoire dist
