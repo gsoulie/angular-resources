@@ -93,6 +93,10 @@ lors de l'exécution des tests avec ````ng test````
 
 [exemples de tests de services et d'un composant](https://github.com/gsoulie/ionic-angular-snippets/tree/master/unit-testing)      
 
+#### Remarque
+
+Injecter les services réels ne fonctionne pas tout le temps bien car la plupart des services dépendants sont difficiles à créer et contrôler. Il est donc **préférable** de simuler les dépendances et d'utiliser des données de test **ou** créer un **spy** sur la/les méthode(s) à tester.
+
 [Back to top](#tests-unitaires)
 
 ## e2e avec Cypress
