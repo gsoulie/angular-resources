@@ -96,6 +96,7 @@ lors de l'exécution des tests avec ````ng test````
 > **Avertissement **
 
 Injecter les services réels ne fonctionne pas tout le temps bien car la plupart des services dépendants sont difficiles à créer et contrôler. Il est donc **préférable** de simuler les dépendances et d'utiliser des données de test **ou** créer un **spy** sur la/les méthode(s) à tester.
+**Les spies sont la meilleure solution pour simuler les services**
 
 [Back to top](#tests-unitaires)
 
