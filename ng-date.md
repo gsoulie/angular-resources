@@ -5,11 +5,11 @@
 * [dayjs](#dayjs)    
 
 
-## dayjs
+## Dayjs
 
 La librairie **Dayjs** (https://day.js.org/) remplace **moment.js** qui est maintenant dépréciée.
 
-### installation et configuration
+### Installation et configuration
 
 ````npm i dayjs````
 
@@ -29,7 +29,7 @@ import { LOCALE_ID } from '@angular/core';
   
 ````
 
-### utilisation
+### Utilisation
 
 *controler.ts*
 
@@ -68,7 +68,7 @@ private today = dayjs(new Date());
   }
 ````
 
-#### manipulation
+### Manipulation objet date
 
 Lors de la manipulation de la date (ajout / suppression jour, mois, anndée etc...) Attention à bien faire une réaffectation de l'objet :
 
