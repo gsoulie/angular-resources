@@ -81,6 +81,7 @@
 * [Divers](https://github.com/gsoulie/angular-resources/blob/master/ng-divers.md)
 	* Accès client lourd depuis front web 
 	* Détection activié utilisateur      
+	* [Manipulation des dates avec Dayjs](https://github.com/gsoulie/angular-resources/blob/master/ng-date.md)      
 * [Erreurs connues](https://github.com/gsoulie/angular-resources/blob/master/ng-issues.md)
 	* partage d'une dataset commun entre plusieurs composants enfants
 
