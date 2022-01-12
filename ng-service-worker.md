@@ -123,8 +123,11 @@ Ceci va engendrer la création / modification des éléments suivants :
 * app.module.ts    
 * package.json     
 
-> **Par défaut**, le service worker n'est activé qu'en mode *production* (voir détail dans *app.module.ts* et *angular.json*). 
+### Important
+**Par défaut**, le service worker n'est activé qu'en mode **production** (voir détail dans *app.module.ts* et *angular.json*). 
 Le fichier *ngsw-worker.js* sera généré dans le répertoire *dist* uniquement après compilation en mode production.
+
+Pour tester son fonctionnement il faut donc compiler en mode production et faire un serve depuis le répertoire *dist* ou *www* 
 
 ### Configuration ngsw-config.json
 
