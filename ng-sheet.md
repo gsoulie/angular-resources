@@ -30,7 +30,10 @@
 	* Convertir un objet Date en chaîne 'YYYY-MM-DD'      
 	* Gérer les dates en locale FR     
 * [Navigation](https://github.com/gsoulie/angular-resources/blob/master/ng-navigation.md)     
-* [Codes retour http](https://github.com/gsoulie/angular-resources/blob/master/ng-http.md)     
+* [Http](https://github.com/gsoulie/angular-resources/blob/master/ng-http.md)     
+	* Http interceptor	
+	* Codes retours Http 
+	* Multipart Form Data      	
 * [Form](https://github.com/gsoulie/angular-resources/blob/master/ng-form.md)     
 * [ViewChild](https://github.com/gsoulie/angular-resources/blob/master/ng-viewchild.md)     
 * [Directives](https://github.com/gsoulie/angular-resources/blob/master/ng-directive.md)     
