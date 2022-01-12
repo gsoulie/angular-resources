@@ -46,8 +46,15 @@ code en JSX, surcouche JS introduite par REACT => nécessite la librairie Babel 
 * Peu documenté
 * Connaissance approfondie des bases du web
 
+### NextJS
 
-### vuejs 3.0
+Next JS est un framework basé sur ReactJS, orienté Server-Side-Rendering. Son point fort est la génération d’applications statiques.
+
+Concurrent de **NuxtJS** pour *Vue*
+
+Framework 
+
+### Vuejs 3.0
 => framework js : peut être appliqué à une partie de l'application ou à l'entièreté de l'application
 https://www.learmoreseekmore.com/2021/01/ionic-vue-sample-using-vuex-statemanagement.html       
 1:41 https://www.youtube.com/watch?v=mQ4zmFy4d7Y&ab_channel=Academind       
@@ -106,7 +113,9 @@ setup() {
 
 ### Nuxt JS
 
-Est un framework Vuejs : auto-import des composants, SEO simplifié, store intégré, Server-side rendering etc... permet d'organiser les projets Vue avec une structure par répertoire (comme pour angular)
+Est un framework **Vuejs** : auto-import des composants, SEO simplifié, store intégré, Server-side rendering etc... permet d'organiser les projets Vue avec une structure par répertoire (comme pour angular).
+
+Concurrent de **NExtJS** pour *ReactJS*
 
 ### Svelte
 => framework-**compilateur** js très proche de React et Vue mais améliore les performances car il effectue le plus gros du travail lors de la compilation ce qui implique des paquets moins volumineux. 
@@ -125,7 +134,7 @@ Un ORM est une couche d’abstraction d’accès à la base de données qui donn
 > En bref : Couche de mapping object relationnel entre nodejs et typescript
 
 ### NestJS 
-=> framework NodeJS, compatible TS qui permet de faire du backend avec la même architecture / syntaxe qu'un front angular. Cela facilite la maintenance et l'organisation d'un projet NodeJS. Il vient en complément de Express. 
+=> **framework NodeJS**, compatible TS qui permet de faire du backend avec la même architecture / syntaxe qu'un front angular. Cela facilite la maintenance et l'organisation d'un projet NodeJS. Il vient en complément de Express. 
 	- Il y a même un paquet pour gérer swagger
 	- gère le mode monorepos
 
