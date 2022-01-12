@@ -241,6 +241,8 @@ export class AppModule { }
 
 ## Multipart Form Data
 
+Envoi de fichiers (images / pdf) via mutlipart/form-data
+
 *synchro.service.ts*
 
 ````typescript
