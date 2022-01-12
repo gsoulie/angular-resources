@@ -48,7 +48,7 @@ code en JSX, surcouche JS introduite par REACT => nécessite la librairie Babel 
 
 ### NextJS
 
-Next JS est un framework basé sur ReactJS, orienté Server-Side-Rendering. Son point fort est la génération d’applications statiques.
+Next JS est un framework (backend) basé sur *ReactJS*, orienté Server-Side-Rendering. Son point fort est la génération d’applications statiques.
 
 Concurrent de **NuxtJS** pour *Vue*
 
