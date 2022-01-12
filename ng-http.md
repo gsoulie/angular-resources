@@ -4,6 +4,7 @@
 
 * [Catch](#catch)     
 * [Http interceptor](#http-interceptor)     
+* [Multipart Form Data](#multipart-form-data)      
 
 ## Catch
 
@@ -234,6 +235,116 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+````
+
+[Back to top](#codes-retour-http)
+
+## Multipart Form Data
+
+*synchro.service.ts*
+
+````typescript
+import { Directory, Filesystem } from '@capacitor/filesystem';
+import { HttpClient } from '@angular/common/http';
+
+interface IFormDataFile {
+  uid: string;
+  name: string;
+}
+interface IFormData {
+  name: string;
+  fileList: IFormDataFile[];
+}
+export interface LocalFile {
+  name: string;
+  path: string;
+  data: string;
+  checked: boolean;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SynchronizationService {
+
+  constructor(private http: HttpClient,
+    private toolService: ToolService,
+    private configurationService: ConfigurationService) { }
+
+  /**
+   * Synchronisation des données via multipart/formdata
+   * @param imagesToSend : liste des fichiers à envoyer
+   * @returns
+   */
+  async sendMultipart(imagesToSend: LocalFile[]): Promise<any> {
+    const formData = new FormData();
+    const newFormDataContent: IFormData = {
+      name: 'json',
+      fileList: []
+    };
+
+    if (imagesToSend.length > 0) {
+
+      for (const f of imagesToSend) {
+        const filePath = `${f.path}`;
+
+        const readFile = await Filesystem.readFile({
+          path: filePath,	// fichier provenant de la camera
+          directory: Directory.Data
+        });
+
+        // Conversion du fichier base64 en Blob
+        const blob = new Blob([readFile.data], {
+          type: `image/${filePath.split('.').pop()}`
+        });
+
+        console.log('----------- BLOB');
+        console.log(blob.type);
+        console.log(blob.size);
+        const guid = this.toolService.generateGUID(); // GUID unique pour l'élément
+
+        newFormDataContent.fileList.push({
+          uid: guid,
+          name: f.name
+        });
+
+        formData.append('MissionFiles', blob, guid);
+      }
+
+      formData.append('json', JSON.stringify(newFormDataContent));
+    }
+
+    this.traceMultipartContent(formData, 'json');
+
+    return this.http.post(this.configurationService.config.api.synchro, formData)
+    .pipe(
+      map((res: any) => res)
+    )
+    .toPromise();
+  }
+
+  private traceMultipartContent(formData: FormData, key: string): void {
+
+    if (formData && key !== '') {
+      console.log('----------- FORMDATA');
+      for (const pair of formData.getAll(key)) {
+        console.log(pair);
+      }
+    }
+  }
+}
+````
+
+*appel*
+
+````typescript
+sendMultipart(): void {
+    this.synchroService.sendMultipart(this.imagesToSend)
+    .then(res => {
+      console.log('----------- RESPONSE');
+      console.log(res);
+    });
+  }
 ````
 
 [Back to top](#codes-retour-http)
