@@ -8,6 +8,7 @@ Quelques bonnes pratiques pour optimiser le code Angular / Ionic
 * Depuis Angular 13, vérifier que le répertoire **.angular/cache** est bien ajouté au fichier *.gitignore* ````/.angular/cache````       
 * Auditer chaque page de l'application via **lighthouse** depuis la console chrome. **Attention !** l'audit de *performance* ne sera cohérent que s'il est réalisé sur le projet compilé et hosté en local ou sur un serveur (voir ici : [tester le bundle compilé](https://github.com/gsoulie/angular-resources/blob/master/ng-unit-test.md#tester-le-bundle-g%C3%A9n%C3%A9r%C3%A9-dans-le-r%C3%A9pertoire-dist)    ). L'audit d'accessibilité, lui, peut-être directement réalisé en mode *serve* classique
 * Lazy load des composants dans le fichier routing : ````loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)````
+* Utiliser la strategy **ChangeDetectionStrategy.OnPush** pour gagner en performance    
 * Utilisation du package **a11y** pour l'accessibilité     
 * Supprimer les effets d'animation de transition des pages 
 * Utilisation de fonts standard
