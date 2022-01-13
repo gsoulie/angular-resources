@@ -4,9 +4,10 @@
 		"body": [
 			"<ion-card>",
 				"\t<ion-card-header>",
-					"\t\t<ion-card-subtitle>Subtitle</ion-card-subtitle>",
-					"\t\t<ion-card-title>Title</ion-card-title>",
+					"\t\t<ion-card-subtitle>{{ i.subtitle }}</ion-card-subtitle>",
+        			"\t\t<ion-card-title>{{ i.title }}</ion-card-title>",
 				"\t</ion-card-header>",
+				"\t\t{{ i.content }}",
 				"\t<ion-card-content>",
 				"\t</ion-card-content>",
 			"</ion-card>"
@@ -16,7 +17,7 @@
 		"prefix": "ion-list",
 		"body": [
 			"<ion-list>",
-				"\t<ion-item lines=\"none\" *ngFor=\"let i of $1\">",
+				"\t<ion-item lines=\"none\" *ngFor=\"let i of $1; trackBy: trackFn\">",
 				"\t</ion-item>",
 			"</ion-list>"
 		]
@@ -26,7 +27,7 @@
 		"body": [
 			"<ion-refresher slot=\"fixed\" (ionRefresh)=\"refreshData($event)\">",
 				"\t<ion-refresher-content></ion-refresher-content>",
-			"</ion-refresher-content>"
+			"</ion-refresher>"
 		]
 	},
 	"Ionic Buttons": {
@@ -61,6 +62,27 @@
 		"prefix": "ion-button",
 		"body": [
 			"<ion-button (click)=\"$1\"></ion-button>"
+		]
+	},
+	"Ionic Swiper": {
+		"prefix": "swiper",
+		"body": ["<swiper #swiper [config]=\"swiperConfig\"",
+			"\t(slideChange)=\"swiperSlideChange($event)\">",
+			"<ng-template swiperSlide *ngFor=\"let s of [].constructor(3); trackBy: trackFn; let i = index\">Slide {{ i }}",
+			"</ng-template>",
+		  "</swiper>"
+		]
+	},
+	"ngFor loop": {
+		"prefix": "ngFor",
+		"body": "*ngFor=\"let i of items$; trackBy: trackFn | async\""
+	},
+	"ngFor loop trackBy Function": {
+		"prefix": "track",
+		"body": [
+			"trackFn(index, user) {",
+			"\treturn user.id;",
+			"}"
 		]
 	}
 }
