@@ -22,20 +22,20 @@ Zone.js est également utilisé pour reconstruire des "callstacks" d'appels asyn
 
 ### Fonctionnement de la Change Detection
 
-**1. Déclenchement de la "change detection"**
+**1. Déclenchement de la "change detection"**     
 A la fin de chaque "tick" (détecté grâce à Zone.JS), Angular déclenche la "Change Detection" du "Root Component".
 
-**2. "Change Detection" de chaque composant**
+**2. "Change Detection" de chaque composant**      
 Le "Change Detector" du composant compare les anciennes et les nouvelles valeurs de chaque expression utilisée dans les bindings ( ou ).
 
-**3. Mise à jour de la vue si nécessaire**
+**3. Mise à jour de la vue si nécessaire**     
 En cas de changement, l'élément concerné est mis à jour dans la vue.
 
-**4. Vérification récursive**
+**4. Vérification récursive**      
 Le "Change Detector" de chaque "child component" est ensuite déclenché et l'étape 2 est reproduite pour chaque composant de façon récursive.
 
-**5. Double check**
-[Uniquement en mode développement] Angular relance l'intégralité de la "Change Detection" pour s'assurer que les valeurs retournées par les expressions ne changent pas.
+**5. Double check**     
+[**Uniquement en mode développement**] Angular relance l'intégralité de la "Change Detection" pour s'assurer que les valeurs retournées par les expressions ne changent pas.
 Cela permet de détecter les problèmes de conception ou d'implémentation tels que le changement du modèle par effet de bord ou les expressions dont le résultat est aléatoire.
 
 [Back to top](#change-detection) 
