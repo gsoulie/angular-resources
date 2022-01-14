@@ -87,5 +87,5 @@
 	* Détection activié utilisateur      
 	* [Manipulation des dates avec Dayjs](https://github.com/gsoulie/angular-resources/blob/master/ng-date.md)      
 * [Erreurs connues](https://github.com/gsoulie/angular-resources/blob/master/ng-issues.md)
-	* partage d'une dataset commun entre plusieurs composants enfants
+	* (Change Detection) partage d'une dataset commun entre plusieurs composants enfants
 
