@@ -6,18 +6,18 @@
 
 https://guide-angular.wishtack.io/angular/change-detection/fonctionnement-de-la-change-detection
 
-Angular adopte une  afin de maintenir en synchronisation le modèle et la vue.
+Angular adopte une approche déclarative afin de maintenir en synchronisation le modèle et la vue.
 
 ### Change Detector
 
-Chaque composant dispose d'un "change detector" qui comme son nom l'indique se charge de détecter les changements de modèle concernant la vue et de mettre à jour la vue en conséquence.
-Le "Change Detector" est fortement couplé à la vue du composant associé. Cela lui permet d'analyser la liste des expressions utilisées dans la vue (i.e.  ou ) en les comparant à la dernière valeur retournée par chacune d'elles.
-Si la valeur retournée par l'expression change, la vue est mise à jour en conséquence.
+**Chaque composant dispose d'un "change detector"** qui comme son nom l'indique se charge de détecter les changements de modèle concernant la vue et de mettre à jour la vue en conséquence.
+Le "Change Detector" est fortement couplé à la vue du composant associé. Cela lui permet d'**analyser la liste des expressions utilisées dans la vue** en les comparant à la dernière valeur retournée par chacune d'elles.
+**Si la valeur retournée par l'expression change, la vue est mise à jour en conséquence.**
 
 ### Déclenchement de la "Change Detection"
 
-Pour détecter les changements, Angular utilise la librairie  dont le rôle est d'encapsuler et d'intercepter tous les appels asynchrones (e.g. setTimeout, event listeners etc...).
-Avant le chargement d'Angular, Zone.js procède au des fonctions natives permettant d'inscrire des "callbacks" associées à des traitements asynchrones (e.g. setTimeout) afin de pouvoir détecter chaque "tick" et notifier Angular.
+Pour détecter les changements, Angular utilise la librairie *Zone.js* dont le rôle est d'encapsuler et d'intercepter tous les appels asynchrones (e.g. setTimeout, event listeners etc...).
+Avant le chargement d'Angular, *Zone.js* procède au *Monkey patching* des fonctions natives permettant d'inscrire des "callbacks" associées à des traitements asynchrones (e.g. setTimeout) afin de pouvoir détecter chaque "tick" et notifier Angular.
 Zone.js est également utilisé pour reconstruire des "callstacks" d'appels asynchrones.
 
 ### Fonctionnement de la Change Detection
