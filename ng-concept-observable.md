@@ -164,7 +164,12 @@ puis la suite des valeurs en cours d'émission.
 
 https://adrien.pessu.net/post/angular_best_practices/       
 https://nicolasfazio.ch/programmation/angular/angular-creer-service-reactif-observables        
-https://makina-corpus.com/front-end/mise-en-pratique-rxjs-angular       
+https://makina-corpus.com/front-end/mise-en-pratique-rxjs-angular     
+
+**Il est préférable d'utiliser la syntaxe basée sur l'utilisation des stream plutôt que la syntaxe de "souscription". En effet on a ainsi un code
+plus léger, plus clair, plus maintenable et qui limite les risques de fuites mémoire.**
+
+Peut importe la méthode, le principe reste toujours le même, s'abonner à un stream (observable, Subject, BehaviourSubject) et mettre à jour ce stream par la suite via **next()**
 
 Eviter la création d'une subscription avec les appels API qui ne retournent qu'un seul résultat (non pas un flux comme pour les sockets) 
 
@@ -173,7 +178,7 @@ Eviter la création d'une subscription avec les appels API qui ne retournent qu'
 **Eviter** autant que possible de récupérer les données avec un observable avec subscribe directement dans un composant.
 Il est préférable de récupérer les données dans un service dédié ex :
 
-**A éviter**
+**A éviter** bien que fonctionnel
 
 *service.ts*
 ````typescript
@@ -197,7 +202,12 @@ Il est préférable de récupérer les données dans un service dédié ex :
   }
 ````
 
-**A Privilégier**
+Préférer les solutions suivantes proposées :
+
+### Solutions "propres" à privilégier
+[Back to top](#observables)
+
+#### Solution 1 : Observable retournant une seule valeur (pas un flux type socket)
 
 *service.ts*
 ````typescript
@@ -213,7 +223,7 @@ Il est préférable de récupérer les données dans un service dédié ex :
       .pipe(first())
       .toPromise()
       .then((response: {data: any[]}) => {
-        // on assign la reponse à la Behavior Subject
+        // on assigne la reponse à la Behavior Subject
         this._users.next(response.data);
       })
       .catch(err => console.log(err))
@@ -235,7 +245,180 @@ ngOnInit() {
   }
 ````
 
-#### Souscription
+#### Solution 2 : utiliser directement le stream
+[Back to top](#observables)
+
+Voici un exemple simple qui récupère les données depuis une api via http, ajoute, modifie et supprime des éléments du stream.
+
+**A noter :** on affecte le stream dans le constructor pour éviter d'avoir une erreur "undefined" si un élément venait à chercher à lire l'objet avant son
+affectation étant donné que le stream est asynchrone.
+
+*Vue.html*
+
+````html
+<h3>nb posts = {{ (posts$ | async)?.length }} (utilise un <i>shareReplay</i> pour ne pas faire un second appel http)</h3>
+<button mat-raised-button (click)="addPost()">Add post</button>
+<button mat-raised-button (click)="fetchData()">Reset Data</button>
+<mat-list>
+    <mat-list-item *ngFor="let p of posts$ | async">
+        {{ p.id }} - {{ p.title }} <button mat-button (click)="deletePost(p)">X</button> <button mat-button (click)="updatePost(p)">add suffix</button>
+    </mat-list-item>
+</mat-list>
+````
+
+*Controller.ts*
+
+````typescript
+export class BehaviourWithRefresh2Component{
+
+  posts$: Observable<IPost[]>;
+
+  constructor(private behaviourService: BehaviourService) {
+    this.fetchData();
+  }
+  
+  fetchData() { this.posts$ = this.behaviourService.fetchPosts(); }
+
+  addPost() {
+    this.behaviourService.addPost({
+      id: 999,
+      title: 'Nouveau post',
+      userId: 1,
+      body: 'corps du nouveau message'
+    });
+  }
+
+  deletePost(p: IPost) { this.behaviourService.deletePost(p); }
+
+  updatePost(p: IPost) {
+	// Ajout d'un PREFIX au titre
+    p.title = '[PREFIX]' + p.title;
+    this.behaviourService.updatePost(p);
+  }
+}
+
+````
+
+*Service.ts*
+
+````typescript
+export interface IPost {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
+
+export class BehaviourService {
+
+  private posts$: BehaviorSubject<IPost[]> = new BehaviorSubject([]);
+
+  constructor(private http: HttpClient) { }
+
+  fetchPosts(): Observable<IPost[]> {
+    return this.http.get<IPost[]>('https://jsonplaceholder.typicode.com/posts')
+      .pipe(
+		shareReplay(),	// transformer de Cold vers Hot pour ne pas faire plusieurs appels
+        tap(res => this.posts$.next(res))
+      );
+  }
+
+  addPost(post: IPost) {
+    let current = this.posts$.getValue();
+    current.push(post);
+    this.posts$.next(current);
+  }
+
+  deletePost(post: IPost) {
+    let current = this.posts$.getValue();
+    const index = current.findIndex(p => p.id === post.id);
+    if (index >= 0) {
+      current.splice(index, 1);
+      this.posts$.next(current);
+    }
+  }
+
+  updatePost(post: IPost) {
+    let current = this.posts$.getValue();
+    const index = current.findIndex(p => p.id === post.id);
+    if (index >= 0) {
+      current[index] = post;
+      this.posts$.next(current);
+    }
+  }
+}
+````
+
+#### Solution 3 : Méthode avec BehaviourSubject dédié à l'état **refresh**
+[Back to top](#observables)
+
+````html
+<mat-list-item>
+<input mat-input type="text" [(ngModel)]="cityName">
+<button mat-raised-button (click)="addCity()" [disabled]="cityName == ''">add city</button>
+</mat-list-item>
+<mat-list>
+  <mat-list-item *ngFor="let c of cities$ | async">
+	  {{ c.name }} 
+	  <button mat-icon-button (click)="deleteCity(c)">
+		<mat-icon>delete</mat-icon>
+	  </button>
+  </mat-list-item>
+</mat-list>   
+````
+
+*Controller.ts*
+
+````typescript
+export class BehaviourWithRefreshComponent implements OnInit {
+
+  cityName = '';
+  cities$: Observable<{ name: string }[]>;
+  citiesRefresh$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+
+  constructor(private data: DataService) { }
+
+  ngOnInit(): void {
+	// Déclenchement du fetch à chaque modification de l'état du behaviourSubject
+    this.cities$ = this.citiesRefresh$
+      .pipe(switchMap(_ => this.data.fetchCities()));
+  }
+
+  addCity() {
+    this.data.addCity(this.cityName);
+    this.cityName = '';
+    this.citiesRefresh$.next(true);	// déclencher le refresh des data
+  }
+
+  deleteCity(city) {
+    this.data.deleteCity(city);
+    this.citiesRefresh$.next(true);	// déclencher le refresh des data
+  }
+
+}
+````
+
+*Service.ts*
+
+````typescript
+  cities = [{ name: 'Atlanta' }, { name: 'Portland' }, { name: 'San Fransisco' }];
+
+  constructor() { }
+
+  fetchCities(): Observable<any[]> {
+    return of(this.cities);
+  }
+   addCity(cityName: string) {
+    this.cities = [...this.cities, { name: cityName }];
+  }
+
+  deleteCity(city) {
+    this.cities = this.cities.filter(c => c.name !== city.name);
+  }
+````
+
+### Souscription
+[Back to top](#observables)
 
 Pour pouvoir récupérer les données d'un observable, il faut s'y abonner via subscribe.
 
@@ -252,6 +435,7 @@ Quand on fait un service qui retourne un observable, **on ne souscrit JAMAIS à 
 car on ne sait pas quand les données arriveront
 
 ### Erreurs
+[Back to top](#observables)
 
 Remonter les erreurs là où on peut les traiter.
 
