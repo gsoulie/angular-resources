@@ -250,7 +250,7 @@ ngOnInit() {
 
 Voici un exemple simple qui récupère les données depuis une api via http, ajoute, modifie et supprime des éléments du stream.
 
-**A noter :** on affecte le stream dans le constructor pour éviter d'avoir une erreur "undefined" si un élément venait à chercher à lire l'objet avant son
+**A noter :** on affecte le stream dans le **constructor** pour éviter d'avoir une erreur "undefined" si un élément venait à chercher à lire l'objet avant son
 affectation étant donné que le stream est asynchrone.
 
 *Vue.html*
