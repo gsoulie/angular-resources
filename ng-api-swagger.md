@@ -42,4 +42,28 @@ export class ApiConfiguration {
 }
 ````
 
+*app.component.ts*
+
+````typescript
+ngOnInit(): void {
+    this.appSettings = this.appConfigService.config;  // récupérer les endpoints dans les assets
+    this.apiConfiguration.setApiRoot(this.appSettings.settings.api);  // renseigner l'url des api
+}
+````
+
+### Génération des api depuis fichier de config avec URL
+
+Créer le fichier de config à la racine du projet
+
+````typescript
+{
+  "$schema": "./node_modules/ng-openapi-gen/ng-openapi-gen-schema.json",
+  "input": "http://server:8093/swagger/v1/swagger.json",
+  "output": "./src/app/shared/api",
+  "removeStaleFiles": false
+}
+````
+
+Puis générer les api avec la commande ````ng-openapi-gen --config openapi-config.json````
+
 [Back to top](#api-swagger)     
