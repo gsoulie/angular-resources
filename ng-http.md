@@ -239,6 +239,120 @@ export class AppModule { }
 
 [Back to top](#codes-retour-http)
 
+### Gérer le déclenchement d'un spinner de chargement à chaque requête http
+
+**1 - Service avec behaviourSubject sur l'état du loader**
+
+*spinner.service.ts*
+
+````typescript
+import { BehaviorSubject } from 'rxjs';
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SpinnerService {
+
+  private loading: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public readonly loading$ = this.loading.asObservable();
+
+  constructor() { }
+  showSpinner() { this.loading.next(true); }
+  hideSpinner() { this.loading.next(false); }
+}
+
+````
+
+**2 - Configuration de l'interceptor**
+
+*app.module.ts*
+
+````typescript
+...
+providers: [
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpSpinnerInterceptorService,
+    multi: true
+  }
+````
+
+**3 - Service interceptor**
+
+*httpSpinnerInterceptor.service.ts*
+
+````typescript
+import { tap, delay } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { SpinnerService } from './spinner.service';
+import { Injectable } from '@angular/core';
+import { HttpEvent, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class HttpSpinnerInterceptorService {
+
+  constructor(private spinnerService: SpinnerService) {
+    this.spinnerService.hideSpinner();
+  }
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    this.spinnerService.showSpinner();
+
+    return next
+      .handle(req)
+      .pipe(
+        delay(1500),
+        tap((event: HttpEvent<any>) => {
+          if (event instanceof HttpResponse) {
+            this.spinnerService.hideSpinner();
+          }
+        }, (error) => {
+          this.spinnerService.hideSpinner();
+        })
+      );
+  }
+}
+````
+
+**4 - Utilisation**
+
+*home.component.ts*
+
+````typescript
+@Component({
+  selector: 'app-behaviour-with-refresh2',
+  template: `
+	<mat-spinner *ngIf="loading$ | async"></mat-spinner>
+	<mat-list>
+		<mat-list-item *ngFor="let p of posts$ | async">
+			{{ p.id }} - {{ p.title }}
+		</mat-list-item>
+	</mat-list>
+  `,
+  styleUrls: ['./behaviour-with-refresh2.component.scss']
+})
+export class BehaviourWithRefresh2Component {
+
+  posts$: Observable<IPost[]>;
+  loading$: Observable<boolean>;
+
+  constructor(private behaviourService: BehaviourService,
+    private spinnerService: SpinnerService) {
+    this.fetchData();
+  }
+
+  fetchData() {
+    this.loading$ = this.spinnerService.loading$;
+    this.posts$ = this.behaviourService.fetchPosts();
+  }
+}
+````
+[Back to top](#codes-retour-http)
+
 ## Multipart Form Data
 
 Envoi de fichiers (images / pdf) via mutlipart/form-data
