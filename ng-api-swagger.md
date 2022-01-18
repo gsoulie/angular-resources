@@ -64,6 +64,6 @@ Créer le fichier de config à la racine du projet
 }
 ````
 
-Puis générer les api avec la commande ````ng-openapi-gen --config openapi-config.json````
+Puis générer les api avec la commande suivante (depuis la racine) ````ng-openapi-gen --config openapi-config.json````
 
 [Back to top](#api-swagger)     
