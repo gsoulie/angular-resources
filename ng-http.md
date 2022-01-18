@@ -241,7 +241,7 @@ export class AppModule { }
 
 ### Gérer le déclenchement d'un spinner de chargement à chaque requête http
 
-**1 - Service avec behaviourSubject sur l'état du loader**
+**1 - Service avec behaviourSubject sur l'état du spinner**
 
 *spinner.service.ts*
 
@@ -264,7 +264,7 @@ export class SpinnerService {
 
 ````
 
-**2 - Configuration de l'interceptor**
+**2 - Déclaration de l'interceptor**
 
 *app.module.ts*
 
