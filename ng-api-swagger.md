@@ -29,26 +29,31 @@ ng-openapi-gen --input swagger-api.json --output projects\src\lib\api
 
 ### Configuration
 
-Une fois les api générées, il faut configurer l'url de base du serveur dans le fichier *src/lib/api/api-configuration.ts*. Soit en renseignant le endpoint en dur ou en allant chercher l'url dans un fichier de configuration "externe" (depuis les assets)
+Une fois les api générées, il faut configurer l'url de base du serveur dans le fichier *src/lib/api/api-configuration.ts*. Deux méthodes sont possibles
 
+#### configuration app.module.ts
+
+*app.module.ts*
 ````typescript
-export class ApiConfiguration {
-  rootUrl: string = ''; // solution 1 : entrer le endpoint api en dur ici 
-
-  // Solution 2 : récupérer le endpoint depuis un fichier de config depuis les assets
-  setApiRoot(apiRoot: string = ''): void {
-    this.rootUrl = apiRoot;
-  }
-}
+imports: [
+  ...
+  ApiModule.forRoot({ rootUrl: 'https://www.example.com/api' }),
+  // ApiModule.forRoot({rootUrl: environment.WebServiceUrl})  // récupération depuis environment
+]
 ````
+
+#### récupération endpoint depuis un asset pour une configuration plus dynamique
 
 *app.component.ts*
 
 ````typescript
-ngOnInit(): void {
-    this.appSettings = this.appConfigService.config;  // récupérer les endpoints dans les assets
-    this.apiConfiguration.setApiRoot(this.appSettings.settings.api);  // renseigner l'url des api
-}
+import { ApiConfiguration } from './shared/api/api-configuration';
+
+constructor(private configurationService: ConfigurationService,
+    private apiConfiguration: ApiConfiguration) {
+    this.appSettings = this.configurationService.config;  // récupérer la configuration depsuis les assets
+    this.apiConfiguration.rootUrl = this.appSettings.api.endpoint;  // renseigner l'url endpoint
+  }
 ````
 
 ### Génération des api depuis fichier de config avec URL
