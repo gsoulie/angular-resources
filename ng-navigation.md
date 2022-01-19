@@ -261,6 +261,8 @@ https://www.techiediaries.com/angular-router-multiple-outlets/
 
 ## Guards
 [Back to top](#navigation)
+	
+https://www.youtube.com/watch?v=YJ4dgoHEmGs&ab_channel=CodeShotsWithProfanis      
 
 Le guard retourne toujours un boolean. Soit un boolean directement, soit une promise qui retourne un boolean, soit un observable qui retourne un boolean
 
