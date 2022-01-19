@@ -52,7 +52,8 @@ let [o1, o2] = user;
 
 // va donner : o1 = {nom: 'toto', prenom: 'paul'} et o2 = {nom: 'titi', prenom: 'luc'}
 ````
-Autre exemple 
+
+**Exemple**
 
 ````typescript
 maFunction({from: 1, to: 100});
@@ -65,6 +66,45 @@ function maFunction(data: any) {
 	// from = data.from
 	// to = data.to
 }
+````
+
+**Exemple**
+
+````typescript
+const employee = {
+  id: 007,
+  name: 'James',
+  dept: 'Spy'
+}
+
+const id = employee.id;
+const name = employee.name;
+
+// Peut être écrit avec destructuration : 
+const { id, name } = employee;
+
+
+const employee = {
+  id: 007,
+  name: 'James',
+  dept: {
+    id: 'D001',
+    name: 'Spy',
+    address: {
+      street: '30 Wellington Square',
+      city: 'Chelsea'  
+    }
+  }  
+}
+
+const address = employee.dept.address;
+
+/*=> address: {
+      street: '30 Wellington Square',
+      city: 'Chelsea'  
+    }*/
+	
+const street = employee.dept.address.street;
 ````
 
 ### Destructuration paramètres de fonction
