@@ -349,6 +349,25 @@ export class BehaviourService {
 }
 ````
 
+**A T T E N T I O N - PIPE ASYNC** Si la vue contient plusieurs pipe *async* elle va créer une souscription pour chacun !!
+
+````html
+<li>{{ (user$ | async).name }}</li>
+<li>{{ (user$ | async).lastname }}</li>
+<li>{{ (user$ | async).age }}</li>
+````
+
+==> va créer 3 souscription et donc jouer autant de fois la requêtes qui retourne les informations.
+
+**Solution** regrouper le contenu sous une seule souscription 
+````html
+<ng-container *ngIf="user$ | async as user>
+	<li>{{ user.name }}</li>
+	<li>{{ user.lastname }}</li>
+	<li>{{ user.age }}</li>
+</ng-container>
+````
+
 #### Solution 3 : Méthode avec BehaviourSubject dédié à l'état **refresh**
 [Back to top](#observables)
 
