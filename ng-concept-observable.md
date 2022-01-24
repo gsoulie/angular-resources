@@ -361,11 +361,18 @@ export class BehaviourService {
 
 **Solution** regrouper le contenu sous une seule souscription 
 ````html
-<ng-container *ngIf="user$ | async as user>
+<!-- With alias 'as' -->
+<ng-container *ngIf="user$ | async as user">
 	<li>{{ user.name }}</li>
 	<li>{{ user.lastname }}</li>
 	<li>{{ user.age }}</li>
 </ng-container>
+
+<!-- using stream directly -->
+<div *ngIf="myself$">
+  <p>Name: <span>{{ (myself$ | async).name }}</span></p>
+  <p>Place: <span>{{ (myself$ | async).place }}</span></p>
+</div>
 ````
 
 #### Solution 3 : Méthode avec BehaviourSubject dédié à l'état **refresh**
