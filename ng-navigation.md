@@ -11,10 +11,12 @@
 * [Naviguer depuis le controller](#naviguer-depuis-le-controller)     
 * [Lazy-loading routes](#lazy-loading-routes)   
 * [router-outlet mutliple](#router-outlet-multiple)   
+* [Resolver](#resolver)   
 * [Guards](#guards)   
 * [Route source](#route-source)   
 * [Tab routing avec retour depuis modale ](#tab-routing-avec-retour-depuis-modale)   
 * [Routing back previous](#routing-back-previous)       
+* [Astuces navigation](#astuces-navigation)   
 
 ## Généralités
 
@@ -81,8 +83,8 @@ const ROUTES: Routes = [
 
 Deux solution : 
 
-- Définir les childroutes dans le app.route.ts
-- Créer un fichier route dans chaque composant qui aura besoin de routes enfant. **Bonne pratique**
+- Définir les childroutes dans le *app.route.ts*
+- **Bonne pratique** : Créer un fichier route dans chaque composant qui aura besoin de routes enfant.
 
 La seconde solution est une meilleure pratique pour éviter d'avoir un fichier app.routes.ts trop conséquent.
 
@@ -100,20 +102,9 @@ export const APP_ROUTES: Routes = [
 *home.routes.ts*
 ````typescript
 export const HOME_ROUTES: Routes = [
-	{
-		path: 'child1'
-		component: ChildComponent
-	},
-	{
-		path: 'child2'
-		component: ChildComponent
-	},
-
-	},
-	{
-		redirectTo: '/default',
-		path: '**'
-	}
+	{ path: 'child1', component: ChildComponent },
+	{ path: 'child2', component: ChildComponent },
+	{ redirectTo: '/default', path: '**' }
 ]
 ````
 Ajoute ensuite le router-outlet du Home
@@ -160,7 +151,10 @@ On peut aussi définir plusieurs classes à l'aide d'une chaîne séparée par d
 ````
 
 ## Routing parameters
-[Back to top](#navigation)    
+[Back to top](#navigation)   
+
+
+### méthode "classique" paramMap
 
 ````typescript
 { path: 'fiche-saisie/:id/edit', component: FicheSaisieComponent },
@@ -171,8 +165,6 @@ On peut aussi définir plusieurs classes à l'aide d'une chaîne séparée par d
 <button mat-button [routerLink]="['/fiche-saisie', '1']">création fiche saisie</button>
 <button mat-button [routerLink]="['/fiche-saisie', '1', 'edit']">édition fiche saisie</button>
 ````
-
-### Récupérer les paramètres de route dans le controller
 
 Exemple, on a un mode création qui reçoit un paramètre *shiftId* et un mode edition qui reçoit un paramètre *id*. Il est important de donner des noms différents aux paramètres dans ce cas précis (utilisation d'un même composant en mode création et édition), afin de pouvoir déterminer si nous somme en mode création ou édition.
 
@@ -194,6 +186,78 @@ ngOnInit() {
 ````
 
 > **IMPORTANT** - **BONNE PRATIQUE** : il faut récupérer le paramètre dans un observable pour éviter la problématique d'appel multiple d'une même route avec un paramètre différent. En effet Angular ne recréé pas un composant si on vient déjà de ce dernier. De fait il ne rééxécute pas la logique codée dans ngOnInit() (appel ws pour récupération des données par exemple).
+
+
+### queryParamMap 
+
+*home.page.html (routing par la vue)*
+
+````html
+<ion-button routerLink="/details" [queryParams]="{category: 'my-categ', filter: 'my-filter'}">Navigate with params</ion-button>
+<!-- créé la route : localhost/details?category=my-categ&filter=my-filter -->
+````
+
+*home.page.ts (routing par le code)*
+
+````
+navigateWithObject() {
+	
+	// Non recommandé si l'objet contient beaucoup de propriété !!!
+	const params: NavigationExtras = {
+		queryParams: { userid: 8 }
+	};
+	
+	this.router.navigate(['/detail'], params); // va créer la route localhost/details?userid=8
+}
+````
+
+*detail.page.ts*
+
+````typescript
+ngOnInit() {
+	// version snapshot : si la page est détruite après fermeture 
+	const category = this.activatedRoute.snapshot.queryParamMap.get('userid');
+	
+	// version observable : si la page est susceptible d'être rafraichie
+	// on utilise une souscription (à détruire dans le onDestroy)
+	this.activatedRoute.paramMap.subscribe(res => {
+		// ...
+	});
+}
+````
+
+### router State
+
+
+*home.page.ts*
+
+````typescript
+navigateWithState() {
+	// Recommandé dans le cas d'un passage d'objet avec beaucoup de propriétés
+
+	const navigationExtras: NavigationExtras = {
+		state: { 
+			user: {
+				id: 38,
+				name: 'Paul',
+				age: 40
+			}
+		}
+	};
+	this.router.navigate('/details', navigationExtras);
+}
+````
+
+*detail.page.ts*
+
+````typescript
+ngOnInit() {
+	// version snapshot : Attention le state est perdu en cas de rafraichissement de la page
+	const routerState = this.router.getCurrentNavigation().extras.state;
+	console.log(routerState);
+}
+````
+
 
 ### Reset des paramètres de routage
 
@@ -258,6 +322,76 @@ Permet en background d'une page, de charger le contenu des autres pages
 On peut définir plusieurs <router-outlet>. Mais faire **ATTENTION** de bien les nommer différemment
 
 https://www.techiediaries.com/angular-router-multiple-outlets/
+
+## Resolver
+[Back to top](#navigation)
+
+Le cheminement classique lors de la récupération des paramètres après navigation est le suivant :
+
+- ouverture de la page
+- récupération des paramètres de la route
+- chargement des données (appels http ou autre)
+- affectation de l'objet éventuel avec les données
+- affichage dans la vue
+
+Afin d'améliorer ce processus et de s'assurer que les données existent immédiatement à l'ouverture de la page on utilisise un resolver. L'avantage est qu'une fois
+sur la page, on sait que les données sont chargées, il n'y a pas besoin d'utiliser de loading ou de traitement asynchrone.
+
+Ce dernier est attaché à une ou plusieurs routes (dans le fichier routing). Le resolver est déclenché immédiatement lors du clic sur un lien de redirection et 
+va se charger de charger les données voulues.
+
+### Création d'un resolver
+
+Créer le resolver comme un service
+
+````typescript
+import { Resolve } from '@angular/router';
+
+export class MyResolverService implements Resolve<any> {
+	constructor() {}
+	
+	resolve(route: ActivatedRouteSnapshot) {
+		const category = route.paramMap.get('category'); // Il est possible d'utiliser une souscription
+		
+		// Retourner les données : appel http, observable, promise etc...
+		return [1, 5, 32];
+	}
+}
+````
+
+### Déclaration dans le fichier routing
+
+````typescript
+{
+	path: 'details/:id',
+	loadChildren: () => .....,
+	resolve: {
+		myResolverData: MyResolverService
+	}
+	
+````
+
+### Utilisation depuis une page
+
+De la même manière que la récupération d'un paramètre classique.
+
+````typescript
+ngOnInit() {
+	const data = this.route.snapshot.data.myResolverData;	// on peut aussi utiliser une souscription
+}
+````
+
+### Limitations 
+
+Le resolver est "bloquant", c'est à dire que lors de la navigation, le changement de la page sera fait uniquement après que le resolver ait terminé la récupération des données.
+
+Si un ou plusieurs appels http sont réalisés dans le resolver, il peut y avoir un délai le temps d'obtenir les réponses. Ceci peut poser problème car la navigation ne passera 
+pas à la page demandée tant que la réponse n'aura pas été reçue. On peut donc avoir une latence entre le clic sur le lien et l'ouverture de la page demandée, ce qui n'est pas
+le meilleur comportement.
+Il est donc conseillé de ne pas utiliser de resolver pour gérer des navigations ayants besoin de faire des appels http.
+
+[Back to top](#navigation)
+
 
 ## Guards
 [Back to top](#navigation)
@@ -408,5 +542,19 @@ constructor(private location: Location) { }
  back(): void {
     this.location.back();
  }
+````
+[Back to top](#navigation)
+
+## Astuces navigation
+
+### Préciser la direction lors du routing par code (ionic)
+
+````typescript
+constructor(private navCtrl: NavController) {}
+
+goBackManually() {
+	this.navCtrl.setDirection('back'); // fixe la direction de la prochaine transition
+	this.router.navigateByUrl('/home');
+}
 ````
 [Back to top](#navigation)
