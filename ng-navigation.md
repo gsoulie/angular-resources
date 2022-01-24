@@ -27,7 +27,7 @@ La route par défaut, doit toujours être à la fin du fichier de routing !!
 }
 ````
 
-> A savoir : *href* recharge la page, pas le *routerLink*
+### A savoir : *href* recharge la page, pas le *routerLink*
 
 ## Relative route
 
