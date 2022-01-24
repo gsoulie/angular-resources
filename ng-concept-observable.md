@@ -791,6 +791,12 @@ export class AddOrderComponent implements OnInit {
 </mat-form-field>
 ````
 
+### Accéder à une propriété d'un observable
+
+````html
+<h2>{{ (myObs$ | async)?.firstname }}</h2>
+````
+
 ## Exemples code
 [Back to top](#observables)
 
