@@ -207,7 +207,9 @@ Préférer les solutions suivantes proposées :
 ### Solutions "propres" à privilégier
 [Back to top](#observables)
 
-#### Solution 1 : Observable retournant une seule valeur (pas un flux type socket)
+#### Solution 1 : Observable retournant une seule valeur (pas un flux type socket) avec Promise
+
+**Dans ce cas, il n'est pas nécessaire de faire un subscribe depuis le component**
 
 *service.ts*
 ````typescript
@@ -228,6 +230,15 @@ Préférer les solutions suivantes proposées :
       })
       .catch(err => console.log(err))
   }
+  
+  async update(userData) {
+    const updated = await this._http.put('https://reqres.in/api/users/' + userData.id, userData).toPromise().catch(err => err);
+    this._users.next([
+      // non filtre les donnée privée et assign une nouvelle valeur
+      ...this._users.value.filter(u => u.id !== updated.id),
+      updated
+    ]);
+  }
 ````
 
 *component.ts*
@@ -241,6 +252,24 @@ users$: Observable<any[]>;
   
 ngOnInit() {
     this._service.load();
+    this.users$ = this._service.users$;
+  }
+````
+
+**Avec la version observable, une souscription est nécessaire côté component**
+
+````typescript
+  async load() {
+    await this._http.get('https://reqres.in/api/users')
+      .pipe(
+      	first(),
+	tap((res) => this._users.next(response.data);)
+      )
+  }
+
+
+ngOnInit() {
+    this._service.load().subscribe();
     this.users$ = this._service.users$;
   }
 ````
