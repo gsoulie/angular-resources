@@ -9,6 +9,7 @@
 * [Naviguer depuis la vue](#naviguer-depuis-la-vue)     
 * [Routing parameters](#routing-parameters)      
 * [Naviguer depuis le controller](#naviguer-depuis-le-controller)     
+* [Modifier les paramètres sans recharger la page](#modifier-les-paramètres-sans-recharger-la-page)      
 * [Lazy-loading routes](#lazy-loading-routes)   
 * [router-outlet mutliple](#router-outlet-multiple)   
 * [Resolver](#resolver)   
@@ -296,6 +297,92 @@ Permet de redéfinir la route parent. Utile dans le cas d'une validation d'authe
 
 ````typescript
 this.router.navigateByUrl('/tabs', { replaceUrl: true });
+````
+
+## Modifier les paramètres sans recharger la page
+[Back to top](#navigation)     
+
+Soit une page parent *workflow* permettant de gérer x steps d'un workflow d'achat par exemple. On souhaite pouvoir naviguer d'une étape à l'autre sans avoir à recharger la page
+
+*app.routing.module.ts*
+
+````typescript
+ {
+    path: 'workflow',
+    loadChildren: () => import('./pages/workflow/workflow.module').then( m => m.WorkflowPageModule),
+    data: { step: '' }
+ },
+````
+
+*workflow.page.html*
+````html
+<ion-content>
+  <app-compo-step1 *ngIf="currentStep === 1"></app-compo-step1>
+  <app-compo-step2 *ngIf="currentStep === 2"></app-compo-step2>
+  <app-compo-step3 *ngIf="currentStep === 3"></app-compo-step3>
+  <app-compo-step4 *ngIf="currentStep === 4"></app-compo-step4>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-button (click)="previous()">previous</ion-button>
+  <ion-button (click)="next()">next</ion-button>
+</app-multiple-button-toolbar>
+</ion-footer>
+````
+
+*workflow.page.ts*
+````typescript
+  currentStep = 1;
+  
+  ngOnInit() {
+    this.routeParamSubscription$ = this.activatedRoute.queryParams.subscribe((param) => {
+      this.currentStep = +param['step'] || null;
+    });
+  }
+  
+  next(ev): void {
+    if (this.currentStep < 4) {
+      this.currentStep++;
+      this.changeStepRoute();
+    } else {
+      this.router.navigate(['summary']);
+    }
+  }
+  previous(ev): void {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+      this.changeStepRoute();
+    }
+  }
+
+  private changeStepRoute(): void {
+    const params: NavigationExtras = {
+      queryParams: { step: this.currentStep }
+    };
+    this.router.navigate(['workflow'], params);
+  }
+}
+````
+
+Naviguer sur une étape spécifique du workflow depuis un autre écran
+
+*summary.page.html*
+````html
+<ion-content>
+  <div>
+    <ion-item button [routerLink]="['/workflow']" [queryParams]="{step: 1}">
+      Lieu intervention
+    </ion-item>
+    <ion-item button [routerLink]="['/workflow']"  [queryParams]="{step: 2}">
+      Vérifications lieu intervention
+    </ion-item>
+    <ion-item button [routerLink]="['/workflow']" [queryParams]="{step: 3}">
+      Lieu de séjour
+    </ion-item>
+    <ion-item button [routerLink]="['/workflow']" [queryParams]="{step: 4}">
+      Vérifications lieu de séjour
+    </ion-item>
+  </div>
+</ion-content>
 ````
 
 ## Lazy-loading routes
