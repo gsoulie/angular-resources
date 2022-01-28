@@ -302,7 +302,8 @@ this.router.navigateByUrl('/tabs', { replaceUrl: true });
 ## Modifier les paramètres sans recharger la page
 [Back to top](#navigation)     
 
-Soit une page parent *workflow* permettant de gérer x steps d'un workflow d'achat par exemple. On souhaite pouvoir naviguer d'une étape à l'autre sans avoir à recharger la page
+Soit une page parent *workflow* permettant de gérer x steps d'un workflow d'achat par exemple. On souhaite pouvoir naviguer d'une étape à l'autre sans avoir à recharger la page 
+en utilisant les **queryParams**
 
 *app.routing.module.ts*
 
