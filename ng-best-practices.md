@@ -14,7 +14,9 @@
 
 Passer des données à un composant peut se faire de plusieurs manières. Les plus courantes sont le passage via *@Input / @Ouput* ou via un service.
 
-Pour connaître la meilleur solution à adopter, il est recommandé de préférer l'utilisation d'un service dans le cas d'un composant "parent" c'est à dire un composant qui contient des "enfants". Et utiliser les *@Input() / @Output()* dans le cas d'un composant "enfant"
+Pour connaître la meilleur solution à adopter, il est recommandé de préférer l'utilisation d'un service dans le cas d'un composant "parent" c'est à dire un composant qui contient des "enfants". Et utiliser les *@Input() / @Output()* dans le cas d'un composant "enfant".
+
+De cette façon on évite d'avoir des chaînes interminables de *@Input() / @Output()* qui transportent des paramètres d'un bout à l'autre de la chaîne.
 
 ## Workflow complet
 
