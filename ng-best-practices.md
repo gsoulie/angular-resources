@@ -93,6 +93,7 @@ export class ControlsPage extends Unsubscriber implements OnInit {
 }
 ````
 
+**I M P O R T A N T** : Il ne faut surtout pas implémenter la fonction *ngOnDestroy()* dans le composant, sinon celle-ci prendra l'ascendant sur celle du service *unsubscriber* qui ne sera pas joué
 
 [Back to top](#bonnes-pratiques-et-nr)
 
