@@ -2,12 +2,19 @@
 
 # Bonnes pratiques et NR
 
+* [Input ou Service ?](#input-ou-service-?)      
 * [Workflow complet](#workflow-complet)      
 * [Model Adapter Pattern](#model-adapter-pattern)     
 * [Blocs conditionnels](#blocs-conditionnels)        
 * [Pipe](#pipe)      
 * [Numérique Responsable](https://github.com/gsoulie/angular-resources/edit/master/ng-nr.md)      
 * [Unsubscriber](#unsubscriber)     
+
+## Input ou Service ?
+
+Passer des données à un composant peut se faire de plusieurs manières. Les plus courantes sont le passage via *@Input / @Ouput* ou via un service.
+
+Pour connaître la meilleur solution à adopter, il est recommandé de préférer l'utilisation d'un service dans le cas d'un composant "parent" c'est à dire un composant qui contient des "enfants". Et utiliser les *@Input() / @Output()* dans le cas d'un composant "enfant"
 
 ## Workflow complet
 
