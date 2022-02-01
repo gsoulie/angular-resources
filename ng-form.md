@@ -119,17 +119,24 @@ onSubmit() {
 ### Afficher une erreur sur un champ invalide
 
 ````html
-<ion-item>
- <ion-input type="email" placeholder="email" formControlName="email"></ion-input>
-</ion-item>
+<div>
+ <label for="name">Name</label>
+ <input type="text" placeholder="name" formControlName="name">
+ <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+   Name is required
+ </div>
+</div>
+<div>
+ <input type="email" placeholder="email" formControlName="email">
+</div>
 <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
  <span *ngIf="email.errors?.required">Email is required</span>
  <span *ngIf="email.errors?.email">Email is invalid</span>
 </div>
 
-<ion-item>
- <ion-input type="password" placeholder="password" formControlName="password"></ion-input>
-</ion-item>
+<div
+ <input type="password" placeholder="password" formControlName="password">
+</div>
 <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
  <span *ngIf="password.errors?.required">password is required</span>
  <span *ngIf="password.errors?.minLength">password is invalid</span>
