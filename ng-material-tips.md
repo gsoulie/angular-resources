@@ -3,6 +3,7 @@
 # Angular material tips
 
 Pour surcharger les composant Angular Material, il est important d'utiliser le combinator **::ng-deep** (qui remplace l'ancienne syntaxe */deep/*).
+* [Customiser le thème angular material](https://dev.to/codingcatdev/angular-material-theming-32km)     
 * [Comprendre ::ng-deep](#comptendre-ng-deep)     
 * [Surcharge de style](#surcharge-de-style)     
 * [mat-progress-bar](#mat-progress-bar)       
