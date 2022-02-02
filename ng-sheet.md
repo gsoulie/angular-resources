@@ -33,7 +33,7 @@
 	* Gérer les dates en locale FR     
 * [Navigation](https://github.com/gsoulie/angular-resources/blob/master/ng-navigation.md)     
 * [Http](https://github.com/gsoulie/angular-resources/blob/master/ng-http.md)     
-	* Http interceptor	
+	* Http interceptor : (gestion bearer, loading spinner...)     	
 	* Codes retours Http 
 	* Multipart Form Data      	
 * [Form](https://github.com/gsoulie/angular-resources/blob/master/ng-form.md)     
