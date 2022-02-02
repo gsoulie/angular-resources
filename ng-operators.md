@@ -107,6 +107,33 @@ const address = employee.dept.address;
 const street = employee.dept.address.street;
 ````
 
+**Sous-ensemble de propriétés**
+
+````typescript
+const data = { foo: 42, bar: 24, toRemove: 'remove' };
+const { toRemove, ...rest } = data;
+
+console.log(rest); // {foo: 42, bar: 24 }
+````
+
+**Renommage de propriétés**
+
+````typescript
+const data = { len: 164, unt: 'ft' };
+const { len: length, unt: unit } = data;
+
+console.log(length, unit); // 164, 'ft'
+````
+
+**Destructuration imbriquée**
+
+````typescript
+const data = { track: { length: 164, unit: 'ft' }};
+const { track: { length, unit }} = data;
+
+console.log(length, unit); // 164, 'ft'
+````
+
 ### Destructuration paramètres de fonction
 [Back to top](#operateurs) 
 
@@ -119,4 +146,5 @@ maFunct({param2: 5, param1: 1});
 ````
 > Important : permet de s'affranchir de l'ordre des paramètres et de gérer plus facilement les 
 paramètres optionnels
+
 [Back to top](#operateurs)
