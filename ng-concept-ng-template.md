@@ -6,6 +6,8 @@
 ## ng-template
 https://blog.angular-university.io/angular-ng-template-ng-container-ngtemplateoutlet/
 
+**Remarque** : ng-template est "lazy" il faut donc dire explicitement à angular de l'afficher
+
 *ng-template* défini un template qui n'affiche rien tant qu'il n'est pas utilisé
 
 ````html
