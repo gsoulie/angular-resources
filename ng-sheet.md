@@ -72,7 +72,7 @@
 	* e2e avec Cypress      
 * [template générique mat-dialog](https://github.com/gsoulie/angular-resources/blob/master/angular-dialog-template.md)      
 * [Local storage](https://github.com/gsoulie/angular-resources/blob/master/ng-local-storage.md)     
-* [Animations](#animations)     
+* [Animations](https://github.com/gsoulie/angular-resources/blob/master/ng-animation.md)     
 * [Images](https://github.com/gsoulie/angular-resources/blob/master/ng-image.md)     
 * Authentification	
 	* [Identity Server 4 - oidc](https://github.com/manfredsteyer/angular-oauth2-oidc)      
