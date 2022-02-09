@@ -2,6 +2,8 @@
 
 # ng-template
 
+* [ng-template](#ng-template)      
+* [skeleton view](#skeleton-view)     
 
 ## ng-template
 https://blog.angular-university.io/angular-ng-template-ng-container-ngtemplateoutlet/
