@@ -11,6 +11,20 @@ Le plus populaire des frameworks js, surtout en europe. Aux US react est plus po
 
 Angular est le framework le plus complet (compilation, test, détection des changements etc...), c'est ce qu'il fait aussi que c'est le plus lourd et qu'il est un peu moins performant que React / Vue
 
+Angular : Feature-rich, everything built-in, CLI, PWA...
+
+React : minimaliste, focalisé sur la construction d'UI, plutôt une librairie qu'un framework
+
+Vue : entre angular et react, framweork focalisé sur le code, CLI...
+
+|feature|angular|react|vue|
+|-|-|-|-|
+|UI/DOM manipulation|V|V|V|
+|State management|V|-|V|
+|Routing|V|X|V|
+|Form validating...|V|X|X|
+|Http Client|V|X|X|
+
 ### e2e
 Protractor va être déprecié, il est conseillé de basculer sur **cypress** pour réaliser les tests e2e
 
