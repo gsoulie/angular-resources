@@ -22,6 +22,7 @@
 	* [ng-content](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-ng-content.md)      
 		* Design pattern bridge      
 	* [ng-template](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-ng-template.md)     
+		* Skeleton view       	
 	* [Intéraction composant](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-component-interaction.md)      
 	* [Directives structurelles](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-structural-directive.md)   
 	* [Service worker - Web worker](https://github.com/gsoulie/angular-resources/blob/master/ng-service-worker.md)       
