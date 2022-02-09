@@ -129,3 +129,27 @@ ATTENTION : ne fonctionne pas avec un jeu de données qui vient d'un observable
 https://makina-corpus.com/blog/metier/2019/des-boucles-generiques-de-composants-avec-angular
       
 [Back to top](#ng-template)
+
+## Skeleton view
+
+Afficher un skeleton view pendant le chargement de données asynchrones
+
+````html
+<ion-content>
+    <ion-card *ngIf="user$ | async as user; else loading">
+      <ion-card-content>
+        {{ user }}
+      </ion-card-content>
+    </ion-card>
+    
+    <ng-template #loading>
+      <ion-card *ngIf="user$ | async as user; else loading">
+        <ion-card-content>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-card-content>
+      </ion-card>
+    </ng-template>
+</ion-content>
+````
+
+[Back to top](#ng-template)
