@@ -13,6 +13,7 @@
 * [async pipe](#async-pipe)    
 * [Exemples code](#exemples-code)      
 * [Tester la taille du contenu](#tester-la-taille-du-contenu)     
+* [Gestion des erreurs](#gestion-des-erreurs)       
 
 
 ## Liens
@@ -1233,6 +1234,62 @@ Tester le *length* d'un observable pour pouvoir agir sur la vue
  <ng-template #nodata>
    <h1>Aucune donnée trouvée</h1>
  </ng-template>
+````
+
+## Gestion des erreurs
+[Back to top](#observables)
+
+Solution pour gérer proprement les erreurs levées par les observables utilisant un pipe async.
+
+*home.component.ts*
+
+````typescript
+user$ = this.userService.getUserWithError();	// observable qui déclenche une erreur
+
+userError$ = this.user$.pipe(
+	ignoreElements(), // ignorer les autres éléments du stream qui ne sont pas en erreur
+	catchError((err) => of(err))	// émet un nouvel observable en cas d'erreur
+);
+````
+
+En cas de présence d'une donnée en erreur dans le stream, on affiche un message d'erreur déclenché par *userError$*. Cependant, on remarque que *user$* ne sera jamais *true*,
+de fait, en cas d'erreur le skeleton-text sera toujours affiché. Ce n'est pas ce que l'on souhaite, en cas d'erreur on ne veut pas voir le skeleton-text
+
+*home.component.html*
+
+````html
+<ion-card *ngIf="user$ | async as user; else loading">
+	<ion-card-content>{{ user }}</ion-card-content>
+</ion-card>
+<ion-note *ngIf="userError$ | async as error">{{ error }}</ion-note>
+
+<ng-template #loading>
+	<ion-card>
+		<ion-card-content>
+			<ion-skeleton-text animated></ion-skeleton-text>
+		</ion-card-content>
+	</ion-card>
+</ng-template>
+````
+
+### Solution
+
+````html
+<!-- IMPORTANT : le fait de déclarer un objet ave "as" permet d'éviter une multiple souscription pour chaque pipe -->
+<ng-container *ngIf="{user: user$ | async, userError: userError$ | async} as vm">
+	<ion-card *ngIf="!vm.userError && vm.user as user; else loading">
+		<ion-card-content>{{ user }}</ion-card-content>
+	</ion-card>
+	<ion-note *ngIf="vm.userError as error">{{ error }}</ion-note>
+
+	<ng-template #loading>
+		<ion-card *ngIf="!vm.userError">
+			<ion-card-content>
+				<ion-skeleton-text animated></ion-skeleton-text>
+			</ion-card-content>
+		</ion-card>
+	</ng-template>
+</ng-container>
 ````
 
 
