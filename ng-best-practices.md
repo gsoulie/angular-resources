@@ -7,7 +7,7 @@
 * [Model Adapter Pattern](#model-adapter-pattern)     
 * [Blocs conditionnels](#blocs-conditionnels)        
 * [Pipe](#pipe)      
-* [Numérique Responsable](https://github.com/gsoulie/angular-resources/edit/master/ng-nr.md)      
+* [Numérique Responsable](https://github.com/gsoulie/angular-resources/blob/master/ng-nr.md)      
 * [Unsubscriber](#unsubscriber)     
 
 ## Input ou Service ?
