@@ -8,7 +8,7 @@
 ## Spread et Rest
 [Back to top](#operateurs) 
 
-L'opérateur **...** permet de copier toutes les propriétés d'un objet. Peut être utile si l'on souhaite retourner une copie d'un objet avec toutes ses propriétés en y ajoutant en plus des nouvelles.
+L'opérateur ````...```` permet de copier toutes les propriétés d'un objet. Peut être utile si l'on souhaite retourner une copie d'un objet avec toutes ses propriétés en y ajoutant en plus des nouvelles.
 
 ````typescript
 // Here, we are useing the map operator on the dataset to ensure that each recipe
