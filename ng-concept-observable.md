@@ -286,14 +286,17 @@ affectation étant donné que le stream est asynchrone.
 *Vue.html*
 
 ````html
-<h3>nb posts = {{ (posts$ | async)?.length }} (utilise un <i>shareReplay</i> pour ne pas faire un second appel http)</h3>
-<button mat-raised-button (click)="addPost()">Add post</button>
-<button mat-raised-button (click)="fetchData()">Reset Data</button>
-<mat-list>
-    <mat-list-item *ngFor="let p of posts$ | async">
-        {{ p.id }} - {{ p.title }} <button mat-button (click)="deletePost(p)">X</button> <button mat-button (click)="updatePost(p)">add suffix</button>
-    </mat-list-item>
-</mat-list>
+<ng-container *ngIf="posts$ | async as posts; else loading">
+	<h3>nb posts = {{ posts.length }}</h3>
+	<button mat-raised-button (click)="addPost()">Add post</button>
+	
+	<mat-list>
+		<mat-list-item *ngFor="let p of posts">
+			{{ p.id }} - {{ p.title }} <button mat-button (click)="deletePost(p)">X</button> <button mat-button (click)="updatePost(p)">add suffix</button>
+		</mat-list-item>
+	</mat-list>
+	<mat-spinner #loading></mat-spinner>
+</ng-container>
 ````
 
 *Controller.ts*
