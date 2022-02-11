@@ -30,7 +30,7 @@ Les 3 fichiers principaux pour créer une appli angular
 | Order   |
 |----------|
 |constructor|
-|nbOnChanges|
+|ngOnChanges|
 |ngOnInit|
 |ngDoCheck|
 |ngAfterContentInit|
