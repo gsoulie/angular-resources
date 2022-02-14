@@ -27,6 +27,7 @@
 	* [Directives structurelles](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-structural-directive.md)   
 	* [Service worker - Web worker](https://github.com/gsoulie/angular-resources/blob/master/ng-service-worker.md)       
 * [Optimisations et NR](https://github.com/gsoulie/angular-resources/blob/master/ng-nr.md)       
+* [Gestion des erreurs](https://github.com/gsoulie/angular-resources/blob/master/ng-error.md)       
 * [Astuce](https://github.com/gsoulie/angular-resources/blob/master/ng-tips.md)    
 	* Mémoriser une variable de controller       	  
 	* Propagation événement      
