@@ -22,7 +22,7 @@ Dans l'idéal :
 - SI on **créé un élément** alors on utilise un **component**
 
 *Appel d'une directive (ici : appHighlight)*
-````
+````html
 <div appHighlight (click)="maFonction()">TEXT</div>
 
 <!-- Une directive peut aussi envoyer un EventEmitter -->
@@ -30,7 +30,7 @@ Dans l'idéal :
 ````
 
 *Directive qui applique un fond rouge sur un click de la div*
-````
+````typescript
 @Directive({
 	selector: '[appHighlight]'
 })
@@ -52,12 +52,12 @@ export class HighlightDirective {
 
 **TRES IMPORTANT** : Les paramètres passés à une directive ne sont **PAS** accessibles depuis le constructeur. Ils ne sont accessibles uniquement depuis les listeners. On ne peut donc pas utiliser un paramètre comme valeur par défaut.
 
-````
+````html
 <div [appHighlight]="'red'" [isMaj]="true"">TEXT</div>
 ````
 
 *Directive qui applique un fond rouge sur un click de la div*
-````
+````typescript
 @Directive({
 	selector: '[appHighlight]'
 })
@@ -84,7 +84,7 @@ export class HighlightDirective {
 
 *directive.ts*
 
-````
+````typescript
 import { Directive, ElementRef, Renderer2, Input, HostListener } from '@angular/core';
 
 @Directive({
@@ -117,13 +117,13 @@ export class ColorDirective {
 
 *app.component.html*
 
-````
+````html
 <div mat-subheader [appColor]="'red'">Directives typescript</div>
 ````
 
 ### Exemple 2 
 
-````
+````typescript
 import { Directive, ElementRef, Renderer2 } from '@angular/core';
 
 @Directive({
@@ -162,7 +162,7 @@ Si c'est un cas très ponctuel, utiliser ````[ngClass]````
 ## ngStyle
 [Back to top](#directives)
 
-````
+````html
 <p [ngStyle]="{backgroundColor: getColor()}"></p>
 
 <label [ngStyle]="{'background-color':myVar < 5 ? 'blue' : 'green'}">my content</label>
@@ -171,7 +171,7 @@ Si c'est un cas très ponctuel, utiliser ````[ngClass]````
 ## HostBinding
 [Back to top](#directives)
 
-````
+````typescript
 @Directive({
 	selector: '[appHighlight]'
 })
