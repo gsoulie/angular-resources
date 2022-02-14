@@ -49,6 +49,7 @@
 	* Theming     
 	* Dynamic styling     
 	* [Surcharges angular material](https://github.com/gsoulie/angular-resources/blob/master/ng-material-tips.md)     
+	* [mémo flexbox](https://github.com/gsoulie/angular-resources/blob/master/css-flexbox.png)     
 	* [Css](https://github.com/gsoulie/angular-resources/blob/master/ng-material-tips.md)     
 * [UI Components](https://github.com/gsoulie/angular-resources/blob/master/ng-ui-components.md)     
 	* Dropdown directive
