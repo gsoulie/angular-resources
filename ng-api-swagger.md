@@ -65,7 +65,7 @@ Créer le fichier de config à la racine du projet
   "$schema": "./node_modules/ng-openapi-gen/ng-openapi-gen-schema.json",
   "input": "http://server:8093/swagger/v1/swagger.json",
   "output": "./src/app/shared/api",
-  "removeStaleFiles": false
+  "removeStaleFiles": true  // si false, ne supprimera pas les anciens fichiers s'il y a eu des suppressions
 }
 ````
 
