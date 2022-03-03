@@ -17,6 +17,7 @@
 
 
 ## Liens
+[Les observables c'est quoi ?](https://www.learn-angular.fr/comprendre-rxjs/)      
 https://makina-corpus.com/blog/metier/2017/premiers-pas-avec-rxjs-dans-angular       
 https://guide-angular.wishtack.io/angular/observables/creation-dun-observable       
 https://www.youtube.com/watch?v=TrDqaABq-UY&ab_channel=DevoxxFR         
