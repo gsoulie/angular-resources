@@ -62,6 +62,63 @@ export class DialogService {
 ## loading spinner
 [Back to top](#ui-components)
 
+### Méthode avec Pipe
+
+Voir plus en détail pour les cas plus complexe : 
+https://medium.com/angular-in-depth/angular-show-loading-indicator-when-obs-async-is-not-yet-resolved-9d8e5497dd8     
+
+*cas simples : withLoading.pipe.ts*
+
+````typescript
+import { Pipe, PipeTransform } from '@angular/core';
+import { isObservable, of } from 'rxjs';
+import { map, startWith, catchError } from 'rxjs/operators';
+
+@Pipe({
+  name: 'withLoading'
+})
+export class WithLoadingPipe implements PipeTransform {
+
+  transform(val) {
+    return isObservable(val)
+      ? val.pipe(
+        map((value: any) => ({ loading: false, value })),
+        startWith({ loading: true }),
+        catchError(error => of({ loading: false, error }))
+      )
+      : val;
+  }
+}
+````
+
+*home.component.html*
+
+````html
+<div *ngIf="posts$ | withLoading | async as obs">
+  <ng-template [ngIf]="obs.value">
+      <mat-list>
+          <mat-list-item *ngFor="let p of obs.value">
+              {{ p.id }} - {{ p.title }}
+          </mat-list-item>
+      </mat-list>
+  </ng-template>
+  <ng-template [ngIf]="obs.error">Error {{ obs.error }}</ng-template>
+  <ng-template [ngIf]="obs.loading">Loading...</ng-template>
+</div>
+````
+
+*home.component.ts*
+
+````typescript
+posts$: Observable<IPost[]>;
+
+ngOnInit() {
+  this.posts$ = this.behaviourService.fetchPosts();
+}
+````
+
+### Méthode avec CDK
+
 Intégrer un layout transparent noir sur toute une page avec un *mat-spinner*. La technique conciste à utiliser le package **cdk portal** (https://material.angular.io/cdk/portal/overview) d'angular material qui permet d'insérer dynamiquement un composant dans un conteneur.
   
 Il suffit donc de créer un overlay via le package **cdk Overlay** et de lui *attacher* un portal contenant un *mat-spinner*
