@@ -80,13 +80,13 @@ import { map, startWith, catchError } from 'rxjs/operators';
 export class WithLoadingPipe implements PipeTransform {
 
   transform(val) {
-    return isObservable(val)
+    return (isObservable(val)
       ? val.pipe(
         map((value: any) => ({ loading: false, value })),
         startWith({ loading: true }),
         catchError(error => of({ loading: false, error }))
       )
-      : val;
+      : val) as Observable<any>;
   }
 }
 ````
