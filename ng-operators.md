@@ -2,8 +2,29 @@
 
 # Operateurs
 
+* [Tableaux](#tableaux)     
 * [Spread et Rest](#spread-et-rest)         
 * [Destructuration d'objet](#destructuration-objet)       
+
+## Tableaux
+
+````typescript
+[1, 2, 3, 4].at(1)	// 2
+[1, 2, 3, 4].pop()	// [1, 2, 3]
+[1, 2, 3, 4].push(5)	// [1, 2, 3, 4, 5]
+[1, 2, 3, 4].fill(1)	// [1, 1, 1, 1].
+[1, 2, 3, 4].join('-')	// '1-2-3-4'
+[1, 2, 3, 4].shift()	// [2, 3, 4]
+[1, 2, 3, 4].unshift(1)	// [1, 1, 2, 3, 4]
+[1, 2, 3, 4].includes(2) // true
+[1, 2, 3, 4].map(num => nim * 2) // [2, 4, 6, 8]
+[1, 2, 3, 4].som(num => num > 3) // true
+[1, 2, 3, 4].find(num => num > 2) // 3
+[1, 2, 3, 4].every(num => num > 3) // false
+[1, 2, 3, 4].filter(num => num > 2) // [3, 4]
+[1, 2, 3, 4].findIndex(num => num > 2) // 2
+[1, 2, 3, 4].reduce((acc, num) => acc + num) // 10
+````
 
 ## Spread et Rest
 [Back to top](#operateurs) 
