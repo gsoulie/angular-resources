@@ -62,7 +62,7 @@ export class DialogService {
 ## loading spinner
 [Back to top](#ui-components)
 
-### Méthode avec Pipe
+### Méthode avec Pipe dans la vue
 
 Voir plus en détail pour les cas plus complexe : 
 https://medium.com/angular-in-depth/angular-show-loading-indicator-when-obs-async-is-not-yet-resolved-9d8e5497dd8     
