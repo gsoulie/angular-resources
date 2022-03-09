@@ -155,6 +155,14 @@ const { track: { length, unit }} = data;
 console.log(length, unit); // 164, 'ft'
 ````
 
+### Destructuration paramètres event
+
+````typescript
+closePopover(ev): void {
+    const { data } = ev.detail;
+}
+````
+
 ### Destructuration paramètres de fonction
 [Back to top](#operateurs) 
 
