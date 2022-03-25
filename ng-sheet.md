@@ -18,6 +18,7 @@
 	* [Promise](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-promise.md)      
 	* [Observable](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-observable.md)      
 		* async pipe       
+		* filtrer un observable dans la vue via un pipe      
 	* [RxJS](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-rxjs.md)      
 	* [ng-content](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-ng-content.md)      
 		* Design pattern bridge      
