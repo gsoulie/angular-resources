@@ -14,6 +14,7 @@
 * [Exemples code](#exemples-code)      
 * [Tester la taille du contenu](#tester-la-taille-du-contenu)     
 * [Gestion des erreurs](#gestion-des-erreurs)       
+* [Filtrer un observable dans la vue via un pipe](#filtrer-un-observable-dans-la-vue-via-un-pipe)      
 
 
 ## Liens
@@ -1295,6 +1296,175 @@ de fait, en cas d'erreur le skeleton-text sera toujours affiché. Ce n'est pas c
 	</ng-template>
 </ng-container>
 ````
+[Back to top](#observables)
 
+## Filtrer un observable dans la vue via un pipe
+
+**Cas d'usage ** depuis une source unique (observable) on souhaite dispatcher dans la vue les données dans des zones différentes selon un critère particulier. Afin d'éviter de créer plusieurs observables basés sur la source unique en utilisant les opétateurs classique pipe, map, filter, on peut utiliser un *pipeTransform* directement dans la vue. 
+
+**Important** cette méthode permet de garder l'aspect rafraichissement des données lorsque le critère change
+
+*vue.html*
+
+````html
+<h1>Filtrer les données d'un observable depuis un pipe dans la vue</h1>
+
+<mat-form-field class="example-form-field" appearance="fill">
+    <mat-label>Type(1, 2 ou 3)</mat-label>
+    <input matInput type="text" [(ngModel)]="newType">
+</mat-form-field>
+<button mat-raised-button (click)="update()">update</button>
+
+<div class="row" [style.backgroundColor]="'lightgreen'">
+    <div class="cell" *ngFor="let c of data$ | filtering:'1' | async">{{ c.label }}</div>
+</div>
+<div class="row" [style.backgroundColor]="'lightblue'">
+    <div class="cell" *ngFor="let c of data$ | filtering:'2' | async">{{ c.label }}</div>
+</div>
+<div class="row" [style.backgroundColor]="'coral'">
+    <div class="cell" *ngFor="let c of data$ | filtering:'3' | async">{{ c.label }}</div>
+</div>
+
+<!-- !!
+ATTENTION : LA SYNTAXE CI-DESSOUS NE FONCTIONNE PAS, ON PERD LA SOUSCRIPTION ET LES DONNEES NE SE RAFRAICHISSENT PAS DANS LA VUE
+-->
+<!--<div *ngIf="data$ | async as data">
+	<div class="row" [style.backgroundColor]="'lightgreen'">
+	    <div class="cell" *ngFor="let c of data | filtering:'1'">{{ c.label }}</div>
+	</div>
+	<div class="row" [style.backgroundColor]="'lightblue'">
+	    <div class="cell" *ngFor="let c of data | filtering:'2'">{{ c.label }}</div>
+	</div>
+	<div class="row" [style.backgroundColor]="'coral'">
+	    <div class="cell" *ngFor="let c of data | filtering:'3'">{{ c.label }}</div>
+	</div>
+</div>-->
+````
+
+*vue.component.ts*
+
+````typescript
+export class ObsPipeComponent implements OnInit {
+
+  data$: Observable<any[]>;
+  newType = '1';
+  
+  constructor(private dataService: ObsPipeDataService) { }
+
+  ngOnInit(): void {
+  // Attention il est obligatoire de souscrire dans le composant.
+  // la souscription dans la vue ne fonctionne pas avec le pipe
+    this.dataService.fetchData()
+      .subscribe(res => {
+        this.data$ = this.dataService.dataObs$;
+      });
+  }
+
+  update() { this.dataService.updateItem(1, this.newType); }
+}
+````
+
+*service.ts*
+
+````typescript
+export interface item {
+  label: string;
+  type: string;
+}
+
+export class ObsPipeDataService {
+  dataSubj$ = new BehaviorSubject<item[]>([]);
+  dataObs$: Observable<item[]> = this.dataSubj$.asObservable();
+
+  constructor() { }
+
+  fetchData(): Observable<any[]> {
+    return of([{ label: 'item de type 1', type: '1' },
+    { label: 'item de type 1', type: '1' },
+    { label: 'item de type 2', type: '2' },
+    { label: 'item de type 3', type: '3' }]
+    )
+    .pipe(tap(res => this.dataSubj$.next(res)));
+  }
+
+  updateItem(index, type) {
+    const items = this.dataSubj$.value;
+    items[index].type = type;
+    this.dataSubj$.next(items);
+    console.log(this.dataSubj$.value);
+  }
+}
+````
+
+*filtering.pipe.ts*
+````typescript
+import { item } from './../../components/obs-pipe/data.service';
+import { Observable, isObservable } from 'rxjs';
+import { Pipe, PipeTransform } from '@angular/core';
+import { map } from 'rxjs/operators';
+
+@Pipe({
+  name: 'filtering'
+})
+export class FilteringPipe implements PipeTransform {
+
+  transform(data: Observable<item[]>, type): unknown {
+
+    return (isObservable(data) ? 
+    data.pipe(
+       map(m => m.filter(obj => obj.type == type))
+    )
+    : data) as Observable<any[]>;
+  }
+}
+
+````
+
+### exemple complexe
+
+````typescript
+
+// structure du DTO : userDto : { user, userStored }
+
+@Pipe({
+  name: 'userFilterByStatus'
+})
+export class UserFilterByStatusPipe implements PipeTransform {
+
+  transform(users: Observable<UserDto[]>, categ: UserCategory) {
+
+    switch (categ) {
+      case Categ.valid :
+        return (isObservable(users)
+        ? users.pipe(
+          map((obj: UserDto[]) => obj.filter(m => {
+            if (m.userStored.statutId !== null) {
+              return m.userStored.statutId === Categ.valid;
+            } else if (m.user.statutId){
+              return m.user.statutId === Categ.valid;
+            }
+          }))
+        )
+        : users) as Observable<UserDto[]>;
+
+      case Categ.invalid :
+        return (isObservable(users)
+        ? users.pipe(
+          map((obj: UserDto[]) => obj.filter(m => {
+            if (m.userStored.statutId !== null) {
+              return m.userStored.statutId === Categ.invalid;
+            } else if (m.user.statutId){
+              return m.user.statutId === Categ.invalid;
+            }
+          }))
+        )
+        : users) as Observable<UserDto[]>;
+      default:
+        return of([]) as Observable<UserDto[]>;
+    }
+  }
+}
+
+````
 
 [Back to top](#observables)
