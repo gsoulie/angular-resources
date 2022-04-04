@@ -1300,9 +1300,49 @@ de fait, en cas d'erreur le skeleton-text sera toujours affiché. Ce n'est pas c
 
 ## Filtrer un observable dans la vue via un pipe
 
-**Cas d'usage ** depuis une source unique (observable) on souhaite dispatcher dans la vue les données dans des zones différentes selon un critère particulier. Afin d'éviter de créer plusieurs observables basés sur la source unique en utilisant les opétateurs classique pipe, map, filter, on peut utiliser un *pipeTransform* directement dans la vue. 
+**Cas d'usage** depuis une source unique (observable) on souhaite dispatcher dans la vue les données dans des zones différentes selon un critère particulier. Afin d'éviter de créer plusieurs observables basés sur la source unique en utilisant les opétateurs classique pipe, map, filter, on peut utiliser un *pipeTransform* directement dans la vue. 
 
-**Important** cette méthode permet de garder l'aspect rafraichissement des données lorsque le critère change
+### Limitation
+
+**TRES IMPORTANT : LIMITATION** Attention, le caractère "pure" des pipes ne permet pas de rafraichir une liste de données dans le cas d'un ajout/suppression/modification d'un élément. Une modification pure est soit une modification d'une valeur d'entrée primitive (telle que *string, number, boolean ou symbole*), soit une **référence d'objet modifiée** (telle que date, tableau, fonction ou objet). On insiste ici sur le terme de **référence modifiée**, en effet, le pipe reçoit une référence à un tableau et par conséquent l'ajout/modification/suppression ne déclenche pas de modification de la vue puisque la référence n'est pas modifiée. 
+
+[voir la documentation]https://angular.io/guide/pipes#detecting-pure-changes-to-primitives-and-object-references     
+
+Pour passer outre cette contrainte, il faut donc recréer une nouvelle référence à l'objet tableau lors d'un ajout/modification/suppression.
+
+*pipe.ts*
+
+````typescript
+transform(inventory: MsEffetPersonnelDto[], ...args: unknown[]): MsEffetPersonnelDto[] {
+    if (args.length <= 0) { return inventory;}
+    return inventory.filter(i => i.categorieId === args[0]);
+}
+````
+*page.component.html*
+
+````html
+<ion-item *ngFor="let item of inventory | inventoryCategoryContent:'type3'">
+            <ion-label>{{ item.name }}</ion-label>
+</ion-item>
+````
+
+*page.controller.ts*
+
+````typescript
+inventory: inventoryType[] = [];
+ngOnInit() {
+	this.inventory = this.myService.fetchInventory();
+}
+addItem() {
+    const newInv: inventoryType[] = Object.assign([], this.inventory);	// création d'une nouvelle référence
+    newInv.push(/* some stuff here */);
+    this.inventory = newInv;	// affectation de la nouvelle référence
+}
+````
+
+### Filtrage observable
+
+**Important** cette méthode permet de garder l'aspect rafraichissement des données lorsque le critère change. Attention cependant au nombre de souscription engendrées par les pipes async
 
 *vue.html*
 
