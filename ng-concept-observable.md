@@ -1304,9 +1304,11 @@ de fait, en cas d'erreur le skeleton-text sera toujours affiché. Ce n'est pas c
 
 ### Limitation
 
-**TRES IMPORTANT : LIMITATION** Attention, le caractère "pure" des pipes ne permet pas de rafraichir une liste de données dans le cas d'un ajout/suppression/modification d'un élément. Une modification pure est soit une modification d'une valeur d'entrée primitive (telle que *string, number, boolean ou symbole*), soit une **référence d'objet modifiée** (telle que date, tableau, fonction ou objet). On insiste ici sur le terme de **référence modifiée**, en effet, le pipe reçoit une référence à un tableau et par conséquent l'ajout/modification/suppression ne déclenche pas de modification de la vue puisque la référence n'est pas modifiée. 
+**TRES IMPORTANT : LIMITATION** : Attention, le caractère "pure" des pipes ne permet pas de rafraichir une liste de données dans le cas d'un ajout/suppression/modification d'un élément. 
+Une modification pure est soit une modification d'une valeur d'entrée primitive (telle que *string, number, boolean ou symbole*), soit une **référence d'objet modifiée** (telle que date, tableau, fonction ou objet). 
+On insiste ici sur le terme de **référence modifiée**, en effet, le pipe reçoit une référence à un tableau et par conséquent l'ajout/modification/suppression ne déclenche pas de modification de la vue puisque la référence n'est pas modifiée. 
 
-[voir la documentation]https://angular.io/guide/pipes#detecting-pure-changes-to-primitives-and-object-references     
+[voir la documentation] https://angular.io/guide/pipes#detecting-pure-changes-to-primitives-and-object-references     
 
 Pour passer outre cette contrainte, il faut donc recréer une nouvelle référence à l'objet tableau lors d'un ajout/modification/suppression.
 
