@@ -126,6 +126,7 @@ pdf-viewer {
 ````
 npm install cordova-plugin-file-opener2 
 npm install @awesome-cordova-plugins/file-opener 
+npm i --save @awesome-cordova-plugins/core 	// Si erreur à la compilation
 npx cap sync
 ````
 
@@ -184,11 +185,15 @@ import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
 
 ### PreviewAnyFile
 
+https://www.npmjs.com/package/cordova-plugin-preview-any-file     
+https://www.npmjs.com/package/@ionic-native/preview-any-file    
+
 #### Installation et configuration
 
 ````
-npm i ng2-pdf-viewer
-npm i ngx-pinch-zoom
+npm i @ionic-native/core
+npm i cordova-plugin-preview-any-file
+npm i @ionic-native/preview-any-file
 ````
 *app.module.ts*
 
