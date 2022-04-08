@@ -10,6 +10,7 @@
 * [mat-dialog](#mat-dialog)       
 * [loading spinner](#loading-spinner)       
 * [virtual scroll](#virtual-scroll)       
+* [Signature_pad](#signature-pad)     
 
 ## fullcalendar
 
@@ -242,4 +243,122 @@ cdk-virtual-scroll-viewport {
 }
 ````
 
+## Signature pad
+[Back to top](#ui-components)
+
+### composant 1
+
+npm : https://www.npmjs.com/package/signature_pad      
+git : https://github.com/szimek/signature_pad     
+variante composant angular fork (attention semble moins facilement customisable): https://github.com/almothafar/angular-signature-pad    
+
+### Installation
+
+````npm install --save signature_pad````
+
+### Utilisation
+
+*modal-signature.component.ts*
+
+````typescript
+import SignaturePad from 'signature_pad';
+
+@Component({
+  selector: 'app-modal-signature',
+  templateUrl: './modal-signature.component.html',
+  styleUrls: ['./modal-signature.component.scss'],
+})
+export class ModalSignatureComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('canvas', { static: true }) signaturePadElement: ElementRef;
+  signaturePad: any;
+  signatureData;
+  landscapeMode = false;
+  fixedCanvasHeight = 300;
+  totalPadding = 60;
+
+  constructor(private modalCtrl: ModalController) {
+    
+    window.addEventListener('orientationchange', () => {
+      this.landscapeMode = (screen.orientation.type === 'landscape-primary' ||
+      screen.orientation.type === 'landscape-secondary');
+      this.resizeCanvas();
+    });
+    window.addEventListener('resize', () => this.resizeCanvas());
+  }
+
+  ngOnInit() { }
+  ngAfterViewInit() { this.initializeCanvas(); }
+  clear(): void { this.signaturePad.clear(); }
+
+  submit(): void {
+    const base64Data = this.signaturePad.toDataURL();
+    this.modalCtrl.dismiss({role: true, data: base64Data});
+  }
+
+  cancel(): void { this.modalCtrl.dismiss({role: false, data: null}); }
+
+  private initializeCanvas(): void {
+    this.signaturePad = new SignaturePad(this.signaturePadElement.nativeElement);
+    this.signaturePad.clear();
+    this.signaturePad.penColor = 'rgb(11,39,58)';
+
+	// listener sur fin de tracé
+    this.signaturePad.addEventListener('endStroke', () => {
+      // some stuff here
+    });
+    
+	// forcer le recalcul du viewport sinon le tracé de la signature est décalé par rapport au doigt
+    this.setNativeElementHeightAndWidth(this.fixedCanvasHeight, window.outerWidth - this.totalPadding);
+  }
+
+  private resizeCanvas() {
+    this.signatureData = this.signaturePad.toData();  // mémoriser la signature si existante
+    this.setNativeElementHeightAndWidth(this.signaturePadElement.nativeElement.offsetHeight,
+      this.signaturePadElement.nativeElement.offsetWidth);
+    this.signaturePad.fromData(this.signatureData); // redessiner la signature
+  }
+
+  /**
+   * Recalculer les dimensions du canvas en cas de rotation / redimenssionnement
+   *
+   * @param height
+   * @param width
+   */
+  private setNativeElementHeightAndWidth(height, width): void {
+    const ratio =  Math.max(window.devicePixelRatio || 1, 1);
+    this.signaturePadElement.nativeElement.width = width * ratio;
+    this.signaturePadElement.nativeElement.height = height * ratio;
+    this.signaturePadElement.nativeElement.getContext('2d').scale(ratio, ratio);
+    this.signaturePad.clear(); // otherwise isEmpty() might return incorrect value
+  }
+}
+````
+
+*modal-signature.page.html*
+
+````html
+<ion-content>
+  <canvas class="signature-pad-canvas" #canvas style="touch-action: none;"></canvas>
+</ion-content>
+<ion-footer class="ion-no-border" *ngIf="!landscapeMode">
+  <ion-button (click)="submit()">Submit</ion-button>
+  <ion-button (click)="cancel()">Cancel</ion-button>
+</ion-footer>
+````
+
+*modal-signature.page.scss*
+
+````css
+.signature-pad-canvas {
+  margin-top: 20px;
+  border: 5px solid black;
+  border-radius: 10px;
+  width: 100%;
+  height: 300px;
+}
+.inline-modal {
+  padding: 30px;
+}
+````
 [Back to top](#ui-components)
