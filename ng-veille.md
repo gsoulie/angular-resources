@@ -166,8 +166,9 @@ concurrent nodejs pour le backend
 ### déploiement serverless avec netlify
 
 ### stencil 
-=> permet la création de composants avec syntaxe react mais dont le résultat est un web component natif utilisable dans n'importe quel projet / application js (angular, ionic, react, vue...). C'est avec Stencil que sont faits les composants
-de Ionic
+avec Stencil, vous pouvez créer des composants avec la même syntaxe que React, mais dont le résultat final sera des Web Components natifs : c’est-à-dire que vous pourrez les réutiliser dans n’importe quel projet, qu’il s’agisse d’un site web ou d’une application créée avec n’importe quel framework JavaScript (Angular, React ou Vue).
+
+Bien qu’il s’agisse d’un outil récent, il est déjà éprouvé : c’est avec Stencil que sont faits les composants d’Ionic, un framework de référence pour la création d’applications mobiles.
 
 ## Application fulllstack NX, NestJS, Prisma, Angular
 [Back to top](#veille)     
