@@ -3,6 +3,7 @@
 # Promise
 
 * [Promise.All](#promise-.-all)         
+* [Pyramide de promise](#pyramide-de-promise)      
 
 ## Promise.All
 
@@ -30,5 +31,9 @@ promise.then((data) => {
 })
 .catch((error) => {console.error(error);});
 ````
+
+## Pyramide de promise
+
+Eviter l'imbrication de promise : https://javascript.plainenglish.io/nested-promise-an-anti-pattern-alternative-to-it-a5069923a2ec      
 
 [Back to top](#promise)
