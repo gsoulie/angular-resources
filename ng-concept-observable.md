@@ -9,7 +9,7 @@
 * [Observables imbriqués](#observables-imbriqués)     
 * [Exemples cold et hot](#exemples-cold-et-hot)     
 * [Chaîner les observables](#chaîner-les-observables)     
-* [Unsubscribe to all](#unsubscribe-to-all)      
+* [Unsubscribe to all / takeUntil](#unsubscribe-to-all)      
 * [async pipe](#async-pipe)    
 * [Exemples code](#exemples-code)      
 * [Tester la taille du contenu](#tester-la-taille-du-contenu)     
@@ -789,6 +789,34 @@ export class SomeComponent implements OnDestroy {
     this.subs.unsubscribe();
   }
 }
+````
+
+### takeUntil
+
+Une autre solution pour unsubscribe, consiste à utiliser l'opérateur ````takeUntil````
+
+````typescript
+Public ngOnInit(): void {
+   const subscriberCount1 = this.luckyService.getSubscribersCount();
+   this.luckyService.getLuckyNumber()
+     .pipe(takeUntil(this.onDestroy$))
+     .subscribe((luckyNumber: number) => {
+       this.number1 = luckyNumber;
+       console.log('Retrieved lucky number ${this.number1} for subscriber ${subscriberCount1}');
+   });
+
+   const subscriberCount2 = this.luckyService.getSubscribersCount();
+   this.luckyService.getLuckyNumber()
+     .pipe(takeUntil(this.onDestroy$))
+     .subscribe((luckyNumber: number) => {
+       this.number2 = luckyNumber;
+       console.log('Retrieved lucky number ${this.number2} for subscriber ${subscriberCount2}');
+   });
+ }
+
+ public ngOnDestroy(): void {
+   this.onDestroy$.next();
+ }
 ````
 
 ## async pipe
