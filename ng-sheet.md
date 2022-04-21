@@ -95,6 +95,7 @@
 	* Détection activié utilisateur      
 	* [Manipulation des dates avec Dayjs](https://github.com/gsoulie/angular-resources/blob/master/ng-date.md)      
 	* Lecture et affichage PDF, images et autres fichiers           
+	* [dummy api](https://dummyjson.com/)      
 * [Erreurs connues](https://github.com/gsoulie/angular-resources/blob/master/ng-issues.md)
 	* (Change Detection) partage d'une dataset commun entre plusieurs composants enfants
 
