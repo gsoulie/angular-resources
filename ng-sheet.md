@@ -84,6 +84,7 @@
 * Authentification	
 	* [Identity Server 4 - oidc](https://github.com/manfredsteyer/angular-oauth2-oidc)      
 	* [JWT authorization](https://dev-academy.com/angular-jwt/)      
+	* [Azure AD msal](https://github.com/gsoulie/ionic-angular-snippets/tree/master/msal-azure-ad-authentication/app)      
 * [Performances](https://github.com/gsoulie/angular-resources/blob/master/ng-performance.md)      
 * [Gestion des logs](https://github.com/gsoulie/angular-resources/blob/master/ng-log.md)       
 * [Téléchargement de fichiers](https://github.com/gsoulie/angular-resources/blob/master/ng-download.md)       
