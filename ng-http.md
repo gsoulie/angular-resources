@@ -123,7 +123,7 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
     }
 }
 ````   
-[Back to top](#requête-http)     
+[Back to top](#requêtes-http)     
 
 ### Gestion du Bearer token avec Interceptor
 
@@ -157,7 +157,7 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
 }
 ````
-[Back to top](#requête-http)     
+[Back to top](#requêtes-http)     
 
 
 *auth.service.ts*
@@ -220,7 +220,7 @@ export class AuthService {
   }
 }
 ````
-[Back to top](#requête-http)     
+[Back to top](#requêtes-http)     
 
 
 *app.module.ts*
@@ -244,7 +244,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 export class AppModule { }
 ````
 
-[Back to top](#requête-http)     
+[Back to top](#requêtes-http)     
 
 ### Gérer le déclenchement d'un spinner de chargement à chaque requête http
 
@@ -358,7 +358,7 @@ export class BehaviourWithRefresh2Component {
   }
 }
 ````
-[Back to top](#requête-http)     
+[Back to top](#requêtes-http)     
 
 ## Multipart Form Data
 
@@ -470,7 +470,7 @@ sendMultipart(): void {
   }
 ````
 
-[Back to top](#requête-http)     
+[Back to top](#requêtes-http)     
 
 ## Mise en cache requête
 
@@ -489,4 +489,4 @@ export class CachingInterceptor implements HttpInterceptor {
   }
 }
 ````
-[Back to top](#requête-http)     
+[Back to top](#requêtes-http)     
