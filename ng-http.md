@@ -1,10 +1,12 @@
 [< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)    
 
-# Codes retour http
+# requêtes Http
 
+* [Bonnes pratiques](https://levelup.gitconnected.com/the-correct-way-to-make-api-requests-in-an-angular-application-22a079fe8413)     
 * [Catch](#catch)     
 * [Http interceptor](#http-interceptor)     
 * [Multipart Form Data](#multipart-form-data)      
+* [Mise en cache requête](#mise-en-cache-requête)     
 
 ## Catch
 
@@ -121,6 +123,7 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
     }
 }
 ````   
+[Back to top](#requête-http)     
 
 ### Gestion du Bearer token avec Interceptor
 
@@ -154,6 +157,8 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
 }
 ````
+[Back to top](#requête-http)     
+
 
 *auth.service.ts*
 
@@ -215,6 +220,8 @@ export class AuthService {
   }
 }
 ````
+[Back to top](#requête-http)     
+
 
 *app.module.ts*
 
@@ -237,7 +244,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 export class AppModule { }
 ````
 
-[Back to top](#codes-retour-http)
+[Back to top](#requête-http)     
 
 ### Gérer le déclenchement d'un spinner de chargement à chaque requête http
 
@@ -351,7 +358,7 @@ export class BehaviourWithRefresh2Component {
   }
 }
 ````
-[Back to top](#codes-retour-http)
+[Back to top](#requête-http)     
 
 ## Multipart Form Data
 
@@ -463,4 +470,23 @@ sendMultipart(): void {
   }
 ````
 
-[Back to top](#codes-retour-http)
+[Back to top](#requête-http)     
+
+## Mise en cache requête
+
+````typescript
+@Injectable()
+export class CachingInterceptor implements HttpInterceptor {
+  constructor(private cache: RequestCache) {}
+
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    // continue if not cachable.
+    if (!isCachable(req)) { return next.handle(req); }
+
+    const cachedResponse = this.cache.get(req);
+    return cachedResponse ?
+      of(cachedResponse) : sendRequest(req, next, this.cache);
+  }
+}
+````
+[Back to top](#requête-http)     
