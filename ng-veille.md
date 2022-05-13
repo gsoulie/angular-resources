@@ -295,6 +295,41 @@ Ionic et Flutter partagent la même philosophie à savoir proposer une codebase 
 
 La différence fondamentale est que Ionic est entièrement basé sur les technologies et standards web, quand Flutter utilise son propre écosystème, son propre moteur de rendu...
 
+### Complément
+
+Framework Google utilisant le langage DART permettant de développer des application web, mobile (hybride), desktop. Il est crossplatform, donc une seule codebase pour Android + ios
+
+Flutter n'utilise pas les éléments d'interface utilisateur natifs, comme vous le trouverez dans React Native, et n'utilise pas non plus de composants Web comme Ionic. Au lieu de cela, Flutter propose sa propre bibliothèque de widgets d'interface utilisateur.
+
+basé sur le moteur skia.
+
+Dart fonctionne selon 2 modes : AOT (Ahead of time : le code est optimisé pour l'architecture sur laquelle il fonctionnera)
+et JIT (just in time : hot reload). il intègre aussi un garbage collector.
+
+Google a aussi choisi de réécrire tous les composants graphiques en Flutter. On est donc certain d'utiliser les rendus natifs des composants.
+Ceci a une contrepartie, il faut incorporer tout le code des composants dans l'apk/ipa ce qui augmente la taille des bundles. Flutter embarque tout son propre 
+ecosystème, là ou Ionic s'appuie sur les standards du web
+
+Le langage Dart se veut être le successeur de JS et il s'exécute lui aussi dans les navigatgeurs, mais aussi sur seveur. Exécuté dans un navigateur,
+lelangage Dart est transompilé avec *Dart2js*
+
+Le principe de base de Flutter est que tout est un Widget et l'architecture est une imbrication de widgets.
+
+Flutter vs Ionic
+
+Avantages Flutter 
+* hot-reload
+
+Inconvénients (2021)
+* framework jeune = petite communeauté, moins de bibliothèques
+* problèmes de rendu
+* compatibilité des plateformes (andtoid tv, android auto, car play)
+
+
+Inconvénients Ionic
+* Utilisation d'une webview = moins performant
+* dépendant des plugins JS. Pour utiliser un plugin non JS, il faut le créer sois-même
+
 ## Remix
 [Back to top](#veille)     
 
