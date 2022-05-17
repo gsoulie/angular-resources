@@ -146,6 +146,15 @@ Lorsqu'un schéma de test se répète souvent (ex : tester la navigation de plus
 Ces commandes sont définires dans le fichier **support/commands.ts**
 
 ````typescript
+import { menuRoutes } from './../../src/app/shared/config/routes.config';
+
+/* Exemple de contenu du fichier routes.config
+export const menuRoutes = [
+    { route: 'welcome', title: 'home' },
+    { route: 'data-list', title: 'mat-table' },
+    { route: 'huge-table', title: 'huge mat-table sorting' },
+*/
+
 // Important, décommanter le bout de code suivant
 // et déclarer chaque commande custom sinon elle ne seront pas accessibles dans les tests
 declare namespace Cypress {
