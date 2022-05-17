@@ -117,25 +117,33 @@ Les tests cypress sont définis dans le répertoire **integration**. Il est poss
 ### Exemple de test
 
 ````typescript
+import { menuRoutes } from './../../src/app/shared/config/routes.config';
+
 describe('Default', () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
-  it('has title', () => {
-    cy.contains('ng-sandbox features');
+  it('default route is welcome', () => {
+    cy.url().should('includes', 'welcome'); // s'assurer que la route par défaut passe par '/welcome'
   });
 
-  // contient une mat-list
-  it('has mat-list', () => {
-    cy.get('mat-list');
+  it('has title in mat-toolbar', () => {
+    cy.get('mat-toolbar span');
+    cy.contains('ng-sandbox');
   });
 
-  // contient un mat-menu lorsqu'on clique sur le bouton contenu dans la div .btn-div
-  it('has mat-menu', () => {
-    cy.get('.btn-div')
-    cy.get('button').click();
-    cy.get('mat-menu');
+  it('has mat-nav-list with one item for each configurated route', () => {
+    const menuCount = menuRoutes.length;
+    cy.get('mat-nav-list').find('mat-list-item').should('have.length', menuCount);
+    // cy.get('button').click();
+    // cy.get('mat-menu');
+  });
+  
+  it('test invalid login form - password missing', () => {
+  	cy.get('[formControlName="username"]').type('lksdfjslkfdjs');
+	cy.get('button').click();
+	cy.url().should('not.include', 'dashboard');
   });
 })
 ````
