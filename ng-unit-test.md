@@ -139,11 +139,29 @@ describe('Default', () => {
     // cy.get('button').click();
     // cy.get('mat-menu');
   });
+})
+````
+
+*login.spec.ts*
+
+````typescript
+describe('Default', () => {
+  beforeEach(() => {
+    cy.visit('/login');
+    cy.url().should('include', 'login');
+  });
   
   it('test invalid login form - password missing', () => {
   	cy.get('[formControlName="username"]').type('lksdfjslkfdjs');
 	cy.get('button').click();
 	cy.url().should('not.include', 'dashboard');
+  });
+  
+  it('test valid login form', () => {
+  	cy.get('[formControlName="username"]').type('admin');
+	cy.get('[formControlName="password"]').type('rootPassword');
+	cy.get('button').click();
+	cy.url().should('include', 'dashboard');
   });
 })
 ````
