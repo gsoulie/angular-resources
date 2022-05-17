@@ -215,6 +215,38 @@ Cypress.Commands.add('navigateAll', checkAllRoutes);
 
 [Back to top](#tests-unitaires)
 
+### Autre exemple de commande personnalisée
+
+*commands.ts*
+````typescript
+declare namespace Cypress {
+	interface Chainable<Subject = any> {
+		login(username: string, password: string): typeof login;
+	}
+}
+
+function login(username: string, password: string) {
+	cy.visit('/');
+	cy.url().should('includes', 'login');
+	cy.get('[formControlName="username"]').type(username);
+	cy.get('[formControlName="password"]').type(password);
+	cy.get('button').click();
+	cy.url().should('include', 'dashboard');
+}
+
+Cypress.Commands.add('login', login);
+````
+
+*login.spec.ts*
+````typescript
+describe('Default', () => {
+  
+  it('test valid login form', () => {
+  	cy.login('admin', 'rootPassword');
+  });
+})
+````
+
 ### Exemples
 
 ````typescript
