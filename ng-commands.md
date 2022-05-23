@@ -4,8 +4,8 @@
 
 * [Démarrage](#démarrage)    
 * [Commandes basiques](#commandes-basiques)         
-* [Mettre à jour Angular](#mettre-a-jour-angular)     
-* [Mettre à jour npm](#mettre-a-jour-npm)        
+* [Mettre à jour Angular](#mettre-à-jour-angular)     
+* [Mettre à jour npm](#mettre-à-jour-npm)        
 
 ## Démarrage
 
