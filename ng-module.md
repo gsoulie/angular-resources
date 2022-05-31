@@ -181,7 +181,7 @@ export class AppMaterialModule { }
 
 ## Composant lazy-load
 
-Créer un fichier <nom-compo>*.module.ts* et <nom-compo>*-routing.module.ts*. Attention dans ce cas, le composant ne doit pas être déclaré dans un fichier générique de type **component.module.ts**
+Créer un fichier *nom_compo.module.ts* et *nom_compo-routing.module.ts*. Attention dans ce cas, le composant ne doit pas être déclaré dans un fichier générique de type **component.module.ts**
 
 Exemple avec un composant *users*
 
