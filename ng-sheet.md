@@ -12,7 +12,7 @@
 	* [Optimisations](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)     
 	* [Opérateurs, Destructuration d'objets et Tableaux, Object assign](https://github.com/gsoulie/angular-resources/blob/master/ng-operators.md)    
 	* [VSCode](https://github.com/gsoulie/angular-resources/blob/master/ng-vscode.md)       
-	* [Modules](https://github.com/gsoulie/angular-resources/blob/master/ng-module.md)       
+	* [Modules, lazy-loading](https://github.com/gsoulie/angular-resources/blob/master/ng-module.md)       
 	* [Déploiement](https://github.com/gsoulie/angular-resources/blob/master/ng-rollout.md)     
 * Concepts       
 	* [Promise](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-promise.md)      
