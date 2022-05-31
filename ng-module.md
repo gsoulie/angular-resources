@@ -1,6 +1,9 @@
 [< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)    
 
 # Modules
+
+* [Séparation](#séparation)      
+* [Composant lazy-load](#composant-lazy--load)      
       
 ## Séparation
 
@@ -173,4 +176,80 @@ export class AppMaterialModule { }
 
 ````
 
+[Back to top](#modules)
+
+
+## Composant lazy-load
+
+Créer un fichier *<nom-compo>.module.ts* et *<nom-compo>-routing.module.ts*. Attention dans ce cas, le composant ne doit pas être déclaré dans un fichier générique de type **component.module.ts**
+
+Exemple avec un composant *users*
+
+*users.module.ts*
+
+````typescript
+import { UsersRoutingModule } from './users-routing.module';
+import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UsersComponent } from './users.component';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    UsersRoutingModule  // important
+  ],
+  declarations: [UsersComponent]
+})
+export class UsersModule {}
+
+````
+
+*users-routing.module.ts*
+
+````typescript
+import { UsersComponent } from './users.component';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+
+const routes: Routes = [
+  { path: '', component: UsersComponent }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class UsersRoutingModule {}
+````
+
+### Lazy-loading
+
+*app-routing.module.ts*
+
+````typescript
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'users',
+    pathMatch: 'full'
+  },
+  {
+    path: 'users',
+    loadChildren: () => import('./components/observable/users/users.module').then( m => m.UsersModule)
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+````
+      
 [Back to top](#modules)
