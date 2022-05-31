@@ -3,7 +3,7 @@
 # Modules
 
 * [Séparation](#séparation)      
-* [Composant lazy-load](#composant-lazy--load)      
+* [Composant lazy-load](#composant-lazy-load)      
       
 ## Séparation
 
