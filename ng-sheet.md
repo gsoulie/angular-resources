@@ -14,6 +14,7 @@
 	* [VSCode](https://github.com/gsoulie/angular-resources/blob/master/ng-vscode.md)       
 	* [Modules, lazy-loading](https://github.com/gsoulie/angular-resources/blob/master/ng-module.md)       
 	* [Déploiement](https://github.com/gsoulie/angular-resources/blob/master/ng-rollout.md)     
+		* web.config       	
 * Concepts       
 	* [Promise](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-promise.md)      
 	* [Observable](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-observable.md)      
