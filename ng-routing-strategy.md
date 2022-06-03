@@ -10,16 +10,16 @@ Le routeur Angular navigue vers le nouveau composant et fait un rendu du templat
 
 Angular parvient à accomplir celà de deux manière appellées stratégies de localisation qui définissent à quoi ressemble la route :
 
-* HashLocationStrategy
+* HashLocationStrategy     
 => Rend des url de la forme http://localhost:4200/#/welcome
 
-* PathLocationStrategy
+* PathLocationStrategy      
 => Rend des url de la forme http://localhost:4200/welcome
 
 Dans le cas d'une application/site multipages, à chaque fois que l'on a besoin d'afficher une page (en entrant l'adresse dans la barre de recherche, via un lien href, bouton etc...) on 
 fait un appel au serveur web.
 
-Avec Angular, tous les composants sont affichés dans la même page unique. Quand l'utilisateur intéragit avec l'application, seule une partie de la page est mise à jour dynamiquement dans le <app-root>.
+Avec Angular, tous les composants sont affichés dans la même page unique. Quand l'utilisateur intéragit avec l'application, seule une partie de la page est mise à jour dynamiquement dans le ````<app-root>````.
 
 Le mécanisme de routing *client-side* permet de mimer le routage côté serveur mais localement dans le browser afin de "simuler" et permettre de changer de composant en utilisant une route différente dans la
 barre de navigation.
@@ -27,8 +27,8 @@ Il met donc à jour la barre d'url et l'historique de navigation mais en réalit
 
 Le client-side routing fonctionne selon 2 principes :
 
-* hash style routing
-* html5 routing
+* hash style routing     
+* html5 routing      
 
 ### Hash style
 
@@ -36,9 +36,9 @@ Cette technique utilise le principe des ancres. En demandant la route http://mys
 
 Le router va donc créer les URL sur ce modèle
 
-http://www.example.com
-http://www.example.com/#/about
-http://www.example.com/#/contact
+http://www.example.com      
+http://www.example.com/#/about      
+http://www.example.com/#/contact      
 
 Seule l'url http://www.example.com sera envoyée au serveur (contrairement à un site multi-page)
 
@@ -50,8 +50,8 @@ En utilisant la méthode history.pushState(), nous pouvons maintenant ajouter pa
 En utilisant la méthode history.pushState, le navigateur crée de nouvelles entrées d'historique qui modifient l'URL affichée sans avoir besoin d'une nouvelle demande.
 
 inconvénients :
-* tous les browsers ne supportent pas html5
-* la prise en charge côté serveur est requise pour le routing html5 
+* tous les browsers ne supportent pas html5      
+* la prise en charge côté serveur est requise pour le routing html5       
 
 Pourquoi le support côté serveur est nécessaire ?
 
