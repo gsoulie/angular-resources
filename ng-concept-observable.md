@@ -15,6 +15,7 @@
 * [Tester la taille du contenu](#tester-la-taille-du-contenu)     
 * [Gestion des erreurs](#gestion-des-erreurs)       
 * [Filtrer un observable dans la vue via un pipe](#filtrer-un-observable-dans-la-vue-via-un-pipe)      
+* [Gérer un indicateur de loading](#gérer-un-indicateur-de-loading)      
 
 
 ## Liens
@@ -1541,6 +1542,80 @@ export class UserFilterByStatusPipe implements PipeTransform {
   }
 }
 
+````
+
+[Back to top](#observables)
+
+## Gérer un indicateur de loading
+
+1 - créer le pipeTransform suivant
+
+*withLoading.pipe.ts*
+
+````typescript
+import { catchError, map, startWith } from 'rxjs/operators';
+import { Pipe, PipeTransform } from '@angular/core';
+import { isObservable, Observable, of } from 'rxjs';
+
+@Pipe({
+  name: 'withLoading'
+})
+export class WithLoadingPipe implements PipeTransform {
+
+  transform(val: any) {
+    return (isObservable(val)
+      ? val.pipe(
+        map((value: any) => ({ loading: false, value })),
+        startWith({ loading: true }),
+        catchError(error => of({ loading: false, error }))
+      )
+      : val) as Observable<any>;
+  }
+}
+````
+
+*users.component.html*
+
+````html
+<div *ngIf="users$ | withLoading | async as users">
+  <ng-template [ngIf]="users.value">
+    <mat-list>
+      <div *ngFor="let u of users.value">
+        <mat-list-item class="list-item">
+          <div mat-line>
+            <div class="flex-row space-between">
+              <div>{{ u.firstName }} <b>{{ u.lastName }}</b> ({{ u.age }} years)</div>
+              <mat-icon mat-list-icon>delete</mat-icon>
+            </div>
+          </div>
+
+          <div mat-line>
+            <div class="flex-row">
+              <mat-icon mat-list-icon color="primary">email</mat-icon>
+              <mat-label class="text">{{ u.email }}</mat-label>
+            </div>
+          </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </div>
+    </mat-list>
+  </ng-template>
+  <ng-template [ngIf]="users.error">Error {{ users.error }}</ng-template>
+  <ng-template [ngIf]="users.loading">Loading...</ng-template>
+</div>
+````
+
+*users.component.ts*
+
+````typescript
+users$: Observable<User[]> | undefined;
+
+constructor(private dummyDataService: DummyDataService,
+	private spinnerService: SpinnerService) { }
+
+ngOnInit(): void {
+	this.users$ = this.dummyDataService.fetchUsers();
+}
 ````
 
 [Back to top](#observables)
