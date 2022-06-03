@@ -67,5 +67,5 @@ Pour que le routage HTML5 fonctionne, vous devez envoyer l'instruction au serveu
 
 ### Conclusion
 
-Le *PathLocationStrategy* est la stratégie par défaut d'une application Angular. Elle est portée par la balise ````<base href="/">```` du *index.html* (partie **statique de l'url). Le browser se base sur cet élément
+Le *PathLocationStrategy* est la stratégie par défaut d'une application Angular. Elle est portée par la balise ````<base href="/">```` du *index.html* (partie **statique de l'url**). Le browser se base sur cet élément
 pour construire les URLs relatives pour les ressources statiques (images, css, scripts)
