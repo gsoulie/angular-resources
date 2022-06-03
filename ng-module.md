@@ -109,7 +109,6 @@ export class DirectivesModule { }
 ````typescript
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -141,7 +140,6 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 @NgModule({
   exports: [
     FormsModule,
-    BrowserAnimationsModule,
     ReactiveFormsModule,
     MatIconModule,
     MatButtonModule,
