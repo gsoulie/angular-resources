@@ -16,7 +16,7 @@
 	* [Déploiement](https://github.com/gsoulie/angular-resources/blob/master/ng-rollout.md)     
 		* web.config       	
 	* [Stratégie de routage](https://github.com/gsoulie/angular-resources/blob/master/ng-routing-strategy.md)      
-	        * async pipe       
+	        * PathLocationStrategy et HashLocationStrategy              
 * Concepts       
 	* [Promise](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-promise.md)      
 	* [Observable](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-observable.md)      
