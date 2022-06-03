@@ -175,6 +175,30 @@ Pour masquer le sous-lignage de l'input, il suffit de positionner la propriété
 </mat-form-field>
 ````
 
+Autres customisations 
+
+````css
+mat-form-field {
+  width: 100%;
+}
+::ng-deep .mat-form-field-label {
+  color: darkgrey !important;
+}
+::ng-deep .mat-focused .mat-form-field-label {
+  color: #C2185B !important;
+ }
+
+ ::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: #C2185B !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+ /*change color of underline when focused*/
+ background-color: #C2185B !important;;
+}
+````
+
 ### mat-slide-toggle
 [Back to top](#angular-material-tips)      
 
