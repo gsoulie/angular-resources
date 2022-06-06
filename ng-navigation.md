@@ -4,7 +4,7 @@
 
 * [Généralités](#généralités)         
 * [Relative route relativeTo](#relative-route)     
-* [Routes enfants](#routes-endants)     
+* [Routes enfants](#routes-enfants)     
 * [Deep linking](#deep-linking)   
 * [Naviguer depuis la vue](#naviguer-depuis-la-vue)     
 * [Routing parameters](#routing-parameters)      
