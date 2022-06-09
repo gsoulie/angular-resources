@@ -15,6 +15,8 @@
 	* [Modules, lazy-loading](https://github.com/gsoulie/angular-resources/blob/master/ng-module.md)       
 	* [Déploiement](https://github.com/gsoulie/angular-resources/blob/master/ng-rollout.md)     
 		* web.config       	
+		* Déployer un workspace      
+		* Déployer une application avec url suffixée      
 	* [Stratégie de routage](https://github.com/gsoulie/angular-resources/blob/master/ng-routing-strategy.md)      
 	        * PathLocationStrategy et HashLocationStrategy              
 * Concepts       
