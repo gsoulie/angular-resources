@@ -162,16 +162,16 @@ On peut aussi définir plusieurs classes à l'aide d'une chaîne séparée par d
 
 ````typescript
 ngOnInit() {
-	const id = this.activatedRoute.snapshot.paramMap.get('id');
-	
-	this.userService.getUser(id)
-	.subscribe((user) => this.user = user);
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+
+    this.userService.getUser(id)
+    .subscribe((user) => this.user = user);
 }
 ````
 
 ````html
 <div *ngIf="user">
-	<mat-label>Hello {{ user.name }}</mat-label>
+     <mat-label>Hello {{ user.name }}</mat-label>
 </div>
 ````
 
@@ -180,12 +180,12 @@ ngOnInit() {
 L'approche réactive permet l'utilisation d'un observable
 
 ````typescript
-constructor(private route: ActivatedRoute) {}
-
 public user$ = this.route.paramMap
 .pipe(
-	switchMap((params) => this.userService.getUser(params.get('id'))
+    switchMap((params) => this.userService.getUser(params.get('id'))
 );
+
+constructor(private route: ActivatedRoute, private userService: UserService) {}
 ````
 
 ````html
