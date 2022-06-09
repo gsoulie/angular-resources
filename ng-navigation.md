@@ -156,7 +156,7 @@ On peut aussi définir plusieurs classes à l'aide d'une chaîne séparée par d
 
 ### Approche impérative vs approche Réactive
 
-> Note : Il est recommandé de préférer l'approche réactive
+> Note : Il est recommandé de préférer l'approche réactive à l'approche impérative
 
 #### Approche impérative
 
