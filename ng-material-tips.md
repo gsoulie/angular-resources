@@ -17,6 +17,7 @@ Pour surcharger les composant Angular Material, il est important d'utiliser le c
 * [mat-select](#mat-select)     
 * [unités % vs vh](#unites-%-vs-vh)     
 * [custom css menu](#custom-css-menu)       
+* [mat-table](#mat-table)       
 
 ## Comprendre ng-deep
 
@@ -502,5 +503,34 @@ L'utilisation de l'unité **vh** (viewport height) ou **vw** (viewport width) pe
 [Back to top](#angular-material-tips)    
 
 https://www.youtube.com/watch?v=ArTVfdHOB-M&ab_channel=OnlineTutorials
+
+[Back to top](#angular-material-tips)    
+
+## mat-table
+
+````css
+// couleur du suvrol d'une ligne
+.mat-row:hover > .mat-cell {
+  color:  white;
+  background: #333;
+}
+
+// couleur ligne dépliée (cas d'une table avec expandable row)
+.mat-row.expanded {
+  border-bottom-color: transparent;
+  background-color: rgba(103, 58, 183, 0.1);
+}
+
+// affichage curseur sur les lignes non déployées
+.mat-row:not(.expanded) {
+  cursor: pointer;
+}
+
+// style en-tête ligne dépliée
+.mat-row.expanded {
+  border-bottom-color: transparent;
+  background-color: rgba(103, 58, 183, 0.1);
+}
+````
 
 [Back to top](#angular-material-tips)    
