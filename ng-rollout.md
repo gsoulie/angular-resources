@@ -34,3 +34,75 @@ Après compilation, le répertoire dist contriendra plusieurs répertoires (1 po
 en effet ces dernières sont déjà intégrées dans chacun des projets lors de la compilation.
 
 Il suffit donc de copier le contenu de chaque appli et de le déposer sur le serveur.
+
+
+## Déployer une application avec url suffixée
+
+Dans le cadre d'un déploiement de plusieurs applications sous un même environnement (qui utilise 1 seul certificat), il est nécessaire de pouvoir déployer
+chaque application avec une route suffixée pour séparer chaque applications.
+
+Ex : 
+https://mon-env-prod/mon-app-1/home
+https://mon-env-prod/mon-app-2/home
+https://mon-env-prod/mon-app-3/home
+
+Pour parvenir à ce résultat il existe plusieurs solutions. 
+
+##Solution 1## 
+
+Compiler le projet avec la ligne de commande suivante ````ng build --configuration=production --base-href "/mon-suffixe/"````
+
+> IMPORTANT : il faut bien ajouter un "/" avant et après le suffixe
+> IMPORTANT : ne pas modifier la balise <base href> du index.html (conserver la route "/")
+
+Ceci va permettre de faire pointer toutes les routes vers un chemin contenant le suffixe choisi.
+
+Ensuite suivant le serveur cible (IIS, apache, nginx...) il va falloir créer un fichier de config (web.config pour IIS, .htaccess pour apache...) dans lequel
+on va paramétrer la réécriture des routes. Sans ça, le serveur ne parviendra pas à trouver les fichier js et servira au client le fichier index.html
+
+*exemple web.config*
+````html
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <system.webServer>
+    <rewrite>
+      <rules>
+        <rule name="Rewrite Angular file ressources">
+          <match url="^myApp/(.+)(\.[A-z0-9]+)$" />
+          <action type="Rewrite" url="/{R:1}{R:2}" />
+        </rule>
+        <rule name="Rewrite Angular router">
+          <match url="^myApp/(.+)" />
+          <action type="Rewrite" url="/" />
+        </rule>
+      </rules>
+    </rewrite>
+  </system.webServer>
+</configuration>
+````
+
+Remarque : Selon les serveurs, le regex peut être ````^myApp\/(.+)(\.[A-z0-9]+)$````  pour échapper le "/"
+
+##Solution 2##
+
+On peut aussi spécifier la *base-href* dans le fichier **app.module.ts**
+
+*app.module.ts*
+
+````typescript
+import { APP_BASE_HREF } from '@angular/common';
+
+...
+providers: [{
+	provide: APP_BASE_HREF, useValue : '/myApp/' // <--- important le / au début et à la fin
+}]
+````
+
+Avec cette méthode, il n'est **plus nécessaire** d'ajouter le paramètre ````--base-href```` à la commande de build. Il reste néanmoins **indispensable** de créer un fichier de configuration sur le serveur
+pour réécrire les routes.
+
+### Gérer les redirections d'authentification
+
+Si les applications utilisent une authentification tierce type SSO (IS4, Aure AD...) il faut aussi ajouter des règles spécifiques dans le fichier de configuration serveur.
+
+
