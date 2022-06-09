@@ -8,6 +8,10 @@
 * [Multipart Form Data](#multipart-form-data)      
 * [Mise en cache requête](#mise-en-cache-requête)     
 
+## Documentation
+
+https://medium.com/angular-in-depth/top-10-ways-to-use-interceptors-in-angular-db450f8a62d6      
+
 ## Catch
 
 Capturer les erreurs http unitairement dans l'observable
