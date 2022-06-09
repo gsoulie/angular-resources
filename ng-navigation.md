@@ -154,8 +154,47 @@ On peut aussi définir plusieurs classes à l'aide d'une chaîne séparée par d
 ## Routing parameters
 [Back to top](#navigation)   
 
+### Approche impérative vs approche Réactive
 
-### méthode "classique" paramMap
+> Note : Il est recommandé de préférer l'approche réactive
+
+#### Approche impérative
+
+````typescript
+ngOnInit() {
+	const id = this.activatedRoute.snapshot.paramMap.get('id');
+	
+	this.userService.getUser(id)
+	.subscribe((user) => this.user = user);
+}
+````
+
+````html
+<div *ngIf="user">
+	<mat-label>Hello {{ user.name }}</mat-label>
+</div>
+````
+
+#### Approche réactive
+
+L'approche réactive permet l'utilisation d'un observable
+
+````typescript
+constructor(private route: ActivatedRoute) {}
+
+public user$ = this.route.paramMap
+.pipe(
+	switchMap((params) => this.userService.getUser(params.get('id'))
+);
+````
+
+````html
+<div *ngIf="users$ | async as user">
+	<mat-label>Hello {{ user.name }}</mat-label>
+</div>
+````
+
+### Méthode "classique" paramMap
 
 ````typescript
 { path: 'fiche-saisie/:id/edit', component: FicheSaisieComponent },
