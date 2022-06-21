@@ -4,8 +4,9 @@
 
 * [technos](#technos)       
 * [Application fullstack NX, NestJS, Prisma, Angular](#application-fulllstack-nx-,-nestjs-,-prisma-,-angular)     
+* [Angular 14](#angular-14)      
 
-### Angular
+## Angular
 
 Le plus populaire des frameworks js, surtout en europe. Aux US react est plus populaire.
 
@@ -25,10 +26,10 @@ Vue : entre angular et react, framweork focalisé sur le code, CLI...
 |Form validating...|V|X|X|
 |Http Client|V|X|X|
 
-### e2e
+## e2e
 Protractor va être déprecié, il est conseillé de basculer sur **cypress** pour réaliser les tests e2e
 
-### Qwik
+## Qwik
 
 **Qwik** est un nouveau framework javascript dont l'objectif principal est de s'attaquer à la problématique de **"time to interacteractive"** des applis web. Limiter les temps de récupération des ressources après server-side rendering et accélérer au maximum le chargement du site.
 
@@ -39,7 +40,7 @@ Protractor va être déprecié, il est conseillé de basculer sur **cypress** po
 - Retarder la création de listener le plus possible     
 - Un seul listener global plutôt que plusieurs petits listeners     
 
-### Reactjs
+## Reactjs
 => **lib js** : peut être appliqué à un bout de l'application ou à l'entièreté de l'application. Prise en main pas très évidente JSX
 https://www.youtube.com/watch?v=no82oluCZag&ab_channel=LiorCHAMLA       
 https://www.youtube.com/user/ucisko/videos        
@@ -47,7 +48,7 @@ https://www.youtube.com/watch?v=K3D2rjAUQ3o&ab_channel=FromScratch-D%C3%A9velopp
 librairie js (!== framework) 
 code en JSX, surcouche JS introduite par REACT => nécessite la librairie Babel pour compiler le JSX react ne sureveille pas les changements de variables. Il faut lui indiquer une sorte de detectChanges() si l'on souhaite mettre à jour la vue lorsque les variables sont modifiées
 
-#### Avantages / Inconvénients par rapport à Angular 
+### Avantages / Inconvénients par rapport à Angular 
 
 **Avantages**
 * Performant
@@ -60,7 +61,7 @@ code en JSX, surcouche JS introduite par REACT => nécessite la librairie Babel 
 * Peu documenté
 * Connaissance approfondie des bases du web
 
-### NextJS
+## NextJS
 
 Next JS est un framework (backend) basé sur *ReactJS*, orienté Server-Side-Rendering. Son point fort est la génération d’applications statiques pour accélérer les temps d'accès et le référencement.
 
@@ -68,7 +69,7 @@ Concurrent de **NuxtJS** pour *Vue*
 
 Framework 
 
-### Vuejs 3.0
+## Vuejs 3.0
 => framework js : peut être appliqué à une partie de l'application ou à l'entièreté de l'application
 https://www.learmoreseekmore.com/2021/01/ionic-vue-sample-using-vuex-statemanagement.html       
 1:41 https://www.youtube.com/watch?v=mQ4zmFy4d7Y&ab_channel=Academind       
@@ -109,7 +110,7 @@ setup() {
 }
 ````
 
-#### Avantages / Inconvénients par rapport à Angular 
+### Avantages / Inconvénients par rapport à Angular 
 
 **Avantages**
 * Plus performant
@@ -125,13 +126,13 @@ setup() {
 * manque d'évolutivité (pas encore adapté aux applications complexes)
 * manque de plugins (écart qui tend à se résorber au cour du temps)
 
-### Nuxt JS
+## Nuxt JS
 
 Est un framework **Vuejs** : auto-import des composants, SEO simplifié, store intégré, Server-side rendering etc... permet d'organiser les projets Vue avec une structure par répertoire (comme pour angular).
 
 Concurrent de **NExtJS** pour *ReactJS*
 
-### Svelte
+## Svelte
 => framework-**compilateur** js très proche de React et Vue mais améliore les performances car il effectue le plus gros du travail lors de la compilation ce qui implique des paquets moins volumineux. 
 C'est donc plutôt un hybride, à la fois **framework** et **compilateur**. **Aucune librairie** à embarquer, **pas de DOM virtuel** contrairement à React / Vue / Angular / Ionic... 
 Il propose un cadre de travail, avec ses méthodes et ses fonctionnalités, mais en plus il va compiler votre code en temps réel en JavaScript natif.
@@ -140,32 +141,32 @@ En contrepartie, certaines notions utilisent une syntaxe spécifique, svelte **n
 
 > codebase : html, css, js
 
-### Prisma 
+## Prisma 
 => Est un ORM (Object Relational Mapper), soit un ensemble de classes permettant de manipuler les tables d’une base de données relationnelle comme s’il s’agissait d’objets.
 
 Un ORM est une couche d’abstraction d’accès à la base de données qui donne l’illusion de ne plus travailler avec des requêtes mais de manipuler des objets.
 
 > En bref : Couche de mapping object relationnel entre nodejs et typescript
 
-### NestJS 
+## NestJS 
 => **framework NodeJS**, compatible TS qui permet de faire du backend avec la même architecture / syntaxe qu'un front angular. Cela facilite la maintenance et l'organisation d'un projet NodeJS. Il vient en complément de Express. 
 	- Il y a même un paquet pour gérer swagger
 	- gère le mode monorepos
 
-### NX
+## NX
 Nx est une suite d'outils permettant la gestion des solutions monorepos. 
 Il permet dont de créer une application fullstack angular / nodejs (prisma + nestJS). 
 Nx est un framework de construction intelligent et extensible qui vous aide à développer, tester, créer et mettre à l'échelle des applications Angular avec une prise en charge entièrement intégrée d'outils modernes tels que Jest, Cypress, Storybook, ESLint, NgRx, etc
 NX est donc une extension d'angular CLI. Il suffit de lui coupler NEST (ou simplement NodeJS) (+ Prisma en bonus) pour créer un projet fullstack mono-repo
 
-### snowpack
+## snowpack
 
-### deno 
+## deno 
 concurrent nodejs pour le backend
 
-### déploiement serverless avec netlify
+## déploiement serverless avec netlify
 
-### stencil 
+## stencil 
 avec Stencil, vous pouvez créer des composants avec la même syntaxe que React, mais dont le résultat final sera des Web Components natifs : c’est-à-dire que vous pourrez les réutiliser dans n’importe quel projet, qu’il s’agisse d’un site web ou d’une application créée avec n’importe quel framework JavaScript (Angular, React ou Vue).
 
 Bien qu’il s’agisse d’un outil récent, il est déjà éprouvé : c’est avec Stencil que sont faits les composants d’Ionic, un framework de référence pour la création d’applications mobiles.
@@ -335,7 +336,83 @@ Inconvénients Ionic
 
 Remix est un jeune framework **fullstack javascript** (2021) gratuit basé sur **React** et qui utilise **nodeJS** pour faire du server-side rendering (SSR). 
 
-
-
 [Back to top](#veille)     
+
+## Angular 14
+
+### Inject()
+
+````typescript
+import { WINDOW } from './window.token';
+
+export class AppComponent {
+	window = inject(WINDOW);	// Angular 14 notation
+	
+	constructor(@Inject(WINDOW) private window: Window) {
+		console.log('window', this.window);
+	}
+}
+````
+
+La nouvelle syntaxe présente les avantages suivants :
+* plus consise
+* capable de déduire le type du jeton d'injection (plus besoin de le spécifier comme avec l'ancienne syntaxe)
+* alléger le code dans le cas de l'héritage et s'affranchir de refactoring dans le cas d'une inversion d'ordre de déclaration,
+ajout d'un nouveau service etc...
+
+````typescript
+export abstract class WidgetBase {
+	constructor(
+	protected dataService: DataService,
+	protected settings: Settings) { }
+}
+````
+
+**// ----> Angular 14**
+````typescript
+export abstract class WidgetBase {
+	
+	protected dataService: inject(DataService);
+	protected settings: inject(Settings);
+	
+	constructor() {}
+}
+````
+
+*appel*
+
+````typescript
+export class Home extends WidgetBase {
+	data$;
+	config;
+	
+	constructor(
+	dataService: DataService,
+	settings: Settings ) {
+		super(dataService, settings);	// obligation d'injecter les services attendus dans l'ordre attendu.
+		// si d'autres paramètres venaient à être ajoutés, il faudrait alors modifier le code pour les ajouter
+	}
+	
+	getData() {
+		this.data$ = this.dataService.loadData();
+	}
+}
+````
+
+**// ----> Angular 14**
+````typescript
+export class Home extends WidgetBase {
+	data$;
+	config;
+	
+	constructor() {
+		super();	// plus besoin d'injecter les services dans le constructeur
+	}
+	
+	getData() {
+		this.data$ = this.dataService.loadData();
+	}
+}
+````
+
   
