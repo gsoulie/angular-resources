@@ -46,7 +46,7 @@ https://www.youtube.com/watch?v=no82oluCZag&ab_channel=LiorCHAMLA
 https://www.youtube.com/user/ucisko/videos        
 https://www.youtube.com/watch?v=K3D2rjAUQ3o&ab_channel=FromScratch-D%C3%A9veloppementWeb        
 librairie js (!== framework) 
-code en JSX, surcouche JS introduite par REACT => nécessite la librairie Babel pour compiler le JSX react ne sureveille pas les changements de variables. Il faut lui indiquer une sorte de detectChanges() si l'on souhaite mettre à jour la vue lorsque les variables sont modifiées
+code en JSX, surcouche JS introduite par REACT => nécessite la librairie Babel pour compiler le JSX react ne surveille pas les changements de variables. Il faut lui indiquer une sorte de detectChanges() si l'on souhaite mettre à jour la vue lorsque les variables sont modifiées
 
 ### Avantages / Inconvénients par rapport à Angular 
 
@@ -77,7 +77,7 @@ https://www.youtube.com/watch?v=5sNXjRE1C-U&ab_channel=LaTechavecBertrand (Optio
 https://www.youtube.com/watch?v=L5_KLnHjt1M&ab_channel=LaTechavecBertrand (Vue cli, Vue router, Vue X)    
 https://www.youtube.com/watch?v=Ts-2sA2az4s&ab_channel=Jojotique      
 
-Plus proche d'angular dans sa syntaxe mais reste un mix entre react et angular utiliser Vue CLI pour créer une structure de projet, Vue Router pour le routing, Vue X (gestion d'état de la vue) pour partager des données entre plusieurs composants.
+Plus proche d'angular dans sa syntaxe mais reste un mix entre react et angular. Utiliser Vue CLI pour créer une structure de projet, Vue Router pour le routing, Vue X (gestion d'état de la vue) pour partager des données entre plusieurs composants.
 
 vuex : pour gérer le state
 
