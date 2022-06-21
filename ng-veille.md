@@ -85,7 +85,7 @@ vuex : pour gérer le state
 
 outils : vue.js devtools (extension chrome)
 
-Ancienne API : Option API 
+Ancienne API : Option API       
 Nouvelle API : CompositionAPi
 
 ````
