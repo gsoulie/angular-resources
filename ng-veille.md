@@ -33,7 +33,7 @@ Protractor va être déprecié, il est conseillé de basculer sur **cypress** po
 
 **Qwik** est un nouveau framework javascript dont l'objectif principal est de s'attaquer à la problématique de **"time to interacteractive"** des applis web. Limiter les temps de récupération des ressources après server-side rendering et accélérer au maximum le chargement du site.
 
-**Comment y parvenir : **
+**Comment y parvenir :**
 
 - Faire du **HTML first** comme le fait aussi **svelte**. Qwik va embarquer un grand nombre d'information dans le html pour limiter les opérations de récupération et faire du lazy-loading plus fort qu'habituellement en ne chargeant les ressources qu'au moment de leur affichage dans le viewport.      
 - Embarquer l'état (le state) de la page dans le DOM (fait par le SSR). A tout moment on fait un snapshot de la page html      
