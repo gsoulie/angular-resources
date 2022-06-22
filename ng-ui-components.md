@@ -299,7 +299,8 @@ export class ModalSignatureComponent implements OnInit, AfterViewInit {
   cancel(): void { this.modalCtrl.dismiss({role: false, data: null}); }
 
   private initializeCanvas(): void {
-    this.signaturePad = new SignaturePad(this.signaturePadElement.nativeElement);
+    this.signaturePad = new SignaturePad(this.signaturePadElement.nativeElement, 
+    {backgroundColor: 'rgb(255, 255, 255)'});
     this.signaturePad.clear();
     this.signaturePad.penColor = 'rgb(11,39,58)';
 
