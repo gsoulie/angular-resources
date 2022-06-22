@@ -180,8 +180,11 @@ paramètres optionnels
 ## Object assign
 [Back to top](#operateurs)
 
-La réassignagtion d'objet permet de "casser" la référence d'un objet et ainsi pouvoir forcer le déclenchement de sa mise à jour côté vue lorsqu'on utilise un *pipeTransform* pour la mise en forme des données. En effet, les *pipeTransform* ne se déclenchent qu'à la modification des types simples *string, number, boolean, symbol*.
-Dans le cas de types "complexes" comme les objets et les tableaux, l'ajout/modification/suppression d'une propriété n'entraine pas un changement de référence de l'objet et par conséquent cette modification n'est pas détectée par le pipe.
+La réassignagtion d'objet permet de **casser** la référence d'un objet et ainsi pouvoir forcer le déclenchement de sa mise à jour côté vue lorsqu'on utilise un *pipeTransform* pour la mise en forme des données (par exemple). 
+
+En effet, les *pipeTransform* **ne se déclenchent qu'à la modification des types simples** : string, number, boolean, symbol. 
+
+Dans le cas de types *complexes* comme les objets et les tableaux, l'ajout/modification/suppression d'une propriété **n'entraine pas** un changement de référence de l'objet et par conséquent cette modification n'est pas détectée par le pipe. 
 Il faut donc forcer la création d'une nouvelle référence à l'objet pour déclencher le *pipeTransform*
 
 ````typescript
