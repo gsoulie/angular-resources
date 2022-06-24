@@ -17,6 +17,7 @@
 		* web.config       	
 		* Déployer un workspace      
 		* Déployer une application avec url suffixée      
+		* Environnements multiples       
 	* [Stratégie de routage](https://github.com/gsoulie/angular-resources/blob/master/ng-routing-strategy.md)      
 	        * PathLocationStrategy et HashLocationStrategy              
 * Concepts       
