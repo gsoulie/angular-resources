@@ -130,7 +130,7 @@ zipExample() {
 
 *combineLatest*
 
-Utile si utilisation de collections qui changent régulièrement, utilisation de firebase etc...
+Utile si utilisation de collections qui changent régulièrement, utilisation de firebase etc...Combiner plusieurs observables (pratique pour filtrer un affichage sur plusieurs paramètres)
 
 ````typescript
 combineLatestExample() {
@@ -139,6 +139,49 @@ combineLatestExample() {
 	// when any observable emits a value, emit the last emitted value from each
 	return combineLatest([obs1, obs2]);
 }
+````
+
+**Exemple 2**
+
+*controller*
+
+````typescript
+users$ = of(this.users);
+usernames$ = this.users$.pipe(map(users => users.map(u => u.name)));
+filteredUsers$ = this.users$.pipe(
+	filter(users => users.every(u => u.isActive));
+);
+
+data$ = combineLatest([
+	this.users$,
+	this.usernames$,
+	this.filteredUsers$
+])
+.pipe(
+	// transformer le type tableau d'observable en type objet pour pouvoir l'exploiter plus facilement dans la vue html
+	map([users, usernames, filteredUsers] => {
+		users,
+		usernames,
+		filteredUsers
+	})
+);
+````
+
+*Vue*
+
+````html
+<div *ngIf="data$ | async as data">
+	<div *ngFor="let u of data.users">
+		{{ u.name }} {{ u.isActive }}
+	</div>
+	<div *ngFor="let username of data.usernames">
+		{{ username }}
+	</div>
+	<div *ngFor="let u of data.filteredUsers">
+		{{ u.name }} {{ u.isActive }}
+	</div>
+
+</div>
 ````
 
 *merge*
