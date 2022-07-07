@@ -6,6 +6,7 @@
 * [Spread et Rest](#spread-et-rest)         
 * [Destructuration d'objet](#destructuration-objet)       
 * [Object assign](#object-assign)     
+* [Shallow copy vs Deep copy](#shallow-copy-vs-deep-copy)      
 
 ## Tableaux
 
@@ -203,3 +204,66 @@ refreshData() {
 }
 ````
 [Back to top](#operateurs)
+
+## Shallow copy vs Deep copy
+
+> [DevTheory : Shallow copy vs Deep copy](https://www.youtube.com/watch?v=Wv3UaiTxlUs&ab_channel=DevTheory)     
+
+Comparaison des différents modes de copie d'objet à savoir le *shallow copy* et le *deep copy*
+
+Soit l'objet initial suivant :
+````typescript
+const task = {
+  id: 12,
+  name: 'Initial task',
+  completed: false,
+  metadata: {
+    author: 'Paul',
+    workspace: 'dev'
+  }
+}
+````
+
+### Shallow copy
+
+Le Shallow copy réalise une copie *superficielle* d'un objet. C'est à dire que les propriétés de l'objet sont copiées, mais **pas** les propriétés **imbriquées**.
+Lorsqu'une propriété imbriquée est rencontrée, c'est sa **référence** qui est copiée. Par conséquent, toute modification d'une propriété imbriquée depuis l'objet copié, entrainera aussi la modification de la propriété dans l'objet initial
+
+````typescript
+const taskCopy = { ... task };
+console.log(task === taskCopy); // => false
+
+// Modification d'une propriété non imbriquée
+taskCopy.name = 'Task copy';
+console.log(`name : ${task.name} - ${taskCopy.name}`);  // => Initial task - Task copy
+
+// Modification d'une propriété imbriquée
+taskCopy.metadata.workspace = 'production';
+console.log(`workspace : ${task.metadata.workspace} - ${taskCopy.metadata.workspace}`); // => 'production' - 'production'
+````
+
+### Deep copy
+
+Il existe plusieurs façon de réaliser une copie *profonde*, et elles ne se valent pas toutes.
+
+#### Méthode JSON.parse
+
+````typescript
+const taskDeepCopy = JSON.parse(JSON.stringify(task));
+
+taskDeepCopy.metadata.workspace = 'production';
+console.log(`workspace : ${task.metadata.workspace} - ${taskDeepCopy.metadata.workspace}`); // => 'dev' - 'production'
+````
+
+**Explication** : ````JSON.stringify```` va *aplatîr* l'objet en type *chaîne* et par conséquent détruire la notion de propriétés imbriquées au sein de l'objet. Ensuite il suffit de re-transformer la chaîne en objet
+
+**Limitations** : la format du JSON ne **supporte pas les fonctions**. Par conséquent il ne gère pas les cas dans lesquels l'objet de base contiendrait des méthodes. Idem si l'objet avait des propriétés contenant des ````Date(), Regex(), map()````, propriétés circulaires...
+
+#### méthode structuredClone : UNIQUEMENT à partir de node 17
+
+````typescript
+const deepClone = structuredClone(task);
+
+deepClone.metadata.workspace = 'production';
+console.log(`workspace : ${task.metadata.workspace} - ${deepClone.metadata.workspace}`); // => 'dev' - 'production'
+````
