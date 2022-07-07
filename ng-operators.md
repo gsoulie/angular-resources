@@ -187,6 +187,8 @@ En effet, les *pipeTransform* **ne se déclenchent qu'à la modification des typ
 Dans le cas de types *complexes* comme les objets et les tableaux, l'ajout/modification/suppression d'une propriété **n'entraine pas** un changement de référence de l'objet et par conséquent cette modification n'est pas détectée par le pipe. 
 Il faut donc forcer la création d'une nouvelle référence à l'objet pour déclencher le *pipeTransform*
 
+**ATTENTION cette méthode ne réalise pas une copie profonde ! Les propriétés imbriquées ne sont pas copiées, seule leur référence est copiée. La modification d'une propriété imbriquée impactera aussi celle de l'objet source**
+
 ````typescript
 refreshData() {
 	// cas d'un objet
