@@ -3,7 +3,7 @@
 # Angular
 
 * Généralités    
-	* [Ressources](https://github.com/gsoulie/angular-resources/blob/master/ng-resources.md)     
+	* [Présentation et Ressources](https://github.com/gsoulie/angular-resources/blob/master/ng-resources.md)     
 	* [Commandes](https://github.com/gsoulie/angular-resources/blob/master/ng-commands.md)     
 	* [Arborescence projet](https://github.com/gsoulie/angular-resources/blob/master/ng-treemap.md)     
 	* [Notions de base - Fonctionnement Javascript](https://github.com/gsoulie/angular-resources/blob/master/ng-basics.md)      
