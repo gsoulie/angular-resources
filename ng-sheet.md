@@ -10,7 +10,7 @@
 	* [Fonctionnement Change Detection](https://github.com/gsoulie/angular-resources/blob/master/ng-change-detection.md)      
 	* [Bonnes pratiques](https://github.com/gsoulie/angular-resources/blob/master/ng-best-practices.md)     
 	* [Optimisations](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)     
-	* [Opérateurs, Destructuration d'objets et Tableaux, Object assign](https://github.com/gsoulie/angular-resources/blob/master/ng-operators.md)    
+	* [Opérateurs, Destructuration d'objets et Tableaux, Object assign, Type générique](https://github.com/gsoulie/angular-resources/blob/master/ng-operators.md)    
 		* Shallow copy vs Deep copy 
 	* [VSCode](https://github.com/gsoulie/angular-resources/blob/master/ng-vscode.md)       
 	* [Modules, lazy-loading](https://github.com/gsoulie/angular-resources/blob/master/ng-module.md)       
