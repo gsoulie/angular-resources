@@ -7,6 +7,7 @@
 * [Destructuration d'objet](#destructuration-objet)       
 * [Object assign](#object-assign)     
 * [Shallow copy vs Deep copy](#shallow-copy-vs-deep-copy)      
+* [Utilisation du type générique](#utilisation-du-type-générique)     
 
 ## Tableaux
 
@@ -267,3 +268,24 @@ const deepClone = structuredClone(task);
 deepClone.metadata.workspace = 'production';
 console.log(`workspace : ${task.metadata.workspace} - ${deepClone.metadata.workspace}`); // => 'dev' - 'production'
 ````
+[Back to top](#operateurs)
+
+## Utilisation du type générique
+
+*service-helper.ts*
+
+````typescript
+getData<T>(): Observable<T[]> {
+	return this.http.get('...');
+}
+````
+
+*data-service.ts*
+
+````typescript
+fetchUsers() {
+	this.users$ = this.helper.getData<User>();
+}
+````
+
+[Back to top](#operateurs)
