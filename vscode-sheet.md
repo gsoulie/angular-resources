@@ -16,41 +16,45 @@
 
 > Tips : if you want to group tasks by role, set a same prefix to the task name for all tasks you want to group by
 
+*tasks.json*
 ````typescript
-"tasks": [
-    {
-        "label": "00_frontend-serve Angular app",
-        "type": "shell",
-        "command": "ng",
-        "options": {
-            "cwd": "${workspaceFolder}"
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "00_frontend-serve Angular app",
+            "type": "shell",
+            "command": "ng",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "args": [ "serve", "--open" ]
         },
-        "args": [ "serve", "--open" ]
-    },
-    {
-        "label": "00_frontend-build Angular app",
-        "type": "shell",
-        "command": "ng",
-        "options": {
-            "cwd": "${workspaceFolder}"
+        {
+            "label": "00_frontend-build Angular app",
+            "type": "shell",
+            "command": "ng",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "args": [ "build", "--configuration=production" ]
         },
-        "args": [ "build", "--configuration=production" ]
-    },
-    {
-        "label": "01_backend-1_serve api",
-        "type": "shell",
-        "command": "npm",
-        "options": { "cwd": "${workspaceFolder}" },
-        "args": [ "run", "nx", "serve", "api" ]
-    },
-    {
-      "label": "01_backend-2_run prisma studio",
-      "type": "shell",
-      "command": "npx",
-      "options": { "cwd": "${workspaceFolder}" },
-      "args": [ "prisma", "studio" ]
-    }
-  ]
+        {
+            "label": "01_backend-1_serve api",
+            "type": "shell",
+            "command": "npm",
+            "options": { "cwd": "${workspaceFolder}" },
+            "args": [ "run", "nx", "serve", "api" ]
+        },
+        {
+          "label": "01_backend-2_run prisma studio",
+          "type": "shell",
+          "command": "npx",
+          "options": { "cwd": "${workspaceFolder}" },
+          "args": [ "prisma", "studio" ]
+        }
+      ]
+}
 ````
 
 ## Cursive fonts
