@@ -48,9 +48,9 @@ Dans le cadre d'un déploiement de plusieurs applications sous un même environn
 chaque application avec une route suffixée pour séparer chaque applications.
 
 Ex : 
-https://mon-env-prod/mon-app-1/home
-https://mon-env-prod/mon-app-2/home
-https://mon-env-prod/mon-app-3/home
+https://mon-env-prod/mon-app-1/home        
+https://mon-env-prod/mon-app-2/home       
+https://mon-env-prod/mon-app-3/home       
 
 Pour parvenir à ce résultat il existe plusieurs solutions. 
 
