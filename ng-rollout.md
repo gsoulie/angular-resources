@@ -47,7 +47,7 @@ Il suffit donc de copier le contenu de chaque appli et de le déposer sur le ser
 Dans le cadre d'un déploiement de plusieurs applications sous un même environnement (qui utilise 1 seul certificat), il est nécessaire de pouvoir déployer
 chaque application avec une route suffixée pour séparer chaque applications.
 
-Ex : 
+Ex :       
 https://mon-env-prod/mon-app-1/home        
 https://mon-env-prod/mon-app-2/home       
 https://mon-env-prod/mon-app-3/home       
