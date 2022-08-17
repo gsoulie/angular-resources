@@ -40,6 +40,7 @@ Après compilation, le répertoire dist contriendra plusieurs répertoires (1 po
 en effet ces dernières sont déjà intégrées dans chacun des projets lors de la compilation.
 
 Il suffit donc de copier le contenu de chaque appli et de le déposer sur le serveur.
+
 [Back to top](#déploiement)     
 
 ## Déployer une application avec url suffixée
@@ -110,6 +111,7 @@ pour réécrire les routes.
 ### Gérer les redirections d'authentification
 
 Si les applications utilisent une authentification tierce type SSO (IS4, Aure AD...) il faut aussi ajouter des règles spécifiques dans le fichier de configuration serveur.
+
 [Back to top](#déploiement)     
 
 ## Environnements multiples
