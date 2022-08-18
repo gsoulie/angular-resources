@@ -5,6 +5,7 @@
 * [technos](#technos)       
 * [Application fullstack NX, NestJS, Prisma, Angular](#application-fulllstack-nx-,-nestjs-,-prisma-,-angular)     
 * [Angular 14](#angular-14)      
+* [SUpabase](#supabase)      
 
 ## Angular
 
@@ -415,4 +416,16 @@ export class Home extends WidgetBase {
 }
 ````
 
-  
+## Supabase
+
+https://supabase.com/alternatives/supabase-vs-firebase      
+
+Supabase est un concurrent de Firebase avec quelques différences tout de même. La différence majeure est que Supabase s'appuie sur postgreSQL au lieu d'une base de données orienté document (key-value) pour Firebase.
+
+Avantages :
+* postgreSQL     
+* requêtage SQL      
+* jusqu'à 4x plus performant que Firebase (key-value)      
+* Authentifications tiers (google, facebook, twitter...)      
+* Storage comme Firebase     
+*
