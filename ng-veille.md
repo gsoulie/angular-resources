@@ -5,7 +5,7 @@
 * [technos](#technos)       
 * [Application fullstack NX, NestJS, Prisma, Angular](#application-fulllstack-nx-,-nestjs-,-prisma-,-angular)     
 * [Angular 14](#angular-14)      
-* [SUpabase](#supabase)      
+* [Supabase](#supabase)      
 
 ## Angular
 
