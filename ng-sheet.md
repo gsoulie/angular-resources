@@ -96,7 +96,7 @@
 * [Gestion des logs](https://github.com/gsoulie/angular-resources/blob/master/ng-log.md)       
 * [Téléchargement de fichiers](https://github.com/gsoulie/angular-resources/blob/master/ng-download.md)       
 * [Veille](https://github.com/gsoulie/angular-resources/blob/master/ng-veille.md)         
-	* React,  Vue, Nx, Nest, Prisma, Flutter     
+	* React,  Vue, Nx, Nest, Prisma, Flutter, Supabase     
 	* Angular 14       
 * [Firebase - Angularfire](https://github.com/gsoulie/ionic2-resources/blob/master/ng-angular-fire.md)     
 * [Divers](https://github.com/gsoulie/angular-resources/blob/master/ng-divers.md)
