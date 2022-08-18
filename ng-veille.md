@@ -428,4 +428,3 @@ Avantages :
 * jusqu'à 4x plus performant que Firebase (key-value)      
 * Authentifications tiers (google, facebook, twitter...)      
 * Storage comme Firebase     
-*
