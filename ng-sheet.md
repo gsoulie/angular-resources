@@ -9,7 +9,9 @@
 	* [Notions de base - Fonctionnement Javascript](https://github.com/gsoulie/angular-resources/blob/master/ng-basics.md)      
 	* [Fonctionnement Change Detection](https://github.com/gsoulie/angular-resources/blob/master/ng-change-detection.md)      
 	* [Bonnes pratiques](https://github.com/gsoulie/angular-resources/blob/master/ng-best-practices.md)     
-	* [Optimisations](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)     
+	* [Optimisations](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)    
+		* source-map-explorer
+		* webpack-bundle-analyzer      	 
 	* [Opérateurs, Destructuration d'objets et Tableaux, Object assign, Type générique](https://github.com/gsoulie/angular-resources/blob/master/ng-operators.md)    
 		* Shallow copy vs Deep copy 
 	* [VSCode](https://github.com/gsoulie/angular-resources/blob/master/ng-vscode.md)       
