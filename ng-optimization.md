@@ -115,7 +115,7 @@ méthode plus performante pour déclencher des éléments lors d'un scroll (exem
 Analyser le bundle généré par la compilation permet de contrôler la taille de ce dernier. En effet, cette analyse peut permettre de détecter
 des dépendances trop volumineuses voir inutiles.
 
-Solution *source-map-explorer*
+### Solution *source-map-explorer*
 
 **Installation**
 ````npm i source-map-explorer````
@@ -123,7 +123,7 @@ Solution *source-map-explorer*
 **configuration Angular**
 
 *tsconfig.json*
-````json
+````typescript
 compilerOptions: {
 	"sourceMap": true
 }
@@ -135,12 +135,12 @@ ng build --configuration=production --source-map
 source-map-explorer dist/<app-name>/*.js
 ````
 
-Solution *webpack-bundle-analyzer*
+### Solution *webpack-bundle-analyzer*
 
 **configuration Vue**
 
 *vue.config.js*
-````ts
+````typescript
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
     .BundleAnalyzerPlugin;
     module.exports = {
