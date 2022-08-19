@@ -1,12 +1,15 @@
 [< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)    
 
 # Optimisations
+* [Optimisation lancement application](#optimisation-lancement-application)     
+* [Zone.js](#zone.js)     
+* [Optimisations js](#optimisations-js)      
+* [Analyse du bundle](#analyse-du-bundle)       
 
 ## Général
 - Virtual scroll
 - Pagination
 - Render à la demande
-
 
 ## Optimisation lancement application
 [Back to top](#optimisations) 
@@ -78,9 +81,9 @@ On peut aussi manuellement désactiver / réactiver l'écoute des zones pour un 
 this.cd.detach();	// ne sera plus mis à jour
 this.cd.reattach();	// se remet à jour
 ````
-
-## Optimisation JS
 [Back to top](#optimisations)
+
+## Optimisations JS
 
 ### JSON parse vs litteral
 
@@ -104,5 +107,49 @@ https://www.youtube.com/watch?v=jmnI7PKsCVQ&list=PLiO4ScU0Pxp0cAxMqGCtRmvRGA5vjI
 https://www.youtube.com/watch?v=x0Dvpu2jcUo&list=PLiO4ScU0Pxp0cAxMqGCtRmvRGA5vjId7b&index=3&ab_channel=DevTheory
 
 méthode plus performante pour déclencher des éléments lors d'un scroll (exemple dpage web bootstrap avec des animations lors du scroll qui font apparaître des éléments) SANS utiliser l'event scroll mais le IntersectionObserver qui est plus performant et très simple d'utilisation
+
+[Back to top](#optimisations)
+
+## Analyse du bundle
+
+Analyser le bundle généré par la compilation permet de contrôler la taille de ce dernier. En effet, cette analyse peut permettre de détecter
+des dépendances trop volumineuses voir inutiles.
+
+Solution *source-map-explorer*
+
+**Installation**
+````npm i source-map-explorer````
+
+**configuration Angular**
+
+*tsconfig.json*
+````json
+compilerOptions: {
+	"sourceMap": true
+}
+````
+
+*commandes*
+````
+ng build --configuration=production --source-map
+source-map-explorer dist/<app-name>/*.js
+````
+
+Solution *webpack-bundle-analyzer*
+
+**configuration Vue**
+
+*vue.config.js*
+````ts
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+    .BundleAnalyzerPlugin;
+    module.exports = {
+        configureWebpack: {
+            plugins: [new BundleAnalyzerPlugin()]
+        }
+   };
+````
+
+Une fois installé et configuré, il suffit de relancer une compilation du projet. Un browser va alors s'ouvrir présentant ainsi la carte détaillée du bundle
 
 [Back to top](#optimisations)
