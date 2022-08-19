@@ -101,6 +101,7 @@
 	* React,  Vue, Nx, Nest, Prisma, Flutter, Supabase     
 	* Angular 14       
 * [Firebase - Angularfire](https://github.com/gsoulie/ionic2-resources/blob/master/ng-angular-fire.md)     
+* [Supabase](https://github.com/gsoulie/angular-resources/blob/master/ng-supabase.md)      
 * [Divers](https://github.com/gsoulie/angular-resources/blob/master/ng-divers.md)
 	* Accès client lourd depuis front web 
 	* Détection activié utilisateur      
