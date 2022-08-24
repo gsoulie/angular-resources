@@ -9,6 +9,7 @@
 * [Pipe](#pipe)      
 * [Numérique Responsable](https://github.com/gsoulie/angular-resources/blob/master/ng-nr.md)      
 * [Unsubscriber](#unsubscriber)     
+* [Optimisations](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)     
 
 ## Input ou Service ?
 
