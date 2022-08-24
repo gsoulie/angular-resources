@@ -2,6 +2,7 @@
 
 # VSCode
 
+* [Themes](#themes)     
 * [Extensions](https://github.com/gsoulie/angular-resources/blob/master/vscode-extension.md)     
 * [Tasks](#tasks)   
 * [ESLint](https://github.com/gsoulie/angular-resources/blob/master/vscode-eslint.md)   
@@ -10,6 +11,19 @@
 * [Snippet typescript](https://github.com/gsoulie/angular-resources/blob/master/vscode-snippet-typescript.json)       
 * [Snippet html](https://github.com/gsoulie/angular-resources/blob/master/vscode-snippet-html.json)       
 * [Backup vscode setting.json](#backup-settings)      
+
+## Themes
+
+Best themes :
+
+* [One Dark Pro](https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme)     
+* [Dracula](https://marketplace.visualstudio.com/items?itemName=dracula-theme.theme-dracula)      
+* [SynthWave](https://marketplace.visualstudio.com/items?itemName=RobbOwen.synthwave-vscode)     
+* [Tokyo Night](https://marketplace.visualstudio.com/items?itemName=enkia.tokyo-night)     
+* [Tokyo Hack](https://vscodethemes.com/e/ajshortt.tokyo-hack/tokyo-hack?language=javascript)     
+
+
+Full vscode customization : https://code.visualstudio.com/api/references/theme-color     
 
 ## Tasks
 
