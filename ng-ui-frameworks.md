@@ -16,7 +16,7 @@
 ## Frameworks
 
 Best 4       
-[official] https://material.angular.io/guide/getting-started       
+[official](https://material.angular.io/guide/getting-started)       
 https://valor-software.com/ngx-bootstrap/#/documentation       
 https://primefaces.org/primeng/showcase/#/setup        
 https://ng-bootstrap.github.io/#/home       
@@ -28,6 +28,8 @@ https://alyle.io/getting-started/installation
 
 ### Material Angular
 [Back to top](#ui)  
+
+Exemple dashboard complet : https://dev.to/cubejs/angular-dashboard-with-material-1aj      
 
 ````ng add @angular/material````
 
