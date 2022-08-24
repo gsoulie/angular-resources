@@ -9,6 +9,7 @@
 * [Cursive fonts](#cursive-fonts)      
 * [Snippet typescript](https://github.com/gsoulie/angular-resources/blob/master/vscode-snippet-typescript.json)       
 * [Snippet html](https://github.com/gsoulie/angular-resources/blob/master/vscode-snippet-html.json)       
+* [Backup vscode setting.json](#backup-settings)      
 
 ## Tasks
 
@@ -159,4 +160,163 @@ You can also specify differents scopes to manage italic for specific item, bold 
           }
         ]
       }
+````
+
+## Backup settings
+
+*settings.json*
+````json
+{
+    "workbench.iconTheme": "material-icon-theme",
+    "eslint.alwaysShowStatus": true,
+    "eslint.format.enable": true,
+    "javascript.implicitProjectConfig.experimentalDecorators": true,
+    "angular.experimental-ivy": true,
+    "git.suggestSmartCommit": false,
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "workbench.startupEditor": "newUntitledFile",
+    "peacock.affectAccentBorders": true,
+    "peacock.affectTabActiveBorder": true,
+    "peacock.favoriteColors": [
+
+        {
+            "name": "Angular Red",
+            "value": "#dd0531"
+        },
+        {
+            "name": "Azure Blue",
+            "value": "#007fff"
+        },
+        {
+            "name": "JavaScript Yellow",
+            "value": "#f9e64f"
+        },
+        {
+            "name": "Mandalorian Blue",
+            "value": "#1857a4"
+        },
+        {
+            "name": "Node Green",
+            "value": "#215732"
+        },
+        {
+            "name": "React Blue",
+            "value": "#61dafb"
+        },
+        {
+            "name": "Something Different",
+            "value": "#832561"
+        },
+        {
+            "name": "Svelte Orange",
+            "value": "#ff3d00"
+        },
+        {
+            "name": "Vue Green",
+            "value": "#42b883"
+        },
+        {
+            "name": "Dark Gray",
+            "value": "#3D3D3D"
+        },
+        {
+            "name": "Ionic Blue",
+            "value": "#5291FF"
+        },
+        {
+            "name": "FRAndroid Dark",
+            "value": "#1E2334"
+        }
+    ],
+    "peacock.elementAdjustments": {
+        "activityBar": "none",
+        "statusBar": "darken",
+        "titleBar": "darken"
+    },
+    "diffEditor.ignoreTrimWhitespace": false,
+    "team.showWelcomeMessage": false,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "editor.fontFamily": "Fira Code iScript, Monoid, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.lineHeight": 22,
+    "editor.cursorBlinking": "smooth",
+    "editor.formatOnType": true,
+    "editor.formatOnPaste": true,
+    "editor.tokenColorCustomizations": {
+      "comments": "#39bf87",//"#39bf87",//3ac4a1
+      "textMateRules": [
+        {
+          "name": "italic font",
+          "scope": [
+            "comment",
+            "keyword",
+            
+            "constant.language",
+            //"storage",
+            //"storage.type.function",
+            //"storage.type",
+            "storage.modifier",
+            "storage.type.function",
+            /*
+            "storage.modifier.tsx",
+            "storage.modifier.async",*/
+            "entity.other.attribute-name"
+            /*"keyword.control",
+            "keyword.control.from",
+            "keyword.control.flow",
+            "keyword.operator.new",
+            "keyword.control.import",
+            "keyword.control.export",
+            "keyword.control.default",
+            "keyword.control.trycatch",
+            "keyword.control.conditional",
+            "storage.type",
+            "storage.type.class",
+            "storage.modifier.tsx",
+            "storage.type.function",
+            "storage.modifier.async",
+            "variable.language",
+            "variable.language.this",
+            "variable.language.super",
+            "meta.class", // nom des variables
+            "meta.var.expr",
+            "constant.language.null",
+            "support.type.primitive",
+            "entity.name.method.js",
+            "entity.other.attribute-name",
+            "punctuation.definition.comment",
+            "text.html.basic",
+            "tag.decorator.js entity.name.tag.js",
+              "tag.decorator.js punctuation.definition.tag.js",
+                "source.js constant.other.object.key.js string.unquoted.label.js"*/
+          ],
+          "settings": {
+            "fontStyle": "italic"
+          }
+        },
+      ]
+    },
+    "[json]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "editor.guides.bracketPairs": true,
+    "bracketPairColorizer.depreciation-notice": false,
+    "vetur.experimental.templateInterpolationService": true,
+    "editor.fontWeight": "normal",
+    "workbench.colorTheme": "SynthWave '84",
+    "workbench.colorCustomizations": {
+        "activityBar.activeBorder": "#39bf87",//#ffaa00
+        "activityBarBadge.background": "#39bf87",        
+        "activityBarBadge.foreground": "#000000",
+        //"activityBar.background": "#00AA00"   // background de la barre latérale,
+        "window.inactiveBorder": "#ea00ff",
+        "window.activeBorder": "#ffaa00",
+        "toolbar.hoverBackground": "#39bf87",
+        "badge.background": "#ffaa00",
+
+        "badge.foreground": "#000000"
+    }
+}
 ````
