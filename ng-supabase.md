@@ -321,4 +321,77 @@ export class SupabaseService {
 
 ## Realtime
 
+### Activation
+
+Pour activer le *Realtime* il suffit d'aller dans le menu **Table editor**, de sélectionner la table sur laquelle on souhaite activer le realtime, de faire *edit* et cocher l'option **Enable Realtime** puis *Save*
+
+### Implémentation
+
+Création d'un *Subject* dans le service data
+
+*data.service.ts*
+
+````typescript
+/**
+   * Activation REALTIME
+   * @returns 
+   */
+  getTableChanges() {
+    const changes = new Subject();
+
+    this.supabase
+      .from(CARDS_TABLE)
+      .on('*', (payload: any) => {
+        changes.next(payload);
+      })
+      .subscribe();
+
+    this.supabase
+      .from(LISTS_TABLE)
+      .on('*', (payload: any) => {
+        changes.next(payload);
+      })
+      .subscribe();
+
+    return changes.asObservable();
+  }
+````
+
+Ecoute dans les composants :
+
+*board.component.ts*
+
+````typescript
+handleRealtimeUpdates() {
+    this.dataService.getTableChanges().subscribe((update: any) => {
+      const record = update.new?.id ? update.new : update.old;
+      const event = update.eventType;
+
+      if (!record) return;
+
+      if (update.table == 'cards') {
+        if (event === 'INSERT') {
+          this.listCards[record.list_id].push(record);
+        } else if (event === 'UPDATE') {
+          const newArr = [];
+
+          for (let card of this.listCards[record.list_id]) {
+            if (card.id == record.id) {
+              card = record;
+            }
+            newArr.push(card);
+          }
+          this.listCards[record.list_id] = newArr;
+        } else if (event === 'DELETE') {
+          this.listCards[record.list_id] = this.listCards[
+            record.list_id
+          ].filter((card: any) => card.id !== record.id);
+        }
+      } else if (update.table == 'lists') {
+        // TODO
+      }
+    });
+  }
+````
+
 [Back to top](#supabase)      
