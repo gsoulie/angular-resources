@@ -1315,7 +1315,7 @@ de fait, en cas d'erreur le skeleton-text sera toujours affiché. Ce n'est pas c
 ### Solution
 
 ````html
-<!-- IMPORTANT : le fait de déclarer un objet ave "as" permet d'éviter une multiple souscription pour chaque pipe -->
+<!-- IMPORTANT : le fait de déclarer un objet avec "as" permet d'éviter une multiple souscription pour chaque pipe -->
 <ng-container *ngIf="{user: user$ | async, userError: userError$ | async} as vm">
 	<ion-card *ngIf="!vm.userError && vm.user as user; else loading">
 		<ion-card-content>{{ user }}</ion-card-content>
@@ -1331,6 +1331,59 @@ de fait, en cas d'erreur le skeleton-text sera toujours affiché. Ce n'est pas c
 	</ng-template>
 </ng-container>
 ````
+### Solution avec pipe
+
+Voir : https://github.com/gsoulie/angular-resources/blob/master/ng-concept-observable.md#g%C3%A9rer-un-indicateur-de-loading       
+
+### Solution avec souscription depuis composant
+
+*Home.component.ts*
+````typescript
+error = null;
+
+fetchPosts() {
+	this.postService.fetchPosts()
+	.subscribe(data => {
+	},
+	error => {
+		this.error = error.message;
+	});
+}
+````
+
+### Solution avec subject et souscription dans le service
+
+*PostService.service.ts*
+````typescript
+error$ = new Subject<string>();
+
+createPost(post: Post) {
+	this.http.post<Post>('https://jsonplaceholder.typicode.com/posts', post)
+    .subscribe(
+		data => { ... },
+		error => this.error$.next(error.message)
+    );
+}
+````
+
+Il suffit ensuite de souscrire au *Subject* **error$** dans le composant
+
+### Solution avec opérateur catchError
+
+*PostService.service.ts*
+````typescript
+import { throwError } from 'rxjs';
+
+fetchPosts() {
+	this.http.get<Post[]>('https://jsonplaceholder.typicode.com/posts')
+    .pipe(
+		catchError(error => {
+			// log error or send it to server...
+			return throwError(error);
+		})
+    );
+}
+````
 [Back to top](#observables)
 
 ## Filtrer un observable dans la vue via un pipe
@@ -1343,7 +1396,7 @@ de fait, en cas d'erreur le skeleton-text sera toujours affiché. Ce n'est pas c
 Une modification pure est soit une modification d'une valeur d'entrée primitive (telle que *string, number, boolean ou symbole*), soit une **référence d'objet modifiée** (telle que date, tableau, fonction ou objet). 
 On insiste ici sur le terme de **référence modifiée**, en effet, le pipe reçoit une référence à un tableau et par conséquent l'ajout/modification/suppression ne déclenche pas de modification de la vue puisque la référence n'est pas modifiée. 
 
-[voir la documentation] https://angular.io/guide/pipes#detecting-pure-changes-to-primitives-and-object-references     
+voir la documentation : https://angular.io/guide/pipes#detecting-pure-changes-to-primitives-and-object-references      
 
 Pour passer outre cette contrainte, il faut donc recréer une nouvelle référence à l'objet tableau lors d'un ajout/modification/suppression.
 
