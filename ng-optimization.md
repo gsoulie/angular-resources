@@ -9,7 +9,8 @@
 ## Général
 - Virtual scroll
 - Pagination
-- Render à la demande
+- Render à la demande     
+- Lazy-load des modules via les fichiers de routing et ne pas importer les modules lazy-loadé dans les fichiers *app.module.ts* car ils seraient alors chargés 2 fois !
 
 ## Optimisation lancement application
 [Back to top](#optimisations) 
