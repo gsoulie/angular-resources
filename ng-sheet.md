@@ -50,6 +50,7 @@
 	* Http interceptor : (gestion bearer, loading spinner...)     	
 	* Codes retours Http 
 	* Multipart Form Data      	
+	* Chargement de données via json      
 * [Form](https://github.com/gsoulie/angular-resources/blob/master/ng-form.md)     
 * [ViewChild](https://github.com/gsoulie/angular-resources/blob/master/ng-viewchild.md)     
 * [Directives](https://github.com/gsoulie/angular-resources/blob/master/ng-directive.md)     
