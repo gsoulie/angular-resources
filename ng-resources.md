@@ -18,5 +18,11 @@ https://alligator.io/angular/
 https://blog.thoughtram.io/    
 https://nitayneeman.com/posts/all-talks-from-ng-conf-2018/   
 
+# Fichiers principaux
+
+* polyfills.js : permet de rendre l'application compatible avec les différents browsers. Parce que nous écrivons le code avec les fonctionnalités les plus récentes et que tous les navigateurs ne prennent pas en charge ces fonctionnalités.     
+* scripts.js : contient les scripts qui sont déclarés dans la section "scripts" du fichier angular.json    
+* runtime.js : c'est le webpack loader. Il contient les utilitaires webpack nécessaires au chargement des autres fichiers    
+* main.js : contient tous le code (composants, ts, html, scss, pipes, directives, services, modules tiers...).     
 
 [Back to top](#ressources)     
