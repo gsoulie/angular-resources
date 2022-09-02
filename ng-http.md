@@ -7,6 +7,7 @@
 * [Http interceptor](#http-interceptor)     
 * [Multipart Form Data](#multipart-form-data)      
 * [Mise en cache requête](#mise-en-cache-requête)     
+* [Chargement de données via JSON](#chargement-de-données-via-json)      
 
 ## Documentation
 
@@ -490,6 +491,56 @@ export class CachingInterceptor implements HttpInterceptor {
     const cachedResponse = this.cache.get(req);
     return cachedResponse ?
       of(cachedResponse) : sendRequest(req, next, this.cache);
+  }
+}
+````
+[Back to top](#requêtes-http)     
+
+## Chargement de données via JSON
+
+
+créer un fichier json positionné dans le répertoire *assets*
+
+*data.json*
+````json
+[
+  {
+    "id": 1,
+    "name": "Tom"
+  },{
+    "id": 2,
+    "name": "Marie"
+  },{
+    "id": 3,
+    "name": "Jen"
+  }
+]
+
+````
+
+Ajouter la configuration suivante dans le fichier **tsconfig.json** permettant le chargement des données provenant d'un json
+
+*tsconfig.json*
+````json
+"resolveJsonModule": true,
+"esModuleInterop": true
+````
+
+*data.service.ts*
+````typescript
+export class UserDataService {
+
+  private usersSubject$ = new BehaviorSubject<any[]>([]);
+  users$: Observable<any[]> = this.usersSubject$.asObservable();
+
+  constructor(private http: HttpClient) { }
+
+  fetchUsers(): Observable<any[]> {
+    return this.http.get<any[]>('/assets/data.json')
+      .pipe(
+        tap(res => console.log(res)
+        )
+      );
   }
 }
 ````
