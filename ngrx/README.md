@@ -26,3 +26,6 @@ Pour manipuler les data de ce state, les composants / services vont utiliser des
 ### Installation
 
 ````npm i --save @ngrx/store````
+### Sample
+
+https://github.com/gsoulie/angular-resources/tree/master/ngrx      
