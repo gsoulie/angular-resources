@@ -170,6 +170,13 @@ Installation : ```npm install --save bootstrap```, ensuite ajouter la configurat
 
 ```
 
+### Tailwind
+
+* https://daisyui.com/     
+* https://merakiui.com/     
+* https://tailblocks.cc/     
+* 
+
 ## Icons
 [Back to top](#ui)
 
