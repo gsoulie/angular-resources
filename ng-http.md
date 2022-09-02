@@ -8,6 +8,7 @@
 * [Multipart Form Data](#multipart-form-data)      
 * [Mise en cache requête](#mise-en-cache-requête)     
 * [Chargement de données via JSON](#chargement-de-données-via-json)      
+* [CORS](#cors)     
 
 ## Documentation
 
@@ -544,4 +545,34 @@ export class UserDataService {
   }
 }
 ````
+[Back to top](#requêtes-http)     
+
+## Cors
+
+CORS (Cross-Origin Resource Sharing) est un mécanisme basé sur HTTP qui permet au browser d'accéder à des ressources en dehors du domaine. En d'autres termes, des ressources peuvent être demandée depuis une URL vers une autre.
+
+De base, les browsers implémente une Police de type "Same-Origin", qui signifie qu'il est autorisé de demander des ressources provenant de la même origine (même domaine) mais n'autorise pas la demande de ressources provenant d'une autre origine (lève une erreur).
+
+Ce mécanisme est implémenté pour des raisons de sécurité. Cependant, utiliser le mécanisme CORS ajoute de la flexibilité à la Police "Same-Origin". Un exemple typique est de pouvoir faire appel à une API d'un autre domaine.
+
+**Comment fonctionne CORS ?**
+
+Quand un navigateur produit une requête cross-origin, il ajoute un en-tête "Origin" qui indique le schéma (protocole), le domaine et le numéro de port.
+
+Ensuite, le serveur répond et ajoute un en-tête "Access-Control-Allow-Origin" dans la réponse.
+
+Si l'origine de cet en-tête est la même que l'origine envoyée dans la requête, l'accès à la ressource sera autorisé.
+
+C'est la base d'une requête CORS. Cependant, certaines méthodes HTTP (méthodes autres que GET, POST ou HEAD) nécessitent une demande de contrôle en amont avant que la demande réelle ne soit effectuée.
+
+**Comment fonctionne les requêtes Preflight ?**
+
+Les demandes de contrôle en amont commencent par envoyer une demande HTTP OPTIONS au serveur. Le serveur répond avec un en-tête "Access-Control-Allow-Methods" qui indique les méthodes HTTP autorisées à être utilisées par l'origine.
+
+La réponse peut également inclure un en-tête "Access-Control-Max-Age" spécifiant la durée pendant laquelle la réponse doit être mise en cache.
+
+Avec cela, le client n'aura pas besoin de la demande de contrôle en amont chaque fois qu'il voudra accéder à la ressource CORS.
+
+La demande CORS réelle peut maintenant être effectuée comme d'habitude.
+
 [Back to top](#requêtes-http)     
