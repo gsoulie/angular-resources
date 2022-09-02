@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="item-input" [style.marginBottom]="'10px'">
+    <label [style.marginRight]="'10px'" for="username">Add new user</label>
+    <input id="username" type="text" [(ngModel)]="username" placeholder="user name" [style.marginRight]="'10px'"/>
+    <button class="btn btn-primary btn-sm" (click)="addUser()">Add user</button>
+  </div>
+  <div class="item" *ngFor="let u of users$ | async">
+    <span>{{ u.name }}</span>
+    <button class="btn btn-warning btn-sm" (click)="deleteUser(u)">Delete</button>
+  </div>
+  <hr>
+  <h4>Data from Reducer</h4>
+  <div class="item" *ngFor="let u of (usersStore$ | async).users; let i = index">
+    <span>{{ u.name }}</span>
+    <div [style.display]="'flex'">
+      <button class="btn btn-danger btn-sm" (click)="updateUser(u)">Update</button>&nbsp;
+      <button class="btn btn-warning btn-sm" (click)="deleteUser(u)">Delete</button>
+    </div>
+  </div>
+</div>
