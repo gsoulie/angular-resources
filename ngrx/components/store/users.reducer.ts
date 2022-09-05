@@ -4,11 +4,12 @@ import * as UsersReducerActions from './users.actions';
 // définition d'un state en particulier
 export interface State {
   users: User[];
-  //toto?: number;
+  isLoading?: boolean;
 }
 
 const initialState: State = {
-  users: [{id: 0, name: 'Admin'}] // possibilité d'ajouter des dummy data ici
+  users: [{id: 0, name: 'Admin'}], // possibilité d'ajouter des dummy data ici
+  isLoading: false
 }
 
 export function usersReducer(state: State = initialState, action: UsersReducerActions.UserActions) {
@@ -16,6 +17,7 @@ export function usersReducer(state: State = initialState, action: UsersReducerAc
     case UsersReducerActions.INIT_USERS:
       return {
         ...state,
+        isLoading: true,
         users: [...action.payload]
       }
     case UsersReducerActions.ADD_USER:
