@@ -46,7 +46,7 @@ import * as fromApp from './shared/store/app.reducer';
   ],
 ````
 
-### Appel depuis controller
+### Appel depuis controller (ou service)
 
 ````typescript
 export class UsersComponent implements OnInit {
