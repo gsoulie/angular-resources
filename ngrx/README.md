@@ -19,7 +19,11 @@ Pour manipuler les data de ce state, les composants / services vont utiliser des
 ### ce qui ne doit pas etre inlut dans le store 
 * état non partagé avec d'autres composants. si un service n'est utile qu'a un seul compo, ce n'est pas la peine de le gerer avec ngrx      
 * état d'un formulaire angular    
-* objet complexes difficilement modifiables     
+* objet complexes difficilement modifiables  
+
+### A savoir
+
+NgRx gère tout seul le désabonnement, il n'est donc pas nécessaire de stocker la souscription au store dans une varbiable pour se désabonner dans le *ngOnDestroy*
 
 ## Utilisation
 
