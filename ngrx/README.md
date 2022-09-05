@@ -30,6 +30,22 @@ Pour manipuler les data de ce state, les composants / services vont utiliser des
 
 https://github.com/gsoulie/angular-resources/tree/master/ngrx      
 
+### Import des reducers
+
+*app.module.ts*
+
+````typescript
+import * as fromApp from './shared/store/app.reducer';
+
+ imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    StoreModule.forRoot(fromApp.globalReducer) // <-- NgRx
+  ],
+````
+
 ### Appel depuis controller
 
 ````typescript
