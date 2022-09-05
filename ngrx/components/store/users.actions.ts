@@ -7,7 +7,9 @@ export const DELETE_USER = '[User] DELETE_USER';
 export const INIT_USERS = '[User] INIT_USERS';
 
 export class InitUsers implements Action {
-  readonly type = INIT_USERS;
+  readonly type = INIT_USERS;  
+
+  constructor(public payload: User[]) {}
 }
 export class AddUser implements Action {
   readonly type = ADD_USER;
