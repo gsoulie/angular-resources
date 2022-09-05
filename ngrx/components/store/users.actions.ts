@@ -1,30 +1,28 @@
 import { Action } from "@ngrx/store";
 import { User } from "../user.model";
 
-export const ADD_USER = '[User] Add user';
-export const UPDATE_USER = '[User] Update user';
-export const DELETE_USER = '[User] Delete user';
-export const INIT_USERS = '[User] Initialize users';
+export const ADD_USER = '[User] ADD_USER';
+export const UPDATE_USER = '[User] UPDATE_USER';
+export const DELETE_USER = '[User] DELETE_USER';
+export const INIT_USERS = '[User] INIT_USERS';
 
 export class InitUsers implements Action {
-  readonly type: string = INIT_USERS;
-
-  constructor(public payload: User[]) {}
+  readonly type = INIT_USERS;
 }
 export class AddUser implements Action {
-  readonly type: string = ADD_USER;
+  readonly type = ADD_USER;
 
   constructor(public payload: User) { }
 }
 
 export class DeleteUser implements Action {
-  readonly type: string = DELETE_USER;
+  readonly type = DELETE_USER;
 
   constructor(public payload: User) { }
 }
 
 export class UpdateUser implements Action {
-  readonly type: string = UPDATE_USER;
+  readonly type = UPDATE_USER;
 
   constructor(public payload: User) { }
 }
