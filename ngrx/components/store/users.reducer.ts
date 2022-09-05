@@ -14,22 +14,20 @@ const initialState: State = {
 export function usersReducer(state: State = initialState, action: UsersReducerActions.UserActions) {
   switch (action.type) {
     case UsersReducerActions.INIT_USERS:
-      const initUsers = action.payload as User[];
       return {
         ...state,
-        users: [...state.users, ...initUsers]
+        users: [...state.users, ...action.payload]
       }
     case UsersReducerActions.ADD_USER:
       return {
         ...state, // BONNE PRATIQUE : copier le contenu de l'ancien state. évite de perdre des données en route
-        users: [...state.users, action.payload] as User[]
+        users: [...state.users, action.payload]
       };
 
     case UsersReducerActions.DELETE_USER:
-      const userIdToDelete = action.payload as User;
       return {
         ...state,
-        users: state.users.filter(u => u.id !== userIdToDelete.id)
+        users: state.users.filter(u => u.id !== action.payload.id)
       };
 
     case UsersReducerActions.UPDATE_USER:
