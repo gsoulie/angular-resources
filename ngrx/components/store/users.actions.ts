@@ -1,10 +1,16 @@
 import { Action } from "@ngrx/store";
 import { User } from "../user.model";
 
-export const ADD_USER = 'ADD_USER';
-export const UPDATE_USER = 'UPDATE_USER';
-export const DELETE_USER = 'DELETE_USER';
+export const ADD_USER = '[User] Add user';
+export const UPDATE_USER = '[User] Update user';
+export const DELETE_USER = '[User] Delete user';
+export const INIT_USERS = '[User] Initialize users';
 
+export class InitUsers implements Action {
+  readonly type: string = INIT_USERS;
+
+  constructor(public payload: User[]) {}
+}
 export class AddUser implements Action {
   readonly type: string = ADD_USER;
 
@@ -24,4 +30,4 @@ export class UpdateUser implements Action {
 }
 
 // exporter un nouveau type contenant les différents type d'actions
-export type UserActions = AddUser | DeleteUser | UpdateUser;
+export type UserActions = InitUsers | AddUser | DeleteUser | UpdateUser;
