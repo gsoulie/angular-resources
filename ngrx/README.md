@@ -96,10 +96,16 @@ export const INIT_USERS = 'INIT_USERS';
 
 > Recommandation : préfixer les valeurs avec le nom de sa classe / feature ou autre
 
+*Exemples*
 ````typescript
+export const ADD_USER = '[User] Add new user';
+export const UPDATE_USER = '[User] Update user';
+export const DELETE_USER = '[User] Delete user';
+export const INIT_USERS = '[User] Initialize users';
+
+// Or
+
 export const ADD_USER = 'User_ADD_USER';
 export const UPDATE_USER = 'User_UPDATE_USER';
-export const DELETE_USER = 'User_DELETE_USER';
-export const INIT_USERS = 'User_INIT_USERS';
 ...
 ````
