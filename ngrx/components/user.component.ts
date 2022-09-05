@@ -1,6 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { UserDataService } from './user-data.service';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -21,8 +21,7 @@ import * as fromApp from '../../shared/store/app.reducer';
 export class UsersComponent implements OnInit {
   username = '';
   usersStore$: Observable<User[]>; // usage NgRx
-  isLoading$: Observable<boolean>;  // usage NgRx
-  users$: Observable<any[]>;  // usage classique
+  isLoading$: Observable<boolean>;
 
   constructor(
     private dataService: UserDataService,
@@ -31,13 +30,13 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     // usage NgRx
     this.usersStore$ = this.store.select('userState')
-    .pipe(map(state => state.users));
-    
-    this.isLoading$ = this.store.select('userState')
-    .pipe(map(state => state.isLoading));
+      .pipe(map(state => state.users));
 
-    // usage classique
-    this.users$ = this.dataService.fetchUsers();
+    this.isLoading$ = this.store.select('userState')
+      .pipe(map(state => state.isLoading));
+
+    this.dataService.fetchUsers();
+
   }
   addUser() {
     if (this.username === '') { return; }
@@ -46,17 +45,12 @@ export class UsersComponent implements OnInit {
     // usage NgRx
     this.store.dispatch(new UsersReducerActions.AddUser(newUser));
 
-    // usage classic
-    this.dataService.addUser(newUser);
     this.username = '';
   }
 
   deleteUser(user: User) {
     // usage NgRx
     this.store.dispatch(new UsersReducerActions.DeleteUser(user));
-
-    // usage classique
-    this.dataService.deleteUser(user.id);
   }
 
   updateUser(user: User) {
