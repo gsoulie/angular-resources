@@ -1,5 +1,10 @@
 # NgRx
 
+* [Présentation](#présentation-application-state)     
+* [Utilisation](#utilisation)     
+* [Important](#important)     
+* [Effects](#effects)    
+
 ## Présentation Application state
 
 Le "state" d'une application est perdu lorsqu'on redémarre / rafraichi une application web puisque ce processus entraine le vidage de la mémoire. Une des solutions pour pallier à ce problème est de créer un backend. On parle alors de "Persistent state". 
@@ -24,6 +29,7 @@ Pour manipuler les data de ce state, les composants / services vont utiliser des
 ### A savoir
 
 NgRx gère tout seul le désabonnement, il n'est donc pas nécessaire de stocker la souscription au store dans une varbiable pour se désabonner dans le *ngOnDestroy*
+[Bact to top](#ngrx)    
 
 ## Utilisation
 
@@ -84,6 +90,7 @@ export class UsersComponent implements OnInit {
   }
 }
 ````
+[Bact to top](#ngrx)    
 
 # TRES IMPORTANT
 
@@ -113,3 +120,106 @@ export const ADD_USER = 'User_ADD_USER';
 export const UPDATE_USER = 'User_UPDATE_USER';
 ...
 ````
+[Bact to top](#ngrx)    
+## Effects
+
+Les *Effects* permettent de gérer la problématique des "effets de bords". Sont considérés comme effets de bord : les **appels http**, **local storage** etc...
+
+Installation du package Effects ````npm i --save @ngrx/effects````
+
+Les effects sont ensuite gérés dans des fichier séparés de type *xxxx.effects.ts*. On peut y déléguer les appels http par exemple :
+
+````typescript
+import { User } from '../user.model';
+import { HttpClient } from '@angular/common/http';
+import { Actions, ofType, createEffect } from "@ngrx/effects";
+import * as UserActions from './users.actions';
+import { map } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class UserEffects {
+
+  constructor(
+    private actions$: Actions,
+    private http: HttpClient) { }
+
+  fetchData$ = createEffect((): any => {
+    return this.actions$.pipe(
+      ofType(UserActions.FETCH_USERS),
+      switchMap(() => this.getUsers() ),
+      map(users => {
+        return users.map(user => {
+          return {
+            ...user
+          }
+        })
+      }),
+      map(users => new UserActions.SetUsers(users))
+    )
+  });
+
+  getUsers() { return this.http.get<User[]>('/assets/data.json'); }
+}
+````
+
+Déclenchement depuis un service
+
+*user.service.ts*
+````typescript
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../shared/store/app.reducer'
+import * as DataActions from './ngrx-store/data.actions';
+import * as UserActions from './ngrx-store/users.actions';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserDataService {
+
+  constructor(
+   private store: Store<fromApp.AppGlobalState>,
+   private actions$: Actions) { }
+
+  fetchUsers(): Observable<User[]> {
+    this.store.dispatch(new UserActions.FetchUsers());
+    
+    return this.actions$.pipe(
+      ofType(UserActions.SET_USERS),
+      take(1)
+    );
+  }
+}
+````
+
+Appel depuis le composant
+
+*user.component.ts*
+````typescript
+import { Store } from '@ngrx/store';
+import * as UsersReducerActions from './ngrx-store/users.actions';
+import * as fromApp from '../../shared/store/app.reducer';
+
+export class UsersComponent implements OnInit {
+ usersStore$: Observable<User[]>; // usage NgRx
+ isLoading$: Observable<boolean>;
+ 
+ constructor(
+     private dataService: UserDataService,
+     private store: Store<fromApp.AppGlobalState>) { }
+
+   ngOnInit(): void {
+     // usage NgRx
+     this.usersStore$ = this.store.select('userState')
+       .pipe(map(state => state.users));
+
+     this.isLoading$ = this.store.select('userState')
+       .pipe(map(state => state.isLoading));
+
+     this.dataService.fetchUsers();
+ }
+}
+````
+
+[Bact to top](#ngrx)    
