@@ -1,14 +1,12 @@
-import { CustomState } from './ngrx-store/users.reducer';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { UserDataService } from './user-data.service';
 import { Component, OnInit } from '@angular/core';
-import { TitleStrategy } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { User } from './user.model';
 import * as UsersReducerActions from './ngrx-store/users.actions';
-import * as fromUser from './ngrx-store/users.reducer';
+import * as fromApp from '../../shared/store/app.reducer';
 
 @Component({
   selector: 'app-users',
@@ -27,7 +25,7 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private dataService: UserDataService,
-    private store: Store<fromUser.AppGlobalState>) { }
+    private store: Store<fromApp.AppGlobalState>) { }
 
   ngOnInit(): void {
     // usage NgRx
