@@ -4,22 +4,29 @@ import * as UsersReducerActions from './users.actions';
 // définition d'un state en particulier
 export interface State {
   users: User[];
-  isLoading?: boolean;
+  isLoading: boolean;
 }
 
 const initialState: State = {
-  users: [{id: 0, name: 'Admin'}], // possibilité d'ajouter des dummy data ici
+  users: [], // possibilité d'ajouter des dummy data ici
   isLoading: false
 }
 
 export function usersReducer(state: State = initialState, action: UsersReducerActions.UserActions) {
   switch (action.type) {
-    case UsersReducerActions.INIT_USERS:
+    case UsersReducerActions.FETCH_USERS:
       return {
         ...state,
-        isLoading: true,
-        users: [...action.payload]
+        isLoading: true
       }
+
+    case UsersReducerActions.SET_USERS:
+      return {
+        ...state,
+        isLoading: false,
+        users: [...state.users, ...action.payload]
+      }
+
     case UsersReducerActions.ADD_USER:
       return {
         ...state, // BONNE PRATIQUE : copier le contenu de l'ancien state. évite de perdre des données en route
