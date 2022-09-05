@@ -20,7 +20,8 @@ import * as fromApp from '../../shared/store/app.reducer';
 })
 export class UsersComponent implements OnInit {
   username = '';
-  usersStore$: Observable<{ users: User[] }>; // usage NgRx
+  usersStore$: Observable<User[]>; // usage NgRx
+  isLoading$: Observable<boolean>;  // usage NgRx
   users$: Observable<any[]>;  // usage classique
 
   constructor(
@@ -29,7 +30,11 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     // usage NgRx
-    this.usersStore$ = this.store.select('userState');
+    this.usersStore$ = this.store.select('userState')
+    .pipe(map(state => state.users));
+    
+    this.isLoading$ = this.store.select('userState')
+    .pipe(map(state => state.isLoading));
 
     // usage classique
     this.users$ = this.dataService.fetchUsers();
