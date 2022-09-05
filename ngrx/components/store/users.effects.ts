@@ -15,7 +15,7 @@ export class UserEffects {
 
   fetchData$ = createEffect((): any => {
     return this.actions$.pipe(
-      ofType(UserActions.FETCH_USERS),
+      ofType(UserActions.FETCH_USERS),  // ofType permet de filtrer sur le type d'action à trigger. Il est possible ici de spécifier plusieurs actions
       switchMap(() => this.getUsers() ),
       map(users => {
         return users.map(user => {
