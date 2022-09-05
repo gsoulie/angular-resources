@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
-import { usersReducer } from './components/users/ngrx-store/users.reducer';
+import * as fromApp from './shared/store/app.reducer';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { usersReducer } from './components/users/ngrx-store/users.reducer';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({ userState: usersReducer}) // <-- NgRx
+    StoreModule.forRoot(fromApp.globalReducer) // <-- NgRx
   ],
   providers: [],
   bootstrap: [AppComponent]
