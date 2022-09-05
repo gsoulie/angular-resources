@@ -29,3 +29,38 @@ Pour manipuler les data de ce state, les composants / services vont utiliser des
 ### Sample
 
 https://github.com/gsoulie/angular-resources/tree/master/ngrx      
+
+### Appel depuis controller
+
+````typescript
+export class UsersComponent implements OnInit {
+  username = '';
+  usersStore$: Observable<{ users: User[] }>; // usage NgRx
+  
+  constructor(private store: Store<fromUser.AppGlobalState>) { }
+
+  ngOnInit(): void {
+    // sélection du state correspondant
+    this.usersStore$ = this.store.select('userState');
+  }
+  addUser() {
+    if (this.username === '') { return; }
+    const newUser: User = { id: Date.now(), name: this.username };
+
+    // Dispatch sur action AddUser
+    this.store.dispatch(new UsersReducerActions.AddUser(newUser));
+  }
+
+  deleteUser(user: User) {
+    // Dispatch sur action DeleteUser
+    this.store.dispatch(new UsersReducerActions.DeleteUser(user));
+  }
+
+  updateUser(user: User) {
+    const updatedUser: User = { id: user.id, name: user.name + ' (updated)' };
+
+    // Dispatch sur action UpdateUser
+    this.store.dispatch(new UsersReducerActions.UpdateUser(updatedUser));
+  }
+}
+````
