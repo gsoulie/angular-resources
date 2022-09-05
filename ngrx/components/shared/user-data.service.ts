@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { User } from './user.model';
+import * as fromApp from '../../shared/store/app.reducer'
+import * as UserActions from './ngrx-store/users.actions';
+import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +14,15 @@ export class UserDataService {
   private usersSubject$ = new BehaviorSubject<User[]>([]);
   users$: Observable<User[]> = this.usersSubject$.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private store: Store<fromApp.AppGlobalState>) { }
 
   fetchUsers(): Observable<User[]> {
     return this.http.get<User[]>('/assets/data.json')
       .pipe(
-        tap(res => this.usersSubject$.next(res))
+        tap({
+          res => this.usersSubject$.next(res)
+          this.store.dispatch(new UserActions.InitUsers(res));
+        })
       );
   }
 
