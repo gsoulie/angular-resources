@@ -16,7 +16,7 @@ export function usersReducer(state: State = initialState, action: UsersReducerAc
     case UsersReducerActions.INIT_USERS:
       return {
         ...state,
-        users: [...state.users, ...action.payload]
+        users: [...action.payload]
       }
     case UsersReducerActions.ADD_USER:
       return {
