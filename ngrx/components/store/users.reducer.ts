@@ -2,22 +2,16 @@ import { User } from '../user.model';
 import * as UsersReducerActions from './users.actions';
 
 // définition d'un state en particulier
-export interface CustomState {
+export interface State {
   users: User[];
-  toto?: number;
+  //toto?: number;
 }
 
-// définition d'un state global comprenant l'ensemble des sous-state
-export interface AppGlobalState {
-  userState: CustomState;
-  //productState: ProductState etc...
-}
-
-const initialState: CustomState = {
+const initialState: State = {
   users: [{id: 0, name: 'Admin'}] // possibilité d'ajouter des dummy data ici
 }
 
-export function usersReducer(state: CustomState = initialState, action: UsersReducerActions.UserActions) {
+export function usersReducer(state: State = initialState, action: UsersReducerActions.UserActions) {
   switch (action.type) {
     case UsersReducerActions.ADD_USER:
       return {
