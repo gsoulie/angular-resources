@@ -83,6 +83,8 @@ Download a cursive font like :
 
 Add the following code into vscode *settings.json* for a minimal configuration. Other options are commented in the json below.
 
+> To edit settings.json manually, go to command palette and choose "Preferences: Open User Settings (JSON)"
+
 *settings.json*
 
 ````json
