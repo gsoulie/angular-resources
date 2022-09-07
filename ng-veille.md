@@ -22,25 +22,6 @@
 * [Angular 14](#angular-14)      
 * [Supabase](#supabase)     
 
-|exemple de badges|
-|-|
-|[<img src="https://img.shields.io/badge/TECH-MESSAGE-green.svg?logo=LOGO">](testBadge)|
-|[<img src="https://img.shields.io/badge/INFO-Angular-red.svg?logo=LOGO">](testBadge)|
-|[<img src="https://img.shields.io/badge/Ionic-Components-blue.svg?logo=LOGO">](testBadge)|
-| [<img src="https://img.shields.io/badge/Badge-brightgreen-brightgreen.svg?logo=LOGO" >](testBadge) |
-| [<img src="https://img.shields.io/badge/Badge-green-green.svg?logo=LOGO" >](testBadge) |
-| [<img src="https://img.shields.io/badge/Badge-yellow-yellow.svg?logo=LOGO" >](testBadge) |
-|[<img src="https://img.shields.io/badge/Badge-orange-orange.svg?logo=LOGO" >](testBadge) |
-|[<img src="https://img.shields.io/badge/Badge-red-red.svg?logo=LOGO" >](testBadge) |
-|[<img src="https://img.shields.io/badge/Badge-blue-blue.svg?logo=LOGO" >](testBadge) |
-|[<img src="https://img.shields.io/badge/Badge-lightgrey-lightgrey.svg?logo=LOGO" >](testBadge) |
-| [<img src="https://img.shields.io/badge/Badge-important-important.svg?logo=LOGO" >](testBadge) |
-| [<img src="https://img.shields.io/badge/Badge-critical-critical.svg?logo=LOGO" >](testBadge) |
-| [<img src="https://img.shields.io/badge/Badge-informational-informational.svg?logo=LOGO" >](testBadge) |
-| [<img src="https://img.shields.io/badge/Badge-blueviolet-blueviolet.svg?logo=LOGO" >](testBadge) |
-| [<img src="https://img.shields.io/badge/Badge-ff69b4-ff69b4.svg?logo=LOGO" >](testBadge) |
-|[<img src="https://img.shields.io/badge/Badge-ffcc00-ffcc00.svg?logo=LOGO" >](testBadge) |
-
 ## Angular
 
 Le plus populaire des frameworks js, surtout en europe. Aux US react est plus populaire.
