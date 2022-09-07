@@ -43,20 +43,29 @@ export class UsersComponent implements OnInit {
     const newUser: User = { id: Date.now(), name: this.username };
 
     // usage NgRx
-    this.store.dispatch(new UsersReducerActions.AddUser(newUser));
+    this.store.dispatch(UsersReducerActions.addUser({ payload: newUser }));
+    
+    // Ancienne syntaxe ci-dessous -->
+    //this.store.dispatch(new UsersReducerActions.AddUser(newUser));
 
     this.username = '';
   }
 
   deleteUser(user: User) {
     // usage NgRx
-    this.store.dispatch(new UsersReducerActions.DeleteUser(user));
+    this.store.dispatch(UsersReducerActions.deleteUser({ payload: user }));    
+    
+    // Ancienne syntaxe ci-dessous -->
+    //this.store.dispatch(new UsersReducerActions.DeleteUser(user));
   }
 
   updateUser(user: User) {
     const updatedUser: User = { id: user.id, name: user.name + ' (updated)' };
 
     // usage NgRx
-    this.store.dispatch(new UsersReducerActions.UpdateUser(updatedUser));
+    this.store.dispatch(UsersReducerActions.updateUser({ payload: updatedUser }));
+    
+    // Ancienne syntaxe ci-dessous -->
+    //this.store.dispatch(new UsersReducerActions.UpdateUser(updatedUser));
   }
 }
