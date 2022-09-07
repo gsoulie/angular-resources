@@ -166,6 +166,22 @@ export class UserEffects {
 }
 ````
 
+> **ofType** permet de filtrer sur le type d'effet que l'on souhaite observer. Il est possible de définir plusieurs types.
+
+Import dans app.module.ts
+
+````typescript
+import { EffectsModule } from '@ngrx/effects';
+import { UserEffects } from './components/users/ngrx-store/user.effects';
+
+@NgModule({
+  imports: [
+    ...
+    StoreModule.forRoot(fromApp.globalReducer),
+    EffectsModule.forRoot([UserEffects]) // <-- NgRx
+  ],
+````
+
 Déclenchement depuis un service
 
 *user.service.ts*
