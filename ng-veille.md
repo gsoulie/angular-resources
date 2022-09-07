@@ -22,7 +22,9 @@
 * [Angular 14](#angular-14)      
 * [Supabase](#supabase)     
 
-[<img src="https://img.shields.io/badge/WHAT-MESSAGE-COLOR.svg?logo=LOGO">](testBadge)
+[<img src="https://img.shields.io/badge/TECH-MESSAGE-COLOR.svg?logo=LOGO">](testBadge)
+[<img src="https://img.shields.io/badge/INFO-MESSAGE-BLUE.svg?logo=LOGO">](testBadge)
+[<img src="https://img.shields.io/badge/INFO-MESSAGE-ORANGE.svg?logo=LOGO">](testBadge)
 
 ## Angular
 
