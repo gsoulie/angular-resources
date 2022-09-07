@@ -8,7 +8,7 @@
 	* [Arborescence projet](https://github.com/gsoulie/angular-resources/blob/master/ng-treemap.md)     
 	* [Notions de base - Fonctionnement Javascript](https://github.com/gsoulie/angular-resources/blob/master/ng-basics.md)      
 	* [Fonctionnement Change Detection](https://github.com/gsoulie/angular-resources/blob/master/ng-change-detection.md)      
-	* [Bonnes pratiques](https://github.com/gsoulie/angular-resources/blob/master/ng-best-practices.md)     
+	* [Bonnes pratiques](https://github.com/gsoulie/angular-resources/blob/master/ng-best-practices.md) <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">    
 	* [Optimisations](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)    
 		* source-map-explorer
 		* webpack-bundle-analyzer      	 
@@ -16,7 +16,7 @@
 		* Shallow copy vs Deep copy 
 	* [VSCode](https://github.com/gsoulie/angular-resources/blob/master/ng-vscode.md)       
 	* [Modules, lazy-loading](https://github.com/gsoulie/angular-resources/blob/master/ng-module.md)       
-	* [Déploiement](https://github.com/gsoulie/angular-resources/blob/master/ng-rollout.md)     
+	* [Déploiement](https://github.com/gsoulie/angular-resources/blob/master/ng-rollout.md) <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">     
 		* web.config       	
 		* Déployer un workspace      
 		* Déployer une application avec url suffixée      
@@ -25,7 +25,7 @@
 	        * PathLocationStrategy et HashLocationStrategy              
 * Concepts       
 	* [Promise](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-promise.md)      
-	* [Observable](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-observable.md)      
+	* [Observable](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-observable.md) <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">          
 		* async pipe       
 		* filtrer un observable dans la vue via un pipe    
 		* limitation filtrage par pipe  
