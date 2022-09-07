@@ -29,7 +29,8 @@ Pour manipuler les data de ce state, les composants / services vont utiliser des
 
 ### A savoir
 
-NgRx gère tout seul le désabonnement, il n'est donc pas nécessaire de stocker la souscription au store dans une varbiable pour se désabonner dans le *ngOnDestroy*
+NgRx gère tout seul le désabonnement, il n'est donc pas nécessaire de stocker la souscription au store dans une varbiable pour se désabonner dans le *ngOnDestroy*    
+
 [Bact to top](#ngrx)    
 
 ## Utilisation
