@@ -2,10 +2,27 @@
 
 # Veille
 
+* [e2e](#e2e)    
+* [Qwik](#qwik)     
+* [React JS](#reactjs)    
+* [NextJS](#nextjs)    
+* [VueJS 3.0](#vuejs-3-.-0)    
+* [NuxtJS](#nuxtjs)     
+* [Svelte](#svelte)    
+* [Prisma](#prisma)     
+* [NestJS](#nestjs)      
+* [Nx](#nx)      
+* [snowpack](#snowpack)     
+* [deno](#deno)     
+* [Netlify](#déploiement-serverless-avec-netlify)     
+* [Flutter](#flutter)     
+* [Remix](#remix)     
 * [technos](#technos)       
 * [Application fullstack NX, NestJS, Prisma, Angular](#application-fulllstack-nx-,-nestjs-,-prisma-,-angular)     
 * [Angular 14](#angular-14)      
-* [Supabase](#supabase)      
+* [Supabase](#supabase)     
+
+[<img src="https://img.shields.io/badge/LABEL-MESSAGE-COLOR.svg?logo=LOGO">](testBadge)
 
 ## Angular
 
@@ -150,7 +167,7 @@ Un ORM est une couche d’abstraction d’accès à la base de données qui donn
 > En bref : Couche de mapping object relationnel entre nodejs et typescript
 
 ## NestJS 
-=> **framework NodeJS**, compatible TS qui permet de faire du backend avec la même architecture / syntaxe qu'un front angular. Cela facilite la maintenance et l'organisation d'un projet NodeJS. Il vient en complément de Express. 
+Framework Server Side pour NodeJS, compatible TS qui permet de faire du backend avec la même architecture / syntaxe qu'un front angular. Cela facilite la maintenance et l'organisation d'un projet NodeJS. Il vient en complément de Express. 
 	- Il y a même un paquet pour gérer swagger
 	- gère le mode monorepos
 
