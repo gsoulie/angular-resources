@@ -7,7 +7,7 @@
 
 ## Présentation Application state
 
-Le "state" d'une application est perdu lorsqu'on redémarre / rafraichi une application web puisque ce processus entraine le vidage de la mémoire. Une des solutions pour pallier à ce problème est de créer un backend. On parle alors de "Persistent state". 
+Problématique : Le "state" d'une application est perdu lorsqu'on redémarre / rafraichi une application web puisque ce processus entraine le vidage de la mémoire. Une des solutions pour pallier à ce problème est de créer un backend. On parle alors de "Persistent state". 
 
 Une autre possibilité consiste à utiliser un application state.
 
@@ -16,6 +16,7 @@ Une autre possibilité consiste à utiliser un application state.
 - basiquement les informations qui composent le state sont portées par les services ou les composants via leurs variables      
 
 **NgRX Redux**    
+
 NgRx est un framework (angular + rxjs + redux) de state management pattern qui permet de ne gérer qu'un seul State central qu'on pourrait assimiler à un gros objet JSON qui contient toutes les données du state. Cet objet devient donc la seule source de vérité (le **store** -> redux). 
 Les services et composants intéragissent toujours entre-eux mais recoivent les informations de ce state unique
 
