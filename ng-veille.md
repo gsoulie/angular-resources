@@ -2,6 +2,7 @@
 
 # Veille
 
+* [Angular](#angular)      
 * [e2e](#e2e)    
 * [Qwik](#qwik)     
 * [React JS](#reactjs)    
