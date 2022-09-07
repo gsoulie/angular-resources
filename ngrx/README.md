@@ -98,7 +98,7 @@ export class UsersComponent implements OnInit {
 
 Les codes utilisés pour identifier les actions **DOIVENT ETRES UNIQUES** dans l'application. En effet la fonction ````store.dispatch```` atteint TOUS les reducers bien que l'on spécifie un reducer particulier lors de l'appel à dispatch. De fait, il faut éviter la duplication des identifiants des actions pour prévenir d'évnetuels effets de bords.
 
-*user.actions.ts
+*user.actions.ts*
 ````typescript
 export const ADD_USER = 'ADD_USER';
 export const UPDATE_USER = 'UPDATE_USER';
