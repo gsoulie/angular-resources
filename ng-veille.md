@@ -23,6 +23,7 @@
 * [Supabase](#supabase)     
 
 |exemple de badges|
+|-|
 |[<img src="https://img.shields.io/badge/TECH-MESSAGE-green.svg?logo=LOGO">](testBadge)|
 |[<img src="https://img.shields.io/badge/INFO-Angular-red.svg?logo=LOGO">](testBadge)|
 |[<img src="https://img.shields.io/badge/INFO-MESSAGE-orange.svg?logo=LOGO">](testBadge)|
