@@ -1,0 +1,11 @@
+ <div>
+  <label>Add item</label>&nbsp;
+  <input type="text" [(ngModel)]="newItem" />&nbsp;
+  <button class="btn btn-primary" (click)="addItem()">Ajouter</button>
+</div>
+<div
+  *ngFor="let item of items; let i = index"
+  class="item"
+  [@list1]="">{{ item }}
+  <button class="btn btn-clear" (click)="removeItem(i)">Remove</button>
+</div>
