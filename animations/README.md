@@ -41,3 +41,32 @@ Par défaut, chaque étape du keyframe a la même durée (durée totale animatio
         ]))
       ]),
 ````
+
+## Important
+
+L'ordre des animations à son importance ! En effet les animations sont jouées suivant dans l'ordre dans lequel elles sont implémentées
+
+````typescript
+transition('* => void', [
+  animate(300, style({
+    color: 'red'
+  })),
+  animate(300, style({
+    opacity: 0,
+    transform: 'translateX(100px)'
+  })),
+
+]),
+
+// NE DONNERA PAS LE MEME RESULTAT QUE 
+
+transition('* => void', [
+  animate(300, style({
+    opacity: 0,
+    transform: 'translateX(100px)'
+  })),
+  animate(300, style({
+    color: 'red'
+  })),
+]),
+````
