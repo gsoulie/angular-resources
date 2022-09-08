@@ -45,7 +45,6 @@ Par défaut, chaque étape du keyframe a la même durée (durée totale animatio
 ## Important
 
 * L'ordre des animations à son importance ! En effet les animations sont jouées suivant dans l'ordre dans lequel elles sont implémentées.     
-* De plus une animation attendra toujours la fin de l'animation précédente avant de se déclencher     
 
 ````typescript
 transition('* => void', [
@@ -69,5 +68,22 @@ transition('* => void', [
   animate(300, style({
     color: 'red'
   })),
+]),
+````
+
+* De plus une animation attendra toujours la fin de l'animation précédente avant de se déclencher ! Pour déclencher plusieurs animations en même temps on peut utiliser la fonction ````group()````     
+
+*Utilisation de group*
+````typescript
+transition('* => void', [
+  group([
+    animate(300, style({
+      color: 'red'
+    })),
+    animate(800, style({
+      opacity: 0,
+      transform: 'translateX(100px)'
+    })),
+  ])
 ]),
 ````
