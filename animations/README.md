@@ -87,3 +87,16 @@ transition('* => void', [
   ])
 ]),
 ````
+
+## Ecoute événements start et done
+
+Angular offre la possibilité d'ajouter des listener sur le début de l'animation et la fin de l'animation via les event binding ````event.start```` et ````event.done````. Ceci permet de pouvoir jouer du code si nécessaire, au démarrage ou à la fin d'une animation
+
+````html
+<div
+      *ngFor="let item of items; let i = index"
+      [@list2]=""
+      (@list2.start)="animationStarted($event)"
+      (@list2.done)="animationDone($event)">{{ item }}
+</div>
+````
