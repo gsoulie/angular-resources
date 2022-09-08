@@ -38,60 +38,10 @@ NgRx gère tout seul le désabonnement, il n'est donc pas nécessaire de stocker
 ### Installation
 
 ````npm i --save @ngrx/store````
-### Sample
+### Projet exemple
 
 https://github.com/gsoulie/angular-resources/tree/master/ngrx      
 
-### Import des reducers
-
-*app.module.ts*
-
-````typescript
-import * as fromApp from './shared/store/app.reducer';
-
- imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    StoreModule.forRoot(fromApp.globalReducer) // <-- NgRx
-  ],
-````
-
-### Appel depuis controller (ou service)
-
-````typescript
-export class UsersComponent implements OnInit {
-  username = '';
-  usersStore$: Observable<{ users: User[] }>; // usage NgRx
-  
-  constructor(private store: Store<fromUser.AppGlobalState>) { }
-
-  ngOnInit(): void {
-    // sélection du state correspondant
-    this.usersStore$ = this.store.select('userState');
-  }
-  addUser() {
-    if (this.username === '') { return; }
-    const newUser: User = { id: Date.now(), name: this.username };
-
-    // Dispatch sur action AddUser
-    this.store.dispatch(UsersReducerActions.AddUser({payload: newUser}));
-  }
-
-  deleteUser(user: User) {
-    // Dispatch sur action DeleteUser
-    this.store.dispatch(UsersReducerActions.DeleteUser({ payload: user }));
-  }
-
-  updateUser(user: User) {
-    const updatedUser: User = { id: user.id, name: user.name + ' (updated)' };
-
-    // Dispatch sur action UpdateUser
-    this.store.dispatch(UsersReducerActions.UpdateUser({payload: updatedUser}));
-  }
-}
-````
 [Bact to top](#ngrx)    
 
 # TRES IMPORTANT
