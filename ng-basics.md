@@ -3,7 +3,7 @@
 # Notions de base   
 
 * [Event loop](#event-loop-javascript)     
-* [Webpack](https://blog.neolynk.fr/2019/11/20/a-quoi-sert-webpack-et-comment-fonctionne-t-il/)      
+* [Webpack](#webpack)      
 
 ## Event loop Javascript
 
@@ -57,3 +57,12 @@ Les 3 fichiers principaux pour créer une appli angular
 https://medium.com/@simonb90/comprendre-la-viewencapsulation-dans-un-component-angular-83decae8f092      
 
 *Vous pouvez considérer le Shadow DOM comme un “DOM dans un DOM”. C'est son propre arbre DOM isolé avec ses propres éléments et styles, complètement isolé du DOM original. A noter qu'un shadow dom est toujours rattaché à un élément du DOM (ex : <input type="range"> tout le shadow DOM qui découle du composant range est rattaché à l'élément <input> du DOM)*
+
+
+## Webpack
+
+https://blog.neolynk.fr/2019/11/20/a-quoi-sert-webpack-et-comment-fonctionne-t-il/
+
+Webpack est un outil de compilation, sont but est de prendre tous les fichiers du projet est d'en faire un bundle utilisable dans le browser
+
+
