@@ -1,0 +1,8 @@
+<div class="container">
+  <button class="btn btn-danger" (click)="onAnimate()">animate</button>&nbsp;
+  <button class="btn btn-warning" (click)="onShrink()">shrink</button>
+  <hr>
+  <div class="animatedDiv" [@divState]="stateBind"></div>
+  <br>
+  <div class="animatedDiv" [@wildState]="wildState"></div>
+</div>
