@@ -4,6 +4,7 @@
 
 * [Event loop](#event-loop-javascript)     
 * [Webpack](#webpack)      
+* [Fonctionnement webpack et optimisations](https://christianlydemann.com/the-complete-guide-to-angular-load-time-optimization/)     
 
 ## Event loop Javascript
 
