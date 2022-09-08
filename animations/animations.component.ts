@@ -4,7 +4,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-animations',
   templateUrl: './animations.component.html',
-  styleUrls: ['./animations.component.scss'],
+   styles: [`
+    .animatedDiv {
+      width: 100px;
+      height: 100px;
+    }
+  `],
   standalone: true,
   animations: [
     trigger('divState', [
