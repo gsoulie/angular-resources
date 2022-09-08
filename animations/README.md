@@ -71,7 +71,7 @@ transition('* => void', [
 ]),
 ````
 
-* De plus une animation attendra toujours la fin de l'animation précédente avant de se déclencher ! Pour déclencher plusieurs animations en même temps on peut utiliser la fonction ````group()````     
+* De plus une animation attendra toujours la fin de l'animation précédente avant de se déclencher ! Grâce à la fonction ````group()```` il est possible de "grouper" plusieurs animations ayant une durée différente et de les déclencher ensemble en même temps
 
 *Utilisation de group*
 ````typescript
