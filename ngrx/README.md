@@ -76,19 +76,19 @@ export class UsersComponent implements OnInit {
     const newUser: User = { id: Date.now(), name: this.username };
 
     // Dispatch sur action AddUser
-    this.store.dispatch(new UsersReducerActions.AddUser(newUser));
+    this.store.dispatch(UsersReducerActions.AddUser({payload: newUser}));
   }
 
   deleteUser(user: User) {
     // Dispatch sur action DeleteUser
-    this.store.dispatch(new UsersReducerActions.DeleteUser(user));
+    this.store.dispatch(UsersReducerActions.DeleteUser({ payload: user }));
   }
 
   updateUser(user: User) {
     const updatedUser: User = { id: user.id, name: user.name + ' (updated)' };
 
     // Dispatch sur action UpdateUser
-    this.store.dispatch(new UsersReducerActions.UpdateUser(updatedUser));
+    this.store.dispatch(UsersReducerActions.UpdateUser({payload: updatedUser}));
   }
 }
 ````
@@ -98,29 +98,14 @@ export class UsersComponent implements OnInit {
 
 Les codes utilisés pour identifier les actions **DOIVENT ETRES UNIQUES** dans l'application. En effet la fonction ````store.dispatch```` atteint TOUS les reducers bien que l'on spécifie un reducer particulier lors de l'appel à dispatch. De fait, il faut éviter la duplication des identifiants des actions pour prévenir d'évnetuels effets de bords.
 
-*user.actions.ts*
-````typescript
-export const ADD_USER = 'ADD_USER';
-export const UPDATE_USER = 'UPDATE_USER';
-export const DELETE_USER = 'DELETE_USER';
-export const INIT_USERS = 'INIT_USERS';
-...
-````
-
 > Recommandation : préfixer les valeurs avec le nom de sa classe / feature ou autre
 
 *Exemples*
 ````typescript
-export const ADD_USER = '[User] Add new user';
-export const UPDATE_USER = '[User] Update user';
-export const DELETE_USER = '[User] Delete user';
-export const INIT_USERS = '[User] Initialize users';
-
-// Or
-
-export const ADD_USER = 'User_ADD_USER';
-export const UPDATE_USER = 'User_UPDATE_USER';
-...
+const ADD_USER = '[User] Add new user';
+const UPDATE_USER = '[User] Update user';
+const DELETE_USER = '[User] Delete user';
+const INIT_USERS = '[User] Initialize users';
 ````
 [Bact to top](#ngrx)    
 ## Effects
@@ -149,7 +134,7 @@ export class UserEffects {
 
   fetchData$ = createEffect((): any => {
     return this.actions$.pipe(
-      ofType(UserActions.FETCH_USERS),
+      ofType(UserActions.fetchUser),
       switchMap(() => this.getUsers() ),
       map(users => {
         return users.map(user => {
@@ -158,7 +143,7 @@ export class UserEffects {
           }
         })
       }),
-      map(users => new UserActions.SetUsers(users))
+      map(users => UserActions.setUsers({ payload: users }))
     )
   });
 
@@ -201,10 +186,10 @@ export class UserDataService {
    private actions$: Actions) { }
 
   fetchUsers(): Observable<User[]> {
-    this.store.dispatch(new UserActions.FetchUsers());
+    this.store.dispatch(UserActions.fetchUsers());
     
     return this.actions$.pipe(
-      ofType(UserActions.SET_USERS),
+      ofType(UserActions.setUsers),
       take(1)
     );
   }
