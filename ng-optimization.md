@@ -4,6 +4,7 @@
 * [Optimisation lancement application](#optimisation-lancement-application)     
 * [Zone.js](#zone.js)     
 * [Optimisations js](#optimisations-js)      
+* [Optimisation font](#optimisation-font)      
 * [Analyse du bundle](#analyse-du-bundle)       
 
 ## Général
@@ -110,6 +111,12 @@ https://www.youtube.com/watch?v=x0Dvpu2jcUo&list=PLiO4ScU0Pxp0cAxMqGCtRmvRGA5vjI
 méthode plus performante pour déclencher des éléments lors d'un scroll (exemple dpage web bootstrap avec des animations lors du scroll qui font apparaître des éléments) SANS utiliser l'event scroll mais le IntersectionObserver qui est plus performant et très simple d'utilisation
 
 [Back to top](#optimisations)
+
+## Optimisation font
+
+Afin de limiter l'impact du chargement des fonts est d'utiliser ````font-display : swap```` sur votre police CSS. Cela indiquera au navigateur d'utiliser une police système comme espace réservé si la police n'est pas encore téléchargée et de la remplacer par la vraie police une fois qu'elle est prête.
+
+[Back to top](#optimisations)      
 
 ## Analyse du bundle
 
