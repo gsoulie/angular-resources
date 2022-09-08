@@ -6,6 +6,7 @@
 * [animate.css](#animate-.-css)    
 * [animation controller](#animation-controller)     
 * [animation réutilisable](https://netbasal.com/creating-reusable-animations-in-angular-6a2350d6191a)     
+* [Exemples](https://github.com/gsoulie/angular-resources/tree/master/animations)      
 
 ## animate.css
 
