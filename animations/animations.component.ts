@@ -45,6 +45,13 @@ import { Component, OnInit } from '@angular/core';
       })),
       transition('normal <=> highlighted', animate(800)),
       transition('shrunken <=> *', animate(800)),
+      
+      // Ajout de plusieurs états lors de la transition
+      /*transition('shrunken <=> *', [
+        animate(500, style({ backgroundColor: 'orange' })), // starting phase
+        animate(800, style({ borderRadius: '50px' })),
+        animate(500)  // ending phase
+      ]),*/
     ])
   ]
 })
