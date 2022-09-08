@@ -44,7 +44,8 @@ Par défaut, chaque étape du keyframe a la même durée (durée totale animatio
 
 ## Important
 
-L'ordre des animations à son importance ! En effet les animations sont jouées suivant dans l'ordre dans lequel elles sont implémentées
+* L'ordre des animations à son importance ! En effet les animations sont jouées suivant dans l'ordre dans lequel elles sont implémentées.     
+* De plus une animation attendra toujours la fin de l'animation précédente avant de se déclencher     
 
 ````typescript
 transition('* => void', [
