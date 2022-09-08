@@ -9,7 +9,11 @@
 
 https://angular.io/guide/universal
 
-Initialement, les interfaces Angular sont entièrement rendues dans le browser CSR (Client Side Rendering). Angular universal permet de pre-render l'app angular côté serveur.
+On utilise généralement Angular Universal pour pré-rendre les pages Angular sur le serveur. Une fois que l'application s'exécute sur le client, il s'agit à nouveau d'un SPA normal.
+
+Le rendu côté serveur (SSR) peut avoir du sens en raison de considérations SEO (le crawler d'exploration doit voir ce que vos utilisateurs voient) ou parce que vous souhaitez fournir une page finie à vos utilisateurs (plutôt que de créer la page dans le navigateur).
+
+Mais cela a également une implication importante : vous NE DEVEZ PAS utiliser d'API de navigateur uniquement comme ````document.querySelector()```` dans votre code Angular ! Simplement parce qu'il s'exécutera sur le serveur et là, de telles API ne sont pas disponibles.
 
 > Angular universal créé donc un simple serveur qui fait simplement un pré-rendu des pages angular quand on les visites.
 
