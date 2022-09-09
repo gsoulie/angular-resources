@@ -103,20 +103,27 @@ self.addEventListener('message', (evt) => {
 
 S'il y a besoin de stopper l'exécution du web worker depuis le thread principal, il suffit d'exécuter la commande ````webWorker.terminate();````
 
-> **!!! ATTENTION !!!** lors de la destruction d'un composant auquel est rattaché un worker, ce dernier n'est pas détruit et continue de tourner !! Il est donc imératif à minima de stopper le worker dans le ````ngOnDestroy```` du composant associé à moins qu'il soit vraiment indispensable de laisser tourner le worker
+> **!!! ATTENTION !!!** lors de la destruction d'un composant auquel est rattaché un worker, ce dernier n'est pas détruit et continue de tourner !! Il est donc impératif à minima de stopper le worker dans le ````ngOnDestroy```` du composant associé à moins qu'il soit vraiment indispensable de laisser tourner le worker
 
-## Service Worker
 [Back to top](#service-workers---web-workers)    
 
+## Service Worker
+
 [Tutorial Academind](https://www.youtube.com/watch?v=5YtNQJQu31Y&ab_channel=Academind)      
+
+Le service worker s'exécute dans un thread différent du thread principal JS et il est découplé des pages html lui permettant ainsi de s'exécuter en arrière plan de manière autonome.
+
+Il permet entre autre d'écouter les requêtes http sortantes et de mettre en cache les réponses afin de les restituer en cas de perte de connexion.
+
+Il agit comme un proxy entre le front et le backend
 
 ### Installation
 
 ````ng add @angular/pwa````
 
 Ceci va engendrer la création / modification des éléments suivants :
-* ngsw-config.json      
-* src/manifest.webmanifest      
+* ngsw-config.json : configuration du service worker     
+* src/manifest.webmanifest : paramétrage couleur et icônes de l'application     
 * src/assets/icons/icon-xxxxxx.png       
 * index.html      
 * angular.json ````"serviceWorker": true````     
@@ -133,65 +140,76 @@ Pour tester son fonctionnement il faut donc compiler en mode production et faire
 
 Le noeud *assetsGroups* est utilisé pour mettre en cache les ressources statiques
 
-"installMode": "prefetch", // charge les données même si on en a pas encore besoin        
-"installMode": "lazy", // charge les données au moment où l'on en a besoin
+````"installMode": "prefetch",```` // charge les données même si on en a pas encore besoin        
+````"installMode": "lazy",```` // charge les données au moment où l'on en a besoin
 
-#### mise en cache font google
+### Tester le fonctionnement
+
+compiler le projet en mode production puis se positionner dans le répertoire *dist/<nom_app>* et lancer un serveur ````http-server -p 8080````
+
+Charger les données de l'application en utilisation normale puis se rendre dans l'onglet *Application -> Service Workers* de chrome et passer le 
+service en mode *Offline*.
+
+Recharger la page, les données devraient maintenant être chargées depuis le service worker (voir onglet Network)
+
+> Attention : couper la connexion internet ou passer en mode Offline depuis l'onglet network va rendre la récupération des data en échec. Cependant 
+l'application ne présentera pas une page 404 mais bien la page attendue avec son contenu statique affiché.
+
+### Configuration de la mise en cache
 
 Dans le cas de l'utilisation d'une font google ou autre via une url, ajouter l'url de la font dans le fichier *ngsw-config.json*
 
 ````typescript
-"assetGroups": [
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",	// root page que l'on souhaite mettre en cache
+  "assetGroups": [	// détermine quels données STATIQUES doivent être mises en cache
     {
       "name": "app",
-      "installMode": "prefetch",
+      "installMode": "prefetch",	// prefetch = seront mis en cache même s'ils ne sont pas utilisés
       "resources": {
-        "files": [
+        "files": [	// fichiers à mettre en cache
           "/favicon.ico",
           "/index.html",
           "/manifest.webmanifest",
           "/*.css",
           "/*.js"
         ],
-        "urls": [	// <-- liste des urls à mettre en cache
-		  "https://fonts.gstatic.com",
-          "https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300&family=Pacifico&display=swap"
-        ]
+	"urls": [	// données provenant d'url externes
+	    "https://fonts.gstatic.com/**",	// obligatoire pour les fonts google
+	    "https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swa"	//google font par ex
+	]
       }
     },
-````
-
-#### mise en cache données statiques (api)
-
-Imaginons qu'une application utilise l'api jsonplaceholder pour lister des posts : 
-
-*home.component.html*
-````
- ngOnInit(): void {
-    this.http.get<Post[]>('https://jsonplaceholder.typicode.com/posts')
-    .subscribe(res => this.posts = res);
-  }
-````
-
-Pour pouvoir mettre en cache les résultats de l'api, ajouter un noeud **dataGroups** dans le fichier *ngsw-config.json* pour gérer la mise en cache des données dynamiques
-
-````typescript
-"dataGroups": [
     {
-      "name": "jsonplaceholder-posts",
-      "urls": [
-        "https://jsonplaceholder.typicode.com/posts"
-      ],
-      "version": 1,
-      "cacheConfig": {
-        "maxAge": "1d", // durée de conservation en cache (ex : 1d, 12h, 50m...) voir documentation officielle pour les unités
-        "maxSize" : 100, // nombre d'entrées à garder en cache
-        "timeout": "10s", // durée d'attente de la réponse du serveur avant de basculer sur le chargement des données en cache
-	"strategy": "freshness" // toujours récupérer les données du backend en premier et si on est offline chercher les données en cache
-	//"strategy": "performance" // cache-first, cherche à afficher des données le plus vite possible. Prend en compte le maxAge
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",	// quand on déploie une nouvelle version de l'application
+      "resources": {
+        "files": [
+          "/assets/**",
+          "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+        ]
       }
     }
+  ],
+  "dataGroups": [	// donnés DYNAMIQUES
+	{
+		"name": "jsonPlaceHolderPosts",	// <-- naming au choix
+		"urls": [
+			"https://jsonplaceholder.typicode.com/posts"
+		],
+		"cacheConfig": {
+			"maxSize": 10, // combien de réponses d'api on souhaite garder en cache
+			"maxAge": "2d", // combien de temps on souhaite conserver les données
+			"timeout": "10s", // durée d'attente de la réponse du serveur avant de basculer sur le chargement des données en cache
+			"strategy": "freshness" // toujours récupérer les données du backend en premier et si on est offline chercher les données en cache
+			//"strategy": "performance" // cache-first, cherche à afficher des données le plus vite possible. Prend en compte le maxAge
+		}
+		//"version": 2
+	}
   ]
+}
 ````
 
 [Back to top](#service-workers---web-workers)    
