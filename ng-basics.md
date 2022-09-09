@@ -8,6 +8,8 @@
 
 ## Event loop Javascript
 
+> Important: JS est **single thread**
+
 <img src="https://github.com/gsoulie/angular-resources/blob/master/js.png" align="center" width="600">
 
 JavaScript gère la concurrence grâce à une « boucle d'événements ».
