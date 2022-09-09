@@ -5,6 +5,7 @@
 * [Tester le bundle généré dans le répertoire dist](#tester-le-bundle-généré-dans-le-répertoire-dist)         
 * [Tests unitaires et e2e tests](#tests-unitaires-et-e2e-tests)     
 * [e2e avec Cypress](#e2e-avec-cypress)     
+* [Karma](#karma)      
 
 ## Tester le bundle généré dans le répertoire dist
 
@@ -290,3 +291,102 @@ describe('menu-navigation', () => {
 })
 ````
 [Back to top](#tests-unitaires)
+
+
+## Karma
+
+### Injection service
+
+````typescript
+// Injection globale
+beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ UnitTestComponent ],
+      providers: [
+        {
+          provide: UnitTestService  // injecter le service utilisé dans le composant
+        }
+      ]
+    })
+    .compileComponents();
+
+    unitTestService = TestBed.inject(UnitTestService);
+	
+    fixture = TestBed.createComponent(UnitTestComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+it('inject service', () => {
+	// Injection locale
+	let myService = TestBed.inject(MyDataService);
+	fixture.detectChanges();	// important
+	
+	expect(myService.username).toEqual(component.username);
+}
+````
+[Back to top](#tests-unitaires)
+
+### Service avec observable et async
+
+*data.service.ts*
+````typescript
+fetchPosts(): Observable<IPost[]> {
+return this.http.get<IPost[]>('https://jsonplaceholder.typicode.com/posts')
+  .pipe(
+	shareReplay(),	// transformer de Cold vers Hot pour ne pas faire plusieurs appels
+	tap(res => this.posts$.next(res))
+  );
+}
+````
+
+*home.component.spec.ts*
+````typescript
+describe('HomeComponent', () => {
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
+  let dataService: DataService;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+      declarations: [HomeComponent],
+      providers: [{
+        provide: DataService
+      }]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(HomeComponent);
+    component = fixture.componentInstance;
+    dataService = fixture.debugElement.injector.get(DataService);
+    fixture.detectChanges();
+  });
+
+
+  it('should load 100 posts', waitForAsync(() => {	// waitForAsync remplace async
+    dataService.fetchPosts()
+      .subscribe(res => {
+        expect(res).toHaveSize(100);
+      });
+  }))
+});
+````
+[Back to top](#tests-unitaires)
+
+### Tester un pipe
+
+````typescript
+describe('ReversePipe', () => {
+  let pipe: ReversePipe;
+
+  beforeAll(async () => { pipe = new ReversePipe(); });
+
+  it('create an instance', () => { expect(pipe).toBeTruthy(); });
+
+  it('should revert string', () => {
+    expect(pipe.transform('guillaume')).toEqual('emualliug');
+  })
+});
+````
+[Back to top](#tests-unitaires)      
