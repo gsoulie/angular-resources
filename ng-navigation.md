@@ -521,7 +521,6 @@ Il est donc conseillé de ne pas utiliser de resolver pour gérer des navigation
 
 
 ## Guards
-[Back to top](#navigation)
 	
 https://www.youtube.com/watch?v=YJ4dgoHEmGs&ab_channel=CodeShotsWithProfanis      
 
@@ -542,6 +541,32 @@ CanActivate() {
 
 **CanDeactivate** permet de vérifier si j'ai le droit de quitter la route actuelle. C'est utilisé dans le cas ou l'utilisaateur est entrain de modifier un formulaire par exemple.
 
+### Exemple guard
+	
+````typescript
+export class AuthGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) { }
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
+    return this.authService.user	// user est de type : user = new BehaviorSubject<User>(null);
+      .pipe(
+        take(1),	// évite de conserver une souscription. Permet de souscrire en one shot à chaque appel du guard
+        map(user => {
+          const isAuth = !!user;
+          if (isAuth) {
+            return true;
+          }
+          return this.router.createUrlTree(['/login']);
+        })
+      );
+  }
+````
+	
+[Back to top](#navigation)
+	
 ## Route source
 
 Connaître la route depuis laquelle on vient
@@ -558,8 +583,9 @@ ngOnInit() {
 }
 ````
 
-## Tab Routing avec retour depuis modale
 [Back to top](#navigation)
+
+## Tab Routing avec retour depuis modale
 
 Exemple complet d'un routing via un tagGroup (onglet) avec retour sur le parent depuis une modale enfant. 
 
