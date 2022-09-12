@@ -17,8 +17,8 @@ Sans ça, l'ajout du projet sur git ne pourra se faire correctement et le réper
 
 Un workspace Angular est ensemble d'application et de librairies. Toutes les applications d'un même workspace partageront les mêmes dépendances (angular.json / package.json)
 
-générer un workspace : ````ng new <mon-workspace> --createApplication=false --directory=frontends --interactive=false````      
-générer une application : ````ng g application <mon-application> --style=scss --routing=true````       
+générer un workspace : ````ng new <mon-workspace> --createApplication=false // optionnel => --directory=frontends --interactive=false````      
+générer une application : ````ng g application <mon-application> // optionnel => --style=scss --routing=true````       
 générer une librairie : ````ng g library <ma-lib>```` **Attention** au paramétrage du *newProjectRoot* dans le *angular.json*       
 générer un composant dans un projet/lib du workspace (spécifier le projet/lib) : ````ng g component components/mon-compo --project=<ma-lib>````
 
