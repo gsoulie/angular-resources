@@ -3,6 +3,7 @@
 # Angular material tips
 
 Pour surcharger les composant Angular Material, il est important d'utiliser le combinator **::ng-deep** (qui remplace l'ancienne syntaxe */deep/*).
+* [Schematic commands](#schematic-commands)      
 * [Customiser le thème angular material](https://dev.to/codingcatdev/angular-material-theming-32km)     
 * [Comprendre ::ng-deep](#comptendre-ng-deep)     
 * [Surcharge de style](#surcharge-de-style)     
@@ -18,6 +19,11 @@ Pour surcharger les composant Angular Material, il est important d'utiliser le c
 * [unités % vs vh](#unites-%-vs-vh)     
 * [custom css menu](#custom-css-menu)       
 * [mat-table](#mat-table)       
+
+## Schematic commands
+
+Générer un composant contenant un nav menu :
+````ng g @angular/material:nav <component-name>````
 
 ## Comprendre ng-deep
 
