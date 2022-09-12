@@ -19,5 +19,12 @@
 * tslint / eslint    
 * sass lint     
 * Template String converter   
+* tokyo hack     
+* vetur      
+* vetur E     
+* vue     
+* vue 3 snippets      
+* vue language features    
+* vue helper      
 
 [Back to top](#vscode-extensions)
