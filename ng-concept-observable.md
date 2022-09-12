@@ -521,6 +521,17 @@ find(id: string): Observable<Resource> {
 }
 ````
 
+
+### Tips
+
+* S'abonner et se désabonner dans la foulée après avoir reçu une réponse
+
+````typescript
+this.dataService
+.pipe(take(1))	// se désabonne automatiquement après réception de la première réponse
+.subscribe(res => this.data = res)
+````
+
 ## Cold et Hot 
 [Back to top](#observables)
 
