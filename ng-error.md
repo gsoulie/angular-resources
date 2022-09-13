@@ -4,18 +4,15 @@
 
 documentation : https://angular.io/api/core/ErrorHandler
 
-
-## Gestion des erreurs
-
 https://www.youtube.com/watch?v=e03EHZIVJtM&ab_channel=DecodedFrontend     
 
 
-### Try-catch
+## Try-catch
 
 La technique *try-catch* doti être utilisée pour des traitements asynchrones et pour des traitements d'erreur spécifiques. Ils ne sont pas très adapté à
 la gestion globale d'erreur
 
-### Surcharger le ErrorHandler d'Angular
+## Surcharger le ErrorHandler d'Angular
 
 Angular gère lui-même une sorte de *try-catch* général le *ErrorHandler*. Il est possible de surcharger ce handler pour le customiser.
 
@@ -106,7 +103,7 @@ ngOnInit() {
 </div>
 ````
 
-### Gestion globale erreur http avec retry
+## Gestion globale erreur http avec retry
 
 => Utilisation d'un intercepteur Http
 
