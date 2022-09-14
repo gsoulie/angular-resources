@@ -435,11 +435,15 @@ Naviguer sur une étape spécifique du workflow depuis un autre écran
 
 C'est webpack qui va prendre en charge le lazy loading et créer un chunk du module
 
-*Syntaxe Angular 8*
+*app-routing.module.ts*
 ````typescript
 {
-	path: 'tickets',
-	loadChildren:() => import('./lazy/Lazy.module').then(m=>m.NomModule)
+    path: 'user/:id',
+    loadChildren: () => import('./components/user/user.module').then(m => m.UserModule)
+},
+{
+    path: 'userStandalone',
+    loadComponent: () => import('./components/user/user.component').then(m => m.UserComponent)  // standalone component lazy-load
 }
 ````
 
