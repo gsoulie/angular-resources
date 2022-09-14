@@ -536,7 +536,9 @@ https://www.youtube.com/watch?v=YJ4dgoHEmGs&ab_channel=CodeShotsWithProfanis
 Le guard retourne toujours un boolean. Soit un boolean directement, soit une promise qui retourne un boolean, soit un observable qui retourne un boolean
 
 ````typescript
-CanActivate() {
+canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 	return this.isLogged().then((res) => {
 		if(res){
 			return true;
@@ -546,7 +548,31 @@ CanActivate() {
 		}
 	}
 }
+	
+// Guard pour les child routes
+canActivateChild(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+	
+    return this.canActivate(route, state);	
+}
 ````
+	
+	*app-routing.module.ts*
+	````typescript
+	{
+		path: '/user',
+		canActivate: [AuthGuard],	// Protège toute la route et son arborescence
+		component: UserComponent,
+		children: [ ... ]
+	},	
+	{
+		path: '/servers',
+		canActivateChild: [AuthGuard],	// Protège uniquement les child routes et non la racine
+		component: UserComponent,
+		children: [ ... ]
+	}
+	````
 
 **CanDeactivate** permet de vérifier si j'ai le droit de quitter la route actuelle. C'est utilisé dans le cas ou l'utilisaateur est entrain de modifier un formulaire par exemple.
 
