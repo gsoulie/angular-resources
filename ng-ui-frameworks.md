@@ -9,6 +9,7 @@
 * [Variables sass](#variables-sass)     
 * [Dynamic styling](#dynamic-styling)     
 * [Angular Material tips](https://github.com/gsoulie/angular-resources/blob/master/ng-material-tips.md)       
+* [Custom fonts](#custom-fonts)     
 
 [officials links](https://angular.io/resources?category=development)       
 
@@ -457,6 +458,89 @@ Si les variables ne sont pas encadrées par le **:root** elles ne sont accessibl
 ````css
 input.ng-invalid.ng-touched {
     border: 1px solid red;
+}
+````
+[Back to top](#ui)    
+
+
+## Custom fonts
+[Back to top](#themes)    
+
+Télécharger la font choisie et la copier dans le répertoire *src/assets/fonts*
+
+Ensuite ajouter les déclaration *@font-face* pour chaque font à utiliser, dans le fichier global scss
+
+*variable.scss*
+
+```
+@font-face {
+    font-family: "AguafinaScript-Regular";
+    src: url("../assets/fonts/AguafinaScript-Regular.ttf") format("truetype");
+    font-weight: 200;
+    font-style: normal;
+}
+@font-face {
+    font-family: "DINPro";
+    src: url("../assets/fonts/DINPro.otf") format("opentype");
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;	// Ensure text remains visible during webfont load 
+}
+@font-face {
+    font-family: "DINPro-Italic";
+    src: url("../assets/fonts/DINPro-Italic.otf") format("opentype");
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;	// Ensure text remains visible during webfont load 
+}
+:root {
+    --ion-font-family: 'DINPro';
+    ...
+    ...
+}
+```
+
+**Important** : *format()* doit reprendre le vrai nom de format de la font (i.e ttf = truetype, otf = opentype)
+
+Utiliser ensuite les fonts comme suit :
+
+*home.scss*
+
+```
+ion-title{
+	font-family: "AguafinaScript-Regular" !important;
+}
+.label1{
+	font-family: "DINPro" !important;
+	font-size: 18px;
+}
+.label2{
+	font-family: "DINPro-Italic" !important;
+	font-size: 18px;
+}
+```
+
+** Assign font-family to the entire app**
+
+*global.scss*
+
+```
+* {
+	font-family: 'My-custom-font' !important;
+}
+```
+
+### Set default project custom font
+
+*variable.scss*
+````css
+@font-face {
+font-family: AppFont;
+src: url("…/assets/fonts/Oxygen-Regular.ttf"); //change url accordingly
+}
+
+:root {
+	--ion-font-family: ‘AppFont’;
 }
 ````
 [Back to top](#ui)    
