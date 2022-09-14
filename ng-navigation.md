@@ -25,7 +25,11 @@ La route par défaut, doit toujours être à la fin du fichier de routing !!
 
 ````typescript
 {
-	redirectTo: '/default',
+	path: 'not-found',
+	component: PageNotFoundComponent
+},
+{
+	redirectTo: '/not-found',
 	path: '**'
 }
 ````
