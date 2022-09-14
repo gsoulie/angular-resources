@@ -29,8 +29,9 @@ La route par défaut, doit toujours être à la fin du fichier de routing !!
 	component: PageNotFoundComponent
 },
 {
-	redirectTo: '/not-found',
-	path: '**'
+	path: '**',
+	redirectTo: '/not-found',	
+	pathMatch: 'full'
 }
 ````
 
