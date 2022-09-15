@@ -116,6 +116,8 @@ Si les applications utilisent une authentification tierce type SSO (IS4, Aure AD
 
 ## Environnements multiples
 
+https://netbasal.com/on-angulars-default-environment-files-and-how-you-can-make-them-better-d51e7dc2f0c8
+
 Dans le répertoire *environments* se trouvent par défaut 2 fichiers. Un pour le mode debug et un pour le mode production. Il est possible d'en créer autant que l'on souhaite en conservant la syntaxe de nommage *environment.env.ts* (environment.integration.ts)
 
 Pour ensuite pouvoir *run* ou compiler sur un des environnements cible, il faut modifier le fichier *angular.json* pour rajouter les nouveaux environnements dans 
