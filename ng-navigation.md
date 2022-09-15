@@ -175,7 +175,7 @@ import { BrowserModule } from '@angular/platform-browser';
   providers: [],
   declarations: [UsersComponent]
 })
-export class AppModule { }
+export class UsersModule { }
 
 ````
 
