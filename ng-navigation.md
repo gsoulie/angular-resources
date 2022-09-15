@@ -19,6 +19,7 @@
 * [Tab routing avec retour depuis modale ](#tab-routing-avec-retour-depuis-modale)   
 * [Routing back previous](#routing-back-previous)       
 * [Astuces navigation](#astuces-navigation)   
+* [Routing strategy](#routing-strategy)       
 
 ## Généralités
 
@@ -1056,4 +1057,19 @@ goBackManually() {
 	this.router.navigateByUrl('/home');
 }
 ````
+[Back to top](#navigation)	
+	
+## Routing strategy
+
+**useHash**
+
+````RouterModule.forRoot(appRoutes, {userHash: true });````
+
+Fonctionnement historique des serveurs à n'utiliser que sur les ancien serveur. A pour effet d'ajouter un # dans la route.
+
+L'utilisation du # indique au serveur web de ne pas s'occuper de tout ce qu'il y a **après** le #. ce dernier ignorera alors tout ce qui se trouve **après**
+le #.
+
+Toute la partie après le # est parsée par le client Angular.
+	
 [Back to top](#navigation)
