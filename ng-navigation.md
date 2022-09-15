@@ -769,6 +769,117 @@ export class AuthGuard implements CanActivate {
   }
 ````
 	
+[Back to top](#navigation)	
+
+### Guard de désactivation CanDeactivate
+
+Les guards de désactivation **CanDeactivate** permettent de contrôler si une route peut être "désactivée" ou non. Ils peuvent être très pratiques pour se prémunir d'une perte de données dans des écrans de type formulaire par exemple. L'utilisateur pourrait quitter la page involontairement après avoir modifié des informations dans le formulaire sans les avoir sauvegardées au préalable.
+
+Les Guards de désactivation sont couplées aux composants car ils **doivent communiquer avec le composant** pour établir leur décision d'accès. Ce type de guard **est un service** qui implémente l'interface **CanDeactivate**. Ce service doit donc implémenter la méthode *canDeactivate()*.
+
+Cette méthode est appelée à **chaque fois que l'utilisateur souhaite quitter la route** (clic sur un lien ou déclenchement automatique). Elle doit alors retourner une valeur de type *boolean* ou *Promise<boolean>* ou *Observable<boolean>* indiquant si l'accès à la "route" est autorisé ou non.
+	
+Contrairement au Guards d'activation, ce Guard prend en premier paramètre l'instance du composant. C'est pour cette raison que l'interface CanDeactivate est générique.
+
+Voici un exemple de création basique de guard de désactivation
+
+*can-deactivate-guard.service.ts*
+
+````typescript
+import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+export interface CanComponentDeactivate {
+  canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate> {
+
+  canDeactivate(component: CanComponentDeactivate,
+    currentRoute: ActivatedRouteSnapshot,
+    currentState: RouterStateSnapshot,
+    nextState?: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+	
+    return component.canDeactivate();
+  }
+}
+````
+
+Il faut ensuite implémenter ce guard dans le composant conerné
+
+*user-detail.component.ts*
+
+````typescript
+import { CanComponentDeactivate } from './../deactivate/deactivate.guard';
+import { Observable } from 'rxjs';
+
+@Component({
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+  ]
+})
+export class UserComponent implements OnInit, CanComponentDeactivate {
+  inputData: UserData;
+  nom = '';
+  prenom = '';
+  editingData = false;	// indiquer si un des champs a été modifié ou non (on pourrait utiliser la propriété dirty des formControl)
+
+  constructor(private route: ActivatedRoute, private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.route.params.subscribe((params: Params) => {
+      this.userId = +params['id'];  
+      this.inputData = this.userService.getUser(this.userId);
+      
+      // initialisation des champs du formulaire
+      this.nom = this.inputData.nom;
+      this.prenom = this.inputData.prenom;
+    });
+  }
+
+
+  canDeactivate(): boolean | Observable<boolean> | Promise<boolean> {
+    
+    if (!this.editingData) { return true; }
+	
+    // Affichage modale de confirmation si des données ont été modifiées
+    if (this.inputData.nom !== this.nom || this.inputData.prenom !== this.prenom) {
+      return confirm('Êtes-vous certain de vouloir abandonner vos modifications ?');
+    }
+    return true;
+  }
+
+  editing(ev) { this.editingData = true; }
+  
+  submit() { /*... enregistrement des données */ }
+}
+````
+
+Enfin, attacher le guard à la route
+
+*app-routing.module.ts*
+
+````typescript
+import { CanDeactivateGuard } from './components/deactivate/deactivate.guard';
+
+const routes: Routes = [{
+    path: 'user/:id',
+    canActivate: [AuthGuard],
+    canDeactivate: [CanDeactivateGuard],	// <-- Guard de désactivation
+    loadComponent: () => import('./components/user/user.component').then(m => m.UserComponent)
+  },
+];
+````
+	
 [Back to top](#navigation)
 	
 ## Route source
