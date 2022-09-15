@@ -579,21 +579,21 @@ canActivateChild(
 }
 ````
 	
-	*app-routing.module.ts*
-	````typescript
-	{
-		path: '/user',
-		canActivate: [AuthGuard],	// Protège toute la route et son arborescence
-		component: UserComponent,
-		children: [ ... ]
-	},	
-	{
-		path: '/servers',
-		canActivateChild: [AuthGuard],	// Protège uniquement les child routes et non la racine
-		component: UserComponent,
-		children: [ ... ]
-	}
-	````
+*app-routing.module.ts*
+````typescript
+{
+	path: '/user',
+	canActivate: [AuthGuard],	// Protège toute la route et son arborescence
+	component: UserComponent,
+	children: [ ... ]
+},	
+{
+	path: '/servers',
+	canActivateChild: [AuthGuard],	// Protège uniquement les child routes et non la racine
+	component: UserComponent,
+	children: [ ... ]
+}
+````
 
 **CanDeactivate** permet de vérifier si j'ai le droit de quitter la route actuelle. C'est utilisé dans le cas ou l'utilisaateur est entrain de modifier un formulaire par exemple.
 
