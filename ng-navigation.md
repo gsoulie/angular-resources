@@ -6,6 +6,7 @@
 * [Relative route relativeTo](#relative-route)     
 * [Routes enfants](#routes-enfants)     
 * [Deep linking](#deep-linking)   
+* [Découpage des fichiers de routage](#découpage-des-fichiers-de-routage)      
 * [Naviguer depuis la vue](#naviguer-depuis-la-vue)     
 * [Routing parameters](#routing-parameters)      
 * [Naviguer depuis le controller](#naviguer-depuis-le-controller)     
@@ -119,9 +120,112 @@ Ajoute ensuite le router-outlet du Home
 ````
 <router-outlet></router-outlet>
 ````
+[Back to top](#navigation)   
+
+## Découpage des fichiers de routage
+
+Principe de découpage du routing en plusieurs fichiers
+
+*app-routing.module.ts*
+
+````typescript
+import { HomeComponent } from './components/home/home.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'users',
+    loadChildren: () => import('./components/users/users-routing.module').then(m => m.UsersRoutingModule)
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+````
+
+Ensuite le composant contenant sont propre routage avec des routes enfants doit avoir sont propre fichier *.module.ts*, sont propre fichier de routage et un ````<router-outlet></router-outlet>```` dans sa vue
+
+*users.module.ts*
+
+````typescript
+import { UsersComponent } from './users.component';
+import { UsersRoutingModule } from './users-routing.module';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    UsersRoutingModule
+  ],
+  providers: [],
+  declarations: [UsersComponent]
+})
+export class AppModule { }
+
+````
+
+*users-routing.module.ts*
+
+````typescript
+import { DetailComponent } from './detail/detail.component';
+import { UsersComponent } from './users.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: UsersComponent,
+    children: [
+      {
+        path: 'detail',
+        component: DetailComponent
+      },
+	  {
+        path: ':id/edit',
+        component: EditComponent
+      },
+    ]
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)]	// <-- ATTENTION forChild et non forRoot
+})
+export class UsersRoutingModule { }
+
+````
+
+*users.component.ts*
+
+````typescript
+<h1>Users</h1>
+<!-- Retour sur Home : bien spécifier la route avec un / pour indiquer qu'on cherche la route depuis le router principal -->
+<button [routerLink]="['/home']">Back to Home</button>
+
+<!-- Vers route enfant : pas de / car on fait référence à la route relative soit /users/... -->
+<button [routerLink]="['detail']">Go to detail</button>
+
+<router-outlet></router-outlet>
+````
+[Back to top](#navigation)   
 
 ## Naviguer depuis la vue
-[Back to top](#navigation)   
 
 Syntaxes possibles :
 ````html
