@@ -809,7 +809,7 @@ export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate>
 }
 ````
 
-Il faut ensuite implémenter ce guard dans le composant conerné
+Il faut ensuite implémenter ce guard dans le composant concerné
 
 *user-detail.component.ts*
 
