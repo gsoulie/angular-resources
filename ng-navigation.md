@@ -126,6 +126,8 @@ Ajoute ensuite le router-outlet du Home
 
 Principe de découpage du routing en plusieurs fichiers
 
+### Utilsation avec composants classiques
+
 *app-routing.module.ts*
 
 ````typescript
@@ -165,11 +167,10 @@ Ensuite le composant contenant sont propre routage avec des routes enfants doit 
 import { UsersComponent } from './users.component';
 import { UsersRoutingModule } from './users-routing.module';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   imports: [
-    BrowserModule,
+    RouterModule,
     UsersRoutingModule
   ],
   providers: [],
@@ -223,6 +224,49 @@ export class UsersRoutingModule { }
 
 <router-outlet></router-outlet>
 ````
+[Back to top](#navigation)   
+
+### Utilisation avec composants standalone
+
+Depuis Angular 14 il est possible d'utiliser des composants de type *standalone*. Cette utilisation présente quelques différences dans la gestion du routage.
+
+Le chargement d'un composant standalone se fait avec la fonction **loadComponent**. Si ce dernier comporte des routes enfants, alors on utilisera la fonction **loadChildren**
+
+*app-routing.module.ts*
+
+````typescript
+import { HomeComponent } from './components/home/home.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'parent',
+    loadChildren: () => import('./components/standalone/parent/routes').then(mod => mod.STANDALONE_ROUTES)	// chargement avec routes enfant
+    //loadComponent: () => import('./components/standalone/parent/parent.component').then(m => m.ParentComponent)	// chargement composant standalone seul sans routes enfant
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+````
+
+L'utilisation de routes enfant dans un composant standalone nécessite de créer un fichier contenant les routes un peu à la manière du *app-routing.module.ts*
+
+>  Code complet disponible ici : https://github.com/gsoulie/angular-resources/tree/master/routing     
+
 [Back to top](#navigation)   
 
 ## Naviguer depuis la vue
