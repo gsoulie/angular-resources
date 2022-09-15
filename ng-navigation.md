@@ -531,6 +531,27 @@ Il est donc conseillé de ne pas utiliser de resolver pour gérer des navigation
 
 ## Guards
 	
+Angular fourni un certains nombre de guard :
+	
+* *CanLoad* : permettant d'indiquer si un composant / module lazy-loadé peut être chargé ou non    
+* *CanActivate / CanActivateChild* : permet de déterminer si un composant / module peut être activé     
+* *CanMatch* : permet le chargement de composants différents utilisant une mêem route en fonction d'un paramétrage
+	
+````typescript
+const routes: Routes = [
+{
+  path: 'todos',
+  canMatch: [() => inject(FeatureFlagsService).hasPermission('todos-v2')],
+  loadComponent: () => import('./todos-page-v2/todos-page-v2.component')
+                        .then(v => v.TodosPageV2Component)
+},
+{
+  path: 'todos',
+  loadComponent: () => import('./todos-page/todos-page.component')
+                         .then(v => v.TodosPageComponent)
+}];
+````
+	
 https://www.youtube.com/watch?v=YJ4dgoHEmGs&ab_channel=CodeShotsWithProfanis      
 
 Le guard retourne toujours un boolean. Soit un boolean directement, soit une promise qui retourne un boolean, soit un observable qui retourne un boolean
