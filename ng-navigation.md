@@ -307,6 +307,37 @@ On peut aussi définir plusieurs classes à l'aide d'une chaîne séparée par d
 ## Routing parameters
 [Back to top](#navigation)   
 
+### Passage de données statiques
+
+Exemple de passage de données statiques à une route : 
+
+*app-routing.module.ts*
+
+````typescript
+const routes: Routes = [
+  {
+    path: 'not-found',
+    loadComponent: () => import('./components/not-found/not-found.component').then(m => m.NotFoundComponent),
+    data: {
+      message: 'Uh ! Where are you going bro ? This page does not exists ;)'
+    }
+  }]
+````
+
+*not-found.component.ts*
+
+````typescript
+export class NotFoundComponent implements OnInit {
+  errorMessage = '';
+
+  constructor(private activatedRoute: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.errorMessage = this.activatedRoute.snapshot.data['message'];
+  }
+}
+````
+
 ### Approche impérative vs approche Réactive
 
 > Note : Il est recommandé de préférer l'approche réactive à l'approche impérative
