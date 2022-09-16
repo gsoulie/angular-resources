@@ -197,4 +197,4 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
 
 Une fois installé et configuré, il suffit de relancer une compilation du projet. Un browser va alors s'ouvrir présentant ainsi la carte détaillée du bundle
 
-[Back to top](#optimisations-&-numérique-responsable) 
+[Back to top](#optimisations--numérique-responsable) 
