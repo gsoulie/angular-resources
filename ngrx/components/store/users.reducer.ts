@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { User } from '../user.model';
-import * as UsersReducerActions from './users.actions';
+import { UsersActions } from './users.actions';
 
 // définition d'un state en particulier
 export interface State {
@@ -18,14 +18,14 @@ const initialState: State = {
 export const usersReducer = createReducer(
   initialState,
   on(
-    UsersReducerActions.fetchUsers,
+    UsersActions.fetch_users,
     (state) => ({
       ...state, // BONNE PRATIQUE : copier le contenu de l'ancien state. évite de perdre des données en route
       isLoading: false
     })
   ),
   on(
-    UsersReducerActions.setUsers,
+    UsersActions.set_users,
     (state, action) => ({
       ...state,
       isLoading: false,
@@ -33,21 +33,21 @@ export const usersReducer = createReducer(
     })
   ),
   on(
-    UsersReducerActions.addUser,
+    UsersActions.add_user,
     (state, action) => ({
       ...state,
       users: [...state.users, action.payload]
     })
   ),
   on(
-    UsersReducerActions.deleteUser,
+    UsersActions.delete_user,
     (state, action) => ({
       ...state,
       users: state.users.filter(u => u.id !== action.payload.id)
     })
   ),
   on(
-    UsersReducerActions.updateUser,
+    UsersActions.update_user,
     (state, action) => ({
       ...state,
       users: state.users.map(u => u.id === action.payload.id ? { ...action.payload } : u)
