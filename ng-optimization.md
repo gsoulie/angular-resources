@@ -49,7 +49,7 @@ trackUserId(index, user) { return user.id }
 ````
 
 ## Optimisation lancement application
-[Back to top](#optimisations) 
+[Back to top](#optimisations-&-numérique-responsable) 
 
 1 - lazy loading
 ne charger que les routes nécessaires au démarrage
@@ -60,7 +60,7 @@ C'est juste une capture, le client ne peut pas intérragir. C'est juste en atten
 cf : https://angular.io/guide/universal
 
 ## zone.js
-[Back to top](#optimisations) 
+[Back to top](#optimisations-&-numérique-responsable) 
 
 [Très bonne explication ici](https://www.youtube.com/watch?v=SEyaCR7NYXg&ab_channel=YounessHoudass)      
 
@@ -118,7 +118,7 @@ On peut aussi manuellement désactiver / réactiver l'écoute des zones pour un 
 this.cd.detach();	// ne sera plus mis à jour
 this.cd.reattach();	// se remet à jour
 ````
-[Back to top](#optimisations)
+[Back to top](#optimisations-&-numérique-responsable) 
 
 ## Optimisations JS
 
@@ -135,6 +135,8 @@ const data2 = JSON.parse('{ "foo": 42, "bar": 13 }'); // jusqu'à 2x plus rapide
 
 > Remarque : la différence est surtout effective sur de très gros objets. Dans l'exemple ci-dessus, le gain est négligeable
 
+[Back to top](#optimisations-&-numérique-responsable) 
+
 ### Memoization
 
 https://whatthefork.is/memoization
@@ -145,13 +147,13 @@ https://www.youtube.com/watch?v=x0Dvpu2jcUo&list=PLiO4ScU0Pxp0cAxMqGCtRmvRGA5vjI
 
 méthode plus performante pour déclencher des éléments lors d'un scroll (exemple dpage web bootstrap avec des animations lors du scroll qui font apparaître des éléments) SANS utiliser l'event scroll mais le IntersectionObserver qui est plus performant et très simple d'utilisation
 
-[Back to top](#optimisations)
+[Back to top](#optimisations-&-numérique-responsable) 
 
 ## Optimisation font
 
 Afin de limiter l'impact du chargement des fonts est d'utiliser ````font-display : swap```` sur votre police CSS. Cela indiquera au navigateur d'utiliser une police système comme espace réservé si la police n'est pas encore téléchargée et de la remplacer par la vraie police une fois qu'elle est prête.
 
-[Back to top](#optimisations)      
+[Back to top](#optimisations-&-numérique-responsable) 
 
 ## Analyse du bundle
 
@@ -195,4 +197,4 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
 
 Une fois installé et configuré, il suffit de relancer une compilation du projet. Un browser va alors s'ouvrir présentant ainsi la carte détaillée du bundle
 
-[Back to top](#optimisations)
+[Back to top](#optimisations-&-numérique-responsable) 
