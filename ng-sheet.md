@@ -9,10 +9,9 @@
 	* [Notions de base - Fonctionnement Javascript](https://github.com/gsoulie/angular-resources/blob/master/ng-basics.md)      
 	* [Fonctionnement Change Detection](https://github.com/gsoulie/angular-resources/blob/master/ng-change-detection.md)      
 	* [Bonnes pratiques](https://github.com/gsoulie/angular-resources/blob/master/ng-best-practices.md) <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">    
-	* [Optimisations](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)    
+	* [Optimisations & NR](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)    
 		* source-map-explorer
-		* webpack-bundle-analyzer      	 
-	* [Optimisations et NR](https://github.com/gsoulie/angular-resources/blob/master/ng-nr.md)         
+		* webpack-bundle-analyzer      	        
 	* [Opérateurs, Destructuration d'objets et Tableaux, Object assign, Type générique](https://github.com/gsoulie/angular-resources/blob/master/ng-operators.md)    		* Shallow copy vs Deep copy 
 	* [VSCode](https://github.com/gsoulie/angular-resources/blob/master/ng-vscode.md)       
 	* [Modules, lazy-loading](https://github.com/gsoulie/angular-resources/blob/master/ng-module.md)       
@@ -22,7 +21,7 @@
 		* Déployer une application avec url suffixée      
 		* Environnements multiples       
 	* [Stratégie de routage](https://github.com/gsoulie/angular-resources/blob/master/ng-routing-strategy.md)      
-	        * PathLocationStrategy et HashLocationStrategy              
+		* PathLocationStrategy et HashLocationStrategy              
 * Concepts       
 	* [Promise](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-promise.md)      
 	* [Observable](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-observable.md) <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">          
