@@ -5,7 +5,7 @@ import { UserDataService } from './user-data.service';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { User } from './user.model';
-import * as UsersReducerActions from './ngrx-store/users.actions';
+import { UsersActions } from './ngrx-store/users.actions';
 import * as fromApp from '../../shared/store/app.reducer';
 
 @Component({
@@ -43,7 +43,7 @@ export class UsersComponent implements OnInit {
     const newUser: User = { id: Date.now(), name: this.username };
 
     // usage NgRx
-    this.store.dispatch(UsersReducerActions.addUser({ payload: newUser }));
+    this.store.dispatch(UsersActions.add_user({ payload: newUser }));
     
     // Ancienne syntaxe ci-dessous -->
     //this.store.dispatch(new UsersReducerActions.AddUser(newUser));
@@ -53,7 +53,7 @@ export class UsersComponent implements OnInit {
 
   deleteUser(user: User) {
     // usage NgRx
-    this.store.dispatch(UsersReducerActions.deleteUser({ payload: user }));    
+    this.store.dispatch(UsersActions.delete_user({ payload: user }));
     
     // Ancienne syntaxe ci-dessous -->
     //this.store.dispatch(new UsersReducerActions.DeleteUser(user));
@@ -63,7 +63,7 @@ export class UsersComponent implements OnInit {
     const updatedUser: User = { id: user.id, name: user.name + ' (updated)' };
 
     // usage NgRx
-    this.store.dispatch(UsersReducerActions.updateUser({ payload: updatedUser }));
+    this.store.dispatch(UsersActions.update_user({ payload: updatedUser }));
     
     // Ancienne syntaxe ci-dessous -->
     //this.store.dispatch(new UsersReducerActions.UpdateUser(updatedUser));
