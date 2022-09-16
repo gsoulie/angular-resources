@@ -1,10 +1,10 @@
 import { User } from '../user.model';
 import { HttpClient } from '@angular/common/http';
 import { Actions, ofType, createEffect } from "@ngrx/effects";
-import * as UserActions from './users.actions';
 import { EMPTY, map } from 'rxjs';
-import { catchError, mergeMap, switchMap } from 'rxjs/operators';
+import { catchError, mergeMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { UsersActions } from './users.actions';
 
 @Injectable()
 export class UserEffects {
@@ -16,10 +16,10 @@ export class UserEffects {
   // ATTENTION : reset le dataset à chaque fetch car les données sont statiques et ne proviennent pas d'une vraie API
   // dont les données seraient mises à jour lors du CRUD
   fetchUsers$ = createEffect((): any => this.actions$.pipe(
-    ofType(UserActions.fetchUsers),
+    ofType(UsersActions.fetch_users),
     mergeMap(() => this.getUsers()
       .pipe(
-        map((users: User[]) => (UserActions.setUsers({ payload: users }))),
+        map((users: User[]) => (UsersActions.set_users({ payload: users }))),
         catchError(() => EMPTY)
       )
     )
