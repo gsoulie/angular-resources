@@ -16,15 +16,15 @@
 	* [NextJS](#nuxtjs)  	  
 	* [Prisma](#prisma)     
 	* [NestJS](#nestjs)     
-	* [Nx](#nx)    
 	* [Deno](#deno)    
 	* [Supabase](#supabase)    
 	* [Netlify](#netlify)     
 * [Autres](#Autres)     
 	* [e2e](#e2e)     
 	* [Stencil](#stencil)      
+	* [NX - fullstack](#nx)    
 	* [Fullstack NX, NestJS, Prisma, Angular](#fullstack-nx-nestjd-prisma-angular)      
-	* [Remix](#remix)     
+	* [Remix - fullstack](#remix)     
 	
 ## Frameworks frontend
 
@@ -369,15 +369,6 @@ Framework Server Side pour NodeJS, compatible TS qui permet de faire du backend 
 	- gère le mode monorepos
 
 [Back to top](#veille)     
-	
-### NX
-
-Nx est une suite d'outils permettant la gestion des solutions monorepos. 
-Il permet dont de créer une application fullstack angular / nodejs (prisma + nestJS). 
-Nx est un framework de construction intelligent et extensible qui vous aide à développer, tester, créer et mettre à l'échelle des applications Angular avec une prise en charge entièrement intégrée d'outils modernes tels que Jest, Cypress, Storybook, ESLint, NgRx, etc
-NX est donc une extension d'angular CLI. Il suffit de lui coupler NEST (ou simplement NodeJS) (+ Prisma en bonus) pour créer un projet fullstack mono-repo
-
-[Back to top](#veille)     
 
 ### Deno 
 
@@ -422,10 +413,18 @@ Stencil permet de créer des composants avec la même syntaxe que React, mais do
 
 Bien qu’il s’agisse d’un outil récent, il est déjà éprouvé : c’est avec Stencil que sont faits les composants d’Ionic, un framework de référence pour la création d’applications mobiles.
 
+[Back to top](#veille)       
+	
+### NX
+
+Nx est une suite d'outils permettant la gestion des solutions monorepos. Il permet de créer une application fullstack angular / nodejs (prisma + nestJS). 
+Nx est un framework de construction intelligent et extensible qui vous aide à développer, tester, créer et mettre à l'échelle des applications Angular avec une prise en charge entièrement intégrée d'outils modernes tels que Jest, Cypress, Storybook, ESLint, NgRx, etc...
+
+NX est donc une **extension d'angular CLI**. Il suffit de lui coupler NEST (ou simplement NodeJS) (+ Prisma en bonus) pour créer un projet fullstack mono-repo
+
 [Back to top](#veille)     
 
 ### Application fulllstack NX, NestJS, Prisma, Angular
-[Back to top](#veille)     
 
 https://nicolasfazio.ch/programmation/angular/developper-des-applications-full-stack-avec-angular-cli-et-nx-workspace
 https://www.youtube.com/watch?v=bvzXuAu7XHk&list=RDCMUCptAHlN1gdwD89tFM3ENb6w&start_radio=1&rv=bvzXuAu7XHk&t=640&ab_channel=Prisma
