@@ -1,17 +1,52 @@
 [< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)    
 
-# Optimisations
+# Optimisations & Numérique Responsable
+
+* [Bonnes pratiques](#bonnes-pratiques)     
 * [Optimisation lancement application](#optimisation-lancement-application)     
 * [Zone.js](#zone.js)     
 * [Optimisations js](#optimisations-js)      
 * [Optimisation font](#optimisation-font)      
 * [Analyse du bundle](#analyse-du-bundle)       
 
-## Général
-- Virtual scroll
-- Pagination
-- Render à la demande     
-- Lazy-load des modules via les fichiers de routing et ne pas importer les modules lazy-loadé dans les fichiers *app.module.ts* car ils seraient alors chargés 2 fois !
+## Bonnes pratiques
+
+Quelques bonnes pratiques pour optimiser le code Angular / Ionic
+
+* Maintenir à jour son CLI / RxJS 6 (2021)
+* Depuis Angular 13, vérifier que le répertoire **.angular/cache** est bien ajouté au fichier *.gitignore* ````/.angular/cache````       
+* Auditer chaque page de l'application via **lighthouse** depuis la console chrome. **Attention !** l'audit de *performance* ne sera cohérent que s'il est réalisé sur le projet compilé et hosté en local ou sur un serveur (voir ici : [tester le bundle compilé](https://github.com/gsoulie/angular-resources/blob/master/ng-unit-test.md#tester-le-bundle-g%C3%A9n%C3%A9r%C3%A9-dans-le-r%C3%A9pertoire-dist)    ). L'audit d'accessibilité, lui, peut-être directement réalisé en mode *serve* classique
+* Lazy load des composants dans le fichier routing : ````loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)```` et ne pas importer les modules lazy-loadé dans les fichiers *app.module.ts* car ils seraient alors chargés 2 fois !
+* Utiliser la strategy **ChangeDetectionStrategy.OnPush** pour gagner en performance    
+* Utilisation du package **a11y** pour l'accessibilité     
+* Supprimer les effets d'animation de transition des pages 
+* Utilisation de fonts standard
+* privilégier le format de font WOFF2
+* Faire la chasse au fonts non utilisées      
+* Rendu à al demande avec Angular Universal     
+* Utilisation du Virtual scroll    
+* Utiliser en priorité les **pipe** dans la vue lorsqu'il s'agit de mettre en forme du contenu plutôt que de passer par des fonctions    
+* Observable ````pipe(first)```` ou conversion en promise lorsqu'un observable n'est pas nécessaire
+* Systématiquement ````unsubscribe```` chaque souscription à un observable
+* Utiliser des images JPEG (compressées avec TinyPNG par ex...) et SVG
+* Compiler en aot (ahead-of-time) => par défaut en mode prod. Sinon build en mode JIT
+* Configurer les app Angular comme des PWA : ````ng add @angular/pwa && ng build — prod````. Et configurer le service worker pour mettre certaines ressources en cache
+* Limiter le nombre de module tiers utilisés. Utiliser autant que possible ce qui est faisable directement en JS ou Angular
+* Supprimer tous les ````console.log```` avant de mettre en prod => peut causer des memory leak => ajouter le code suivant dans le fichier **main.ts** pour faire simple :
+ ````typescript
+ if (environment.production) {
+  window.console.log = () => {};
+}
+````
+* Utiliser la fonction **TrackBy** dans les boucle **ngFor**. Permet de créer un index sur chaque item et évite de recréer complètement la liste lors d'un ajout/modification/suppression d'un item   
+
+````html
+<mat-item *ngFor="let u of users; tackBy: trackUserId">{{ user.name }}</mat-item>
+````
+````typescript
+users: any[] = [...]
+trackUserId(index, user) { return user.id }
+````
 
 ## Optimisation lancement application
 [Back to top](#optimisations) 
