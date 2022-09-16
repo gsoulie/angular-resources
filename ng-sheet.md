@@ -12,8 +12,8 @@
 	* [Optimisations](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)    
 		* source-map-explorer
 		* webpack-bundle-analyzer      	 
-	* [Opérateurs, Destructuration d'objets et Tableaux, Object assign, Type générique](https://github.com/gsoulie/angular-resources/blob/master/ng-operators.md)    
-		* Shallow copy vs Deep copy 
+	* [Optimisations et NR](https://github.com/gsoulie/angular-resources/blob/master/ng-nr.md)         
+	* [Opérateurs, Destructuration d'objets et Tableaux, Object assign, Type générique](https://github.com/gsoulie/angular-resources/blob/master/ng-operators.md)    		* Shallow copy vs Deep copy 
 	* [VSCode](https://github.com/gsoulie/angular-resources/blob/master/ng-vscode.md)       
 	* [Modules, lazy-loading](https://github.com/gsoulie/angular-resources/blob/master/ng-module.md)       
 	* [Déploiement](https://github.com/gsoulie/angular-resources/blob/master/ng-rollout.md) <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">     
@@ -38,7 +38,6 @@
 	* [Directives structurelles](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-structural-directive.md)   
 	* [Service worker - Web worker](https://github.com/gsoulie/angular-resources/blob/master/ng-service-worker.md)       
 	* [Application state avec NgRx](https://github.com/gsoulie/angular-resources/blob/master/ngrx/README.md)     
-* [Optimisations et NR](https://github.com/gsoulie/angular-resources/blob/master/ng-nr.md)       
 * [Gestion des erreurs](https://github.com/gsoulie/angular-resources/blob/master/ng-error.md)       
 
 * [Astuce](https://github.com/gsoulie/angular-resources/blob/master/ng-tips.md) <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">     
