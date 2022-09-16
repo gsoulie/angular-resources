@@ -22,6 +22,7 @@
 * [Application fullstack NX, NestJS, Prisma, Angular](#application-fulllstack-nx-,-nestjs-,-prisma-,-angular)     
 * [Angular 14](#angular-14)      
 * [Supabase](#supabase)     
+* [Nativescript](#nativescript)     
 
 ## Angular
 
@@ -444,3 +445,17 @@ Avantages :
 * jusqu'à 4x plus performant que Firebase (key-value)      
 * Authentifications tiers (google, facebook, twitter...)      
 * Storage comme Firebase     
+
+## Nativescript
+
+Nativescript est un framework permettant de créer de vraies application mobiles natives avec Angular / Vue et Typescript. Il communique directement avec les api natives. **Contrairement** à Capacitor, nativescript n'utilise pas une technique basée sur les webview.
+
+Les applications créees avec Nativescript peuvent s'exécuter directement sur un device. Il n'est pas nécessaire d'utiliser de la cross-compilation ou d'intéraction avec un navigateur.
+
+Nativescript est plus rapide qu'Ionic car il est directement connecté aux apis natives. Il injecte directement les apis iOS et Android dans la machine virtuelle JS. 
+
+Nativescript utilise *JavascriptCore* pour iOS et exécute Android via *V8 virtual machine*.
+
+Au niveau UI, NativeScript permet d'écrire les UI sur chaque plate-forme indépendamment. L'UI est stockée dans des fichiers XML avec du style CSS, tandis que la logique métier se trouve dans des fichiers Javascript et TypeScript.
+
+> A noter : Le poids des bundle est plus important qu'avec Ionic / React et il n'y a pas de support du HTML et du DOM
