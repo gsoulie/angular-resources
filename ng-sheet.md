@@ -12,7 +12,8 @@
 	* [Optimisations & NR](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)    
 		* source-map-explorer
 		* webpack-bundle-analyzer      	        
-	* [Opérateurs, Destructuration d'objets et Tableaux, Object assign, Type générique](https://github.com/gsoulie/angular-resources/blob/master/ng-operators.md)    		* Shallow copy vs Deep copy 
+	* [Opérateurs, Destructuration d'objets et Tableaux, Object assign, Type générique](https://github.com/gsoulie/angular-resources/blob/master/ng-operators.md)
+		* Shallow copy vs Deep copy 
 	* [VSCode](https://github.com/gsoulie/angular-resources/blob/master/ng-vscode.md)       
 	* [Modules, lazy-loading](https://github.com/gsoulie/angular-resources/blob/master/ng-module.md)       
 	* [Déploiement](https://github.com/gsoulie/angular-resources/blob/master/ng-rollout.md) <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">     
