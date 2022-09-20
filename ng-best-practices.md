@@ -15,8 +15,9 @@
 
 ## Généralités 
 
-1 - limiter l'utilisation de ````else````      
-	* utilisation du early return       
+### limiter l'utilisation de ````else````      
+
+**utilisation du early return**       
 ````typescript
 if (condition) {
 	return xxxx
@@ -24,7 +25,7 @@ if (condition) {
 // reste du code
 ````
 	
-	* utilisation de l'initialisation en amont      
+**utilisation de l'initialisation en amont**           
 ````typescript
 let variable = '/home';
 if (condition) {
@@ -33,12 +34,12 @@ if (condition) {
 return variable;
 ````
 
-2 - utilisation du principe de fail fast       
-	* tester en priorité les cas d'erreur avec return      
+### utilisation du principe de fail fast       
+* tester en priorité les cas d'erreur avec return        
 
-3 - single responsability
+### single responsability
 
-4 - typage fort
+### typage fort
 
 ## Input ou Service ?
 
