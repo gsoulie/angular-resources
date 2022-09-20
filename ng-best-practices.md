@@ -15,26 +15,26 @@
 
 ## Généralités 
 
-1 - limiter l'utilisation de else
-	* utilisation du early return 
-		````typescript
-          if (condition) {
-			return xxxx
-		}
-		// reste du code
-          ````
+1 - limiter l'utilisation de ````else````      
+	* utilisation du early return       
+````typescript
+if (condition) {
+	return xxxx
+}
+// reste du code
+````
 	
-	* utilisation de l'initialisation en amont
-          ````typescript
-		let variable = '/home';
-		if (condition) {
-			variable = '/error';
-		}
-		return variable;
-          ````
+	* utilisation de l'initialisation en amont      
+````typescript
+let variable = '/home';
+if (condition) {
+	variable = '/error';
+}
+return variable;
+````
 
-2 - utilisation du principe de fail fast
-	* tester en priorité les cas d'erreur avec return
+2 - utilisation du principe de fail fast       
+	* tester en priorité les cas d'erreur avec return      
 
 3 - single responsability
 
