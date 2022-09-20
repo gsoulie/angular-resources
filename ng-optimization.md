@@ -21,9 +21,9 @@ Quelques bonnes pratiques pour optimiser le code Angular / Ionic
 * Utilisation du package **a11y** pour l'accessibilité     
 * Supprimer les effets d'animation de transition des pages 
 * Utilisation de fonts standard
-* privilégier le format de font WOFF2
+* privilégier le format de font **WOFF2**
 * Faire la chasse au fonts non utilisées      
-* Rendu à al demande avec Angular Universal     
+* Rendu à la demande avec Angular Universal     
 * Utilisation du Virtual scroll    
 * Utiliser en priorité les **pipe** dans la vue lorsqu'il s'agit de mettre en forme du contenu plutôt que de passer par des fonctions    
 * Observable ````pipe(first)```` ou conversion en promise lorsqu'un observable n'est pas nécessaire
