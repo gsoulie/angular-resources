@@ -76,6 +76,7 @@
 	* loading spinner     
 	* virtual scroll       
 	* Signature_pad     
+	* ng-select     
 * [Adapter pattern](https://github.com/gsoulie/angular-resources/blob/master/ng-adapter-pattern.md)     
 * [Api swagger](https://github.com/gsoulie/angular-resources/blob/master/ng-api-swagger.md)     
 * [Pipe](https://github.com/gsoulie/angular-resources/blob/master/angular-pipe.md)     
