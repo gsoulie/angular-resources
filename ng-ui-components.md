@@ -11,6 +11,7 @@
 * [loading spinner](#loading-spinner)       
 * [virtual scroll](#virtual-scroll)       
 * [Signature_pad](#signature-pad)     
+* [ng-select](#ng-select)      
 
 ## fullcalendar
 
@@ -362,4 +363,10 @@ export class ModalSignatureComponent implements OnInit, AfterViewInit {
   padding: 30px;
 }
 ````
+[Back to top](#ui-components)
+
+## ng-select
+
+Angular ng-select - Lightweight all in one UI Select, Multiselect and Autocomplete : https://github.com/ng-select/ng-select     
+
 [Back to top](#ui-components)
