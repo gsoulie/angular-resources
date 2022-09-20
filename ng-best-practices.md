@@ -2,6 +2,7 @@
 
 # Bonnes pratiques et NR
 
+* [Généralités](#généralités)      
 * [Input ou Service ?](#input-ou-service-?)      
 * [Workflow complet](#workflow-complet)      
 * [Model Adapter Pattern](#model-adapter-pattern)     
@@ -10,6 +11,34 @@
 * [Numérique Responsable](https://github.com/gsoulie/angular-resources/blob/master/ng-nr.md)      
 * [Unsubscriber](#unsubscriber)     
 * [Optimisations](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)     
+
+
+## Généralités 
+
+1 - limiter l'utilisation de else
+	* utilisation du early return 
+		````typescript
+          if (condition) {
+			return xxxx
+		}
+		// reste du code
+          ````
+	
+	* utilisation de l'initialisation en amont
+          ````typescript
+		let variable = '/home';
+		if (condition) {
+			variable = '/error';
+		}
+		return variable;
+          ````
+
+2 - utilisation du principe de fail fast
+	* tester en priorité les cas d'erreur avec return
+
+3 - single responsability
+
+4 - typage fort
 
 ## Input ou Service ?
 
