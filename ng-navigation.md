@@ -627,6 +627,8 @@ C'est webpack qui va prendre en charge le lazy loading et créer un chunk du mod
 }
 ````
 
+> Important : ne pas importer les modules lazy-loadé dans les fichiers app.module.ts car ils seraient alors chargés 2 fois !
+
 ### Preloading
 [Back to top](#navigation)
 
