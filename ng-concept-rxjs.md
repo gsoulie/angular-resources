@@ -32,12 +32,12 @@ https://rxmarbles.com/#map
 |shareReplay(x)|permet de mettre en cache des données et éviter d'appeler plusieurs fois un même service si nous n'avons pas besoin d'avoir des données constamment rafraichies|
 |mergeMap|assure la **mise en parallèle** : l'Observable extérieur peut souscrire aux Observables intérieurs suivants sans attendre que les précédents soient complétés. |
 |concatMap|assure la **mise en série**. Il attend que les Observables intérieurs complètent avant de souscrire aux suivants– même si l'Observable extérieur émet plusieurs fois. Les Observables intérieurs seront traités en séquence à la suite.|
-|exhaustMap|Attend le traitement complet d'un observable avant de lancer l'écoute d'un nouvel observable (il est bloquant en qq sortes)|
-|switchMap|permet de retourner un nouvel observable à partir du résultat de la source. Les observables précédents sont annulés|
+|exhaustMap|Attend le traitement complet d'un observable avant de lancer l'écoute d'un nouvel observable (**il est bloquant** en qq sortes)|
+|switchMap|permet de retourner un nouvel observable à partir du résultat de la source. **Les observables précédents sont annulés**|
 |take(x)|ne récupère que les x premières valeurs émises par la source et fait un complete()|
 |takeUntil|maintient un observable en vie jusqu'à ce que le Subject rattaché soit complete()|
 |tap|étape permettant l'affectation d'une variable ou de faire du debug (console.log) sans modifier le contenu de la source|
-|zip|combines les résultats de plusieurs observables, émet UNIQUEMENT si toutes les sources émettent une donnée|
+|zip|combines les résultats de plusieurs observables, émet UNIQUEMENT **si toutes les sources émettent une donnée**|
 
 
 > Important : les opérateurs appliqués **ne modifient jamais l'observable d'origine**, ils produisent une copie et renvoient un nouvel observable.
