@@ -133,6 +133,8 @@ zipExample() {
 
 *combineLatest*
 
+https://www.youtube.com/watch?v=SXOZaWLs4q0&ab_channel=JoshuaMorony
+
 Utile si utilisation de collections qui changent régulièrement, utilisation de firebase etc...Combiner plusieurs observables (pratique pour filtrer un affichage sur plusieurs paramètres)
 
 > <img src="https://img.shields.io/badge/Attention-DD0031.svg?logo=LOGO"> ! Si un ou plusieurs observables du combineLatest lève une erreur, alors combineLatest se désabonne de tous les observables et stoppe l'émission du flux en cours
