@@ -40,7 +40,7 @@
 	* [Application state avec NgRx](https://github.com/gsoulie/angular-resources/blob/master/ngrx/README.md)     
 * [Gestion des erreurs](https://github.com/gsoulie/angular-resources/blob/master/ng-error.md)       
 
-* [Astuce](https://github.com/gsoulie/angular-resources/blob/master/ng-tips.md) <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">     
+* [Astuces](https://github.com/gsoulie/angular-resources/blob/master/ng-tips.md) <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">     
 	* Mémoriser une variable de controller       	  
 	* Propagation événement      
 	* Convertir un objet Date en chaîne 'YYYY-MM-DD'      
