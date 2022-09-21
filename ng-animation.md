@@ -7,6 +7,7 @@
 * [animation controller](#animation-controller)     
 * [animation réutilisable](https://netbasal.com/creating-reusable-animations-in-angular-6a2350d6191a)     
 * [Exemples](https://github.com/gsoulie/angular-resources/tree/master/animations)      
+* [Animations partagées](#animations-partagées)      
 
 ## animate.css
 
@@ -141,4 +142,70 @@ export class HomeCOmponent {
 }
 ````
 
+[Back to top](#animations)     
+
+## Animations partagées
+
+Il est facilement possible de partager des animations entre plusieurs composants
+
+Créer un fichier *animation.ts*
+
+*animation.ts*
+
+````typescript
+import {
+  animate,
+  keyframes,
+  query,
+  stagger,
+  state,
+  style,
+  transition,
+  trigger
+} from '@angular/animations';
+
+export const enteringFromLeft = trigger('enteringFromLeft',
+  [
+    state('in', style({ // ajout de l'élément dans le dom
+      opacity: 1,
+      transform: 'translateX(0)'
+    })),
+
+    /* void est un état particulier permettant de gérer l'état ou l'élément n'est pas encore dans le DOM.
+    On veut animer de l'état "inexistant" à "existant dans le dom"*/
+    transition('void => *', [
+      style({
+        opacity: 0,
+        transform: 'translateX(-100px)'
+      }),
+      animate(300)
+    ]),
+    transition('* => void', [
+      animate(300, style({
+        opacity: 0,
+        transform: 'translateX(100px)'
+      }),)
+    ]),
+  ]);
+````
+
+Il suffit ensuite d'importer cette animation dans le decorator *@Component()* du composant voulu
+
+*home.component.ts*
+
+````typescript
+@Component({
+  selector: 'app-home',
+  template: `
+  <div [@enteringFromLeft]="">
+	<div class="card">
+		My new Card
+	</div>
+  </div>
+  
+  <button [@enteringFromLeft]="">My animated button</button>
+  `,
+  animations: [animatedListCards, enteringFromLeft]
+})
+````
 [Back to top](#animations)     
