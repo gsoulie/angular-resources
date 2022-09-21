@@ -15,7 +15,7 @@ https://rxmarbles.com/#map
 |operator|description|
 |-|-|
 |catchError|permet de traiter une erreur proprement|
-|combineLatest|émet la dernière valeur de chaque observable lorsqu'un des observable émet une valeur|
+|combineLatest|combine les dernières valeurs de chaque observable qui le compose et n'émet un résultat que lorqu'il a reçu au moins une réponse pour chaque observabe|
 |debounceTime|permet d'ajouter un délai au traitement (ex : searchbar)|
 |distinctUntilChanged|émet uniquement si la valeur a changée (ex : searchbar)|
 |every|retourne vrai si toutes les valeurs de la source valident la condition, retourne faux sinon|
@@ -135,6 +135,8 @@ zipExample() {
 
 Utile si utilisation de collections qui changent régulièrement, utilisation de firebase etc...Combiner plusieurs observables (pratique pour filtrer un affichage sur plusieurs paramètres)
 
+> <img src="https://img.shields.io/badge/Attention-DD0031.svg?logo=LOGO"> ! Si un ou plusieurs observables du combineLatest lève une erreur, alors combineLatest se désabonne de tous les observables et stoppe l'émission du flux en cours
+
 ````typescript
 combineLatestExample() {
 	const obs1 = this.http.get('https://swapi.dev/api/people/1');
@@ -142,6 +144,17 @@ combineLatestExample() {
 	// when any observable emits a value, emit the last emitted value from each
 	return combineLatest([obs1, obs2]);
 }
+````
+
+````typescript
+vm$ = combineLatest([stream1$, stream2$, stream3$]).subscribe((res) => console.log(res));
+
+stream1$.next(1);	// => combineLatest ne retourne rien
+stream2$.next(2);	// => combineLatest ne retourne rien
+stream3$.next(3);	// => combineLatest retorune le résutat
+[1, 2, 3]
+stream1$.next(4);	// => combineLatest retourne le résultat
+[4, 2, 3]
 ````
 
 **Exemple 2**
@@ -185,6 +198,96 @@ data$ = combineLatest([
 	</div>
 
 </div>
+````
+
+**Exemple 3**
+
+Dans cet exemple, on souhaite combiner plusieurs observables pour n'utiliser qu'une seule souscription dans la vue. Pour ce faire, nous utilisons l'opérateur
+````combineLatest````.
+
+*home.component.ts*
+
+````typescript
+Component({
+  selector: 'app-home',
+  template: `
+    <ng-container *ngIf="vm$ | async as vm">
+      <h2>Home page</h2>
+      <h3>{{ vm.greeting }}</h3>
+      <p>Welcome back {{ vm.user }}</p>
+      <p>{{ vm.count }}</p>
+    </ng-container>
+  `
+})
+export class HomeComponent {
+  greeting$ = of('Hello!');
+  count$ = interval(500);
+  
+  vm$ = combineLatest([
+    this.greeting$,
+    this.count$,
+    this.userService.user$
+  ]).pipe(map(([greeting, count, user]) => ({ greeting, count, user }))
+  );
+
+  constructor(private userService: UserService) {}
+}
+````
+
+**Amélioration** : Dans le code précédent, en cas de traitement asynchrone long ou d'erreur,
+la vue est bloquée.
+
+Pour corriger celà, on rajoute des directives structurelles dans la vue ainsi qu'un ````catchError```` permettant
+de catch l'erreur est de retourner un observable contenant l'erreur
+
+
+*home.component.ts*
+
+````typescript
+Component({
+  selector: 'app-home',
+  template: `
+    <ng-container *ngIf="vm$ | async as vm">
+      <h2>Home page</h2>
+      <h3>{{ vm.greeting }}</h3>
+      <p *ngIf="vm.user; else userLoading">Welcome back {{ vm.user }}</p>
+      <p>{{ vm.count }}</p>
+      <ng-template #userLoading>
+        <p>Loading...</p>
+        <p *ngIf="vm.userError">There was an error: {{ vm.userError }}</p>
+      </ng-template>
+    </ng-container>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class HomeComponent {
+  greeting$ = of('Hello!');
+  count$ = interval(500);
+  userError$ = this.userService.userErrored$.pipe(
+    ignoreElements(),
+    startWith(null),
+    catchError((err) => of(err))
+  );
+
+  vm$ = combineLatest([
+    this.greeting$,
+    this.count$,
+    this.userService.userErrored$.pipe(
+      startWith(null),
+      catchError(() => EMPTY)
+    ),
+    this.userError$,
+  ]).pipe(
+    map(([greeting, count, user, userError]) => ({
+      greeting,
+      count,
+      user,
+      userError,
+    }))
+  );
+
+  constructor(private userService: UserService) {}
+}
 ````
 
 *merge*
