@@ -111,7 +111,7 @@ obs.subscribe(res => console.log(res));
 
 *forkJoin* 
 
-> Important : si au moins 1 observable est en erreur, alors le forkjoin retournera une erreur et aucun résultat pour les observables qui ont succeeded
+> <img src="https://img.shields.io/badge/Important-DD0031.svg?logo=LOGO"> : si au moins 1 observable est en erreur, alors le forkjoin retournera une erreur et aucun résultat pour les observables qui ont succeeded
 
 ````typescript
 forkJoinExample() {
