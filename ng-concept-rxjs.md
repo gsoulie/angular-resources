@@ -40,7 +40,7 @@ https://rxmarbles.com/#map
 |zip|combines les résultats de plusieurs observables, émet UNIQUEMENT **si toutes les sources émettent une donnée**|
 
 
-> Important : les opérateurs appliqués **ne modifient jamais l'observable d'origine**, ils produisent une copie et renvoient un nouvel observable.
+> <img src="https://img.shields.io/badge/Important-DD0031.svg?logo=LOGO"> : les opérateurs appliqués **ne modifient jamais l'observable d'origine**, ils produisent une copie et renvoient un nouvel observable.
 
 *Exemple*
 ````typescript
