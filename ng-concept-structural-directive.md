@@ -48,6 +48,16 @@ Il existe trois mots clés pour le ngFor : *index, first, last*
 <b *ngIf="isFirst">je suis premier</b>
 ````
 
+### Fonction trackBy
+
+````html
+<mat-item *ngFor="let u of users; tackBy: trackUserId">{{ user.name }}</mat-item>
+````
+
+````typescript
+users: any[] = [...]
+trackUserId(index, user) { return user.id }
+````
 ## ngSwitch
 
 ````html
