@@ -1,8 +1,13 @@
 [< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)    
 
 # Directives structurelles
+
+* [ngIf](#ngif)     
+* [ngFor](#ngfor)     
+* [ngSwitch](#ngSwitch)     
   
-````
+## ngIf
+````html
 <p *ngIf="name; else noName">
 	cas name non vide
 </p>
@@ -15,9 +20,9 @@
 
 Rq : *ngIf avec else est équivalent à double blocs *ngIf
 
-*Autre exemple*
+## ngFor
 
-````
+````html
 <ng-container *ngIf="tickets; then okTickets else noTickets"></ng-container>
 
 <ng-template #okTickets>
@@ -37,10 +42,21 @@ Rq : *ngIf avec else est équivalent à double blocs *ngIf
 ### mots clés réservés de ngFor 
 
 Il existe trois mots clés pour le ngFor : *index, first, last*
-````
+````html
 <p *ngFor="let item of items; i = index; isFirst = first; isLast = last">
 
 <b *ngIf="isFirst">je suis premier</b>
+````
+
+## ngSwitch
+
+````html
+<div [ngSwitch]="value">
+	<p *ngSwitchCase="5">value is 5</p>
+	<p *ngSwitchCase="10">value is 10</p>
+	<p *ngSwitchCase="100">value is 100</p>
+	<p ngSwitchDefault="5">value is default</p>
+</div>
 ````
 
 [Back to top](#directives-structurelles)
