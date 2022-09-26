@@ -2,6 +2,9 @@
 
 # Directives
 
+* [Snippets](#snippets)    
+* [Généralités](#généralités)    
+* [Manipulation des styles](#manipulation-des-styles)     
 * [ngclass](#ngclass)     
 * [ngstyle](#ngstyle)      
 * [hostbinding](#hostbinding)     
@@ -10,115 +13,201 @@
 
 https://github.com/gsoulie/ionic-angular-snippets#directives-usage
 
-## Général
 
-https://www.learn-angular.fr/les-directives/         
-https://www.digitalocean.com/community/tutorials/angular-using-renderer2    
-    
-Les directives permettent de modifier les éléments du DOM. **Leur responsabilité est relative à la vue**
+## Généralités
+
+https://www.learn-angular.fr/les-directives/
+https://www.digitalocean.com/community/tutorials/angular-using-renderer2
+
+Les directives permettent de modifier les éléments du DOM. Leur responsabilité est relative à la vue
 
 Dans l'idéal :
-- Si on **modifie l'aspect** d'un élément on utilise une **directive**. 
-- SI on **créé un élément** alors on utilise un **component**
 
-*Appel d'une directive (ici : appHighlight)*
-````html
-<div appHighlight (click)="maFonction()">TEXT</div>
+* Si on modifie l'aspect d'un élément on utilise une directive      
+* SI on créé un élément alors on utilise un component    
 
-<!-- Une directive peut aussi envoyer un EventEmitter -->
-<div appHighlight (eventDirective)="gererEmitterDeLaDirective()">TEXT</div>
+## Manipulation des styles  
+
+<img src="https://img.shields.io/badge/Important-DD0031.svg?logo=LOGO"> Il n'est pas conseillé dans une directive, d'accéder directement aux propriétés de style d'un élément de la manière suivante :
+
+````typescript
+this.elementRef.nativeElement.style.backgroundColor = '#ffaa22';
+this.elementRef.nativeElement.style.padding = '10px';
+this.elementRef.nativeElement.style.borderRadius = '10px';
 ````
 
-*Directive qui applique un fond rouge sur un click de la div*
+Ceci parce qu'Angular est en mesure de restituer les éléments hors du DOM et par conséquent les propriétés de style peuvent ne pas être disponible à ce moment précis.
+
+Il est donc **conseillé** d'utiliser le service **Renderer**
+
 ````typescript
 @Directive({
-	selector: '[appHighlight]'
+  selector: '[appBasicHighlight]'
 })
+export class BasicHighlightDirective implements OnInit {
+	constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
-export class HighlightDirective {
-	constuctor(private _element: ElementRef) { }
+	ngOnInit() {
+		// BAD --->
+		// this.elementRef.nativeElement.style.backgroundColor = '#ffaa22';
+		// this.elementRef.nativeElement.style.padding = '10px';
+		// this.elementRef.nativeElement.style.borderRadius = '10px';
 
-	// Ecouter événement click. Sur un click il applique la fonction onClick()
-	@HostListener('click') 
-	onClick(){
-		this._element.nativeElement.style.backgroundColor = 
-		this._element.nativeElement.style.backgroundColor ? null : 'red';
+		// GOOD --->
+		this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', '#ffaa22');
+		this.renderer.setStyle(this.elementRef.nativeElement, 'padding', '10px');
+		this.renderer.setStyle(this.elementRef.nativeElement, 'border-radius', '10px');
+
+		this.renderer.listen(this.elementRef.nativeElement, 'mouseenter', (e) => {
+			this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'pink');
+		});
+		this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', (e) => {
+			this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', '#ffaa22');
+		});
 	}
-}
-````
-
-### Ajouter des propriétés à une directive
-[Back to top](#directives) 
-
-**TRES IMPORTANT** : Les paramètres passés à une directive ne sont **PAS** accessibles depuis le constructeur. Ils ne sont accessibles uniquement depuis les listeners. On ne peut donc pas utiliser un paramètre comme valeur par défaut.
-
-````html
-<div [appHighlight]="'red'" [isMaj]="true"">TEXT</div>
-````
-
-*Directive qui applique un fond rouge sur un click de la div*
-````typescript
-@Directive({
-	selector: '[appHighlight]'
-})
-
-export class HighlightDirective {
-	@Input('appHighlight') actualColorText: string;
-	@Input() isMaj: boolean;
-
-	constuctor(private _element: ElementRef) { }
-
-	onClick(){
-		const colorToApply = this.actualColorText || 'green';
-		this._element.nativeElement.style.backgroundColor = 
-		colorToApply;
 	
-		if(this.isMaj) {
-			this._element.nativeElement.style.textTransform = 'uppercase';
-		}
+	// ALTERNATIVE à renderer.listen
+	@HostListener('mouseenter') mouseover() {
+		this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'pink');
+	}
+
+	@HostListener('mouseleave') mouseleave() {
+		this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', '#ffaa22');
 	}
 }
 ````
 
-### Exemple 1
+> A savoir : renderer fonctionne aussi avec les services workers
 
-*directive.ts*
+
+### Binder une propriété
+
+Pour simplifier l'accès à une propriété, il est possible de la binder. En reprenant l'exemple précédent, voici comment simplifier l'accès à la propriété *backgroundColor* lors d'un survol de l'élément
 
 ````typescript
-import { Directive, ElementRef, Renderer2, Input, HostListener } from '@angular/core';
+@HostBinding('style.backgroundColor') backgroundColor: string = 'red';
 
-@Directive({
-  selector: '[appColor]'
-})
-export class ColorDirective {
-
-  @Input('appColor') highlightColor: string;
-
-  private _defaultColor = 'blue';
-
-  // Directive permettant de changer la couleur d'un élément
-  constructor(private el: ElementRef, private renderer: Renderer2) {
-    renderer.setStyle(el.nativeElement, 'color', this._defaultColor);
-  }
-
-  // mouseenter listener
-  @HostListener('mouseenter', ['$event']) onMouseEnter(event: Event) {
-    this.renderer.setStyle(this.el.nativeElement, 'color', this.highlightColor);
-  }
-
-  // mouseleave listener
-  @HostListener('mouseleave', ['$event']) onMouseLeave(event: Event) {
-    this.renderer.setStyle(this.el.nativeElement, 'color', this._defaultColor);
-  }
-
+@HostListener('mouseenter') mouseover() {
+    //this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'pink');
+    this.backgroundColor = 'pink';
 }
 
+@HostListener('mouseleave') mouseleave() {
+    //this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', '#ffaa22');
+	this.backgroundColor = '#ffaa22';
+}
 ````
 
-*app.component.html*
+### Passage de paramètres
+
+<img src="https://img.shields.io/badge/Important-DD0031.svg?logo=LOGO"> Les paramètres passés à une directive ne sont PAS accessibles depuis le constructeur. Ils ne sont accessibles uniquement depuis les listeners. On ne peut donc pas utiliser un paramètre comme valeur par défaut.
+
+On souhaite maintenant passer 2 paramètres à la directives, la couleur par défaut de l'élément et sa couleur lors du survol :
+
+````typescript
+@Directive({
+  selector: '[appBasicHighlight]'
+})
+
+export class BasicHighlightDirective implements OnInit {
+  @Input() defaultColor = 'transparent';
+  @Input() highLightColor = 'transparent';
+
+  @HostBinding('style.backgroundColor') backgroundColor: string;
+
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
+
+  ngOnInit() {
+    this.backgroundColor = this.defaultColor;
+  }
+
+  @HostListener('mouseenter') mouseover() { this.backgroundColor = this.highLightColor; }
+
+  @HostListener('mouseleave') mouseleave() { this.backgroundColor = this.defaultColor; }
+}
+````
+
+*Appel*
 
 ````html
-<div mat-subheader [appColor]="'red'">Directives typescript</div>
+<h3 appBasicHighlight [defaultColor]="'yellow'" [highLightColor]="'pink'">Test directive</h3>
+````
+
+### Utiliser les alias
+
+L'utilisation d'alias n'est pas obligatoire mais c'est à connaître. Un alias doit avoir le même nom que la directive. Il permet ensuite lors de l'appel, de binder la directive dans le html et lui passer
+directement la valeur du paramètre.
+
+````typescript
+@Directive({
+  selector: '[appBasicHighlight]'
+})
+
+export class BasicHighlightDirective implements OnInit {
+  @Input(appBasicHighlight) defaultColor = 'transparent';	// <-- on a placé un alias sur la couleur par défaut.
+  @Input() highLightColor = 'transparent';
+
+  ...
+}
+````
+
+On peut donc retirer le paramètre *defaultColor* qui a été remplacé par un alias du même nom que la directive
+
+*Appel*
+
+````html
+<h3 [appBasicHighlight]="'yellow'" [highLightColor]="'pink'">Test directive</h3>
+````
+
+### Envoyer un EventEmitter
+
+````typescript
+@Directive({
+  selector: '[appBasicHighlight]'
+})
+
+export class BasicHighlightDirective implements OnInit {
+  @Output() clickEvent = new EventEmitter()
+  
+  @HostListener('click') clickOnItem() { this.clickEvent.emit(this.elementRef.nativeElement); }
+
+  ...
+}
+````
+
+### Directive structurelle
+
+Reproduire la directive ````*ngIf````
+
+````typescript
+import { Directive, Input, TemplateRef, ViewContainerRef } from "@angular/core";
+
+@Directive({
+  selector: '[appConditionalIf]'
+})
+export class ConditionalIfDirective {
+  @Input() set appConditionalIf(condition: boolean) {	// <--- IMPORTANT reprendre le nom de la directive
+  
+    if (condition) {
+      // display element
+      this.viewContainer.createEmbeddedView(this.templateRef);
+    } else {
+      // hide element
+      this.viewContainer.clear();
+    }
+  }
+  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef) { }
+}
+````
+
+*Utilisation*
+
+A noter qu'il faut ajouter une (*) devant le nom de la directive
+
+````typescript
+<button (click)="isVisible = !isVisible">Show / Hide</button>
+
+<h2 *appConditionalIf="isVisible">COnditionnal ? {{ isVisible }}</h2>
 ````
 
 ### Exemple 2 
@@ -149,9 +238,9 @@ export class CardContentDirective {
 }
 
 ````
+[Back to top](#directives)    
 
 ## ngClass
-[Back to top](#directives)    
 
 Selon le contexte, si un traitement conditionnel est utilisé plusieurs fois dans l'appli et/ou avec de l'algo à faire, utiliser une directive.
 
@@ -159,8 +248,9 @@ Si c'est un cas très ponctuel, utiliser ````[ngClass]````
 
 ````<label [ngClass]="{'myCssClass': i > 5 ? true : false}">my content</label>````
 
+[Back to top](#directives)    
+
 ## ngStyle
-[Back to top](#directives)
 
 ````html
 <p [ngStyle]="{backgroundColor: getColor()}"></p>
@@ -168,25 +258,4 @@ Si c'est un cas très ponctuel, utiliser ````[ngClass]````
 <label [ngStyle]="{'background-color':myVar < 5 ? 'blue' : 'green'}">my content</label>
 ````
 
-## HostBinding
 [Back to top](#directives)
-
-````typescript
-@Directive({
-	selector: '[appHighlight]'
-})
-export class HightlightDirective {
-
-	@HostBinding('style.backgroundColor') bg = 'red';
-	
-	constructor() {	}
-	
-	@HostListener('mouseenter') mouseenter() {
-		this.bg = 'blue';
-	}
-	
-	@HostListener('mouseleave') mouseleave() {
-		this.bg = 'red';
-	}
-}
-````
