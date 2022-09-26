@@ -149,23 +149,19 @@ export class UserEffects {
     private actions$: Actions,
     private http: HttpClient) { }
 
-  fetchData$ = createEffect((): any => {
-    return this.actions$.pipe(
-      ofType(UserActions.fetchUser),
-      switchMap(() => this.getUsers() ),
-      map(users => {
-        return users.map(user => {
-          return {
-            ...user
-          }
-        })
-      }),
-      map(users => UserActions.setUsers({ payload: users }))
+  // ATTENTION : reset le dataset à chaque fetch car les données sont statiques et ne proviennent pas d'une vraie API
+  // dont les données seraient mises à jour lors du CRUD
+  fetchUsers$ = createEffect((): any => this.actions$.pipe(
+    ofType(UsersActions.fetch_users),
+    mergeMap(() => this.getUsers()
+      .pipe(
+        map((users: User[]) => (UsersActions.set_users({ payload: users }))),
+        catchError(() => EMPTY)
+      )
     )
-  });
+  ));
 
   getUsers() { return this.http.get<User[]>('/assets/data.json'); }
-}
 ````
 
 > **ofType** permet de filtrer sur le type d'effet que l'on souhaite observer. Il est possible de définir plusieurs types.
