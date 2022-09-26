@@ -5,7 +5,10 @@
 * [Présentation](#présentation-application-state)     
 * [Utilisation](#utilisation)     
 * [Important](#important)     
-* [Effects](#effects)    
+* [Utilisation](#utilisation)     
+* [Créer les actions](#créer-les-actions)     
+* [Reducer](#reducer)    
+* [Effects](#effects)     
 
 ## Présentation Application state
 
@@ -46,7 +49,7 @@ https://github.com/gsoulie/angular-resources/tree/master/ngrx
 
 [Bact to top](#ngrx)    
 
-# TRES IMPORTANT
+## Créer les actions
 
 Les codes utilisés pour identifier les actions **DOIVENT ETRES UNIQUES** dans l'application. En effet la fonction ````store.dispatch```` atteint TOUS les reducers bien que l'on spécifie un reducer particulier lors de l'appel à dispatch. De fait, il faut éviter la duplication des identifiants des actions pour prévenir d'évnetuels effets de bords.
 
@@ -58,8 +61,66 @@ const ADD_USER = '[User] Add new user';
 const UPDATE_USER = '[User] Update user';
 const DELETE_USER = '[User] Delete user';
 const INIT_USERS = '[User] Initialize users';
+
+// Déclaration d'un groupe d'action - Nouvelle syntaxe NgRx 14
+export const UsersActions = createActionGroup({
+  source: 'Users',
+  events: {
+    FETCH_USERS: emptyProps(),
+    SET_USERS: props<{ payload: User[] }>(),
+    ADD_USER: props<{ payload: User }>(),
+    DELETE_USER: props<{ payload: User }>(),
+    UPDATE_USER: props<{ payload: User }>()
+  }
+})
 ````
+
 [Bact to top](#ngrx)    
+
+## Reducer
+
+````typescript
+// définition d'un state en particulier
+export interface State {
+  users: User[];
+  isLoading: boolean;
+}
+
+const initialState: State = {
+  users: [{
+    id: 1, name: 'Guillaume'
+  }], // possibilité d'ajouter des dummy data ici
+  isLoading: false
+}
+
+export const usersReducer = createReducer(
+  initialState,
+  on(
+    UsersActions.fetch_users,
+    (state) => ({
+      ...state, // BONNE PRATIQUE : copier le contenu de l'ancien state. évite de perdre des données en route
+      isLoading: false
+    })
+  ),
+  on(
+    UsersActions.set_users,
+    (state, action) => ({
+      ...state,
+      isLoading: false,
+      users: [...action.payload]
+    })
+  ),
+  on(
+    UsersActions.add_user,
+    (state, action) => ({
+      ...state,
+      users: [...state.users, action.payload]
+    })
+  ),
+````
+
+[Bact to top](#ngrx)  
+
 ## Effects
 
 Les *Effects* permettent de gérer la problématique des "effets de bords". Sont considérés comme effets de bord : les **appels http**, **local storage** etc...
