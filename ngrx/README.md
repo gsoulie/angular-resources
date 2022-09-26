@@ -73,6 +73,10 @@ export const UsersActions = createActionGroup({
     UPDATE_USER: props<{ payload: User }>()
   }
 })
+
+// Création d'actions à l'unité
+//export const fetchUsers = createAction(FETCH_USERS);
+//export const setUsers = createAction(SET_USERS, props<{ payload: User[] }>())
 ````
 
 [Bact to top](#ngrx)    
