@@ -717,7 +717,7 @@ Angular fourni un certains nombre de guard :
 	
 * *CanLoad* : permettant d'indiquer si un composant / module lazy-loadé peut être chargé ou non    
 * *CanActivate / CanActivateChild* : permet de déterminer si un composant / module peut être activé     
-* *CanMatch* : permet le chargement de composants différents utilisant une mêem route en fonction d'un paramétrage
+* *CanMatch* : permet le chargement de composants différents utilisant une même route en fonction d'un paramétrage
 	
 ````typescript
 const routes: Routes = [
