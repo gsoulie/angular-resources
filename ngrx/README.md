@@ -51,7 +51,7 @@ https://github.com/gsoulie/angular-resources/tree/master/ngrx
 
 ## Créer les actions
 
-Les codes utilisés pour identifier les actions **DOIVENT ETRES UNIQUES** dans l'application. En effet la fonction ````store.dispatch```` atteint TOUS les reducers bien que l'on spécifie un reducer particulier lors de l'appel à dispatch. De fait, il faut éviter la duplication des identifiants des actions pour prévenir d'évnetuels effets de bords.
+Les codes utilisés pour identifier les actions **doivent être UNIQUES** dans l'application. En effet la fonction ````store.dispatch```` atteint TOUS les reducers bien que l'on spécifie un reducer particulier lors de l'appel à dispatch. De fait, il faut éviter la duplication des identifiants des actions pour prévenir d'évnetuels effets de bords.
 
 > Recommandation : préfixer les valeurs avec le nom de sa classe / feature ou autre
 
