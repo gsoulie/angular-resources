@@ -140,6 +140,13 @@ const user = [{nom: 'toto', prenom: 'paul'},{nom: 'titi', prenom: 'luc'}];
 let [o1, o2] = user;
 
 // va donner : o1 = {nom: 'toto', prenom: 'paul'} et o2 = {nom: 'titi', prenom: 'luc'}
+
+
+const musician = { id: 54664, name: 'mike', instrument: 'drums' };
+
+const {id, ...otherProps } = musician;
+// id = 54664
+// otherProps = {name: 'mike', instrument: 'drums' }
 ````
 
 **Exemple**
