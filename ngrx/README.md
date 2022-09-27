@@ -55,7 +55,7 @@ Les codes utilisés pour identifier les actions **doivent être UNIQUES** dans l
 
 > Recommandation : préfixer les valeurs avec le nom de sa classe / feature ou autre
 
-*Exemples*
+*Exemples user.actions.ts*
 ````typescript
 const ADD_USER = '[User] Add new user';
 const UPDATE_USER = '[User] Update user';
@@ -83,6 +83,7 @@ export const UsersActions = createActionGroup({
 
 ## Reducer
 
+*Exemple user.reducer.ts*
 ````typescript
 // définition d'un state en particulier
 export interface State {
@@ -133,6 +134,7 @@ Installation du package Effects ````npm i --save @ngrx/effects````
 
 Les effects sont ensuite gérés dans des fichier séparés de type *xxxx.effects.ts*. On peut y déléguer les appels http par exemple :
 
+*Exemple user.effects.ts*
 ````typescript
 import { User } from '../user.model';
 import { HttpClient } from '@angular/common/http';
