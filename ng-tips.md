@@ -126,9 +126,12 @@ const total = cart.reduce((acc, curr) => {
 	acc += curr.price
 	return acc; // à ne pas oublier
 }, 0);
+
+// output
+// 42.54
 ````
 
-Par défaut on fixe la valeur initiale de l'accumulateur à 0
+> Par défaut on fixe la valeur initiale de l'accumulateur à 0
 
 *Faire une somme par groupe de valeur*
 ````typescript
@@ -153,7 +156,7 @@ console.log('cart cost = ' + JSON.stringify(cart.reduce((acc, curr) => {
 // {"banana":2, "apple":8, "kiwi":3}
 ````
 
-Par défaut on fixe la valeur de l'accumulateur à ````{}```` car le résultat doit être un objet
+> Par défaut on fixe la valeur de l'accumulateur à ````{}```` car le résultat doit être un objet
 
 *Transformer un tableau d'objet en objet json utilisant un id comme clé des sous-objets*
 ````typescript
