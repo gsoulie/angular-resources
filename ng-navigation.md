@@ -717,22 +717,7 @@ Angular fourni un certains nombre de guard :
 	
 * *CanLoad* : permettant d'indiquer si un composant / module lazy-loadé peut être chargé ou non    
 * *CanActivate / CanActivateChild* : permet de déterminer si un composant / module peut être activé     
-* *CanMatch* : permet le chargement de composants différents utilisant une même route en fonction d'un paramétrage
-	
-````typescript
-const routes: Routes = [
-{
-  path: 'todos',
-  canMatch: [() => inject(FeatureFlagsService).hasPermission('todos-v2')],
-  loadComponent: () => import('./todos-page-v2/todos-page-v2.component')
-                        .then(v => v.TodosPageV2Component)
-},
-{
-  path: 'todos',
-  loadComponent: () => import('./todos-page/todos-page.component')
-                         .then(v => v.TodosPageComponent)
-}];
-````
+* *CanMatch* : permet le chargement de composants différents utilisant une même route en fonction d'un paramétrage. **Attention** il faut positionner la route protégée par le *CanMatch* au-dessus de la route par défaut.
 	
 https://www.youtube.com/watch?v=YJ4dgoHEmGs&ab_channel=CodeShotsWithProfanis      
 
@@ -916,6 +901,44 @@ const routes: Routes = [{
 	
 [Back to top](#navigation)
 	
+### Guard CanMatch
+	
+<img src="https://img.shields.io/badge/Important-DD0031.svg?logo=LOGO"> Les routes protégées par un guard *CanMatch* doivent être positionnées au-dessus des même routes non protégées.
+	
+````typescript
+const routes: Routes = [
+{
+  path: 'todos',
+  canMatch: [() => inject(FeatureFlagsService).hasPermission('todos-v2')],	// <-- syntaxe avec injection de service custom
+  loadComponent: () => import('./todos-page-v2/todos-page-v2.component')
+                        .then(v => v.TodosPageV2Component)
+},
+{
+  path: 'todos',
+  canMatch: [CustomMatchGuard],	// <-- syntaxe classique
+  loadComponent: () => import('./todos-page-initial/todos-page-initial.component')
+                        .then(v => v.TodosPageInitialComponent)
+},
+{
+  path: 'todos',
+  loadComponent: () => import('./todos-page/todos-page.component')
+                         .then(v => v.TodosPageComponent)
+}];
+````
+	
+*CustomMatchGuard*
+	
+````typescript
+export class MatchGuard implements CanMatch {
+  canMatch(
+    route: ActivatedRouteSnapshot,
+    segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return of(false);
+  }
+}
+````	
+[Back to top](#navigation)
+	
 ## Route source
 
 Connaître la route depuis laquelle on vient
@@ -931,8 +954,6 @@ ngOnInit() {
     });
 }
 ````
-
-[Back to top](#navigation)
 
 ## Tab Routing avec retour depuis modale
 
