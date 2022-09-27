@@ -46,7 +46,6 @@
 	* Convertir un objet Date en chaîne 'YYYY-MM-DD'      
 	* Gérer les dates en locale FR     
 	* [Forcer le vidage du cache client pour mise à jour application](https://angular.io/guide/service-worker-communications#checking-for-updates)     
-	* Opérateur reduce      
 * [Navigation](https://github.com/gsoulie/angular-resources/blob/master/ng-navigation.md)     
 * [Http](https://github.com/gsoulie/angular-resources/blob/master/ng-http.md)     
 	* Http interceptor : (gestion bearer, loading spinner...)     	
