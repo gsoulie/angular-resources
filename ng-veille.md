@@ -333,6 +333,8 @@ Permet le développement de fronts statiques (multi-pages) générés avec un re
 Astro regroupe quasi tous les framework JS (react, vue, angular, svelte, alpine...). On peut en effet intégrer très facilement dans astro des composants react, vue, angular etc... et indiquer pour chacun s'ils ont besoin de réactivité (exécution code JS côté client) ou non via une directive de type ````client:load````, ````client:visible```` etc....
 
 *Petit exemple d'intégration d'un composant Vue*
+
+*index.astro*
 ````jsx
 ---
 import Layout from '../layouts/Layout.astro';
