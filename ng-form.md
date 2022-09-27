@@ -151,7 +151,7 @@ onSubmit() {
 
 retourne null si tout va bien et retourne un objet en cas d'erreur.
 
-**ATTENTION** Ne jamais faire de *reject* mais un *resolve(<quelque-chose>)* en cas d'erreur
+**ATTENTION** Ne jamais faire de ````reject```` mais un ````resolve(<quelque-chose>)```` en cas d'erreur
 
 Un validator custom est une classe dans lequel on défini une methode statique => ````this.champ = new FormControl(null, monvalidator.saMethodeStatique);````
 
