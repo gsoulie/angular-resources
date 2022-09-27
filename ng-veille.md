@@ -11,6 +11,7 @@
 	* [Svelte](#svelte)    
 	* [Flutter](#flutter)    
 	* [Qwik](#qwik)     
+	* [Astro](#astro)    
 * [Backends](#Backends)     
 	* [NuxtJS](#nextjs)  
 	* [NextJS](#nuxtjs)  	  
@@ -320,6 +321,31 @@ Inconvénients Ionic
 - Embarquer l'état (le state) de la page dans le DOM (fait par le SSR). A tout moment on fait un snapshot de la page html      
 - Retarder la création de listener le plus possible     
 - Un seul listener global plutôt que plusieurs petits listeners     
+
+[Back to top](#veille)     
+
+### Astro
+
+https://www.youtube.com/watch?v=mNmqG4lH4sg&ab_channel=DevTheory
+
+Permet le développement de fronts statiques (multi-pages) générés avec un rendu serveur. Aucun javascript ou presque n'est présent côté client. C'est le serveur qui exécute le javascript, recalcule le rendu et renvoi la page au client. L'objectif est de concevoir des sites avec un time to interact le plus faible possible.
+
+Astro regroupe quasi tous les framework JS (react, vue, angular, svelte, alpine...). On peut en effet intégrer très facilement dans astro des composants react, vue, angular etc... et indiquer pour chacun s'ils ont besoin de réactivité (exécution code JS côté client) ou non via une directive de type ````client:load````, ````client:visible```` etc....
+
+*Petit exemple d'intégration d'un composant Vue*
+````jsx
+---
+import Layout from '../layouts/Layout.astro';
+import Counter from '../components/Counter.vue'; // <-- import d'un composant Vue
+---
+
+<Layout title="Welcome to Astro">
+	<main>
+		<h1>Integration composant Vue</h1>
+		<Counter client:load />
+	</main>
+</Layout>
+````
 
 [Back to top](#veille)     
 
