@@ -8,6 +8,7 @@
 * [animation réutilisable](https://netbasal.com/creating-reusable-animations-in-angular-6a2350d6191a)     
 * [Exemples](https://github.com/gsoulie/angular-resources/tree/master/animations)      
 * [Animations partagées](#animations-partagées)      
+* [Animations sur scroll](#animations-sur-scroll)     
 
 ## animate.css
 
@@ -208,4 +209,11 @@ Il suffit ensuite d'importer cette animation dans le decorator *@Component()* du
   animations: [animatedListCards, enteringFromLeft]
 })
 ````
+[Back to top](#animations)     
+
+##  Animation sur scroll
+https://www.youtube.com/watch?v=x0Dvpu2jcUo&list=PLiO4ScU0Pxp0cAxMqGCtRmvRGA5vjId7b&index=3&ab_channel=DevTheory
+
+méthode plus performante pour déclencher des éléments lors d'un scroll (exemple dpage web bootstrap avec des animations lors du scroll qui font apparaître des éléments) SANS utiliser l'event scroll mais le IntersectionObserver qui est plus performant et très simple d'utilisation
+
 [Back to top](#animations)     
