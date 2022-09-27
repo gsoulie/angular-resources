@@ -21,7 +21,7 @@
 [1, 2, 3, 4].unshift(1)	// [1, 1, 2, 3, 4]
 [1, 2, 3, 4].includes(2) // true
 [1, 2, 3, 4].map(num => nim * 2) // [2, 4, 6, 8]
-[1, 2, 3, 4].som(num => num > 3) // true
+[1, 2, 3, 4].some(num => num > 3) // true
 [1, 2, 3, 4].find(num => num > 2) // 3
 [1, 2, 3, 4].every(num => num > 3) // false
 [1, 2, 3, 4].filter(num => num > 2) // [3, 4]
