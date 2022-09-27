@@ -29,8 +29,73 @@
 [1, 2, 3, 4].reduce((acc, num) => acc + num) // 10
 ````
 
-## Spread et Rest
+### Opérateur reduce
+
+*Coût total d'un caddie*
+````typescript
+const cart = [
+	{ banana: 1, price: 24.99 },
+	{ tomato: 5, price: 13.75 },
+	{ apple: 1, price: 3.80 }
+];
+
+const total = cart.reduce((acc, curr) => {
+	acc += curr.price
+	return acc; // à ne pas oublier
+}, 0);
+
+// output
+// 42.54
+````
+
+> Par défaut on fixe la valeur initiale de l'accumulateur à 0
+
+*Faire une somme par groupe de valeur*
+````typescript
+const cart = [
+  { customer: 'paul', item: 'banana', qte: 2},
+  { customer: 'marie', item: 'apple', qte: 7},
+  { customer: 'john', item: 'kiwi', qte: 3},
+  { customer: 'alex', item: 'apple', qte: 1},
+];
+
+console.log('cart cost = ' + JSON.stringify(cart.reduce((acc, curr) => {
+  if (Object.keys(acc).includes(curr.item)) {
+	acc[curr.item] += curr.qte;
+  } else {
+	acc[curr.item] = curr.qte;
+  }
+  return acc;
+  }, {}))
+);
+
+// output
+// {"banana":2, "apple":8, "kiwi":3}
+````
+
+> Par défaut on fixe la valeur de l'accumulateur à ````{}```` car le résultat doit être un objet
+
+*Transformer un tableau d'objet en objet json utilisant un id comme clé des sous-objets*
+````typescript
+const musicians = [
+  { id: 1464, name: 'paul', instrument: 'saxo' },
+  { id: 849944, name: 'john', instrument: 'guitar' },
+  { id: 54664, name: 'mike', instrument: 'drums' },
+];
+
+const musicianObj = musicians.reduce((acc, curr) => {
+	const {id, ...otherProps } = curr;	// destructuration avec séparation de l'id du reste des propriétés
+	
+	acc[curr.id] = otherProps;
+	return acc;
+});
+
+// output
+// { '1464': {name: 'paul', instrument: 'saxo'}, '849944': {name: 'john', instrument: 'guitar'}, '54664': {name: 'mike', instrument: 'drums'} }
+````
 [Back to top](#operateurs) 
+
+## Spread et Rest
 
 L'opérateur ````...```` permet de copier toutes les propriétés d'un objet. Peut être utile si l'on souhaite retourner une copie d'un objet avec toutes ses propriétés en y ajoutant en plus des nouvelles.
 
@@ -66,9 +131,9 @@ let obj2 = {...obj, c: 3};
 
 console.log(obj2); // {a: 1, b: 2, c: 3}
 ````
+[Back to top](#operateurs) 
 
 ## Destructuration objet
-[Back to top](#operateurs) 
 
 ````typescript
 const user = [{nom: 'toto', prenom: 'paul'},{nom: 'titi', prenom: 'luc'}];
@@ -165,9 +230,9 @@ closePopover(ev): void {
     const { data } = ev.detail;
 }
 ````
+[Back to top](#operateurs) 
 
 ### Destructuration paramètres de fonction
-[Back to top](#operateurs) 
 
 ````typescript
 maFunct = ({param1, param2}) {
@@ -179,8 +244,9 @@ maFunct({param2: 5, param1: 1});
 > Important : permet de s'affranchir de l'ordre des paramètres et de gérer plus facilement les 
 paramètres optionnels
 
+[Back to top](#operateurs) 
+
 ## Object assign
-[Back to top](#operateurs)
 
 La réassignagtion d'objet permet de **casser** la référence d'un objet et ainsi pouvoir forcer le déclenchement de sa mise à jour côté vue lorsqu'on utilise un *pipeTransform* pour la mise en forme des données (par exemple). 
 
@@ -242,6 +308,7 @@ console.log(`name : ${task.name} - ${taskCopy.name}`);  // => Initial task - Tas
 taskCopy.metadata.workspace = 'production';
 console.log(`workspace : ${task.metadata.workspace} - ${taskCopy.metadata.workspace}`); // => 'production' - 'production'
 ````
+[Back to top](#operateurs) 
 
 ### Deep copy
 
