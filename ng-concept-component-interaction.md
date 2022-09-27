@@ -10,7 +10,7 @@ Angular fonctionne en single way data-binding, c'est à dire que les enfants ne 
 
 Propriété dans composant enfant
 
-````
+````typescript
 @Input() public user: Object;
 
 <input type="text" [(ngModel)]="user.name" />
@@ -18,7 +18,7 @@ Propriété dans composant enfant
 
 **Parent**
 
-````
+````typescript
 <app-compo-enfant [user]="myUser"></app-compo-enfant>
 
 myUser: Object
@@ -39,7 +39,7 @@ Si l'enfant modifie l'objet, il doit remonter l'information au père avec event 
 
 **Enfant**
 
-````
+````typescript
 @Output() vider = new EventEmitter();
 
 public vider() {
@@ -54,7 +54,7 @@ public vider() {
 
 **Parent**
 
-````
+````typescript
 <app-compo-enfant (vider)="onVider($event)">
 
 public onVider(val) {
