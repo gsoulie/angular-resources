@@ -85,17 +85,23 @@ export const UsersActions = createActionGroup({
 
 *Exemple user.reducer.ts*
 ````typescript
-// définition d'un state en particulier
+/**
+ * définition d'un state en particulier
+ *
+ * Déclarer toutes les variables nécéssaires à l'affichage qui doivent être gérées par le state
+ **/
 export interface State {
   users: User[];
   isLoading: boolean;
+  errorMessage: string;
 }
 
 const initialState: State = {
   users: [{
     id: 1, name: 'Guillaume'
   }], // possibilité d'ajouter des dummy data ici
-  isLoading: false
+  isLoading: false,
+  errorMessage: ''
 }
 
 export const usersReducer = createReducer(
