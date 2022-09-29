@@ -5,7 +5,7 @@
 * [Tableaux](#tableaux)     
 * [Spread et Rest](#spread-et-rest)         
 * [Destructuration d'objet](#destructuration-objet)       
-* [Object assign](#object-assign)     
+* [Casser une référence](#casser-une-référence)     
 * [Shallow copy vs Deep copy](#shallow-copy-vs-deep-copy)      
 * [Utilisation du type générique](#utilisation-du-type-générique)     
 
@@ -253,7 +253,20 @@ paramètres optionnels
 
 [Back to top](#operateurs) 
 
-## Object assign
+## Casser une référence
+
+Pour "casser" la référence à un objet, il existe plusieurs solutions
+
+### spread
+
+````typescript
+const initialData = ['banana', 'apple', 'kiwi'];
+
+const newRef = [...initialData];
+const otherRef = initialData.slice();
+````
+
+### Object assign
 
 La réassignagtion d'objet permet de **casser** la référence d'un objet et ainsi pouvoir forcer le déclenchement de sa mise à jour côté vue lorsqu'on utilise un *pipeTransform* pour la mise en forme des données (par exemple). 
 
