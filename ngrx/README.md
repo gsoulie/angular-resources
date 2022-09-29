@@ -134,39 +134,91 @@ Installation du package Effects ````npm i --save @ngrx/effects````
 
 Les effects sont ensuite gérés dans des fichier séparés de type *xxxx.effects.ts*. On peut y déléguer les appels http par exemple :
 
-*Exemple user.effects.ts*
+
+https://ngrx.io/guide/effects
+
 ````typescript
-import { User } from '../user.model';
-import { HttpClient } from '@angular/common/http';
-import { Actions, ofType, createEffect } from "@ngrx/effects";
-import * as UserActions from './users.actions';
-import { map } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
-
 @Injectable()
-export class UserEffects {
-
+export class MovieEffects {
+ 
+  loadMovies$ = createEffect(() => this.actions$.pipe(
+    ofType('[Movies Page] Load Movies'),
+    mergeMap(() => this.moviesService.getAll()
+      .pipe(
+        map(movies => ({ type: '[Movies API] Movies Loaded Success', payload: movies })),
+        catchError(() => EMPTY)
+		//catchError(() => of({ type: '[Movies API] Movies Loaded Error' }))	// autre cas de gestion d'erreur
+      ))
+    )
+  );
+ 
   constructor(
     private actions$: Actions,
-    private http: HttpClient) { }
-
-  // ATTENTION : reset le dataset à chaque fetch car les données sont statiques et ne proviennent pas d'une vraie API
-  // dont les données seraient mises à jour lors du CRUD
-  fetchUsers$ = createEffect((): any => this.actions$.pipe(
-    ofType(UsersActions.fetch_users),
-    mergeMap(() => this.getUsers()
-      .pipe(
-        map((users: User[]) => (UsersActions.set_users({ payload: users }))),
-        catchError(() => EMPTY)
-      )
-    )
-  ));
-
-  getUsers() { return this.http.get<User[]>('/assets/data.json'); }
+    private moviesService: MoviesService
+  ) {}
+}
 ````
 
+Dans cet exemple, l'effect *loadMovies$* écoute toutes les actions présentes dans le stream Action (défini par ofType).
+ici il n'écoûte que l'action ````[Movies Page] Load Movies````.
+
 > **ofType** permet de filtrer sur le type d'effet que l'on souhaite observer. Il est possible de définir plusieurs types.
+
+Le stream d'action est ensuite applati et mapper dans un autre observable via *mergeMap*.
+
+Le service ````moviesService.getAll()```` retourne un observable qui va mapper le résultat (les films) dans une nouvelle action en cas de succès et retourner un observable vide en cas d'erreur.
+
+L'action est alors dispatché dans le store où elle va être attrapée par le reducer lorsqu'une modification du state sera nécessaire.
+
+IMPORTANT : Il est important de gérer les erreurs d'observable afin de ne pas couper le flux d'observable.
+
+
+*Autre exemple avec un AuthEffect*
+
+````typescript
+@Injectable()
+export class AuthEffects {
+  login$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(LoginPageActions.login),
+      exhaustMap(action =>
+        this.authService.login(action.credentials).pipe(
+          map(user => AuthApiActions.loginSuccess({ user })),
+          catchError(error => of(AuthApiActions.loginFailure({ error })))
+        )
+      )
+    )
+  );
+}
+````
+
+*Exemple avec données provenant du state*
+
+````typescript
+@Injectable()
+export class CollectionEffects {
+  addBookToCollectionSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CollectionApiActions.addBookSuccess),
+        concatLatestFrom(action => this.store.select(fromBooks.getCollectionBookIds)),
+        tap(([action, bookCollection]) => {
+          if (bookCollection.length === 1) {
+            window.alert('Congrats on adding your first book!');
+          } else {
+            window.alert('You have added book number ' + bookCollection.length);
+          }
+        })
+      ),
+    { dispatch: false }
+  );
+ 
+  constructor(
+    private actions$: Actions,
+    private store: Store<fromBooks.State>
+  ) {}
+}
+````
 
 Import dans app.module.ts
 
