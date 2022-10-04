@@ -93,6 +93,22 @@ const musicianObj = musicians.reduce((acc, curr) => {
 // output
 // { '1464': {name: 'paul', instrument: 'saxo'}, '849944': {name: 'john', instrument: 'guitar'}, '54664': {name: 'mike', instrument: 'drums'} }
 ````
+
+*Compter l'occurrence de chaque lettre*
+````typescript
+ const st = '((([{{[[]]}})'.split('');
+
+    const res = st.reduce((acc, curr) => {
+      if (Object.keys(acc).includes(curr)) {
+        acc[curr] += 1
+      } else {
+        acc[curr] = 1
+      }
+      return acc
+    }, {});	// => important fixer la valeur par défaut à {} car le résultat doit être un objet
+
+    console.log(`comptage pour la chaîne ${st.join('')} : ${JSON.stringify(res)}`);
+````
 [Back to top](#operateurs) 
 
 ## Spread et Rest
