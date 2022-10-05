@@ -480,6 +480,8 @@ sendMultipart(): void {
 
 ### Autre exemple de multipart
 
+Solution complète avec backend node JS : https://malcoded.com/posts/angular-file-upload-component-with-express/    
+
 ````typescript
 public upload(files: Set<File>):
     { [key: string]: { progress: Observable<number> } } {
