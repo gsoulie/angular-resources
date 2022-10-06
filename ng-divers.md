@@ -119,6 +119,12 @@ pdf-viewer {
 ````
 [Back to top](#divers)     
 
+#### Intégration avec iframe
+
+````html
+<iframe class="pdfCanvas" src="../../../assets/PDF.pdf"></iframe>
+````
+
 ### FileOpener
 
 #### Installation et configuration
