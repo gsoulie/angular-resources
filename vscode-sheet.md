@@ -196,55 +196,18 @@ You can also specify differents scopes to manage italic for specific item, bold 
     "peacock.affectAccentBorders": true,
     "peacock.affectTabActiveBorder": true,
     "peacock.favoriteColors": [
-
-        {
-            "name": "Angular Red",
-            "value": "#dd0531"
-        },
-        {
-            "name": "Azure Blue",
-            "value": "#007fff"
-        },
-        {
-            "name": "JavaScript Yellow",
-            "value": "#f9e64f"
-        },
-        {
-            "name": "Mandalorian Blue",
-            "value": "#1857a4"
-        },
-        {
-            "name": "Node Green",
-            "value": "#215732"
-        },
-        {
-            "name": "React Blue",
-            "value": "#61dafb"
-        },
-        {
-            "name": "Something Different",
-            "value": "#832561"
-        },
-        {
-            "name": "Svelte Orange",
-            "value": "#ff3d00"
-        },
-        {
-            "name": "Vue Green",
-            "value": "#42b883"
-        },
-        {
-            "name": "Dark Gray",
-            "value": "#3D3D3D"
-        },
-        {
-            "name": "Ionic Blue",
-            "value": "#5291FF"
-        },
-        {
-            "name": "FRAndroid Dark",
-            "value": "#1E2334"
-        }
+        {"name": "Angular Red","value": "#dd0531"},
+        {"name": "Azure Blue","value": "#007fff"},
+        {"name": "JavaScript Yellow","value": "#f9e64f"},
+        {"name": "Mandalorian Blue","value": "#1857a4"},
+        {"name": "Node Green","value": "#215732"},
+        {"name": "React Blue","value": "#61dafb"},
+        {"name": "Something Different","value": "#832561"},
+        {"name": "Svelte Orange","value": "#ff3d00"},
+        {"name": "Vue Green","value": "#42b883"},
+        {"name": "Dark Gray","value": "#3D3D3D"},
+        {"name": "Ionic Blue","value": "#5291FF"},
+        {"name": "FRAndroid Dark","value": "#1E2334"}
     ],
     "peacock.elementAdjustments": {
         "activityBar": "none",
@@ -267,46 +230,11 @@ You can also specify differents scopes to manage italic for specific item, bold 
           "name": "italic font",
           "scope": [
             "comment",
-            "keyword",
-            
+            "keyword",            
             "constant.language",
-            //"storage",
-            //"storage.type.function",
-            //"storage.type",
             "storage.modifier",
             "storage.type.function",
-            /*
-            "storage.modifier.tsx",
-            "storage.modifier.async",*/
             "entity.other.attribute-name"
-            /*"keyword.control",
-            "keyword.control.from",
-            "keyword.control.flow",
-            "keyword.operator.new",
-            "keyword.control.import",
-            "keyword.control.export",
-            "keyword.control.default",
-            "keyword.control.trycatch",
-            "keyword.control.conditional",
-            "storage.type",
-            "storage.type.class",
-            "storage.modifier.tsx",
-            "storage.type.function",
-            "storage.modifier.async",
-            "variable.language",
-            "variable.language.this",
-            "variable.language.super",
-            "meta.class", // nom des variables
-            "meta.var.expr",
-            "constant.language.null",
-            "support.type.primitive",
-            "entity.name.method.js",
-            "entity.other.attribute-name",
-            "punctuation.definition.comment",
-            "text.html.basic",
-            "tag.decorator.js entity.name.tag.js",
-              "tag.decorator.js punctuation.definition.tag.js",
-                "source.js constant.other.object.key.js string.unquoted.label.js"*/
           ],
           "settings": {
             "fontStyle": "italic"
@@ -321,7 +249,8 @@ You can also specify differents scopes to manage italic for specific item, bold 
     "bracketPairColorizer.depreciation-notice": false,
     "vetur.experimental.templateInterpolationService": true,
     "editor.fontWeight": "normal",
-    "workbench.colorTheme": "SynthWave '84",
+    
+    "workbench.colorTheme": "Tokyo Hack",
     "workbench.colorCustomizations": {
         "activityBar.activeBorder": "#39bf87",//#ffaa00
         "activityBarBadge.background": "#39bf87",        
@@ -331,8 +260,17 @@ You can also specify differents scopes to manage italic for specific item, bold 
         "window.activeBorder": "#ffaa00",
         "toolbar.hoverBackground": "#39bf87",
         "badge.background": "#ffaa00",
-
-        "badge.foreground": "#000000"
-    }
+        "titleBar.activeBackground": "#f7df1e",
+        "titleBar.activeForeground": "#000000",
+        "titleBar.inactiveBackground": "#00D7FF",
+        "titleBar.inactiveForeground": "#000000",
+        "badge.foreground": "#000000",
+        "scrollbarSlider.background": "#603c73",
+    },
+    "window.titleBarStyle": "custom",
+    "[vue]": {
+        "editor.defaultFormatter": "qiang014.vetur-e"
+    },
+    "editor.tabSize": 2
 }
 ````
