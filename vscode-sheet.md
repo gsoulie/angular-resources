@@ -21,6 +21,7 @@ Best themes :
 * [SynthWave](https://marketplace.visualstudio.com/items?itemName=RobbOwen.synthwave-vscode)     
 * [Tokyo Night](https://marketplace.visualstudio.com/items?itemName=enkia.tokyo-night)     
 * [Tokyo Hack](https://vscodethemes.com/e/ajshortt.tokyo-hack/tokyo-hack?language=javascript)     
+* [Shade of purple](https://marketplace.visualstudio.com/items?itemName=ahmadawais.shades-of-purple#:~:text=Launch%20Quick%20Open%20using%20Cmd,%E2%80%94%20or%20%E2%80%94%20Ctrl%2BP.&text=shades%2Dof%2Dpurple-,Click%20Install%20to%20install%20it.,Theme%20%EF%BC%9E%20Shades%20of%20Purple.)    
 
 
 Full vscode customization : https://code.visualstudio.com/api/references/theme-color     
