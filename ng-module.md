@@ -241,6 +241,14 @@ const routes: Routes = [
     path: 'users',
     loadChildren: () => import('./components/observable/users/users.module').then( m => m.UsersModule)
   },
+  {
+    path: 'user/:id',
+    loadChildren: () => import('./components/user/user.module').then(m => m.UserModule)
+},
+{
+    path: 'userStandalone',
+    loadComponent: () => import('./components/user/user.component').then(m => m.UserComponent)  // standalone component lazy-load
+}
 ];
 
 @NgModule({
