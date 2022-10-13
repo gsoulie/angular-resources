@@ -37,7 +37,7 @@
 	* [Intéraction composant](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-component-interaction.md)      
 	* [Directives structurelles](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-structural-directive.md)   
 	* [Service worker - Web worker](https://github.com/gsoulie/angular-resources/blob/master/ng-service-worker.md)       
-	* [Application state avec NgRx](https://github.com/gsoulie/angular-resources/blob/master/ngrx/README.md)     
+	* [Gestion du state avec NgRx](https://github.com/gsoulie/angular-resources/blob/master/ngrx/README.md)     
 * [Gestion des erreurs](https://github.com/gsoulie/angular-resources/blob/master/ng-error.md)       
 
 * [Astuces](https://github.com/gsoulie/angular-resources/blob/master/ng-tips.md) <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">     
