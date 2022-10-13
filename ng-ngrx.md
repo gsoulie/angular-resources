@@ -43,9 +43,10 @@ NgRx gère tout seul le désabonnement, il n'est donc pas nécessaire de stocker
 ### Installation
 
 ````npm i --save @ngrx/store````
-### Projet exemple
+### Projets exemple
 
-https://github.com/gsoulie/angular-resources/tree/master/ngrx      
+Gestion state simple : https://github.com/gsoulie/angular-resources/tree/master/ngrx      
+Gestion authentification avec state : https://github.com/gsoulie/angular-firebase-auth/tree/master     
 
 [Bact to top](#ngrx)    
 
