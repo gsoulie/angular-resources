@@ -144,7 +144,7 @@ navigateur et sont compatibles avec tous les frameworks JS / React / Vue et Angu
 [Back to top](#veille)     
 
 ### ReactJS
-=> **lib js** : peut être appliqué à un bout de l'application ou à l'entièreté de l'application. Prise en main pas très évidente JSX
+=> Orienté **librairie js** : qui permet de créer des composant et qui peut être appliqué à un bout de l'application ou à l'entièreté de l'application. Prise en main pas très évidente JSX
 https://www.youtube.com/watch?v=no82oluCZag&ab_channel=LiorCHAMLA       
 https://www.youtube.com/user/ucisko/videos        
 https://www.youtube.com/watch?v=K3D2rjAUQ3o&ab_channel=FromScratch-D%C3%A9veloppementWeb        
@@ -376,7 +376,13 @@ En contrepartie, certaines notions utilisent une syntaxe spécifique, svelte **n
 
 ### NextJS
 
-Next JS est un framework (backend) basé sur *ReactJS*, orienté Server-Side-Rendering. Son point fort est la génération d’applications statiques pour accélérer les temps d'accès et le référencement.
+Postulat de départ : Seul, reactJS manque d'éléments pour pouvoir créer un site complet et optimisé (router, rendu SSR, gestion assets, gestion serveur web etc...). 
+
+C'est là qu'intervient Next JS. C'est un framework (backend) basé sur *ReactJS*, orienté Server-Side-Rendering. Son point fort est la génération d’applications statiques pour accélérer les temps d'accès et le référencement.
+
+* rendu statique
+* rendu SSR
+* endu hybride : rend du contenu statique avec une tâche de fond qui va mettre à jour le rendu si des modifications sont detectées (un peu à la manière de Astro)
 
 Concurrent de **NuxtJS** pour *Vue*
 
