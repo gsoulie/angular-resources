@@ -269,6 +269,34 @@ paramètres optionnels
 
 [Back to top](#operateurs) 
 
+### Destructuration avec renommage
+
+````typescript
+const result = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=1000');
+
+/* format du retour :
+result => { 
+	config: {...}, 
+	headers: {...}, 
+	request: {...}, 
+	status: 200, 
+	statusText: '', 
+	data: { 
+		count: 1000, 
+		next: '', 
+		previous: null, 
+		results: [{...}]}
+	}
+}
+*/
+
+const { results: AllPokemon } = result.data;	// destructuration de l'objet data pour en récupérer "results" que l'on renomme en "AllPokemon"
+
+console.log(AllPokemon); // => [{...}, {...}]
+````
+
+[Back to top](#operateurs) 
+
 ## Casser une référence
 
 Pour "casser" la référence à un objet, il existe plusieurs solutions
