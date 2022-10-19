@@ -109,6 +109,7 @@
 * [Firebase - Angularfire](https://github.com/gsoulie/ionic2-resources/blob/master/ng-angular-fire.md)     
 * [Supabase](https://github.com/gsoulie/angular-resources/blob/master/ng-supabase.md)      
 * [Divers](https://github.com/gsoulie/angular-resources/blob/master/ng-divers.md)
+	* [Prise de photo avec ngx-webcam](https://github.com/gsoulie/ionic-angular-snippets/tree/master/ngx-webcam)     	
 	* Accès client lourd depuis front web 
 	* Détection activié utilisateur      
 	* [Manipulation des dates avec Dayjs](https://github.com/gsoulie/angular-resources/blob/master/ng-date.md)      
