@@ -38,6 +38,8 @@ Le "Change Detector" de chaque "child component" est ensuite déclenché et l'é
 [**Uniquement en mode développement**] Angular relance l'intégralité de la "Change Detection" pour s'assurer que les valeurs retournées par les expressions ne changent pas.
 Cela permet de détecter les problèmes de conception ou d'implémentation tels que le changement du modèle par effet de bord ou les expressions dont le résultat est aléatoire.
 
+> **A noter** : chaque composant enfant hérite de la stratégie de change detection de son parent
+
 ````typescript
 @Component({
   
