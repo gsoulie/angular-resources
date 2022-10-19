@@ -9,6 +9,7 @@
 	* [Notions de base - Fonctionnement Javascript](https://github.com/gsoulie/angular-resources/blob/master/ng-basics.md)      
 	* [Fonctionnement Change Detection](https://github.com/gsoulie/angular-resources/blob/master/ng-change-detection.md)      
 	* [Bonnes pratiques](https://github.com/gsoulie/angular-resources/blob/master/ng-best-practices.md) <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">    
+	* [Partager un composant entre plusieurs projets](https://blog.bitsrc.io/how-to-share-angular-components-between-project-and-apps-5eb0600d99d2)     
 	* [Optimisations & NR](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)    
 		* source-map-explorer
 		* webpack-bundle-analyzer      	        
