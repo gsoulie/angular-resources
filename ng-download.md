@@ -1,8 +1,29 @@
 [< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)    
 
-# Téléchargement de fichiers
+# Sauvegarde et Téléchargement de fichier
 
-## Exemple de téléchargement d'un flux texte récupéré via une api
+## Code de base
+
+Le principe est le suivant : créer un fichier "blob" contenant du text ou du contenu récupéré depuis un appel API par exemple, puis créer un lien de type ````<a href>```` invisible ayant pour url le fichier blob. On simule un clic sur ce lien qui va lancer le téléchargement du fichier
+
+To save a file we need to create three inputs (filename, content, and extension). When a user clicks on the “save file” button we create a blob file and invisible link. This link we use to create a Url for our file, then we manually click on our click and download the file.
+
+````typescript
+filecontent = '';
+
+saveFile() {
+    const fileName = 'mon-fichier.txt';
+    const file = new Blob([this.filecontent], { type: "text/plain" });
+
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(file);
+    link.download = fileName;
+    link.click();
+    link.remove();
+  }
+````
+
+## Autre exemple de téléchargement d'un flux texte récupéré via une api
 
 ````typescript
 this.apiService.getFile()
