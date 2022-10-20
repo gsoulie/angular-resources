@@ -5,7 +5,6 @@
 Pour surcharger les composant Angular Material, il est important d'utiliser le combinator **::ng-deep** (qui remplace l'ancienne syntaxe */deep/*).
 * [Schematic commands](#schematic-commands)      
 * [Customiser le thème angular material](https://dev.to/codingcatdev/angular-material-theming-32km)     
-* [Comprendre ::ng-deep](#comptendre-ng-deep)     
 * [Surcharge de style](#surcharge-de-style)     
 * [mat-progress-bar](#mat-progress-bar)       
 * [mat-badge](#mat-badge)      
@@ -25,13 +24,6 @@ Pour surcharger les composant Angular Material, il est important d'utiliser le c
 Générer un composant contenant un nav menu :
 ````ng g @angular/material:nav <component-name>````
 
-## Comprendre ng-deep
-
-La surcharge de composant Angular Material requiert souvent l'utilisation du combinator **::ng-deep**.
-
-L'application de la pseudo-classe **::ng-deep** à n'importe quelle règle CSS **désactive complètement l'encapsulation** de la vue pour cette règle. Tout style avec *::ng-deep* appliqué **devient un style global** !
-
-Afin d'étendre le style spécifié au composant actuel et à tous ses descendants, assurez-vous d'inclure le sélecteur d'hôte **:host** avant *::ng-deep*. Sans ça, le style surchargé avec *::ng-deep* sera appliqué partout dans le projet.
 
 ## Surcharge de style
 
@@ -497,13 +489,6 @@ mat-dialog-actions {
 }
 
 ````
-
-## unités % vs vh
-[Back to top](#angular-material-tips)    
-
-l'utilisation de l'unité **%** permet à un élément d'avoir une dimension en pourcentage par rapport à son parent.
-
-L'utilisation de l'unité **vh** (viewport height) ou **vw** (viewport width) permet à un élément d'avoir une dimension en pourcentage par rapport au **viewport** et par conséquent permet de s'adapter en cas d'un zoom de l'affichage contrairement à l'utilisation des **%** pour lesquels le pourventage sera toujours le même lors d'un zoom / dézoom
 
 ## Custom css menu
 [Back to top](#angular-material-tips)    
