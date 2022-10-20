@@ -5,6 +5,7 @@
 * [Comprendre ::ng-deep](#comptendre-ng-deep)      
 * [Utiliser un fichier variables.scss](#utiliser-un-fichier-variables-scss)     
 * [unités % vs vh](#unites-%-vs-vh)     
+* [Supprimer les effets de focus](#supprimer-les-effets-de-focus)     
 
 
 ## Comprendre ng-deep
@@ -46,3 +47,18 @@ Importer le fichier dans le global.scss
 l'utilisation de l'unité **%** permet à un élément d'avoir une dimension en pourcentage par rapport à son parent.
 
 L'utilisation de l'unité **vh** (viewport height) ou **vw** (viewport width) permet à un élément d'avoir une dimension en pourcentage par rapport au **viewport** et par conséquent permet de s'adapter en cas d'un zoom de l'affichage contrairement à l'utilisation des **%** pour lesquels le pourventage sera toujours le même lors d'un zoom / dézoom
+
+## Supprimer les effets de focus
+
+````css
+.btn {
+  &:active {
+    border: none;
+    outline: none;
+  }
+}
+
+// suppression des outlines sur les éléments avec focus
+button:focus { outline:0 !important; }
+select:focus { outline:0 !important; }
+````
