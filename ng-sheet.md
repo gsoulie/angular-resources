@@ -5,6 +5,7 @@
 * Généralités    
 	* [Présentation et Ressources](https://github.com/gsoulie/angular-resources/blob/master/ng-resources.md)     
 	* [Commandes](https://github.com/gsoulie/angular-resources/blob/master/ng-commands.md)     
+	* [Template projet personnalisé](https://github.com/gsoulie/angular-resources/blob/master/ng-degit.md)      
 	* [Arborescence projet](https://github.com/gsoulie/angular-resources/blob/master/ng-treemap.md)     
 	* [Notions de base - Fonctionnement Javascript](https://github.com/gsoulie/angular-resources/blob/master/ng-basics.md)      
 	* [Fonctionnement Change Detection](https://github.com/gsoulie/angular-resources/blob/master/ng-change-detection.md)      
