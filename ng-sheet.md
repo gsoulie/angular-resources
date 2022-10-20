@@ -60,7 +60,7 @@
 * [Directives](https://github.com/gsoulie/angular-resources/blob/master/ng-directive.md)     
 * [UI](https://github.com/gsoulie/angular-resources/blob/master/ng-ui-frameworks.md)
 	* Frameworks     
-	* Sass(https://github.com/gsoulie/angular-resources/blob/master/ng-sass.md)     
+	* [Sass](https://github.com/gsoulie/angular-resources/blob/master/ng-sass.md)     
 	* [Angular Material Dashboard sandbox](https://dev.to/cubejs/angular-dashboard-with-material-1aj)      
 	* [Google font](https://github.com/gsoulie/angular-resources/blob/master/ng-font.md)     
 	* [Material icons](https://www.angularjswiki.com/fr/angular/angular-material-icons-list-mat-icon-list/)       
