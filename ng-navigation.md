@@ -20,6 +20,7 @@
 * [Routing back previous](#routing-back-previous)       
 * [Astuces navigation](#astuces-navigation)   
 * [Routing strategy](#routing-strategy)       
+* [Refonte du routage avec standalone component](#refonte-du-routage-avec-standalone-component)       
 
 ## Généralités
 
@@ -1095,4 +1096,74 @@ le #.
 
 Toute la partie après le # est parsée par le client Angular.
 	
+[Back to top](#navigation)
+	
+## Refonte du routage avec standalone component
+	
+L'arrivée des standalone components sous Angular v14 permet de revoir la façon d'organiser le routage si l'on décide de convertir entièrement l'application avec des standalone components.
+	
+Les modifications à apporter pour s'affranchir du *app.module.ts* sont les suivantes :
+	
+**1** - Convertir le *app.component.ts* en standalone component et y inclure tous les imports présents dans le *app.module.ts*
+
+*app.component.ts*
+````typescript
+import { RouterModule } from '@angular/router';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styles: [],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+  ]
+})
+export class AppComponent {
+}
+````
+
+**2** - Modifier la structure du *app-routing.module.ts*
+	
+*app-routing.module.ts*
+````typescript
+import { Routes } from '@angular/router';
+
+export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'welcome',
+    pathMatch: 'full'
+  }, {
+    path: 'welcome',
+    loadComponent: () => import('./components/welcome/welcome.component').then(m => m.WelcomeComponent)
+  }
+];
+````
+
+**3** - Modifier la façon de bootstraper l'application (non plus sur le AppModule mais sur le AppComponent)
+	
+*main.ts*
+````typescript
+import { routes } from './app/app-routing.module';
+import { RouterModule } from '@angular/router';
+import { AppComponent } from './app/app.component';
+import { enableProdMode, importProvidersFrom } from '@angular/core';
+import 'zone.js';
+import { environment } from './environments/environment';
+import { bootstrapApplication } from '@angular/platform-browser';
+
+if (environment.production) {
+  enableProdMode();
+}
+bootstrapApplication(AppComponent, {
+  providers: [
+    importProvidersFrom(RouterModule.forRoot(routes))
+  ]
+})
+.catch(err => console.error(err))
+````
 [Back to top](#navigation)
