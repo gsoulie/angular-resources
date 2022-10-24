@@ -42,7 +42,11 @@ NgRx gère tout seul le désabonnement, il n'est donc pas nécessaire de stocker
 
 ### Installation
 
-````npm i --save @ngrx/store````
+````
+npm i --save @ngrx/store
+npm i --save @ngrx/effects
+````
+
 ### Projets exemple
 
 Gestion state simple : https://github.com/gsoulie/angular-resources/tree/master/ngrx      
