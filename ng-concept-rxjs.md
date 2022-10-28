@@ -38,6 +38,7 @@ https://rxmarbles.com/#map
 |takeUntil|maintient un observable en vie jusqu'à ce que le Subject rattaché soit complete()|
 |tap|étape permettant l'affectation d'une variable ou de faire du debug (console.log) sans modifier le contenu de la source|
 |zip|combines les résultats de plusieurs observables, émet UNIQUEMENT **si toutes les sources émettent une donnée**|
+|startWith|émet la valeur passée en paramètre en premier|
 
 
 > <img src="https://img.shields.io/badge/Important-DD0031.svg?logo=LOGO"> : les opérateurs appliqués **ne modifient jamais l'observable d'origine**, ils produisent une copie et renvoient un nouvel observable.
