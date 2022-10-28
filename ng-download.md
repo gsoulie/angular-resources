@@ -6,7 +6,6 @@
 
 Le principe est le suivant : créer un fichier "blob" contenant du text ou du contenu récupéré depuis un appel API par exemple, puis créer un lien de type ````<a href>```` invisible ayant pour url le fichier blob. On simule un clic sur ce lien qui va lancer le téléchargement du fichier
 
-To save a file we need to create three inputs (filename, content, and extension). When a user clicks on the “save file” button we create a blob file and invisible link. This link we use to create a Url for our file, then we manually click on our click and download the file.
 
 ````typescript
 filecontent = '';
