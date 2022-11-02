@@ -16,6 +16,9 @@ Le FormControl définit la logique d'un input du FormGroup
 
 Pour faciliter l'écriture des formulaires, utiliser Angular FormBuilder : https://angular.io/guide/reactive-forms
 
+````
+import { ReactiveFormsModule } from '@angular/forms';
+````
 
 ## Générateur de formulaires
 
