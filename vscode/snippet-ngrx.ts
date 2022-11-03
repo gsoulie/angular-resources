@@ -64,5 +64,45 @@
 			"\t)",
 			");",
 		]
+	},
+	"Effects NgRx": {
+		"scope": "javascript, typescript",
+		"prefix": "effects",
+		"body": [
+			"import { AuthActions } from './auth.actions';",
+			"import { Injectable } from '@angular/core';",
+			"import { Actions, createEffect, ofType } from '@ngrx/effects';",
+			"import { switchMap } from 'rxjs';",
+			"\r\n",
+			"@Injectable()",
+			"export class AuthEffects {",
+			"\tconstructor(private actions$: Actions) { }",
+			"\r\n",
+			"\tsubmitAuth$ = createEffect(() => this.actions$.pipe(",
+			"\t\tofType(AuthActions.authSubmit),",
+			"\t\tswitchMap(authData => {",
+			"\t\t\treturn",
+			"\t\t})",
+			"\t))",
+			"}",
+		]
+	},
+	"App global reducer": {
+		"scope": "javascript, typescript",
+		"prefix": "reducer global",
+		"body": [			
+			"import { ActionReducerMap } from '@ngrx/store';",
+			"import * as authReducer from './auth.reducer';",
+			"\r\n",
+			"// définition d'un state global comprenant l'ensemble des sous-state",
+			"export interface AppGlobalState {",
+			"\tauthState: authReducer.State;",
+			"}",
+			"\r\n",
+			"// Définition du reducer global de l'application",
+			"export const globalReducer: ActionReducerMap<AppGlobalState> = {",
+			"\tauthState: authReducer.authReducer,",
+			"}",
+		]
 	}
 }
