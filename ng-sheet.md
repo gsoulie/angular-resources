@@ -69,7 +69,7 @@
 	* Global sass variable
 	* Theming     
 	* Dynamic styling     
-	* [Surcharges angular material](https://github.com/gsoulie/angular-resources/blob/master/ng-material-tips.md)     
+	* [Surcharges angular material et css](https://github.com/gsoulie/angular-resources/blob/master/ng-material-tips.md)     
 	* [mémo flexbox](https://github.com/gsoulie/angular-resources/blob/master/css-flexbox.png)     
 	* [Angular material tips](https://github.com/gsoulie/angular-resources/blob/master/ng-material-tips.md)     
 * [UI Components](https://github.com/gsoulie/angular-resources/blob/master/ng-ui-components.md)     
