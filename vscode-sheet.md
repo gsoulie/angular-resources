@@ -8,8 +8,12 @@
 * [ESLint](https://github.com/gsoulie/angular-resources/blob/master/vscode-eslint.md)   
 * [Debug](https://github.com/gsoulie/angular-resources/blob/master/vscode-debug.md)     
 * [Cursive fonts](#cursive-fonts)      
-* [Snippet typescript](https://github.com/gsoulie/angular-resources/blob/master/vscode-snippet-typescript.json)       
-* [Snippet html](https://github.com/gsoulie/angular-resources/blob/master/vscode-snippet-html.json)       
+* Snippets
+    * [Ionic view](https://github.com/gsoulie/angular-resources/blob/master/vscode/snippet-ionic-view.ts)      
+    * [Ionic controller](https://github.com/gsoulie/angular-resources/blob/master/vscode/snippet-ionic-controller.ts)      
+    * [Ngrx](https://github.com/gsoulie/angular-resources/blob/master/vscode/snippet-ngrx.ts)      
+    * [Sass](https://github.com/gsoulie/angular-resources/blob/master/vscode/snippet-sass.ts)      
+    * [Vue3](https://github.com/gsoulie/angular-resources/blob/master/vscode/snippet-vue3.ts)      
 * [Backup vscode setting.json](#backup-settings)      
 
 ## Themes
