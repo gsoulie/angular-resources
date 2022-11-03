@@ -15,8 +15,17 @@ Comment intégrer des google fonts dans un projet Angular / Ionic
 7 - ajouter ensuite la font dans le *variables.scss* pour ionic      
 
 ````css
+// si font importées directement dans le projet
+@font-face {
+    font-family: "Montserrat-SemiBold";
+    src: url("./assets/fonts/Montserrat-SemiBold.ttf") format("truetype");
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
   --ion-font-family: 'Montserrat Alternates', sans-serif;
+  --font-semi: 'Montserrat-SemiBold'
 ````
 8 - la méthode **@import** est similaire à la différence qu'il suffit de copier le contenu de la balise <style> dans le *global.scss* (sans encadrer avec <style>)
 et ajouter la font dans variable.scss      
