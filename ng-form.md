@@ -39,9 +39,9 @@ Permet de simplifier l'écriture des formulaires ReactiveForm
             <mat-label>Sample spot</mat-label>
             <input matInput type="text" formControlName="sampleSpot" placeholder="">
         </mat-form-field>
-        <!-- <div *ngIf="poolForm.controls.sampleSpot.touched && poolForm.controls.sampleSpot.errors?.required">
+        <div *ngIf="poolForm.controls['sampleSpot'].touched && poolForm.controls['sampleSpot'].errors?.required">
         * Required
-        </div> -->
+        </div>
         <div class="spacer"></div>
         <mat-form-field>
             <mat-label>Number of sample</mat-label>
@@ -123,19 +123,19 @@ onSubmit() {
 ### Afficher une erreur sur un champ invalide
 
 ````html
-<div>
+<form [formGroup]="userForm">
  <label for="name">Name</label>
  <input type="text" placeholder="name" formControlName="name">
- <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+ <div [hidden]="userForm.controls['name'].valid || userForm.controls['name'].pristine" class="alert alert-danger">
    Name is required
  </div>
 </div>
 <div>
  <input type="email" placeholder="email" formControlName="email">
 </div>
-<div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
- <span *ngIf="email.errors?.required">Email is required</span>
- <span *ngIf="email.errors?.email">Email is invalid</span>
+<div *ngIf="(userForm.controls['email'].dirty || userForm.controls['email'].touched) && userForm.controls['email'].errors" class="errors">
+ <span *ngIf="userForm.controls['email'].errors?.required">Email is required</span>
+ <span *ngIf="userForm.controls['email'].errors?.email">Email is invalid</span>
 </div>
 
 <div
