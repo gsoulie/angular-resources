@@ -18,6 +18,7 @@ Pour surcharger les composant Angular Material, il est important d'utiliser le c
 * [unités % vs vh](#unites-%-vs-vh)     
 * [custom css menu](#custom-css-menu)       
 * [mat-table](#mat-table)       
+* [input](#input)     
 
 ## Schematic commands
 
@@ -521,6 +522,21 @@ https://www.youtube.com/watch?v=ArTVfdHOB-M&ab_channel=OnlineTutorials
 .mat-row.expanded {
   border-bottom-color: transparent;
   background-color: rgba(103, 58, 183, 0.1);
+}
+````
+[Back to top](#angular-material-tips)    
+
+## input
+
+Ajouter un padding dans les ````<input>```` sans générer un décalage du champ
+
+````css
+input {
+  border: none;
+  padding: 10px;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
 }
 ````
 
