@@ -20,6 +20,19 @@ Pour détecter les changements, Angular utilise la librairie *Zone.js* dont le r
 Avant le chargement d'Angular, *Zone.js* procède au *Monkey patching* des fonctions natives permettant d'inscrire des "callbacks" associées à des traitements asynchrones (e.g. setTimeout) afin de pouvoir détecter chaque "tick" et notifier Angular.
 Zone.js est également utilisé pour reconstruire des "callstacks" d'appels asynchrones.
 
+<img src="https://img.shields.io/badge/Important-DD0031.svg?logo=LOGO">change detection onPush : est déclenché naturellement lorsqu'une valeur change de référence
+
+````tsx
+this.someValue = {...this.someValue, someProperty: 'new value'} // déclenche le onPush
+
+this.someValue.someProperty = 'new value'; // ne déclenche PAS le onPush
+
+<cpo (someEvent)="doSomething()"> // déclenche le onPush
+
+<cpo [someInput]="someStream$ | async"> // déclenche le onPush
+
+````
+
 ### Fonctionnement de la Change Detection
 
 **1. Déclenchement de la "change detection"**     
