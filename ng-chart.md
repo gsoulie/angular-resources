@@ -13,6 +13,7 @@ Liste des meilleures librairies : https://www.atatus.com/blog/javascript-chart-l
 ### Installation
 
 Documentation : https://apexcharts.com/docs/angular-charts/     
+Line chart : https://apexcharts.com/docs/chart-types/line-chart/     
 
 ````
 npm install apexcharts ng-apexcharts --save 
