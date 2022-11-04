@@ -42,7 +42,7 @@ imports: [
 
 ### Exemples
 
-[Projet exemple](https://github.com/gsoulie/angular-apexchart)     
+[>> Projet exemple](https://github.com/gsoulie/angular-apexchart)     
 
 [Bact to top](#chart)    
 
