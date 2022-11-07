@@ -13,6 +13,7 @@ Liste des meilleures librairies : https://www.atatus.com/blog/javascript-chart-l
 ### Installation
 
 Documentation : https://apexcharts.com/docs/angular-charts/     
+Demos : https://apexcharts.com/angular-chart-demos/      
 Line chart : https://apexcharts.com/docs/chart-types/line-chart/     
 
 ````
