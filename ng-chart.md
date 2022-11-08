@@ -3,6 +3,7 @@
 # Chart
 
 * [Apexchart](#apexchart)     
+* [Google charts](#google-charts)     
 * [Chartist](#chartist)     
 * [Victory](#victory)     
 
@@ -46,6 +47,10 @@ imports: [
 [>> Projet exemple](https://github.com/gsoulie/angular-apexchart)     
 
 [Bact to top](#chart)    
+
+## Google charts
+
+https://www.w3schools.com/js/js_graphics_google_chart.asp     
 
 ## Chartist
 
