@@ -51,6 +51,7 @@ imports: [
 ## Google charts
 
 https://www.w3schools.com/js/js_graphics_google_chart.asp     
+https://developers.google.com/chart/interactive/docs/gallery     
 
 ## Chartist
 
