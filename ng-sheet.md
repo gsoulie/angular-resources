@@ -58,7 +58,8 @@
 	* CORS     
 * [Form](https://github.com/gsoulie/angular-resources/blob/master/ng-form.md)     
 * [ViewChild](https://github.com/gsoulie/angular-resources/blob/master/ng-viewchild.md)     
-* [Directives](https://github.com/gsoulie/angular-resources/blob/master/ng-directive.md)     
+* [Directives](https://github.com/gsoulie/angular-resources/blob/master/ng-directive.md)       
+	* Composition Directive       	
 * [UI](https://github.com/gsoulie/angular-resources/blob/master/ng-ui-frameworks.md)
 	* Frameworks     
 	* [Sass](https://github.com/gsoulie/angular-resources/blob/master/ng-sass.md)     
