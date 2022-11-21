@@ -20,6 +20,7 @@
 	* [Deno](#deno)    
 	* [Supabase](#supabase)    
 	* [Netlify](#netlify)     
+	* [GraphQL](#graphql)     
 * [Autres](#Autres)     
 	* [e2e](#e2e)     
 	* [Stencil](#stencil)      
@@ -429,7 +430,151 @@ Avantages :
 
 Netlify permet de faire du déploiement serverless
 
-[Back to top](#veille)     
+[Back to top](#veille)   
+
+### GraphQL
+
+GraphQL est un langage de requêtes de données pour API. C'est une spécification pour implémenter les API
+
+> QL => Query Language
+
+GraphQL permet de demander "précisément" la structure de données que l'on souhtaite obtenir côté front. Cela permet d'éviter un nombre important d'appel API et surtout d'obtenir exactement ce dont on a besoin 
+et ainsi éviter de recevoir des données qui ne nous servent pas.
+
+Exemple appel classique pour obtenir des pokémons avec leurs capacités 
+
+````
+GET /pokemon/25
+GET /ability/8
+GET /ability/13
+GET /pokemon/15
+GET /ability/1
+GET /ability/7
+````
+
+Avec GraphQL on décrit la structure de l'objet que l'on souhaite recevoir (une requête GraphQL donc):
+
+````
+POST /graphql
+pokemons {
+	name,
+	abilities {
+		name
+	}
+}
+````
+
+#### Exemple
+
+**Appel**
+
+````json
+{
+    pokemons {
+        name,
+        abilities {
+          name,
+          damage,
+          accuracy,
+          mana,
+          type
+        }
+    }
+}
+````
+
+**Réponse**
+
+````json
+{
+    "data": {
+        "pokemons": [
+            {
+                "name": "pikachu",
+                "abilities": [
+                    {
+                        "name": "Thunder punch",
+                        "damage": 75,
+                        "accuracy": 70,
+                        "mana": 15,
+                        "type": "physical"
+                    },
+                    {
+                        "name": "Thunderbolt",
+                        "damage": 90,
+                        "accuracy": 80,
+                        "mana": 15,
+                        "type": "electric"
+                    }
+                ]
+            },
+            {
+                "name": "mewtwo",
+                "abilities": [
+                     {
+                        "name": "Earthquake",
+                        "damage": 130,
+                        "accuracy": 100,
+                        "mana": 20,
+                        "type": "ground"
+                    },
+                    {
+                        "name": "Brutal swing",
+                        "damage": 180,
+                        "accuracy": 90,
+                        "mana": 25,
+                        "type": "physical"
+                    }
+                ]
+            }
+        ]
+    }
+}
+````
+
+La différence avec REST c'est que ce dernier retourne des objets définis par le backend. Avec GraphQL on défini **dynamiquement** l'objet que l'on souhaite recevoir côté client
+
+GraphQL étant une *spécification* elle est applicable dans de très nombreux langages et donc pas nécessairement du JS.
+
+Un des **objectifs** de GraphQL est de répondre aux problématiques d'*over fetching* et *under fetching* posées par les APIs, en permettant justement de définir dynamiquement le format de la réponse.
+
+- l'*over fetching* est le fait d'obtenir un surplus d'informations délivrées par la requête par rapport au besoin duclient
+- l'*under fetching* est le fait de devoir faire plusieurs appels pour compléter la réponse
+
+#### Conclusion
+
+* Besoins à l’état de l’art
+
+	* Optimisation des données réseaux
+		- récupération des informations en un seul appel
+		- idéal pour des consommateurs avec un réseau faible
+
+	* Optimisation des requêtes
+		- le pouvoir est donné au client
+		- résolution des problématiques d’over fetching / under fetching
+
+* Autres apports de GraphQL
+
+	* Apprentissage et construction d’une expertise plus simple
+		- spécification
+		- tutoriels officiels et aide de la communauté
+
+	* Communication API / consommateur
+		- introspection du schéma / auto-documentation
+		- facilité d’envelopper l’existant
+
+* Aspects à considérer
+
+	* Cache
+		- plus complexe
+		- plutôt applicatif
+
+	* Nouvelles pratiques de développement
+	
+	* Fonctionnement des mutations en RPC
+		- une mutation par action
+		- pas de standard de nommage (compensé par l’introspection du schéma)
+
 
 ## Autres
 
