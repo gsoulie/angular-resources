@@ -590,6 +590,8 @@ Un des **objectifs** de GraphQL est de répondre aux problématiques d'*over fet
 
 * Autres apports de GraphQL
 
+	* Fortement typé
+	
 	* Apprentissage et construction d’une expertise plus simple
 		- spécification
 		- tutoriels officiels et aide de la communauté
