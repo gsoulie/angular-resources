@@ -2,6 +2,7 @@
 
 # VSCode
 
+* [Shortcurts](#shortcuts)     
 * [Themes](#themes)     
 * [Extensions](https://github.com/gsoulie/angular-resources/blob/master/vscode-extension.md)     
 * [Tasks](#tasks)   
@@ -15,6 +16,12 @@
     * [Sass](https://github.com/gsoulie/angular-resources/blob/master/vscode/snippet-sass.ts)      
     * [Vue3](https://github.com/gsoulie/angular-resources/blob/master/vscode/snippet-vue3.ts)      
 * [Backup vscode setting.json](#backup-settings)      
+
+## Shortcuts
+
+**ctrl + enter** = créer un saut de ligne en ignorant le contenu de la ligne courante
+**ctrl + p** = recherche de fichier rapide
+sélection d'un mot + **ctrl + d** = sélectionner le prochain mot identique
 
 ## Themes
 
