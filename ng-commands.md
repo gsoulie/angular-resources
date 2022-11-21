@@ -81,10 +81,12 @@ L'équipe Angular préconise de mettre à jour en premier le CLI et le Core :
 ````$ ng update @angular/cli @angular/core````
 Après quoi, mettre à jour le reste des packages Angular.
 
-## Mettre a jour npm
 [Back to top](#commandes)
+
+## Mettre à jour npm
 
 ````
 npm install npm@latest -g
 npm install npm@6.14.9 -g // version spécifique
 ````
+[Back to top](#commandes)
