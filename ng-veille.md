@@ -145,6 +145,7 @@ navigateur et sont compatibles avec tous les frameworks JS / React / Vue et Angu
 [Back to top](#veille)     
 
 ### ReactJS
+
 => Orienté **librairie js** : qui permet de créer des composant et qui peut être appliqué à un bout de l'application ou à l'entièreté de l'application. Prise en main pas très évidente JSX
 https://www.youtube.com/watch?v=no82oluCZag&ab_channel=LiorCHAMLA       
 https://www.youtube.com/user/ucisko/videos        
@@ -164,6 +165,14 @@ code en JSX, surcouche JS introduite par REACT => nécessite la librairie Babel 
 * Pas de moteur d'injection de dépendances
 * Peu documenté
 * Connaissance approfondie des bases du web
+
+### React Native
+
+(Voir documentation (https://github.com/gsoulie/react-resources/blob/main/react-presentation.md))
+
+Concernant le développement d'application mobile cross-paltform, React Native est plus compliqué à prendre en main qu'une application Ionic/Angular couplée à Capacitor.
+
+En effet React Native nécessite l'installation de nombreux packages pour pouvoir développer avec TS, Sass, faire du routing etc... De plus il existe plusieurs CLI etc...
 
 [Back to top](#veille)   
 
