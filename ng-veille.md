@@ -11,7 +11,8 @@
 	* [Svelte](#svelte)    
 	* [Flutter](#flutter)    
 	* [Qwik](#qwik)     
-	* [Astro](#astro)    
+	* [Astro](#astro)   
+	* [COMPARATIF frameworks crossplatform](#comparatif-frameworks-crossplatform)      
 * [Backends](#Backends)     
 	* [NuxtJS](#nextjs)  
 	* [NextJS](#nuxtjs)  	  
@@ -360,6 +361,31 @@ import Counter from '../components/Counter.vue'; // <-- import d'un composant Vu
 ````
 
 [Back to top](#veille)     
+
+### COMPARATIF frameworks crossplatform
+
+Quand utiliser **Capacitor**
+
+* si l'on souhaite avoir 1 seule code base pour le web, android, ios
+* gain de temps sur le developpement
+* porter une app web (angular, react, vue, svelte, etc...) en natif
+* correction de bug simplifiée car 1 seule codebase
+
+Quand utiliser **React Native**
+
+* si les équipes ont déjà des connaissances en React
+* on possède déjà un projet React à migrer en natif (attention seul le code métier est récupérable ! la vue et le css seront différents)
+* on souhaite cibler uniquement les plateformes mobiles
+
+Quand utiliser **Flutter**
+
+* si l'on souhaite produire une application mobile avec l'expérience la plus proche du natif (performance, rendu, transitions etc...)
+* pas de prise de tête sur le choix du framework UI
+* tout est inclus (routing etc...) pas de dépendances à installer
+* installation facile et rapide (pas de nodejs)
+* être certain de toujours avoir des packages à jour (pas de dépendances tiers non maintenues etc...)
+* la meilleure alternative cross-platform avant de dev directement en natif
+
 
 ## Backends
 
