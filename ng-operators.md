@@ -9,6 +9,8 @@
 * [Shallow copy vs Deep copy](#shallow-copy-vs-deep-copy)      
 * [Utilisation du type générique](#utilisation-du-type-générique)     
 
+## Typescript expert : https://angularexperts.io/blog/advanced-typescript      
+
 ## Tableaux
 
 ````typescript
