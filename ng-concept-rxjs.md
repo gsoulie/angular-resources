@@ -178,11 +178,13 @@ data$ = combineLatest([
 ])
 .pipe(
 	// transformer le type tableau d'observable en type objet pour pouvoir l'exploiter plus facilement dans la vue html
-	map([users, usernames, filteredUsers] => {
+	map(([users, usernames, filteredUsers]) =>
+	    ({
 		users,
 		usernames,
 		filteredUsers
-	})
+	    })
+	)
 );
 ````
 
