@@ -111,6 +111,20 @@ const musicianObj = musicians.reduce((acc, curr) => {
 
     console.log(`comptage pour la chaîne ${st.join('')} : ${JSON.stringify(res)}`);
 ````
+
+*Calculer une somme par rapport à une propriété d'objet*
+
+````typescript
+const items = [
+	{ name: 'coffee', price: 12 },
+	{ name: 'apple', price: 13.3 },
+	{ name: 'pasta', price: 25 },
+];
+
+const sumFunc = (total, { price }) => total + price;
+const total = items.reduce(sum, 0);
+````
+
 [Back to top](#operateurs) 
 
 ## Spread et Rest
