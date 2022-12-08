@@ -267,7 +267,7 @@ export class AppRoutingModule { }
 
 L'utilisation de routes enfant dans un composant standalone nécessite de créer un fichier contenant les routes un peu à la manière du *app-routing.module.ts*
 
->  Code complet disponible ici : https://github.com/gsoulie/angular-resources/tree/master/routing     
+>  Code complet disponible ici : (https://github.com/gsoulie/ng-routing-v14)   
 
 [Back to top](#navigation)   
 
