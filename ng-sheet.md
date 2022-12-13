@@ -39,7 +39,7 @@
 		* Skeleton view       	
 	* [Intéraction composant](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-component-interaction.md)      
 	* [Directives structurelles](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-structural-directive.md)   
-	* [Service worker - Web worker](https://github.com/gsoulie/angular-resources/blob/master/ng-service-worker.md)       
+	* [PWA : Service worker - Web worker](https://github.com/gsoulie/angular-resources/blob/master/ng-service-worker.md)       
 	* [Gestion du state avec NgRx](https://github.com/gsoulie/angular-resources/blob/master/ng-ngrx.md)     
 * [Gestion des erreurs](https://github.com/gsoulie/angular-resources/blob/master/ng-error.md)       
 
