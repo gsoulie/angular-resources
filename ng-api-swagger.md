@@ -60,15 +60,37 @@ constructor(private configurationService: ConfigurationService,
 
 Créer le fichier de config à la racine du projet
 
+*openapi-config.json*
 ````typescript
 {
   "$schema": "./node_modules/ng-openapi-gen/ng-openapi-gen-schema.json",
-  "input": "http://server:8093/swagger/v1/swagger.json",
+  "input": "https://server:8093/swagger/v1/swagger.json",
   "output": "./src/app/shared/api",
   "removeStaleFiles": true  // si false, ne supprimera pas les anciens fichiers s'il y a eu des suppressions
 }
 ````
 
 Puis générer les api avec la commande suivante (depuis la racine) ````ng-openapi-gen --config openapi-config.json````
+
+*task vscode*
+````json
+{
+      "label": "01_generate_swagger_api-by-swagger-url",
+      "type": "shell",
+      "command": "ng-openapi-gen",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "args": ["--config", "openapi-config.json"]
+    },
+    {
+      "label": "02_generate_swagger_api-by-json-file",
+      "type": "shell",
+      "command": "ng-openapi-gen --input swagger-api.json --output ./src/app/shared/api/",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    }
+````
 
 [Back to top](#api-swagger)     
