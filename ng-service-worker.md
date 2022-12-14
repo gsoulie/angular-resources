@@ -143,6 +143,21 @@ Le noeud *assetsGroups* est utilisé pour mettre en cache les ressources statiqu
 ````"installMode": "prefetch",```` // charge les données même si on en a pas encore besoin        
 ````"installMode": "lazy",```` // charge les données au moment où l'on en a besoin
 
+### Configuration du *web.config*
+
+Rajouter la ligne suivante pour éviter une erreur 404 lors du chargement du fichier *manifest.webmanifest*
+
+````html
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <system.webServer>
+        <staticContent>
+            <mimeMap fileExtension=".webmanifest" mimeType="application/json" />
+        </staticContent>
+     </system.webServer>
+</configuration>
+````
+
 ### Tester le fonctionnement
 
 compiler le projet en mode production puis se positionner dans le répertoire *dist/<nom_app>* et lancer un serveur ````http-server -p 8080````
