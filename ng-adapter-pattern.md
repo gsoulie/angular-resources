@@ -219,3 +219,78 @@ fetchDetail(): Observable<T> {
 ````
 
 [Back to top](#adapter-pattern)
+
+### Exemple avec une api retournant la liste des pays
+
+*country.model.ts*
+
+````typescript
+export interface Adapter<T> {
+  adapt(item: any): T
+}
+
+export class Country {
+  constructor(
+    public name?: string,
+    public code?: string
+  ) { }
+}
+
+````
+
+*country-adapter.service.ts*
+
+````typescript
+import { Adapter, Country } from './../../models/country.model';
+import { Injectable } from "@angular/core";
+
+@Injectable({
+  providedIn: "root"
+})
+
+export class CountryAdapter implements Adapter<Country> {
+  adapt(item: any): Country {
+    return new Country(item?.name?.common, item?.cca2);
+  }
+}
+````
+
+*country-helper.service.ts*
+
+````typescript
+import { CountryAdapter } from './country-adapter.service';
+import { BehaviorSubject, map, tap, Observable } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Country } from '../../models/country.model';
+
+const API_ENDPOINT = 'https://restcountries.com/v3.1/all';
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class CountryHelperService {
+
+  private countries$ = new BehaviorSubject<Country[]>([]);
+
+  constructor(
+    private http: HttpClient,
+    private adapter: CountryAdapter) { }
+
+  get countries(): Observable<Country[]> {
+    return this.countries$.value.length > 0 ? this.countries$.asObservable() : this.fetchCountries();
+  }
+
+  private fetchCountries(): Observable<Country[]> {
+    return this.http.get<any[]>(API_ENDPOINT)
+      .pipe(
+        map((data: any[]) =>
+          data.map((item) => this.adapter.adapt(item))
+        ),
+        tap(countries => this.countries$.next(countries)
+      ));
+  }
+}
+````
+[Back to top](#adapter-pattern)
