@@ -4,6 +4,7 @@
 
 * [Adapter pattern](#adapter-pattern)     
 * [loadFromJson](#loadfromjson)     
+* [Exemple concret](#exemple-avec-une-api-retournant-la-liste-des-pays)     
 
 
 ## Adapter pattern 
