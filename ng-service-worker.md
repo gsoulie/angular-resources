@@ -170,6 +170,21 @@ Recharger la page, les données devraient maintenant être chargées depuis le s
 > Attention : couper la connexion internet ou passer en mode Offline depuis l'onglet network va rendre la récupération des data en échec. Cependant 
 l'application ne présentera pas une page 404 mais bien la page attendue avec son contenu statique affiché.
 
+*app.module.ts*
+
+````typescript
+ imports: [
+    
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000',
+      scope: './'
+    })
+  ],
+````
+
 ### Configuration de la mise en cache
 
 Dans le cas de l'utilisation d'une font google ou autre via une url, ajouter l'url de la font dans le fichier *ngsw-config.json*
