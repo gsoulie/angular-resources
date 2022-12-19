@@ -31,6 +31,15 @@
 [1, 2, 3, 4].reduce((acc, num) => acc + num) // 10
 ````
 
+### Opérateur flat
+
+````typescript
+const arr = [1, 2, [3, [4, [5, 6], 7]], 8, [9]];
+
+arr.flat(Infinity);
+// output : [1, 2, 3, 4, 5, 6, 7, 8 , 9];
+````
+
 ### Opérateur reduce
 
 *Coût total d'un caddie*
