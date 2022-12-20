@@ -34,6 +34,34 @@ Suivant le serveur et la configuration utilisée, il est probable qu'il faille c
 ````
 Ce fichier doit se trouver à la racine avec le index.html.
 
+### Autre exemple de web.config
+
+````xml
+<?xml version="1.0" encoding="utf-8"?>
+    <configuration>
+      <system.webServer>
+	<staticContent>
+		<!-- mettre en cache long les contenus statiques pour augmenter les perfs : conseillé par lighthouse -->
+		<clientCache cacheControlMode="UseMaxAge" cacheControlMaxAge="364.00:00:00" />
+		
+		<mimeMap fileExtension=".webmanifest" mimeType="application/json" />
+        </staticContent>
+        <rewrite>
+          <rules>
+            <rule name="AngularJS Routes" stopProcessing="true">
+              <match url=".*" />
+              <conditions logicalGrouping="MatchAll">
+                <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+                <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />   
+              </conditions>
+              <action type="Rewrite" url="/" />
+            </rule>
+          </rules>
+        </rewrite>
+      </system.webServer>
+    </configuration>
+````
+
 ## Déploiement projet type workspace
 
 Après compilation, le répertoire dist contriendra plusieurs répertoires (1 pour chaque application et 1 pour chaque lib). Il n'est pas utile de copier les répertoires des libs sur le serveur,
