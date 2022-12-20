@@ -140,8 +140,8 @@ Pour tester son fonctionnement il faut donc compiler en mode production et faire
 
 Le noeud *assetsGroups* est utilisé pour mettre en cache les ressources statiques
 
-````"installMode": "prefetch",```` // charge les données même si on en a pas encore besoin        
-````"installMode": "lazy",```` // charge les données au moment où l'on en a besoin
+````"installMode": "prefetch",```` **// Met en cache les ressources même si on en a pas encore besoin. Conseillé pour les ressources importantes**        
+````"installMode": "lazy",```` **// Met en cache uniquement les ressources pour lesquelles on a reçu une requête. Conseillé pour les ressources moins importantes**
 
 ### Configuration du *web.config*
 
