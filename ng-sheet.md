@@ -73,6 +73,7 @@
 	* [Surcharges angular material et css](https://github.com/gsoulie/angular-resources/blob/master/ng-material-tips.md)     
 	* [mémo flexbox](https://github.com/gsoulie/angular-resources/blob/master/css-flexbox.png)     
 	* [Angular material tips](https://github.com/gsoulie/angular-resources/blob/master/ng-material-tips.md)     
+	* [Détection du mode mobile / handset](https://github.com/gsoulie/ionic-angular-snippets/blob/master/snippet-resources/handset-mode-helper.ts)    
 * [UI Components](https://github.com/gsoulie/angular-resources/blob/master/ng-ui-components.md)     
 	* Dropdown directive
 	* mat-table
