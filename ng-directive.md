@@ -5,6 +5,7 @@
 * [Snippets](#snippets)    
 * [Généralités](#généralités)    
 * [Manipulation des styles](#manipulation-des-styles)     
+* [Synthèse](#synthèse)     
 * [ngclass](#ngclass)     
 * [ngstyle](#ngstyle)      
 * [hostbinding](#hostbinding)     
@@ -248,6 +249,114 @@ Selon le contexte, si un traitement conditionnel est utilisé plusieurs fois dan
 Si c'est un cas très ponctuel, utiliser ````[ngClass]````
 
 ````<label [ngClass]="{'myCssClass': i > 5 ? true : false}">my content</label>````
+
+[Back to top](#directives)    
+
+## Synthèse
+
+Voici une synthèse rapide et simple sur l'utilisation des directives avec *HostLIstener*, *HostBinding* et passage de paramètres
+
+Soit une directive ayant pour but de modifier le background-color d'un paragraphe *<p>* à son survol
+````html
+<p highlight>First paragraph</p>
+<p>second paragraph without directive</p>
+<p highlight>Last paragraph</p>
+````
+
+````typescript
+@Directive({
+	selector: 'p[highlight]'	// La directive sera attachée à tous les éléments <p> ayant l'attrribut highlight
+})
+
+export class HighlightDirective {
+
+	constructor(private elementRef: ElementRef<HTMLElement>) {}
+	
+	@HostListener('mouseenter', ['$event'])	// <-- ['$event'] facultatif, uniquement si on a besoin de récupérer les params
+	onMouseEnter(event: MouseEvent) {
+		console.log(event.clientX);
+		this.elementRef.nativeElement.style.backgroundColor = 'yellow';
+	}
+	
+	// Autre écriture simplifiée en utilisant directement l'élément déclencheur
+	@HostListener('mouseenter', ['$event.target'])
+	onMouseEnter(element: HTMLElement) {
+		element.style.backgroundColor = 'yellow';
+	}
+	
+	@HostListener('mouseout')
+	onMouseOut() {
+		this.elementRef.nativeElement.style.backgroundColor = 'transparent';
+	}
+}
+````
+
+### HostBinding
+Pour aller plus loin, on peut binder la propriété ````style.backgroundColor```` directement sur une variable pour simplifier encore le code
+
+````typescript
+@Directive({selector: 'p[highlight]'})
+
+export class HighlightDirective {
+	@HostBinding('style.backgroundColor') color = 'transparent';
+	
+	@HostListener('mouseenter')
+	onMouseEnter() { this.color = 'yellow'; }
+	
+	@HostListener('mouseout')
+	onMouseOut() { this.color = 'transparent'; }
+}
+````
+
+### Paramètres Input
+
+Ajoutons encore un peu plus de paramétrage en permettant le passage de la couleur via un paramètre
+
+````html
+<p highlight background-color="blue">First paragraph</p>
+<p>second paragraph without directive</p>
+<p highlight background-color="yellow">Last paragraph</p>
+````
+
+En javascript pur on écrirai :
+
+````typescript
+@Directive({selector: 'p[highlight]'})
+
+export class HighlightDirective {
+	@HostBinding('style.backgroundColor') color = 'transparent';
+	
+	backgroundColor = 'yellow';
+	
+	constructor(elementRef: ElementRef<HTMLElement>) {
+		this.backgroundColor = elementRef.nativeElement.getAttribute('background-color') || 'yellow';
+	}
+	
+	@HostListener('mouseenter')
+	onMouseEnter() { this.color = this.backgroundColor; }
+	
+	@HostListener('mouseout')
+	onMouseOut() { this.color = 'transparent'; }
+}
+````
+
+Que l'on peut l'écrire plus simplement avec 
+
+````typescript
+@Directive({selector: 'p[highlight]'})
+
+export class HighlightDirective {
+	@HostBinding('style.backgroundColor') color = 'transparent';
+	
+	@Input('background-color') backgroundColor = 'yellow';	// avec une valeur par défaut si aucune couleur n'est donnée
+		
+	@HostListener('mouseenter')
+	onMouseEnter() { this.color = this.backgroundColor; }
+	
+	@HostListener('mouseout')
+	onMouseOut() { this.color = 'transparent'; }
+}
+````
 
 [Back to top](#directives)    
 
