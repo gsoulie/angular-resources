@@ -5,6 +5,7 @@
 * [Bonnes pratiques](https://levelup.gitconnected.com/the-correct-way-to-make-api-requests-in-an-angular-application-22a079fe8413)     
 * [Catch](#catch)     
 * [Http interceptor](#http-interceptor)     
+* [Gérer un loading spinner](#gérer-le-déclenchement-d-'-un-spinner-de-chargement-à-chaque-requête-http)     
 * [Multipart Form Data](#multipart-form-data)      
 * [Mise en cache requête](#mise-en-cache-requête)     
 * [Chargement de données via JSON](#chargement-de-données-via-json)      
