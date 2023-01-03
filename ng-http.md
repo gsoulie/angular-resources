@@ -320,13 +320,22 @@ export class HttpSpinnerInterceptorService {
       .handle(req)
       .pipe(
         delay(1500),
+	tap({
+		next: (event: HttpEvent<any>) => {
+	    		if (event instanceof HttpResponse) {
+	      			this.spinnerService.hideSpinner();
+	    		}
+	  	},
+		error: (e) => this.spinnerService.hideSpinner();
+	})
+	/** Ancienne syntaxe
         tap((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
             this.spinnerService.hideSpinner();
           }
         }, (error) => {
           this.spinnerService.hideSpinner();
-        })
+        })*/
       );
   }
 }
