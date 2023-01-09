@@ -112,9 +112,9 @@ obs.subscribe(res => console.log(res));
 
 *forkjoin* VS *combineLatest*
 
-L'opérateur forkJoin de RxJS attend que toutes les observables fournies en entrée émettent au moins une valeur, puis retourne leurs dernières valeurs sous forme d'un tableau. Si l'une des observables échoue, l'opérateur forkJoin retournera une erreur.
+L'opérateur **forkJoin** de RxJS attend que tous les observables fournies en entrée émettent au moins une valeur, puis retourne leurs dernières valeurs sous forme d'un tableau. Si l'une des observables échoue, l'opérateur forkJoin retournera une erreur.
 
-L'opérateur combineLatest, quant à lui, combine les dernières valeurs émises par chaque observable en entrée et retourne une nouvelle valeur chaque fois qu'une de ces observables émet une valeur. Si l'une des observables échoue, l'opérateur combineLatest ignorera l'erreur et continuera à combiner les valeurs des autres observables.
+L'opérateur **combineLatest**, quant à lui, combine les dernières valeurs émises par chaque observable en entrée et **retourne une nouvelle valeur chaque fois qu'un de ces observables émet une valeur**. Si l'une des observables échoue, l'opérateur combineLatest ignorera l'erreur et continuera à combiner les valeurs des autres observables.
 
 Voici un exemple pour illustrer la différence entre ces deux opérateurs :
 
