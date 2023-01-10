@@ -2,6 +2,10 @@
 
 # Gestion des erreurs
 
+* [Try-catch](#try--catch)    
+* [Gestion globale erreur http avec retry](#gestion-globale-erreur-http-avec-retry)     
+* [Erreur côté client](#erreur-côté-client)    
+
 documentation : https://angular.io/api/core/ErrorHandler
 
 https://www.youtube.com/watch?v=e03EHZIVJtM&ab_channel=DecodedFrontend     
@@ -109,3 +113,9 @@ ngOnInit() {
 
 ````ng g interceptor global-http-error-handler````
 
+
+## Erreur côté client
+
+* Bugsnag     
+* Sentry     
+* Rollbar     
