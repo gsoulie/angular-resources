@@ -39,8 +39,11 @@ Quelques bonnes pratiques pour optimiser le code Angular / Ionic
 * Limiter le nombre de module tiers utilisés. Utiliser autant que possible ce qui est faisable directement en JS ou Angular, idem pour les composants graphiques, ce qui peut être fait en css pur est à privilégier.
 * Supprimer tous les ````console.log```` avant de mettre en prod => peut causer des memory leak => ajouter le code suivant dans le fichier **main.ts** pour faire simple :
  ````typescript
- if (environment.production) {
-  window.console.log = () => {};
+if (environment.production) {
+  enableProdMode();
+  if (window) {
+    window.console.log = () => { };// désactiver les log en mode production
+  }
 }
 ````
 * Utiliser la fonction **TrackBy** dans les boucle **ngFor**. Permet de créer un index sur chaque item et évite de recréer complètement la liste lors d'un ajout/modification/suppression d'un item   
