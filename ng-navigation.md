@@ -716,7 +716,7 @@ Il est donc conseillé de ne pas utiliser de resolver pour gérer des navigation
 	
 Angular fourni un certains nombre de guard :
 	
-* *CanLoad* : permettant d'indiquer si un composant / module lazy-loadé peut être chargé ou non    
+* *CanLoad* <img src="https://img.shields.io/badge/Déprécié-v15.1.0-DD0031.svg?logo=LOGO">: permettant d'indiquer si un composant / module lazy-loadé peut être chargé ou non    
 * *CanActivate / CanActivateChild* : permet de déterminer si un composant / module peut être activé     
 * *CanMatch* : permet le chargement de composants différents utilisant une même route en fonction d'un paramétrage. **Attention** il faut positionner la route protégée par le *CanMatch* au-dessus de la route par défaut.
 	
