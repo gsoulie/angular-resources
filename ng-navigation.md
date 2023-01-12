@@ -3,6 +3,7 @@
 # Navigation
 
 * [Généralités](#généralités)         
+* [Functional guards et migration](#functional-guards-et-migration)      
 * [Relative route relativeTo](#relative-route)     
 * [Routes enfants](#routes-enfants)     
 * [Deep linking](#deep-linking)   
@@ -39,6 +40,76 @@ La route par défaut, doit toujours être à la fin du fichier de routing !!
 ````
 
 ### A savoir : *href* recharge la page, pas le *routerLink*
+
+## Functional guards et migration
+
+Depuis Angular 14, il est possible d'écrire les gardes sous forme de fonction plutôt que de classe :
+
+````typescript
+const hasRole = (role: string): boolean => {
+	return inject(AuthService).role$.pipe(
+		map(roles => roles.map(x => x.name).includes(role))
+	)
+}
+
+export const routes: Routes = [
+	{
+		path: 'home',
+		children: [
+			{
+				path: '',
+				canMatch: [() => hasRole('user')],
+				loadComponent: () => import('./user-home.component'),
+			},
+			{
+				path: '',
+				canMatch: [() => hasRole('admin')],
+				loadComponent: () => import('./user-admin.component'),
+			}
+		]
+	}
+]
+````
+
+### Migration des class-based guards bientôt dépréciés
+
+Les gardes sous forme de classe ainsi que les resolver sont voués à disparaîtres. Il faudra donc à terme convertir les gardes en gardes fonctionnels :
+
+````typescript
+// Class-based classic guard
+@Injectable({providedIn: 'root'})
+export class AuthGuard implements CanActivate {
+	#authService = inject(AuthService);
+	
+	canActivate() {
+		return this.#authService.isLoggedIn$;
+	}
+}
+
+// Functional guard
+export const authGuard: CanActivateFn = () => {
+	const authService = inject(AuthService);
+	return authService.isLoggedIn$;
+}
+
+// Utilisation actuelle
+const routes: Routes = [
+	{
+		path: 'admin',
+		canActivate: [authGuard],
+		loadComponent: () => import('./user-admin.component'),
+	}
+]
+
+// Utilisation FUTURE lorsque les class-based guard et resolver seront dépréciés
+const routes: Routes = [
+	{
+		path: 'admin',
+		canActivate: mapToGuards.canActivate([AuthGuard]),
+		loadComponent: () => import('./user-admin.component'),
+	}
+]
+````
 
 ## Relative route
 
