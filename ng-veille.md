@@ -28,6 +28,7 @@
 	* [NX - fullstack](#nx)    
 	* [Fullstack NX, NestJS, Prisma, Angular](#fullstack-nx-nestjd-prisma-angular)      
 	* [Remix - fullstack](#remix)     
+	* [ViteJS](#vite)     
 	
 ## Frameworks frontend
 
@@ -420,6 +421,14 @@ C'est là qu'intervient Next JS. C'est un framework (backend) basé sur *ReactJS
 * rendu SSR
 * rendu hybride : rend du contenu statique avec une tâche de fond qui va mettre à jour le rendu si des modifications sont detectées (un peu à la manière de Astro)
 
+* Amélioration des performances : Les pages sont pré-rendues côté serveur, ce qui permet de réduire le temps de chargement et d'améliorer l'expérience utilisateur pour les utilisateurs ayant une connexion internet lente ou pour les moteurs de recherche.
+
+* Routage automatique : Le routage est intégré à NextJS, ce qui permet de gérer facilement les différentes pages de l'application sans avoir besoin d'utiliser un package externe.
+
+* Déploiement facile : NextJS offre un outil de déploiement intégré qui permet de déployer facilement l'application sur un serveur.
+
+* Dynamic Importation : NextJs supporte la dynamic importation, qui permet de charger uniquement les composants nécessaires à l'affichage d'une page, améliorant ainsi les performances de l'application.
+
 Concurrent de **NuxtJS** pour *Vue*
 
 [Back to top](#veille)     
@@ -739,3 +748,9 @@ export class CardsController {
 Remix est un jeune framework **fullstack javascript** (2021) gratuit basé sur **React** et qui utilise **nodeJS** pour faire du server-side rendering (SSR). 
 
 [Back to top](#veille)     
+
+### Vite
+
+ViteJS est un outil de développement rapide pour les projets JavaScript (principalement conçu pour fonctionner avec React et Vue). Il a été conçu pour améliorer le développement de projets en utilisant les dernières technologies de navigateur, notamment les fonctionnalités de ES modules. Il se concentre sur la **rapidité** et la **simplicité d'utilisation**, en utilisant un serveur de développement intégré pour éviter les étapes de configuration fastidieuses. Il permet également d'utiliser des plugins pour ajouter des fonctionnalités supplémentaires telles que la prise en charge de TypeScript et les outils de linting. Il est également très léger et facile à utiliser.
+
+[Back to top](#veille)   
