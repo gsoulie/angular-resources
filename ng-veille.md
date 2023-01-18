@@ -14,8 +14,8 @@
 	* [Astro](#astro)   
 	* [COMPARATIF frameworks crossplatform](#comparatif-frameworks-crossplatform)      
 * [Backends](#Backends)     
-	* [NuxtJS](#nextjs)  
-	* [NextJS](#nuxtjs)  	  
+	* [NuxtJS](#nuxtjs)  
+	* [NextJS](#nextjs)  	  
 	* [Prisma](#prisma)     
 	* [NestJS](#nestjs)     
 	* [Deno](#deno)    
@@ -418,7 +418,7 @@ C'est là qu'intervient Next JS. C'est un framework (backend) basé sur *ReactJS
 
 * rendu statique
 * rendu SSR
-* endu hybride : rend du contenu statique avec une tâche de fond qui va mettre à jour le rendu si des modifications sont detectées (un peu à la manière de Astro)
+* rendu hybride : rend du contenu statique avec une tâche de fond qui va mettre à jour le rendu si des modifications sont detectées (un peu à la manière de Astro)
 
 Concurrent de **NuxtJS** pour *Vue*
 
