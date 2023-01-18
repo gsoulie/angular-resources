@@ -753,4 +753,6 @@ Remix est un jeune framework **fullstack javascript** (2021) gratuit basé sur *
 
 ViteJS est un outil de développement rapide pour les projets JavaScript (principalement conçu pour fonctionner avec React et Vue). Il a été conçu pour améliorer le développement de projets en utilisant les dernières technologies de navigateur, notamment les fonctionnalités de ES modules. Il se concentre sur la **rapidité** et la **simplicité d'utilisation**, en utilisant un serveur de développement intégré pour éviter les étapes de configuration fastidieuses. Il permet également d'utiliser des plugins pour ajouter des fonctionnalités supplémentaires telles que la prise en charge de TypeScript et les outils de linting. Il est également très léger et facile à utiliser.
 
+* compilation TS, scss, hot module reloading...
+
 [Back to top](#veille)   
