@@ -418,6 +418,14 @@ La nécessité de configurer un environnement de développement pour chaque plat
 Le rendu de l'application peut être légèrement différent de celui d'un navigateur web
 En résumé Tauri est un framework open-source qui permet de créer des applications de bureau multiplateformes à partir de code web existant, offrant un accès aux fonctionnalités natives de l'OS, avec des performances similaires aux applications de bureau traditionnelles, mais nécessitant une nouvelle API pour accéder aux fonctionnalités natives de l'OS, une configuration d'environnement pour chaque plateforme cible et un léger différent de rendu par rapport aux navigateurs web.
 
+**Comparaison avec Capacitor**
+
+Tauri et Capacitor sont tous les deux des frameworks qui permettent de créer des applications de bureau à partir de code web, mais ils ont quelques différences clés :
+
+Technologie de base: Tauri utilise le navigateur Chromium pour rendre l'application, tandis que Capacitor utilise des WebViews natifs pour chaque plateforme cible.
+API: Tauri offre une API pour accéder aux fonctionnalités natives de l'OS (comme les fichiers, les dossiers, les notifications, etc.), tandis que Capacitor se concentre sur l'accès aux fonctionnalités de l'appareil (comme la caméra, le microphone, l'accéléromètre, etc.).
+Configuration: Tauri nécessite une configuration spécifique pour chaque plateforme cible, tandis que Capacitor utilise des plugins pour accéder aux fonctionnalités natives de l'appareil, ce qui facilite la configuration pour les différentes plateformes.
+En résumé, Tauri et Capacitor sont tous les deux des frameworks qui permettent de créer des applications de bureau à partir de code web, mais Tauri se concentre sur les fonctionnalités natives de l'OS tout en utilisant le navigateur Chromium pour rendre l'application, tandis que Capacitor se concentre sur les fonctionnalités de l'appareil en utilisant des WebViews natifs pour chaque plateforme cible. Tauri nécessite une configuration spécifique pour chaque plateforme cible alors que Capacitor utilise des plugins pour accéder aux fonctionnalités natives de l'appareil, ce qui facilite la configuration pour les différentes plateformes.
 
 ## Backends
 
