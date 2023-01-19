@@ -11,8 +11,10 @@
 	* [Svelte](#svelte)    
 	* [Flutter](#flutter)    
 	* [Qwik](#qwik)     
+	* [Solid](#solid)    
 	* [Astro](#astro)   
 	* [COMPARATIF frameworks crossplatform](#comparatif-frameworks-crossplatform)      
+	* [Tauri](#tauri)      
 * [Backends](#Backends)     
 	* [NuxtJS](#nuxtjs)  
 	* [NextJS](#nextjs)  	  
@@ -334,6 +336,14 @@ Inconvénients Ionic
 - Retarder la création de listener le plus possible     
 - Un seul listener global plutôt que plusieurs petits listeners     
 
+En résumé, Qwik et Svelte se concentrent sur la performance en utilisant des techniques d'optimisation du code JavaScript, tandis que Solid se concentre sur la création d'applications web décentralisées en utilisant des protocoles de type WebID.
+
+[Back to top](#veille)     
+
+### Solid
+
+Solid est un framework JavaScript pour la création d'applications web décentralisées (dApps). Il utilise une architecture basée sur des agents pour permettre la communication entre les différentes parties de l'application, et utilise des protocoles de type WebID pour gérer l'accès aux données. Solid vise à faciliter la création d'applications décentralisées basées sur les principes de la Web sémantique et du Web décentralisé.
+
 [Back to top](#veille)     
 
 ### Astro
@@ -386,6 +396,27 @@ Quand utiliser **Flutter**
 * installation facile et rapide (pas de nodejs)
 * être certain de toujours avoir des packages à jour (pas de dépendances tiers non maintenues etc...)
 * la meilleure alternative cross-platform avant de dev directement en natif
+
+[Back to top](#veille)     
+
+### Tauri
+
+Tauri est un framework open-source qui permet de créer des applications de bureau multiplateformes (Windows, Mac, Linux) à partir de code web (JavaScript, HTML, CSS). Il utilise le navigateur Chromium en arrière-plan pour rendre l'application, tout en offrant une API pour accéder aux fonctionnalités natives de l'OS (comme les fichiers, les dossiers, les notifications, etc.).
+
+Le positionnement de Tauri est d'offrir une alternative aux frameworks traditionnels pour la création d'applications de bureau, en utilisant le code web déjà existant. Il permet de créer des applications de bureau performantes et fiables, tout en utilisant les compétences de développement web existantes.
+
+Les avantages de Tauri sont:
+
+Utilisation du code web existant pour créer des applications de bureau
+Multiplateforme (Windows, Mac, Linux)
+Accès aux fonctionnalités natives de l'OS
+Performance similaire aux applications de bureau traditionnelles
+Les inconvénients de Tauri sont:
+
+La nécessité d'apprendre une nouvelle API pour accéder aux fonctionnalités natives de l'OS
+La nécessité de configurer un environnement de développement pour chaque plateforme cible
+Le rendu de l'application peut être légèrement différent de celui d'un navigateur web
+En résumé Tauri est un framework open-source qui permet de créer des applications de bureau multiplateformes à partir de code web existant, offrant un accès aux fonctionnalités natives de l'OS, avec des performances similaires aux applications de bureau traditionnelles, mais nécessitant une nouvelle API pour accéder aux fonctionnalités natives de l'OS, une configuration d'environnement pour chaque plateforme cible et un léger différent de rendu par rapport aux navigateurs web.
 
 
 ## Backends
