@@ -329,7 +329,9 @@ Inconvénients Ionic
 
 ### Qwik
 
-**Qwik** est un nouveau framework javascript dont l'objectif principal est de s'attaquer à la problématique de **"time to interacteractive"** des applis web. Limiter les temps de récupération des ressources après server-side rendering et accélérer au maximum le chargement du site.
+**Qwik** Qwik est un framework de développement web open-source qui a été créé pour faciliter la création de **sites web statiques** rapides est de s'attaquer à la problématique de **"time to interacteractive"**. Il utilise des concepts de compilateurs de template pour générer des pages HTML à partir de données de modèle et de composants réutilisables. Qwik se concentre principalement sur les sites web statiques, c'est-à-dire des sites web qui ne nécessitent pas de mise à jour en temps réel des données côté serveur. Il peut donc être utilisé pour créer des sites web commerciaux, des blogs, des portfolios, des landing pages, etc.
+
+Il est important de noter que Qwik **n'est pas conçu pour créer des applications web dynamiques qui nécessitent une communication en temps réel avec un serveur ou des fonctionnalités de navigation et de routage avancées.**
 
 **Comment y parvenir :**
 
