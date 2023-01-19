@@ -15,6 +15,8 @@
 	* [Astro](#astro)   
 	* [COMPARATIF frameworks crossplatform](#comparatif-frameworks-crossplatform)      
 	* [Tauri](#tauri)      
+	* [Electron](#electron)    
+	* [Expo](#expo)    
 * [Backends](#Backends)     
 	* [NuxtJS](#nuxtjs)  
 	* [NextJS](#nextjs)  	  
@@ -407,15 +409,17 @@ Le positionnement de Tauri est d'offrir une alternative aux frameworks tradition
 
 Les avantages de Tauri sont:
 
-Utilisation du code web existant pour créer des applications de bureau
-Multiplateforme (Windows, Mac, Linux)
-Accès aux fonctionnalités natives de l'OS
-Performance similaire aux applications de bureau traditionnelles
+* Utilisation du code web existant pour créer des applications de bureau
+* Multiplateforme (Windows, Mac, Linux)
+* Accès aux fonctionnalités natives de l'OS
+* Performance similaire aux applications de bureau traditionnelles
+
 Les inconvénients de Tauri sont:
 
-La nécessité d'apprendre une nouvelle API pour accéder aux fonctionnalités natives de l'OS
-La nécessité de configurer un environnement de développement pour chaque plateforme cible
-Le rendu de l'application peut être légèrement différent de celui d'un navigateur web
+* La nécessité d'apprendre une nouvelle API pour accéder aux fonctionnalités natives de l'OS
+* La nécessité de configurer un environnement de développement pour chaque plateforme cible
+* Le rendu de l'application peut être légèrement différent de celui d'un navigateur web
+
 En résumé Tauri est un framework open-source qui permet de créer des applications de bureau multiplateformes à partir de code web existant, offrant un accès aux fonctionnalités natives de l'OS, avec des performances similaires aux applications de bureau traditionnelles, mais nécessitant une nouvelle API pour accéder aux fonctionnalités natives de l'OS, une configuration d'environnement pour chaque plateforme cible et un léger différent de rendu par rapport aux navigateurs web.
 
 **Comparaison avec Capacitor**
@@ -426,6 +430,52 @@ Technologie de base: Tauri utilise le navigateur Chromium pour rendre l'applicat
 API: Tauri offre une API pour accéder aux fonctionnalités natives de l'OS (comme les fichiers, les dossiers, les notifications, etc.), tandis que Capacitor se concentre sur l'accès aux fonctionnalités de l'appareil (comme la caméra, le microphone, l'accéléromètre, etc.).
 Configuration: Tauri nécessite une configuration spécifique pour chaque plateforme cible, tandis que Capacitor utilise des plugins pour accéder aux fonctionnalités natives de l'appareil, ce qui facilite la configuration pour les différentes plateformes.
 En résumé, Tauri et Capacitor sont tous les deux des frameworks qui permettent de créer des applications de bureau à partir de code web, mais Tauri se concentre sur les fonctionnalités natives de l'OS tout en utilisant le navigateur Chromium pour rendre l'application, tandis que Capacitor se concentre sur les fonctionnalités de l'appareil en utilisant des WebViews natifs pour chaque plateforme cible. Tauri nécessite une configuration spécifique pour chaque plateforme cible alors que Capacitor utilise des plugins pour accéder aux fonctionnalités natives de l'appareil, ce qui facilite la configuration pour les différentes plateformes.
+
+[Back to top](#veille)     
+
+### Electron
+
+Electron est un framework open-source qui permet de créer des applications de bureau multiplateformes (Windows, Mac, Linux) à partir de code web (JavaScript, HTML, CSS). Il utilise Chromium pour rendre l'interface utilisateur et Node.js pour l'accès aux fonctionnalités natives de l'OS (comme les fichiers, les dossiers, les notifications, etc.).
+
+Le positionnement d'Electron est de fournir une solution simple pour créer des applications de bureau à partir de code web existant. Il permet aux développeurs de créer des applications de bureau performantes et fiables en utilisant les compétences de développement web existantes.
+
+Les avantages d'Electron sont :
+
+* Utilisation du code web existant pour créer des applications de bureau
+* Multiplateforme (Windows, Mac, Linux)
+* Accès aux fonctionnalités natives de l'OS
+* Grande communauté et un grand nombre de packages disponibles
+
+Les inconvénients d'Electron sont :
+
+* Taille de l'application peut être volumineuse
+* Performances peuvent être inférieures à celles des applications de bureau traditionnelles
+* Consommation de ressources plus élevée
+
+Electron est un framework prometteur car il permet aux développeurs de créer des applications de bureau performantes et fiables en utilisant le code web existant, il est multiplateforme, et offre un accès aux fonctionnalités natives de l'OS. Il y a une grande communauté et un grand nombre de packages disponibles pour faciliter le développement. Cependant, il est important de noter que les performances peuvent être inférieures à celles des applications de bureau traditionnelles et la consommation de ressources plus élevée.
+
+[Back to top](#veille)     
+
+### Expo
+
+Expo est un framework open-source qui permet de développer des applications mobiles multiplateformes (iOS, Android) à partir de code JavaScript. Il utilise React Native pour rendre l'interface utilisateur, et offre une série de fonctionnalités prêtes à l'emploi pour l'accès aux fonctionnalités de l'appareil (comme la caméra, le microphone, l'accéléromètre, etc.).
+
+Le positionnement d'Expo est de fournir une solution simple pour créer des applications mobiles à partir de code web existant. Il permet aux développeurs de créer des applications mobiles performantes et fiables en utilisant les compétences de développement web existantes.
+
+Les avantages d'Expo sont :
+
+* Utilisation du code web existant pour créer des applications mobiles
+* Multiplateforme (iOS, Android)
+* Accès aux fonctionnalités de l'appareil par une API prête à l'emploi
+* Grande communauté et un grand nombre de packages disponibles
+
+Les inconvénients d'Expo sont :
+
+* Il n'offre pas un accès complet aux fonctionnalités natives des plateformes (il est possible de sortir d'Expo, mais cela nécessite des compétences supplémentaires)
+* Il est limité à certaines fonctionnalités natives
+* Il y a des restrictions pour la soumission d'application à l'Apple Store et Google Play Store
+
+En résumé, Expo est un framework open-source qui permet de développer des applications mobiles multiplateformes à partir de code JavaScript, en utilisant React Native pour rendre l'interface utilisateur et une série de fonctionnalités prêtes à l'emploi pour l'accès aux fonctionnalités de l'appareil. Il permet aux développeurs de créer des applications mobiles performantes et fiables en utilisant les compétences de développement web existantes. Cependant, il n'offre pas un accès complet aux fonctionnalités natives des plateformes, il est limité à certaines fonctionnalités et il y a des restrictions pour la soumission d'application à l'Apple Store et Google Play Store.
 
 ## Backends
 
