@@ -26,3 +26,53 @@ https://nitayneeman.com/posts/all-talks-from-ng-conf-2018/
 * main.js : contient tous le code (composants, ts, html, scss, pipes, directives, services, modules tiers...).     
 
 [Back to top](#ressources)     
+
+# Virtual DOM
+
+Le Virtual DOM est une technique utilisée par les bibliothèques de rendu de composants tels que React pour optimiser les performances de mise à jour de l'interface utilisateur. Il consiste à créer une réplique en mémoire de l'arbre de rendu de l'interface utilisateur, qui est ensuite comparé à l'arbre de rendu actuel pour déterminer les différences et ne mettre à jour que les parties qui ont changé.
+
+L'Incremental DOM est une technique similaire qui utilise également une réplique en mémoire de l'arbre de rendu, mais il compare et met à jour chaque nœud de l'arbre individuellement au lieu de traiter l'arbre en entier. Cela permet une mise à jour plus fine des modifications apportées à l'interface utilisateur.
+
+En résumé, le Virtual DOM est une technique de mise à jour globale pour l'interface utilisateur, tandis que l'Incremental DOM est une technique de mise à jour individuelle pour chaque nœud de l'arbre.
+
+https://blog.bitsrc.io/incremental-vs-virtual-dom-eb7157e43dca
+
+Pros and Cons of Virtual DOM
+
+* Algorithme de "différenciation" efficace
+* Simple et aide à améliorer les performances
+* Il peut être utilisé sans React.
+* Léger
+* Permet de créer des applications sans penser aux transitions d'état.
+
+Pros and Cons of Incremental DOM
+
+Comme je l'ai mentionné précédemment, Incremental DOM apporte une solution pour réduire la consommation de mémoire dans Virtual DOM en utilisant un vrai DOM pour suivre les modifications.
+Cette approche a considérablement réduit la surcharge de calcul et amélioré l'utilisation de la mémoire des applications.
+
+* Facile à intégrer à de nombreux autres frameworks. 
+* Son API simple le rend puissant pour cibler les moteurs de modèles. 
+* Convient aux applications basées sur les appareils mobiles.
+
+L'incremental DOM n'est pas le plus rapide mais est le plus économe en utilisation mémoire.
+
+
+
+pour créer une app comparable en react et angular, avec react il est nécessaire d'installer tout un tas de dépendances :
+* routing
+* http
+* redux
+* sass
+* rxjs
+* ...
+
+cela rend plus compliqué la création / maintenance d'une "grosse" application et maintenir la cohérence et le fonctionnement des dépendances entre elles.
+
+Avec Angular tout est déjà inclut, il suffit juste d'importer les features nécessaires. 
+
+Syntaxe compliquée avec TSX :
+
+* pas possible de déclarer des styles :hover, :focus, :active en inline-style
+* obliger d'appliquer un !important pour surcharger les styles si 2 composants utilisent le même nom de classe css même si chacun utilisent un fichier css différent
+* pas possible de spécifier de media-queries
+* écriture de code conditionnel / boucles fastidieux dans la vue
