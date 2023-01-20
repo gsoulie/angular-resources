@@ -22,6 +22,7 @@
 * [Astuces navigation](#astuces-navigation)   
 * [Routing strategy](#routing-strategy)       
 * [Refonte du routage avec standalone component](#refonte-du-routage-avec-standalone-component)       
+* [Dépréciation v15](#dépréciation-v15)     
 
 ## Généralités
 
@@ -1236,5 +1237,77 @@ bootstrapApplication(AppComponent, {
   ]
 })
 .catch(err => console.error(err))
+````
+[Back to top](#navigation)
+	
+## Dépréciation v15
+	
+Actuellement, la déclaration et l'utilisation classique d'un guard est réalisée de la manière suivante : 
+
+````typescript
+@Injectable({ providedIn: 'root' })
+export class PermissionsService {
+  private user = getUser();
+
+  isAdmin(isAdmin: boolean) {
+    return isAdmin ? user.isAdmin : false;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class IsAdminGuard implements CanActivate {
+  private permission = inject(PermissionsService);
+
+  canActivate(route: ActivatedRouteSnapshot) {
+      const isAdmin: boolean = route.data?.['isAdmin'] ?? false;
+      return this.permission.isAdmin(isAdmin);
+  }
+}
+
+export const APP_ROUTES: [{
+  path: 'dashboard',
+  canActivate: [IsAdminGuard],
+  data: {
+    isAdmin: true,
+  },
+  loadComponent: () => import('./dashboard/admin.component'),
+}]
+````
+
+<img src="https://img.shields.io/badge/IMPORTANT-DD0031.svg?logo=LOGO"> Cependant, **à partir d'angular v15.2, l'implémentation des guards en tant que services injectables sera dépréciée ! Et complètement retirée en v17**
+
+La raison principale de ce changement est que : Les gardes basées sur les classes injectables et les Injection Token sont moins configurables et réutilisables. De plus, ils ne peuvent pas être intégrés, ce qui les rend moins puissants et plus lourds.
+
+Si vous avez la possibilité de basculer dès à présent en Angular v15, la nouvelle **syntaxe conseillée** est la suivante :
+
+````typescript
+@Injectable({ providedIn: 'root' })
+export class PermissionsService {
+  isAdmin(isAdmin: boolean) {
+    return isAdmin;
+  }
+}
+
+export const canActivate = (isAdmin: boolean, permissionService = inject(PermissionsService)) => permissionService.isAdmin(isAdmin);
+
+export const APP_ROUTES: [{
+  path: 'dashboard',
+  canActivate: [() => canActivate(true)],
+  loadComponent: () => import('./dashboard/admin.component'),
+ }]
+ ````
+
+Si vous ne pouvez pas envisager de migration, alors vous pouvez conserver une certaine compatibilité en utilisant la syntaxe suivante qui 
+implique de créer une fonction pour injecter votre service :
+
+
+````typescript
+function mapToActivate(providers: Array<Type<{canActivate: CanActivateFn}>>): CanActivateFn[] {
+  return providers.map(provider => (...params) => inject(provider).canActivate(...params));
+}
+const route = {
+  path: 'admin',
+  canActivate: mapToActivate([IsAdminGuard]),
+};
 ````
 [Back to top](#navigation)
