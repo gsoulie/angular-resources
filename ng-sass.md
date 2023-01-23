@@ -6,6 +6,7 @@
 * [Utiliser un fichier variables.scss](#utiliser-un-fichier-variables-scss)     
 * [unités % vs vh](#unites-%-vs-vh)     
 * [Supprimer les effets de focus](#supprimer-les-effets-de-focus)     
+* [Syntaxe simplifiée rgba](#syntaxe-simplifiee-rgba)     
 
 
 ## Comprendre ng-deep
@@ -62,3 +63,13 @@ L'utilisation de l'unité **vh** (viewport height) ou **vw** (viewport width) pe
 button:focus { outline:0 !important; }
 select:focus { outline:0 !important; }
 ````
+[Back to top](#sass)
+
+## Syntaxe simplifiée rgba
+
+````css
+background: rgba(red, .5);
+background: rgba($color: red, $alpha: .5);
+````
+
+[Back to top](#sass)
