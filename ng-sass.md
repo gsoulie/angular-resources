@@ -7,6 +7,7 @@
 * [unités % vs vh](#unites-%-vs-vh)     
 * [Supprimer les effets de focus](#supprimer-les-effets-de-focus)     
 * [Syntaxe simplifiée rgba](#syntaxe-simplifiee-rgba)     
+* [Rendre le responsive plus smooth avec la fonction clamp](#fonction-clamp)     
 
 
 ## Comprendre ng-deep
@@ -73,3 +74,28 @@ background: rgba($color: red, $alpha: .5);
 ````
 
 [Back to top](#sass)
+
+## Fonction clamp
+
+Fonction css *clamp* une autre manière de gérer le responsive https://www.swebdev.fr/blog/la-fonction-css-clamp. Contrairement aux media queries, la fonction *clapm* se base sur les dimensions dynamiques du viewport. Là ou les media quesries définissent des breakpoints spécifiques causant une "saccade" lors du redimenssionnement.
+
+La fonction clamp prend 3 paramètres :
+1 - la taille minimale
+2 - la taille préférée : taille qui sera utilisée de préférence, sans jamais dépasser la taille mini et la taille maxi
+3 - la taille maximale
+
+La taille préférée doit se baser sur une valeur en *vw* ou *vh* afin d'avoir un aspect dynamique. On peut lui ajouter une valeur fixe en pixel.
+
+Voici un exemple d'implémentation sur un titre et une div
+
+````css
+.title-vh {
+  font-size: clamp(20px, 16px + 5vw, 54px);
+  color: black;
+}
+.square {
+  background-color: rgba($color: red, $alpha: 0.8);
+  width: clamp(80px, 80px + 5vw, 200px);
+  height: clamp(80px, 80px + 5vw, 200px);
+}
+````
