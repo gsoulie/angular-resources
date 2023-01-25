@@ -33,6 +33,7 @@
 	* [Fullstack NX, NestJS, Prisma, Angular](#fullstack-nx-nestjd-prisma-angular)      
 	* [Remix - fullstack](#remix)     
 	* [ViteJS](#vite)     
+	* [esbuild](#esbuild)      
 	
 ## Frameworks frontend
 
@@ -842,8 +843,14 @@ Remix est un jeune framework **fullstack javascript** (2021) gratuit basé sur *
 
 ### Vite
 
-ViteJS est un outil de développement rapide pour les projets JavaScript (principalement conçu pour fonctionner avec React et Vue). Il a été conçu pour améliorer le développement de projets en utilisant les dernières technologies de navigateur, notamment les fonctionnalités de ES modules. Il se concentre sur la **rapidité** et la **simplicité d'utilisation**, en utilisant un serveur de développement intégré pour éviter les étapes de configuration fastidieuses. Il permet également d'utiliser des plugins pour ajouter des fonctionnalités supplémentaires telles que la prise en charge de TypeScript et les outils de linting. Il est également très léger et facile à utiliser.
+ViteJS est un outil de développement (meta-framework) rapide pour les projets JavaScript (principalement conçu pour fonctionner avec React et Vue). Il a été conçu pour améliorer le développement de projets en utilisant les dernières technologies de navigateur, notamment les fonctionnalités de ES modules. Il se concentre sur la **rapidité** et la **simplicité d'utilisation**, en utilisant un serveur de développement intégré pour éviter les étapes de configuration fastidieuses. Il permet également d'utiliser des plugins pour ajouter des fonctionnalités supplémentaires telles que la prise en charge de TypeScript et les outils de linting. Il est également très léger et facile à utiliser.
 
 * compilation TS, scss, hot module reloading...
+
+[Back to top](#veille)   
+
+### esbuild
+
+esbuild est un **compilateur JavaScript ultra-rapide basé sur Go**. Il est conçu pour gérer des projets JavaScript de grande envergure et peut être utilisé pour compiler des applications web, des bibliothèques et des modules Node.js. Il peut également être utilisé pour optimiser les performances en réduisant la taille des fichiers et en réduisant les temps de chargement. Il peut également gérer les dépendances et les imports, et générer des fichiers source maps pour le débogage. Il est particulièrement utile pour les projets de grande envergure ou les applications à haute performance.
 
 [Back to top](#veille)   
