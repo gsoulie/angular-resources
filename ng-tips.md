@@ -7,6 +7,7 @@
 * [Conversion Date vers chaîne YYYY-MM-DD](#conversion-date-vers-chaîne-yyyy-mm-dd)     
 * [Gérer les dates en locale FR](#gérer-les-dates-en-locale-fr)      
 * [dayjs](#dayjs)        
+* [Console en couleur](#console-en-couleur)     
 
 ## Mémoriser une variable de controller
 
@@ -105,6 +106,16 @@ for (let i = 1; i <= this.currentDate.daysInMonth(); i++) {
     listeJours.push(dayjs(new Date(this.currentDate.year(), this.currentDate.month(), i)));
 }
 console.table(listeJours);
+````
+
+[Back to top](#astuces)    
+
+## Console en couleur
+
+````typescript
+console.log('%cHello world', 'color:red;');
+console.log('%cHello world', 'color:green;');
+console.log('%cHello world', 'color:yellow;');
 ````
 
 [Back to top](#astuces)    
