@@ -359,6 +359,11 @@ refreshData() {
 	this.data = newData;
 }
 ````
+
+### structureClone()
+
+https://www.builder.io/blog/structured-clone
+
 [Back to top](#operateurs)
 
 ## Shallow copy vs Deep copy
