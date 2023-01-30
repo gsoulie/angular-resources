@@ -2,6 +2,7 @@
 
 # Chart
 
+* [ChartJS](https://www.chartjs.org)     
 * [Apexchart](#apexchart)     
 * [Google charts](#google-charts)     
 * [Chartist](#chartist)     
