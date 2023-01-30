@@ -421,14 +421,25 @@ console.log(`workspace : ${task.metadata.workspace} - ${taskDeepCopy.metadata.wo
 
 **Limitations** : la format du JSON ne **supporte pas les fonctions**. Par conséquent il ne gère pas les cas dans lesquels l'objet de base contiendrait des méthodes. Idem si l'objet avait des propriétés contenant des ````Date(), Regex(), map()````, propriétés circulaires...
 
-#### méthode structuredClone : UNIQUEMENT à partir de node 17
+#### méthode structuredClone : à partir de typescript 4.7 ou à partir de node 17 
 
 ````typescript
-const deepClone = structuredClone(task);
-
-deepClone.metadata.workspace = 'production';
-console.log(`workspace : ${task.metadata.workspace} - ${deepClone.metadata.workspace}`); // => 'dev' - 'production'
+  base = {
+    name: 'object base',
+    age: 34,
+    address: {
+      country: 'USA'
+    }
+  }
+  
+  const clone = structuredClone(this.base);
+  clone.name = 'clone';
+  clone.address.country = 'Canada';
+  
+  console.log('base', this.base);
+  console.log('clone', clone);
 ````
+
 [Back to top](#operateurs)
 
 ## Utilisation du type générique
