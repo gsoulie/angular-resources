@@ -42,6 +42,11 @@ La route par défaut, doit toujours être à la fin du fichier de routing !!
 
 ### A savoir : *href* recharge la page, pas le *routerLink*
 
+````
+ng g guard my-guard --functional
+ng g guard my-guard --functional --guard-type canDeactivate
+````
+
 ## Functional guards et migration
 
 Depuis Angular 14, il est possible d'écrire les gardes sous forme de fonction plutôt que de classe :
