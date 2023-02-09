@@ -49,8 +49,8 @@ On peut aussi constater l'ajout de nouvelles commandes npm dans le *package.json
   },
 ````
 
-A partir de maintenant l'application sera d'abord rendue côté serveur. Cela signifie que certaines API (disponible côté client uniquement)
-peuvent ne pas être disponible côté serveur et générer des erreurs. C'est le cas par exemple de **LocalStorage**
+A partir de maintenant l'application sera **d'abord rendue côté serveur**. Cela signifie que **certaines API (disponible côté client uniquement)
+peuvent ne pas être disponible côté serveur** et générer des erreurs. C'est le cas par exemple de **LocalStorage**
 
 Pour résoudre ce problème il faut injecter un nouvel identifiant là où cela est nécessaire (component, service, etc...) et encadrer le code
 utilisant des APIs "client" par un contrôle.
@@ -63,7 +63,12 @@ constructor(@Inject(PLATFORM_ID) private platformId) { }
 
 ngOnInit() {
 	if (isPlatformBrowser(this.platformId)) {
-		// traitement utilisant des api non accessibles côté serveur : du localStorage par exemple
+		if (localStorage.getItem('token')) {	// test impossible côté serveur
+			// traitement utilisant des api non accessibles côté serveur : du localStorage par exemple
+			this.currentUser$.next(...);
+		}
+	} else {
+		this.currentUser$.next(null);
 	}
 }
 
