@@ -73,6 +73,12 @@ ngOnInit() {
 }
 ````
 
+Ensuite pour pouvoir partager les données entre le serveur et le client, il faut utiliser la classe **TransferState**
+
+Lorsque vous utilisez Angular Universal, les données sont d'abord générées côté serveur et transmises au client lors de la réponse HTTP. Cependant, il peut y avoir des cas où vous voulez partager des données entre les deux environnements sans devoir les recharger à partir de la source. C'est là que le TransferState intervient. Il vous permet de stocker et de partager des données sur le client et le serveur, ce qui peut réduire considérablement la quantité de trafic réseau nécessaire pour charger votre application et améliorer les performances.
+
+En utilisant TransferState, vous pouvez améliorer les performances de votre application Angular Universal en rendant plus rapide et plus efficace le partage des données entre le serveur et le client.
+
 ````typescript
 import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
