@@ -71,7 +71,31 @@ ngOnInit() {
 		this.currentUser$.next(null);
 	}
 }
+````
 
+````typescript
+import { PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+
+constructor(@Inject(PLATFORM_ID) private platformId,
+private transferState: TransferState) { }
+
+ngOnInit() {
+	if(this.transferState.hasKey(makeStateKey('userTable'))) {
+		this.users = this.transferState.get(makeStateKey('usersTable'), []);
+	} else {
+		this.fetchData();
+	}
+}
+fetchData() {
+	this.userService.getUsers()
+	.subscribe((users) => {
+		if (isPlatformServer(this.platformId)) {
+			this.transfertState.set<UserInterface[]>(makeStateKey('usersTable'), users);
+		}
+		this.users = users;
+	})
+}
 ````
 
 ### Déploiement
