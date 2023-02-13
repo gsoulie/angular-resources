@@ -702,7 +702,11 @@ C'est webpack qui va prendre en charge le lazy loading et créer un chunk du mod
 {
     path: 'userStandalone',
     loadComponent: () => import('./components/user/user.component').then(m => m.UserComponent)  // standalone component lazy-load
-}
+},
+{
+    path: 'home',
+    loadComponent: () => import('./home/home.page').then(m => m.HomePage)
+  },
 ````
 
 > Important : ne pas importer les modules lazy-loadé dans les fichiers app.module.ts car ils seraient alors chargés 2 fois !
