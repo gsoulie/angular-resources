@@ -690,6 +690,8 @@ search(name: string): Observable<string[]> {
 }
 ````
 
+> Voir aussi : https://dev.to/railsstudent/create-type-ahead-search-using-rxjs-and-angular-standalone-components-4m4a       
+
 ## Chaîner les observables
 [Back to top](#observables)
 
