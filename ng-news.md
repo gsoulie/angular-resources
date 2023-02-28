@@ -94,3 +94,20 @@ Se référer au guide de migration pour plus de détails : https://github.com/an
 14.20.x, 16.13.x and 18.10.x
 
 [Back to top](#nouveautés)    
+
+### inject
+
+Nouvelle façon d'injecter les services 
+
+````typescript
+const getCities = () => {
+  const httpService = inject(HttpClient);
+  const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+  return httpService.get<City[]>(endpoint).pipe(shareReplay(1));
+}
+
+export class MyCompo {
+  cities$ = getCities();
+}
+````
+[Back to top](#nouveautés)    
