@@ -31,6 +31,16 @@
 [1, 2, 3, 4].reduce((acc, num) => acc + num) // 10
 ````
 
+### Opérateur every
+
+Dans cet exemple nous voulons retourner ````true```` si le tableau est trié de manière croissante :
+
+````typescript
+const list = [1, 1, 2, 5, 7, 7, 9, 13];
+
+return list.every((num, i) => num <= list[i + 1] || i === list.length - 1)
+````
+
 ### Opérateur flat
 
 ````typescript
