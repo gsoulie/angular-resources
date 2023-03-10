@@ -8,6 +8,7 @@
 * [Casser une référence](#casser-une-référence)     
 * [Shallow copy vs Deep copy](#shallow-copy-vs-deep-copy)      
 * [Utilisation du type générique](#utilisation-du-type-générique)     
+* [Valeurs en doublon et opérateur Set](#valeur-en-doublons-et-opérateur-set)      
 
 ## Typescript expert : https://angularexperts.io/blog/advanced-typescript      
 
@@ -468,6 +469,23 @@ getData<T>(): Observable<T[]> {
 fetchUsers() {
 	this.users$ = this.helper.getData<User>();
 }
+````
+
+[Back to top](#operateurs)
+
+## Valeurs en doublon et opérateur set
+
+Voici comment savoir rapidement si un tableau contient des soublons, grâce à l'objet **Set** javascript
+
+Un ````Set```` javascript est une collection contenant des éléments uniques, elle **ne peut pas contenir de doublon**. De fait en créant un ````new Set```` avec le contenu d'un tableau, le Set va de lui même écarter les éventuels doublons. Il nous reste alors qu'à comparer la taille du tableau initial avec la taille su Set généré.
+
+````typescript
+const hasDuplicates = arr => new Set(arr).size < arr.length
+
+hasDuplicates([1, 2, 3]);	// false
+hasDuplicates([4, 5, 4]);	// true
+hasDuplicates(['str', 'obj', 'str']);	// true
+
 ````
 
 [Back to top](#operateurs)
