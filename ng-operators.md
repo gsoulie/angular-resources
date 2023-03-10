@@ -8,7 +8,7 @@
 * [Casser une référence](#casser-une-référence)     
 * [Shallow copy vs Deep copy](#shallow-copy-vs-deep-copy)      
 * [Utilisation du type générique](#utilisation-du-type-générique)     
-* [Valeurs en doublon et opérateur Set](#valeur-en-doublons-et-opérateur-set)      
+* [Valeurs en doublon et opérateur Set](#valeurs-en-doublon-et-opérateur-set)      
 
 ## Typescript expert : https://angularexperts.io/blog/advanced-typescript      
 
