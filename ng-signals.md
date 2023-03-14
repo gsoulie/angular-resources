@@ -3,6 +3,7 @@
 # Signals
 
 * [Concept](#concept)     
+* [Syntaxe](#syntaxe)     
 
 ## Concept 
 
@@ -79,5 +80,31 @@ Ce n'est bien sûr qu'un exemple très basique. Vous trouverez plus d'infos et d
 [Josj MORONY exemple de code](https://github.com/joshuamorony/quicklist-signals/blob/main/src/app/home/home.component.ts)     
 [Signals In Angular - Is RxJS doomed ?](https://levelup.gitconnected.com/signals-in-angular-is-rxjs-doomed-5b5dac574306)     
 https://www.angulararchitects.io/en/aktuelles/angular-signals/     
+
+[Back to top](#signals)     
+
+## Syntaxe
+
+Exemples de syntaxes Signals
+
+````typescript
+// declarative update
+export class SignalComponent {
+	list = signal<Items[]>([]);
+	
+	addItem(item: Item) {
+		this.list.update([...list, item]);
+	}
+}
+
+// impérative mutation
+export class SignalComponent {
+	list = signal<Items[]>([]);
+	
+	addItem(item: Item) {
+		this.list.mutate(ls => ls.push(item));
+	}
+}
+````
 
 [Back to top](#signals)     
