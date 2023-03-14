@@ -26,6 +26,7 @@
 	* [Supabase](#supabase)    
 	* [Netlify](#netlify)     
 	* [GraphQL](#graphql)     
+	* [PouchDB / couchDB](#pouchDB)     
 * [Autres](#Autres)     
 	* [e2e](#e2e)     
 	* [Stencil](#stencil)      
@@ -713,6 +714,17 @@ Un des **objectifs** de GraphQL est de répondre aux problématiques d'*over fet
 		- une mutation par action
 		- pas de standard de nommage (compensé par l’introspection du schéma)
 
+[Back to top](#veille)     
+
+### PouchDB
+
+PouchDB et CouchDB sont deux bases de données NoSQL open source développées par Apache Software Foundation. Bien qu'elles partagent de nombreuses similitudes, elles ont des différences importantes dans leur conception et leur utilisation.
+
+CouchDB est une base de données NoSQL orientée documents qui stocke des données au format JSON. Elle utilise un modèle de stockage clé-valeur pour stocker des documents qui peuvent être facilement indexés, consultés et filtrés. CouchDB a été conçu pour offrir une haute disponibilité, une tolérance aux pannes et une réplication facile des données entre différents nœuds. Les données dans CouchDB sont stockées sur disque et peuvent être consultées via une interface HTTP RESTful. CouchDB est également compatible avec les protocoles de synchronisation tel que CouchReplication et CouchDB Sync, qui permettent la synchronisation des données avec d'autres bases de données CouchDB.
+
+PouchDB, quant à elle, est une base de données NoSQL orientée objet qui utilise la structure de données du navigateur pour stocker les données localement. Contrairement à CouchDB, PouchDB est une base de données JavaScript qui fonctionne dans le navigateur et permet de stocker les données sur l'appareil de l'utilisateur. Elle est conçue pour offrir une expérience de développement plus facile et plus fluide pour les développeurs d'applications web et mobiles. Les données stockées dans PouchDB peuvent être facilement synchronisées avec une base de données CouchDB, ce qui permet la synchronisation des données entre différentes applications et appareils.
+
+En résumé, CouchDB est une base de données NoSQL orientée documents destinée à une utilisation sur des serveurs, tandis que PouchDB est une base de données NoSQL orientée objet destinée à une utilisation sur des navigateurs web et des applications mobiles. Les deux bases de données sont open source et offrent une haute disponibilité, une tolérance aux pannes et une réplication facile des données.
 
 ## Autres
 
