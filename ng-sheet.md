@@ -34,6 +34,7 @@
 		* filtrer un observable dans la vue via un pipe    
 		* limitation filtrage par pipe  
 	* [RxJS](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-rxjs.md) <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">      
+	* [Signals](https://github.com/gsoulie/angular-resources/blob/master/ng-signals.md)      
 	* [ng-content](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-ng-content.md)      
 		* Design pattern bridge      
 	* [ng-template](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-ng-template.md)     
