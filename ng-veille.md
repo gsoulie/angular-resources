@@ -533,6 +533,64 @@ Un ORM est une couche d’abstraction d’accès à la base de données qui donn
 
 > En bref : Couche de mapping object relationnel entre nodejs et typescript
 
+
+Prisma => définition du modèle de données => génération fichier TS 
+
+````
+npx prisma init
+````
+
+En Angular, les Injection Tokens sont utilisés pour fournir des instances de dépendances spécifiques lors de l'injection de dépendances dans des composants ou des services. Les Injection Tokens sont des objets qui agissent comme des clés uniques pour identifier une dépendance lorsqu'elle est injectée dans un constructeur de classe.
+
+Voici quelques cas d'utilisation courants des Injection Tokens en Angular :
+
+Remplacement de dépendances par défaut : Les Injection Tokens peuvent être utilisés pour remplacer les dépendances par défaut fournies par Angular avec des implémentations personnalisées. Par exemple, vous pouvez fournir une implémentation personnalisée d'un service en utilisant un Injection Token et en l'injectant dans un composant ou un service.
+
+Fournir des configurations : Les Injection Tokens peuvent également être utilisés pour fournir des configurations à un service. Vous pouvez définir un Injection Token qui représente une configuration spécifique et l'injecter dans le constructeur du service qui utilise cette configuration.
+
+Injection de dépendances conditionnelle : Les Injection Tokens peuvent également être utilisés pour injecter différentes dépendances en fonction des conditions. Par exemple, vous pouvez définir deux Injection Tokens différents pour deux implémentations de service différentes et choisir laquelle injecter en fonction d'une condition.
+
+Les Injection Token permettent de définir des constantes
+
+````typescript
+export interface UsersServiceConfigInterface {
+	api: string
+}
+
+providers: [
+	{ provide: 'USER_SERVICE', useClass: UsersServices },
+	{ provide: 'USERS_SERVICE_CONFIG',
+	useValue: { api: 'https://my-url'}}
+]
+````
+
+Le nom devant être obligatoirement unique, on utilise des injection token pour définir des identifiants uniques
+
+````typescript
+export const USERS_SERVICE_TOKEN = new InjectionToken<UsersService>('');
+export const USERS_SERVICE_CONFIG_TOKEN = new InjectionToken<UsersServiceConfigInterface>('');
+
+export interface UsersServiceConfigInterface {
+	api: string
+}
+
+providers: [
+	{ provide: USER_SERVICE_TOKEN, useClass: UsersServices },
+	{ provide: USERS_SERVICE_CONFIG_TOKEN,
+	useValue: { api: 'https://my-url'}}
+]
+````
+
+Utilisation dans le code
+
+````typescript
+export class AppComponent {
+	constructor(@Inject(USER_SERVICE_TOKEN) private usersService: UsersService) {
+		console.log('usersService', usersService);
+	}
+}
+````
+
 [Back to top](#veille)     
 
 ### NestJS 
