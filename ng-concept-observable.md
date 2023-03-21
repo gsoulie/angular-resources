@@ -816,7 +816,11 @@ export class SomeComponent implements OnDestroy {
 Une autre solution pour unsubscribe, consiste à utiliser l'opérateur ````takeUntil````
 
 ````typescript
+
 Public ngOnInit(): void {
+
+   private onDestroy$ = new Subject<void>();
+
    const subscriberCount1 = this.luckyService.getSubscribersCount();
    this.luckyService.getLuckyNumber()
      .pipe(takeUntil(this.onDestroy$))
