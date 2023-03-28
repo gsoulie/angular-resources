@@ -3,6 +3,7 @@
 
 # Animations
 
+* [Angular animation](https://williamjuan027.github.io/angular-animations-explorer/)     
 * [animate.css](#animate-.-css)    
 * [animation controller](#animation-controller)     
 * [animation réutilisable](https://netbasal.com/creating-reusable-animations-in-angular-6a2350d6191a)     
