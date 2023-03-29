@@ -2,6 +2,9 @@
 
 # Change Detection
 
+* [Fonctionnement de la Change Detection](#fonctionnement-de-la-change-detection)     
+* [Comparaison Angular et React](#comparaison-angular-et-react)     
+
 ## Fonctionnement de la Change Detection
 
 https://guide-angular.wishtack.io/angular/change-detection/fonctionnement-de-la-change-detection
@@ -59,5 +62,11 @@ Cela permet de détecter les problèmes de conception ou d'implémentation tels 
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 ````
+
+[Back to top](#change-detection) 
+
+Angular utilise une approche appelée *"détection de changement"* (**change detection**) pour rafraîchir le DOM. Cela signifie que Angular surveille en permanence les données et les propriétés de l'application pour détecter les changements. Lorsqu'un changement est détecté, Angular **rafraîchit uniquement les parties du DOM qui ont besoin d'être mises à jour**. Cette approche peut être très efficace, mais elle peut également être gourmande en ressources, car elle **nécessite une surveillance constante des données et des propriétés de l'application**.
+
+ReactJS utilise une approche appelée *"réconciliation"* (**reconciliation**) pour rafraîchir le DOM. Plutôt que de surveiller en permanence les données et les propriétés de l'application, ReactJS **crée une représentation virtuelle du DOM** (Virtual DOM), qui est une **version légère du DOM**. Lorsqu'un changement est détecté, ReactJS **compare la version virtuelle du DOM avec la version réelle du DOM** pour déterminer les différences. Ensuite, il ne **met à jour que les parties du DOM qui ont besoin d'être mises à jour**. Cette approche peut être plus efficace en termes de performances car elle ne nécessite pas de surveillance constante des données et des propriétés de l'application.
 
 [Back to top](#change-detection) 
