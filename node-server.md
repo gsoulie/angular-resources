@@ -15,12 +15,13 @@ const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // pour permettre le parsing du body dans les requêtes POST
 
 // Configuration
 const PORT = 3000;
 const SECRET_KEY = "your-secret-key";
 
+// Jeu de données pour test
 let mockData = [
   {
     id: 1,
@@ -63,7 +64,7 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-// APPLIQUER LE CONTRÔLE SUR LE BEARER SUR TOUTES LES APIS
+// APPLIQUER LE CONTRÔLE SUR LE BEARER POUR TOUTES LES APIS
 //app.use(verifyToken);
 
 // Route pour générer le token JWT
