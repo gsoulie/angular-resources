@@ -4,6 +4,7 @@
 
 ## Exemple serveur JWT
 
+Installation des dépendances :
 ````
 npm install express jsonwebtoken body-parser
 ````
