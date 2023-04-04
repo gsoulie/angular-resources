@@ -4,6 +4,7 @@
 
 * [Concept](#concept)     
 * [Syntaxe](#syntaxe)     
+* [Signal vs RxJS](#signal-vs-rxjs)    
 
 ## Concept 
 
@@ -106,5 +107,125 @@ export class SignalComponent {
 	}
 }
 ````
+
+[Back to top](#signals)     
+
+
+## Signal vs RxJS
+
+[source - Josh MORONY](https://www.youtube.com/watch?v=iA6iyoantuo&ab_channel=JoshuaMorony)     
+
+syntaxe plus claire, concise
+signal gère lui-même les souscription, il n'est donc plus nécessaire de se préoccuper d'utiliser les pipe async ou de unsubscribe ses observables
+intégrité des valeurs
+
+### Comparaison de syntaxe
+
+````typescript
+count = signal(0);
+
+count = new BehaviourSubject(0);
+````
+
+dans le template, Signal est appelé comme une fonction
+
+````typescript
+template: `
+	{{ count() }} <!-- signal -->
+	
+	{{ count | async }} <!-- BehaviourSubject --> 
+	{{ count.getValue() }} <!-- BehaviourSubject --> 
+	{{ count.value }} <!-- BehaviourSubject --> 
+`
+````
+
+````typescript
+logValue() {
+	console.log(this.count()); // signal
+	
+	console.log(this.count.value); // BehaviourSubject
+}
+````
+
+*Valeur calculée*
+
+````typescript
+count = signal(0);
+doubleCount = computed(() => this.count() * 2);
+console.log(this.doubleCount());
+
+//------------------------------------------
+
+count = new BehaviourSubject(0);
+doubleCount = this.count.pipe(map((count) => count * 2));
+this.doubleCount.subscribe((value) => console.log(value));
+// need unsubscribe on destroy !!
+````
+
+
+*Combiner plusieurs valeurs et intégrité des valeurs*
+````typescript
+valueOne = signal(1);
+valueTwo = signal(10);
+
+derived = computed(() => this.valueOne() * this.valueTwo());	// va afficher 10 la première fois, puis 40 après l'appel de changeValues()
+
+changeValues() {
+	this.valueOne.set(2);
+	this.valueTwo.set(20);
+}
+
+//------------------------------------------
+
+valueOne = new behaviourSubject(1);
+valueTwo = new behaviourSubject(10);
+
+derived = combineLatest([this.valueOne, this.valueTwo]).pipe(
+	map(([one, two]) => one * two)
+);	// va afficher 10 la première fois, puis 20 un très court instant à cause du combineLatest, puis 40
+
+changeValues() {
+	this.valueOne.next(2);
+	this.valueTwo.next(20);
+}
+````
+
+*Side effect*
+````typescript
+myService = inject(MyService);
+
+count = this.myService.getCount();
+doubleCount = computed(() => this.count() * 2);
+
+constructor() {
+	effect(() => {
+		console.log('Mise à jour count', this.count());
+	})
+}
+
+//------------------------------------------
+
+myService = inject(MyService);
+
+count = this.myService
+.getCount()
+.pipe(
+	tap((count) => console.log('Mise à jour count', count))
+);
+
+doubleCount = this.count.pipe(map((count) => count * 2));
+````
+
+l'````effect()```` est exécuté une fois initialement et il s'exécutera à chaque fois que la valeur d'un signal sera modifiée. Si une valeur est modifiée plusieurs fois avec le même contenu, l'````effect()````
+ne sera **pas déclenché** une nouvelle fois
+
+Avec RxJS, si on fait plusieurs pipe async, on déclenche plusieurs fois le effect
+
+````
+{{ count | async }}
+{{ count | async }}
+{{ count | async }}
+````
+de même que ````{{ doubleCount | async }}```` déclenchera lui aussi l'effect
 
 [Back to top](#signals)     
