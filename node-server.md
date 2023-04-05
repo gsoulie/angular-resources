@@ -15,13 +15,13 @@ const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 
 const app = express();
-app.use(bodyParser.json()); // pour permettre le parsing du body dans les requêtes POST
+app.use(bodyParser.json());
+app.use(express.json());
 
 // Configuration
 const PORT = 3000;
 const SECRET_KEY = "your-secret-key";
 
-// Jeu de données pour test
 let mockData = [
   {
     id: 1,
@@ -45,6 +45,22 @@ app.use((req, res, next) => {
   next();
 });
 
+// Logger les appels dans la console
+app.use((req, res, next) => {
+  const start = Date.now();
+
+  res.on("finish", () => {
+    const elapsed = Date.now() - start;
+    console.log(
+      `${req.method} ${JSON.stringify(req.body)} ${req.originalUrl} [${
+        res.statusCode
+      }] ${elapsed}ms`
+    );
+  });
+
+  next();
+});
+
 // Fonction pour contrôler l'authentification via un token Bearer présent dans le header
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
@@ -64,7 +80,7 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-// APPLIQUER LE CONTRÔLE SUR LE BEARER POUR TOUTES LES APIS
+// APPLIQUER LE CONTRÔLE SUR LE BEARER SUR TOUTES LES APIS
 //app.use(verifyToken);
 
 // Route pour générer le token JWT
@@ -97,34 +113,95 @@ app.get("/users", verifyToken, (req, res) => {
 
 // Route privée avec contrôle du token
 app.get("/user/:id", verifyToken, (req, res) => {
-  const { id } = req.query;
-  const filteredData = mockData.filter((u) => u.id === id);
+  const id = +req.params.id;
+
+  //return res.status(400).json({ error: "no id ? " + id });
+
+  const filteredData = mockData.find((u) => u.id === id);
   res.send(filteredData);
 });
 
+app.put("/user/:id", verifyToken, (req, res) => {
+  const { id, username, email, isAdmin } = req.body;
+
+  // Vérifier que toutes les informations d'utilisateur sont fournies
+  if (!username || !email) {
+    return res.status(400).json({
+      error:
+        "Missing user information " +
+        username +
+        " / " +
+        email +
+        " / " +
+        isAdmin,
+    });
+  }
+
+  const userAlreadyExists = mockData.findIndex((u) => u.id === +id);
+
+  if (userAlreadyExists >= 0) {
+    mockData[userAlreadyExists].username = username;
+    mockData[userAlreadyExists].email = email;
+    mockData[userAlreadyExists].isAdmin = isAdmin;
+  } else {
+    const newUser = {
+      username,
+      email: email.toLowerCase(),
+      isAdmin,
+      id: Date.now(),
+    };
+
+    mockData.push(newUser);
+  }
+
+  //res.status(200);
+});
+
 // Route privée avec contrôle du token
-app.post("user/add", verifyToken, (req, res) => {
+app.post("/user/add", verifyToken, (req, res) => {
   const { username, email, isAdmin } = req.body;
 
   // Vérifier que toutes les informations d'utilisateur sont fournies
-  if (!username || !email || !isAdmin) {
-    return res.status(400).json({ error: "Missing user information" });
+  if (!username || !email) {
+    return res.status(400).json({
+      error:
+        "Missing user information " +
+        username +
+        " / " +
+        email +
+        " / " +
+        isAdmin,
+    });
+  }
+
+  const userAlreadyExists = mockData.find(
+    (u) => u.email.toLowerCase() === email.toLowerCase()
+  );
+
+  if (userAlreadyExists) {
+    return res.status(400).json({ error: "User is already exists !" });
   }
 
   // Données de l'utilisateur
-  const newUser = { username, email, isAdmin };
-
-  newUser = { ...PORT, id: Date.now() };
+  const newUser = {
+    username,
+    email: email.toLowerCase(),
+    isAdmin,
+    id: Date.now(),
+  };
 
   mockData.push(newUser);
 
-  res.json({ newUser });
+  res.status(200).json({ newUser });
 });
 
 // Démarrer le serveur
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+// node server.js
+
 ````
 
 Lancer le serveur ````node server.js````
