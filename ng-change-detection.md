@@ -6,7 +6,7 @@
 * [Comparaison Angular et React](#comparaison-angular-et-react)     
 
 ## Fonctionnement de la Change Detection
-
+[Explication rapide et simple](https://www.youtube.com/watch?v=eNuMUslF8Bw&ab_channel=SimplifiedCourses)      
 https://guide-angular.wishtack.io/angular/change-detection/fonctionnement-de-la-change-detection
 
 Angular adopte une approche déclarative afin de maintenir en synchronisation le modèle et la vue.
