@@ -40,7 +40,10 @@ let mockData = [
 // Middleware pour ajouter les en-têtes CORS
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE"
+  );
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
@@ -121,7 +124,7 @@ app.get("/user/:id", verifyToken, (req, res) => {
   res.send(filteredData);
 });
 
-app.put("/user/:id", verifyToken, (req, res) => {
+app.patch("/user/:id", verifyToken, (req, res) => {
   const { id, username, email, isAdmin } = req.body;
 
   // Vérifier que toutes les informations d'utilisateur sont fournies
@@ -155,6 +158,18 @@ app.put("/user/:id", verifyToken, (req, res) => {
   }
 
   //res.status(200);
+});
+
+// Route privée avec contrôle du token
+app.delete("/user/:id", verifyToken, (req, res) => {
+  const id = +req.params.id;
+
+  const userFoundIndex = mockData.findIndex((u) => u.id === id);
+
+  if (userFoundIndex >= 0) {
+    mockData.splice(userFoundIndex, 1);
+  }
+  res.status(200).json({ id }); // RETOURNER UN CODE 200, attention sans le .json{} cela ne semble pas fonctionner
 });
 
 // Route privée avec contrôle du token
