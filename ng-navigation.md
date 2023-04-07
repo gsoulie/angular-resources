@@ -1189,25 +1189,28 @@ Les modifications à apporter pour s'affranchir du *app.module.ts* sont les suiv
 
 *app.component.ts*
 ````typescript
-import { RouterModule } from '@angular/router';
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styles: [],
-  standalone: true,
-  imports: [
+  standalone: true,	// <-- mode standalone
+  imports: [		// <-- ajouter le tableau d'import avec les modules principaux
     CommonModule,
-    RouterModule,
-  ]
+    RouterModule
+  ],
+  selector: 'app-root',
+  template: `<router-outlet></router-outlet>`,
+  styles: []
 })
-export class AppComponent {
+export default class AppComponent {
+ 
 }
 ````
-
+	
 **2** - Modifier la structure du *app-routing.module.ts*
+
+Ne laisser que l'export des routes 
 	
 *app-routing.module.ts*
 ````typescript
@@ -1216,26 +1219,38 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'welcome',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    redirectTo: 'home'
   }, {
-    path: 'welcome',
-    loadComponent: () => import('./components/welcome/welcome.component').then(m => m.WelcomeComponent)
+    path: 'home',
+    loadComponent: () => import('./components/home/home.component'),	// <-- lazy-load avec syntaxe simplifiée (nécessite d'exporter les composants en 'default'
+  },
+  {
+    path: 'page',
+    loadComponent: () => import('./components/page/page.component')
   }
 ];
 ````
 
 **3** - Modifier la façon de bootstraper l'application (non plus sur le AppModule mais sur le AppComponent)
-	
-*main.ts*
+
+*main.ts* Original 
+
 ````typescript
-import { routes } from './app/app-routing.module';
-import { RouterModule } from '@angular/router';
-import { AppComponent } from './app/app.component';
-import { enableProdMode, importProvidersFrom } from '@angular/core';
-import 'zone.js';
-import { environment } from './environments/environment';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppModule } from './app/app.module';
+
+platformBrowserDynamic().bootstrapModule(AppModule)
+   .catch(err => console.error(err));
+````
+
+*main.ts* Modifié
+````typescript
 import { bootstrapApplication } from '@angular/platform-browser';
+import AppComponent from './app/app.component';
+import { importProvidersFrom } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { routes } from './app/app-routing.module';
 
 if (environment.production) {
   enableProdMode();
@@ -1247,6 +1262,34 @@ bootstrapApplication(AppComponent, {
 })
 .catch(err => console.error(err))
 ````
+	
+**4** - Importer le *RouterModule* dans les composants standalone
+
+Ne pas oublier d'importer le *RouterModule* dans les composants utilisant la directive *routerLink* sinon la navigation ne se pas possible
+
+````typescript
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule, RouterModule],	// <-- RouterModule
+  template: `
+    <h1>home works!</h1>
+    <button routerLink="/page">Page</button>
+  `,
+  styles: [
+  ]
+})
+export default class HomeComponent {	// <-- déclarer le composant en "default" si on veut pouvoir utiliser la syntaxe simplifiée de lazy-load
+
+}
+````
+					       
+**5** - Supprimer le fichier *app.module.ts*
+
 [Back to top](#navigation)
 	
 ## Dépréciation v15
