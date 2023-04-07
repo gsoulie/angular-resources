@@ -22,7 +22,7 @@
 * [Astuces navigation](#astuces-navigation)   
 * [Routing strategy](#routing-strategy)       
 * [Refonte du routage avec standalone component](#refonte-du-routage-avec-standalone-component)       
-* [Dépréciation v15](#dépréciation-v15)     
+* [Dépréciation v15 et Functional guards](#dépréciation-v15)     
 
 ## Généralités
 
