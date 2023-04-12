@@ -77,10 +77,16 @@ export class AppComponent {
 
 Ce n'est bien sûr qu'un exemple très basique. Vous trouverez plus d'infos et d'exemples ici :
 
-[Vidéo de Josh MORONY](https://www.youtube.com/watch?v=4FkFmn0LmLI&ab_channel=JoshuaMorony)     
-[Josj MORONY exemple de code](https://github.com/joshuamorony/quicklist-signals/blob/main/src/app/home/home.component.ts)     
+**Série de vidéos courtes Josh MORONY**
+
+* [Angular is about to get its most IMPORTANT change in a long time...](https://www.youtube.com/watch?v=4FkFmn0LmLI&ab_channel=JoshuaMorony)    
+* [Why didn't the Angular team just use RxJS instead of Signals?](https://www.youtube.com/watch?v=iA6iyoantuo&ab_channel=JoshuaMorony)      
+* [The end of Angular's "service with a subject" approach?](https://www.youtube.com/watch?v=SVPyr6u3sqU&ab_channel=JoshuaMorony)       
+* [Exemple de code](https://github.com/joshuamorony/quicklist-signals/blob/main/src/app/home/home.component.ts)  
+
+[Angular Signals push-pull](https://angularexperts.io/blog/angular-signals-push-pull)      
 [Signals In Angular - Is RxJS doomed ?](https://levelup.gitconnected.com/signals-in-angular-is-rxjs-doomed-5b5dac574306)     
-https://www.angulararchitects.io/en/aktuelles/angular-signals/     
+https://www.angulararchitects.io/en/aktuelles/angular-signals/      
 
 [Back to top](#signals)     
 
