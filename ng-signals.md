@@ -84,6 +84,48 @@ https://www.angulararchitects.io/en/aktuelles/angular-signals/
 
 [Back to top](#signals)     
 
+### Complément
+
+https://angularexperts.io/blog/angular-signals-push-pull      
+
+Un signal est un wrapper autour d'une valeur, qui est capable d'informer les consommateurs intéressés lorsque cette valeur change. Étant donné que la lecture d'un signal se fait via un getter plutôt que d'accéder à une variable ou à une valeur simple, les signaux sont capables de garder une trace de l'endroit où ils sont lus.
+
+Les signaux **computed** se basent sur la valeur actuelle (la plus récente) des émetteurs référencés s'il est obsolète (une seule fois, même s'il a reçu plusieurs notifications)
+
+**effect()** doit s'exécuter dans un contexte d'injection (temps du constructeur) car il injecte **DestroyRef** en arrière plan pour fournir un auto-nettoyage.
+
+**IMPORTANT** ````effect()```` ne se déclenche pas si la valeur observée n'est pas modifiée. 
+
+Dans le code suivant, l'effect est déclenché à l'initialisation et affichera 'Effect runs with : true' :
+
+````typescript
+@Component({
+  template: `<button (click)="update()">Update</update>`,
+})
+export class EffectExampleComponent {
+  counter = signal(0);
+
+  constructor() {
+    const isEven = computed(() => {
+      return this.counter() % 2 === 0;
+    });
+
+    effect(() => {
+      console.log('Effect runs with: ', isEven());
+    });
+    // logs "Effect runs with: true" when component is initialy rendered
+  }
+
+  update() {
+    this.counter.update((current) => current + 2); // notice + 2
+  }
+}
+````
+
+Par la suite, un clic que le bouton update ne déclenchera plus le effect car la valeur *computed* ````isEven```` sera toujours égale à sa valeur initiale *true*
+
+[Back to top](#signals)     
+
 ## Syntaxe
 
 Exemples de syntaxes Signals
