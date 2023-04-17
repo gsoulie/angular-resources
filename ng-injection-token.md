@@ -2,6 +2,8 @@
 
 # Injection token et Factory
 
+https://www.youtube.com/watch?v=GvA7xnBmEto&ab_channel=MonsterlessonsAcademy      
+
 Utilisation des injection token et factory.
 
 Un provider prend en paramètre un *token* dans son paramètre ````provide```` et une valeur qui peut être un objet (*useValue*) ou le résultat d'une fonction (*useFactory*).
