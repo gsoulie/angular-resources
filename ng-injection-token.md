@@ -38,7 +38,7 @@ import { APP_DESCRIPTION } from './app.module';
 
 export class AppComponent implements OnInit {
 
-  constructor(@Inject(APP_DESCRIPTION) config: { title: string, description: string } | null) {
+  constructor(@Inject(APP_DESCRIPTION) private config: { title: string, description: string } | null) {
     console.log(`%cLoad APP_DESCRIPTION from provider : ${JSON.stringify(config)}`, 'color:green');
   }
 ````
