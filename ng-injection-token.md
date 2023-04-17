@@ -2,7 +2,12 @@
 
 # Injection token et Factory
 
-Utilisation des injection token et factory
+Utilisation des injection token et factory.
+
+Un provider prend en paramètre un *token* dans son paramètre ````provide```` et une valeur qui peut être un objet (*useValue*) ou le résultat d'une fonction (*useFactory*).
+Lors de son utilisation, le token sera remplacé par la valeur ou la fonction paramétré.
+
+Le token **APP_INITIALIZER** est un token particulier qui permet d'exécuter du code **AVANT** que l'application ne soit **démarrée**. Dans le cas ou ce comportement ne convient pas à l'effet recherché, il est alors possible de créer ses propres token. On les déclare donc avec ````new InjectionToken()````
 
 ## Injection Token avec useValue
 
