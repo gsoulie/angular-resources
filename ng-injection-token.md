@@ -9,6 +9,8 @@ Lors de son utilisation, le token sera remplacé par la valeur ou la fonction pa
 
 Le token **APP_INITIALIZER** est un token particulier qui permet d'exécuter du code **AVANT** que l'application ne soit **démarrée**. Dans le cas ou ce comportement ne convient pas à l'effet recherché, il est alors possible de créer ses propres token. On les déclare donc avec ````new InjectionToken()````
 
+**note** : toutes les dépendances utilisées par une factory doivent être déclarées dans le paramètres ````deps: []```` du provider.
+
 ## Injection Token avec useValue
 
 *app.module.ts*
