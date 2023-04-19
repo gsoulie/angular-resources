@@ -5,6 +5,7 @@
 * [Event loop](#event-loop-javascript)     
 * [Webpack](#webpack)      
 * [Fonctionnement webpack et optimisations](https://christianlydemann.com/the-complete-guide-to-angular-load-time-optimization/)     
+* [Rendering](#rendering)     
 
 ## Event loop Javascript
 
@@ -68,4 +69,17 @@ https://blog.neolynk.fr/2019/11/20/a-quoi-sert-webpack-et-comment-fonctionne-t-i
 
 Webpack est un outil de compilation, sont but est de prendre tous les fichiers du projet est d'en faire un bundle utilisable dans le browser
 
+## Rendering
 
+````mermaid
+flowchart TD
+  A[Rendering] --> B[Where ?];
+  B[Where ?] --> C[Browser];
+  C[Browser] --> D[Client-Side Rendering CSR];
+  B[Where ?] --> E[Server];
+  E[Server] --> F[When ?];
+  F[When ?] --> G[At build time];
+  G[At build time] --> H[Prerendering / Static Site Generation SSG];
+  F[When ?] --> I[With a client request];
+  I[With a client request] --> J[Server-Side Rendering SSR];
+````
