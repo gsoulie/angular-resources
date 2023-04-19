@@ -180,6 +180,8 @@ Le débogage peut également être plus difficile lors de l'utilisation de signa
 * Quelques différences       
 Les observables sont basés sur le modèle d'observateur, où un producteur envoie des données à un consommateur. En revanche, les signaux utilisent un modèle basé sur l'extraction dans lequel les consommateurs extraient les données d'un producteur.
 
+> Les signaux sont **synchrones** tandis que les observables peuvent être **synchrones** et **asynchrones**
+
 Pendant ce temps, les signaux ont un support intégré pour le suivi des dépendances et une réactivité à grain fin, ce qui les rend particulièrement bien adaptés pour une utilisation dans des frameworks d'interface utilisateur comme Angular. RxJS, d'autre part, est une bibliothèque plus générale pour la programmation réactive en JavaScript. Bien que RxJS puisse être utilisé pour le développement de l'interface utilisateur, il n'a pas le même niveau d'intégration avec Angular que les signaux.
 
 Cela étant dit, les signaux et RxJS ne s'excluent pas mutuellement. En fait, ils peuvent être utilisés ensemble pour créer de puissantes applications réactives. Par exemple, vous pouvez utiliser RxJS pour modéliser des flux asynchrones complexes, puis utiliser des signaux pour déclencher des mises à jour de l'interface utilisateur en fonction des modifications apportées à ces données.
