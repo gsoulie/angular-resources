@@ -4,6 +4,7 @@
 
 * [Concept](#concept)     
 * [Syntaxe](#syntaxe)     
+* [Avantages et inconvénients](#avantages-et-inconvénients)     
 * [Signal vs RxJS](#signal-vs-rxjs)    
 
 ## Concept 
@@ -84,6 +85,7 @@ Ce n'est bien sûr qu'un exemple très basique. Vous trouverez plus d'infos et d
 * [The end of Angular's "service with a subject" approach?](https://www.youtube.com/watch?v=SVPyr6u3sqU&ab_channel=JoshuaMorony)       
 * [Exemple de code](https://github.com/joshuamorony/quicklist-signals/blob/main/src/app/home/home.component.ts)  
 
+[Signals everything you need to know](https://medium.com/@PurpleGreenLemon/angular-and-signals-everything-you-need-to-know-2ff349b6363a)     
 [Angular Signals push-pull](https://angularexperts.io/blog/angular-signals-push-pull)      
 [Signals In Angular - Is RxJS doomed ?](https://levelup.gitconnected.com/signals-in-angular-is-rxjs-doomed-5b5dac574306)     
 https://www.angulararchitects.io/en/aktuelles/angular-signals/      
@@ -158,6 +160,29 @@ export class SignalComponent {
 
 [Back to top](#signals)     
 
+## Avantages et inconvénients
+
+AVANTAGE SIGNALS
+
+* Réactivité fine     
+Avec les signaux, les modifications apportées à des propriétés de données spécifiques peuvent déclencher des mises à jour uniquement sur les composants qui en dépendent, plutôt que de mettre à jour l'intégralité de l'arborescence des composants. Cette réactivité fine conduit à une détection des changements plus rapide et plus efficace.
+
+
+* Utilisation réduite de la mémoire     
+Avec les signaux, les composants s'abonnent uniquement aux propriétés de données spécifiques dont ils ont besoin, plutôt que de s'abonner à un magasin ou à un service entier. Cela réduit l'utilisation de la mémoire et améliore les performances.
+
+* Fini les contrôles inutiles      
+Avec les signaux, seuls les composants qui dépendent d'une propriété de données spécifique sont avertis lorsque cette propriété change. Cela élimine les vérifications et les mises à jour inutiles, ce qui permet une détection des modifications plus rapide et plus efficace.
+
+* Tout a un inconvénient, quels sont les inconvénients des signaux ?     
+Le débogage peut également être plus difficile lors de l'utilisation de signaux dans Angular. La complexité de la programmation réactive et l'utilisation de signaux peuvent rendre difficile le suivi du flux de données et l'identification de la source des bogues.
+
+* Quelques différences       
+Les observables sont basés sur le modèle d'observateur, où un producteur envoie des données à un consommateur. En revanche, les signaux utilisent un modèle basé sur l'extraction dans lequel les consommateurs extraient les données d'un producteur.
+
+Pendant ce temps, les signaux ont un support intégré pour le suivi des dépendances et une réactivité à grain fin, ce qui les rend particulièrement bien adaptés pour une utilisation dans des frameworks d'interface utilisateur comme Angular. RxJS, d'autre part, est une bibliothèque plus générale pour la programmation réactive en JavaScript. Bien que RxJS puisse être utilisé pour le développement de l'interface utilisateur, il n'a pas le même niveau d'intégration avec Angular que les signaux.
+
+Cela étant dit, les signaux et RxJS ne s'excluent pas mutuellement. En fait, ils peuvent être utilisés ensemble pour créer de puissantes applications réactives. Par exemple, vous pouvez utiliser RxJS pour modéliser des flux asynchrones complexes, puis utiliser des signaux pour déclencher des mises à jour de l'interface utilisateur en fonction des modifications apportées à ces données.
 
 ## Signal vs RxJS
 
