@@ -132,6 +132,10 @@ export class EffectExampleComponent {
 
 Par la suite, un clic que le bouton update ne déclenchera plus le effect car la valeur *computed* ````isEven```` sera toujours égale à sa valeur initiale *true*
 
+* ````mutate```` : mute l'ancienne valeur
+* ````update```` : prend en paramètre l'ancienne valeur et fourni une nouvelle valeur
+* ````set```` : équivalent à *update*
+
 [Back to top](#signals)     
 
 ## Syntaxe
