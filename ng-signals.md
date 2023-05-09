@@ -100,7 +100,7 @@ Un signal est un wrapper autour d'une valeur, qui est capable d'informer les con
 
 Les signaux **computed** se basent sur la valeur actuelle (la plus récente) des émetteurs référencés s'il est obsolète (une seule fois, même s'il a reçu plusieurs notifications)
 
-**effect()** doit s'exécuter dans un contexte d'injection (temps du constructeur) car il injecte **DestroyRef** en arrière plan pour fournir un auto-nettoyage.
+**effect()** doit s'exécuter dans un contexte d'injection (temps du constructeur) car il injecte **DestroyRef** en arrière plan pour fournir un auto-nettoyage. Il est **déclenché** lorsque la valeur des signaux qui sont à l'intérieur du bloc de code sont mises à jour.
 
 **IMPORTANT** ````effect()```` ne se déclenche pas si la valeur observée n'est pas modifiée. 
 
