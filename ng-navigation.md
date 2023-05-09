@@ -1223,11 +1223,11 @@ export const routes: Routes = [
     redirectTo: 'home'
   }, {
     path: 'home',
-    loadComponent: () => import('./components/home/home.component'),	// <-- lazy-load avec syntaxe simplifiée (nécessite d'exporter les composants en 'default'
+    loadComponent: () => import('./components/home/home.component'),	// <-- lazy-load avec syntaxe simplifiée (NECESSITE d'exporter les composants en 'default'
   },
   {
     path: 'page',
-    loadComponent: () => import('./components/page/page.component')
+    loadComponent: () => import('./components/page/page.component').then(m => m.PageComponent) // <-- Si composant non "export default"
   }
 ];
 ````
