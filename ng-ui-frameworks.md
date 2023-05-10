@@ -321,6 +321,119 @@ export class AppComponent implements OnInit, OnDestroy {
 ## Theming
 [Back to top](#ui)     
 
+## Angular material 15
+
+Créer un fichier scss contenant les palettes personnalisées. Les palettes custom peuvent être créées via le site http://mcg.mbitson.com/#!?mcgpalette0=%233f51b5       
+
+*custom-palette.scss*
+
+````css
+$md-customprimary: (
+  50: #e0f1ff,
+  100: #b3ddff,
+  200: #80c7ff,
+  300: #4db0ff,
+  400: #269fff,
+  500: #008eff,
+  600: #0086ff,
+  700: #007bff,
+  800: #0071ff,
+  900: #005fff,
+  A100: #ffffff,
+  A200: #f2f6ff,
+  A400: #bfd3ff,
+  A700: #a6c1ff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$md-customaccent: (
+  50: #e5f4f3,
+  100: #bee4e1,
+  200: #93d3cd,
+  300: #67c1b8,
+  400: #47b3a9,
+  500: #26a69a,
+  600: #229e92,
+  700: #1c9588,
+  800: #178b7e,
+  900: #0d7b6c,
+  A100: #adfff3,
+  A200: #7affec,
+  A400: #47ffe4,
+  A700: #2dffe0,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+````
+
+Ensuite dans le **styles.scss** importer le fichier contenant les palettes custom en utilisant la structure suivante :
+
+*styles.scss*
+
+````css
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+@import "./theme.scss";	// <========== Import du fichier contenant les palettes custom
+
+@include mat.core();
+
+$testAngular16-primary: mat.define-palette($md-customprimary);	// <======= définir les palettes pour chaque niveau
+$testAngular16-accent: mat.define-palette($md-customaccent);
+
+// The warn palette is optional (defaults to red).
+$testAngular16-warn: mat.define-palette($md-customprimary);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$testAngular16-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $testAngular16-primary,
+      accent: $testAngular16-accent,
+      warn: $testAngular16-warn,
+    ),
+  )
+);
+
+@include mat.all-component-themes($testAngular16-theme);
+
+* {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+````
+
+## Ancienne méthode
 [Documentation](https://material.angular.io/guide/theming)     
 
 Créer un fichier src/mon-theme.scss contenant la structure suivante (attention le fichier doit être de type **scss**):
