@@ -7,6 +7,8 @@
 * [Avantages et inconvénients](#avantages-et-inconvénients)     
 * [Signal vs RxJS](#signal-vs-rxjs)    
 
+> [Documentation angular officielle](https://angular.io/guide/signals)     
+
 ## Concept 
 
 **Signals** va très probablement introduire un future dans lequel nous n'aurions **plus besoin de zone.js** ce qui pourrait êrte un gros changement ! D'autre part, l'arrivée de **Signals** devrait grandement faciliter l'apprentissage de la programmation réactive aux débutants sur Angular.
