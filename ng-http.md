@@ -5,6 +5,7 @@
 * [Bonnes pratiques](https://levelup.gitconnected.com/the-correct-way-to-make-api-requests-in-an-angular-application-22a079fe8413)     
 * [Catch](#catch)     
 * [Http interceptor](#http-interceptor)     
+* [Interceptor configurable](#interceptor-configurable)      
 * [Gérer un loading spinner](#gérer-le-déclenchement-dun-spinner-de-chargement-à-chaque-requête-http)     
 * [Multipart Form Data](#multipart-form-data)      
 * [Mise en cache requête](#mise-en-cache-requête)     
@@ -374,7 +375,62 @@ export class BehaviourWithRefresh2Component {
   }
 }
 ````
-[Back to top](#requêtes-http)     
+[Back to top](#requêtes-http)  
+
+## Interceptor configurable
+
+https://itnext.io/create-configurable-angular-interceptors-%EF%B8%8F-985bbde8f99b     
+
+*interceptor*
+
+````typescript
+import { Injectable } from '@angular/core';
+import { HttpHandler, HttpInterceptor, HttpRequest, } from '@angular/common/http';
+import { retry, RetryConfig } from 'rxjs/operators';
+
+@Injectable()
+export class RetryInterceptor implements HttpInterceptor {
+  // private retryConfig: RetryConfig = { count: 3, delay: 1000 };
+  private retryConfig = inject(RETRY_INTERCEPTOR_CONFIG);
+  
+  intercept(request: HttpRequest<unknown>, next: HttpHandler) {
+    return next.handle(request).pipe(retry(this.retryConfig));
+  }
+}
+````
+
+*app.module.ts*
+
+````typescript
+import { Provider } from '@angular/core';
+import { InjectionToken } from '@angular/core';
+
+export const RETRY_INTERCEPTOR_CONFIG = new InjectionToken<RetryConfig>(
+  'retryConfig',
+  {
+    providedIn: 'root',
+    factory: () => {
+      return { count: 3, delay: 1000 } as RetryConfig;
+    },
+  }
+);
+
+@NgModule({
+ // … other properties
+ imports: [
+   // … other modules
+   HttpClientModule,
+ ],
+ providers: [
+   RetryInterceptorProvider,
+   {
+     provide: RETRY_INTERCEPTOR_CONFIG,
+     useValue: { count: 5, delay: 2000 },
+   },
+ ],
+})
+export class AppModule {}
+````
 
 ## Multipart Form Data
 
