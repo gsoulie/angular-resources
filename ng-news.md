@@ -3,6 +3,7 @@
 # Nouveautés
 
 * [v15](#v15)    
+* [v16](#v16)     
 
 
 ## v15
@@ -111,3 +112,19 @@ export class MyCompo {
 }
 ````
 [Back to top](#nouveautés)    
+
+## v16
+
+### Hydratation
+
+Activation de l'hydratation 
+
+*bootstrap file*
+````
+import { provideClientHydratation } from '@angular/platform-browser';
+
+bootstrapApplication(RootComponent, {
+  providers: [provideClientHydratation()]
+});
+````
+> A noter : Lorsque l'hydratation est activée, la mise en cache des requêtes Http est automatiquement activée
