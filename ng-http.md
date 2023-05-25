@@ -3,6 +3,7 @@
 # requêtes Http
 
 * [Bonnes pratiques](https://levelup.gitconnected.com/the-correct-way-to-make-api-requests-in-an-angular-application-22a079fe8413)     
+* [Import HttpClientModule standalone component](#import-httpClientModule-standalone-component)      
 * [Catch](#catch)     
 * [Http interceptor](#http-interceptor)     
 * [Interceptor configurable](#interceptor-configurable)      
@@ -15,6 +16,28 @@
 ## Documentation
 
 https://medium.com/angular-in-depth/top-10-ways-to-use-interceptors-in-angular-db450f8a62d6      
+
+## Import HttpClientModule standalone component
+
+Depuis Angular 16, pour pouvoir importer le module *HttpClientModule* afin que la classe HttpClient soit accessible dans les services, il faut ajouter l'import dans le fichier *app.config.ts* de la manière suivante :
+
+````typescript
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+
+import { routes } from './app.routes';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+
+export const appConfig: ApplicationConfig = {
+  // withComponentInputBinding : activé pour pouvoir récupérer les paramètres de route via les @Input()
+  providers: [
+    provideRouter(routes, withComponentInputBinding()),
+    provideAnimations(),
+    importProvidersFrom(HttpClientModule)	// <---
+  ]
+};
+````
 
 ## Catch
 
