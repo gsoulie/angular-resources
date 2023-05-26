@@ -4,15 +4,21 @@
 
 ## Exemple serveur JWT
 
+* Authentification JWT
+* Apis get/post/delete/patch avec contrôle de token
+* Serveur websocket qui envoie le datetime toute les secondes
+
 Installation des dépendances :
 ````
 npm install express jsonwebtoken body-parser
+npm i ws
 ````
 
 ````typescript
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
+const WebSocket = require("ws");
 
 const app = express();
 app.use(bodyParser.json());
@@ -21,6 +27,9 @@ app.use(express.json());
 // Configuration
 const PORT = 3000;
 const SECRET_KEY = "your-secret-key";
+
+// Création serveur websocket
+const wss = new WebSocket.Server({ port: 8080 });
 
 let mockData = [
   {
@@ -215,6 +224,28 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
+
+// --------------------------------------
+// ---------- SERVEUR WEBSOCKET ---------
+
+// Événement déclenché lorsqu'une connexion WebSocket est établie
+wss.on("connection", (ws) => {
+  console.log("Nouvelle connexion WebSocket établie");
+
+  // Envoi de messages au client toutes les secondes
+  const interval = setInterval(() => {
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send("Données mises à jour " + Date.now());
+    }
+  }, 1000);
+
+  // Événement déclenché lorsque la connexion WebSocket est fermée
+  ws.on("close", () => {
+    console.log("Connexion WebSocket fermée");
+    clearInterval(interval);
+  });
+});
+
 // node server.js
 
 ````
@@ -238,4 +269,52 @@ fetch("http://localhost:3000/generateToken", {
         navigate("/admin");
       })
       .catch(console.log);
+````
+
+*Composant React websocket*
+
+Affiche le flux en temps réel
+
+````typescript
+import { useEffect, useState } from "react";
+import WebSocket from "websocket";
+
+export default function Websocket() {
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    // Connexion au serveur WebSocket
+    const socket = new WebSocket.w3cwebsocket("ws://localhost:8080");
+
+    // Événement déclenché lorsque la connexion WebSocket est établie
+    socket.onopen = () => {
+      console.log("Connexion WebSocket établie");
+    };
+
+    // Événement déclenché lorsqu'un message est reçu du serveur
+    socket.onmessage = (event: any) => {
+      setMessage(event.data);
+    };
+
+    // Événement déclenché lorsque la connexion WebSocket est fermée
+    socket.onclose = () => {
+      console.log("Connexion WebSocket fermée");
+    };
+
+    // Nettoyage des ressources lorsque le composant est démonté
+    return () => {
+      socket.close();
+    };
+  }, []);
+
+  return (
+    <div>
+      <div>
+        <h1>Flux de données WebSocket</h1>
+        <div>{message}</div>
+      </div>
+    </div>
+  );
+}
+
 ````
