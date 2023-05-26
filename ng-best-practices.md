@@ -83,7 +83,17 @@ Tout traitement qui modifie la vue doit préférablement utiliser les pipes plut
 
 ## Unsubscriber
 
-Utiliser un service "Unsubscriber" permettant de gérer les désabonnements aux observables via un service générique qui sera étendu par tous les composants 
+<img src="https://img.shields.io/badge/New-Angular16-DD0031.svg?logo=LOGO"> Il est recommandé depuis Angular 16, de réaliser la souscription manuelle via la classe ````DestroyRef```` comme ceci :
+
+````typescript
+ constructor() {
+    inject(DestroyRef).onDestroy(() => {
+      // observable unsubscriptions etc...
+    })
+  }
+````
+
+Il est néanmoins toujours possible d'tiliser un service "Unsubscriber" permettant de gérer les désabonnements aux observables via un service générique qui sera étendu par tous les composants 
 
 *unsubscriber.service.ts*
 
