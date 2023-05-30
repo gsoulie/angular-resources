@@ -311,4 +311,26 @@ Avec RxJS, si on fait plusieurs pipe async, on déclenche plusieurs fois le effe
 ````
 de même que ````{{ doubleCount | async }}```` déclenchera lui aussi l'effect
 
+### Untracked
+
+Il est possible de définir comme **untracked** un signal dans une fonction *effect()* afin de n ce qui aura pour effet de ne pas déclencher l*'effect()* si la-dite valeur est modifiée
+
+````typescript
+const counter0 = signal(0);
+const counter1 = signal(0);
+
+// Executes when `counter0` changes, not when `counter1` changes:
+effect(() => console.log(counter0(), untracked(counter1));
+
+counter0.set(1);
+// logs 1 0
+counter1.set(1);
+// does not log
+counter1.set(2);
+// does not log
+counter1.set(3);
+// does not log
+counter0.set(2);
+// logs 2 3
+````
 [Back to top](#signals)     
