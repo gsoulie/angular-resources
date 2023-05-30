@@ -11,6 +11,8 @@
 
 ## Concept 
 
+Les signaux sont la pierre angulaire de la réactivité dans Solid. Ils contiennent des valeurs qui changent avec le temps ; lorsque vous modifiez la valeur d'un signal, il met automatiquement à jour tout ce qui l'utilise. Un signal est un **wrapper autour d'une valeur simple qui enregistre ce qui dépend de cette valeur et notifie ces dépendants chaque fois que sa valeur change**
+
 **Signals** va très probablement introduire un future dans lequel nous n'aurions **plus besoin de zone.js** ce qui pourrait êrte un gros changement ! D'autre part, l'arrivée de **Signals** devrait grandement faciliter l'apprentissage de la programmation réactive aux débutants sur Angular.
 
 En effet, **Signals** permet le contrôle des changements de manière **plus fine et performante** que **zone.js**. 
