@@ -49,7 +49,7 @@ ng g guard my-guard --functional --guard-type canDeactivate
 
 ## Functional guards et migration
 
-Depuis Angular 14, il est possible d'écrire les gardes sous forme de fonction plutôt que de classe :
+Depuis Angular 14, il est possible et conseillé, d'écrire les gardes sous forme de fonction plutôt que de classe :
 
 ````typescript
 const hasRole = (role: string): boolean => {
