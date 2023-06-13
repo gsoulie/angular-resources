@@ -9,6 +9,7 @@
 * [Shallow copy vs Deep copy](#shallow-copy-vs-deep-copy)      
 * [Utilisation du type générique](#utilisation-du-type-générique)     
 * [Valeurs en doublon et opérateur Set](#valeurs-en-doublon-et-opérateur-set)      
+* [Types génériques](#types-génériques)     
 
 ## Typescript expert : https://angularexperts.io/blog/advanced-typescript      
 
@@ -489,3 +490,60 @@ hasDuplicates(['str', 'obj', 'str']);	// true
 ````
 
 [Back to top](#operateurs)
+
+## Types génériques
+
+Soit le code suivant que l'on souhaite rendre plus robuste :
+
+````typescript
+type Student = {
+  name: string;
+  age: number;
+  hasScar: boolean;
+};
+
+const students: Student[] = [
+  { name: "Harry", age: 17, hasScar: true },
+  { name: "Ron", age: 17, hasScar: false },
+  { name: "Hermione", age: 16, hasScar: false }
+];
+
+function getBy(model, prop, value) {
+    return model.filter(item => item[prop] === value)[0]
+}
+````
+
+Dans un premier temps on peut rajouter un typage des paramètres de la fonction, ainsi qu'un type générique pour l'objet retourné par la fonction.
+
+Ce qui donne :
+
+````typescript
+function getBy<T>(model: T[], prop: string, value): T | null {
+    return model.filter(item => item[prop] === value)[0]
+}
+
+const result = getBy<Student>(students, "name", "Hermione") // result: Student 
+````
+
+On peut encore aller plus loin pour sécuriser les paramètres en cas d'erreur de frappe sur ces derniers, exemple passer "naem" au lieu de "name" pour le paramètre *props*,
+ce qui aurait pour effet de crasher l'application sans que nous sachions vraiment pourquoi.
+
+````typescript
+function getBy<T, P extends keyof T>(model: T[], prop: P, value): T | null {
+    return model.filter(item => item[prop] === value)[0] || null
+}
+
+const result = getBy(students, "naem", "Hermione")
+// Error: Argument of type '"naem"' is not assignable to parameter of type '"name" | "age" | "hasScar"'.
+
+```` 
+
+Pour finaliser, il reste à sécuriser le dernier paramètre pour lequel on ne connaît pas à l'avance son type 
+
+````typescript
+function getBy<T, P extends keyof T>(model: T[], prop: P, value: T[P]): T | null {
+    return model.filter(item => item[prop] === value)[0] || null
+}
+````
+
+[Back to top](#operators)     
