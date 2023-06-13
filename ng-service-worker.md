@@ -255,3 +255,5 @@ L'espace maximum alloué à la mise en cache pour une PWA est le suivant :
 |Firefox|< 10% de l'espace disque|
 |Safari|< 50MB|
 |IE10|< 250MB|
+
+https://stackoverflow.com/questions/58591353/how-much-can-a-pwa-store
