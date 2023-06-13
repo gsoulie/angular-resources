@@ -4,6 +4,7 @@
 
 * [Web worker](#web-worker)     
 * [Service worker](#service-worker)      
+* [Limite de stockage](#limite-de-stockage)     
 
 ## Ressources
 
@@ -243,3 +244,14 @@ Dans le cas de l'utilisation d'une font google ou autre via une url, ajouter l'u
 ````
 
 [Back to top](#service-workers---web-workers)    
+
+## Limite de stockage
+
+L'espace maximum alloué à la mise en cache pour une PWA est le suivant :
+
+|Browser|Limit|
+|-|-|
+|Chrome|< 6% de l'espace disque|
+|Firefox|< 10% de l'espace disque|
+|Safari|< 50MB|
+|IE10|< 250MB|
