@@ -1,6 +1,6 @@
 [< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)    
 
-# Operateurs
+# Opérateurs
 
 * [Tableaux](#tableaux)     
 * [Spread et Rest](#spread-et-rest)         
@@ -546,4 +546,4 @@ function getBy<T, P extends keyof T>(model: T[], prop: P, value: T[P]): T | null
 }
 ````
 
-[Back to top](#operators)     
+[Back to top](#opérateurs)     
