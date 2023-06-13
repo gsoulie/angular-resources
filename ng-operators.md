@@ -146,7 +146,7 @@ const sumFunc = (total, { price }) => total + price;
 const total = items.reduce(sum, 0);
 ````
 
-[Back to top](#operateurs) 
+[Back to top](#opérateurs) 
 
 ## Spread et Rest
 
@@ -184,7 +184,7 @@ let obj2 = {...obj, c: 3};
 
 console.log(obj2); // {a: 1, b: 2, c: 3}
 ````
-[Back to top](#operateurs) 
+[Back to top](#opérateurs) 
 
 ## Destructuration objet
 
@@ -290,7 +290,7 @@ closePopover(ev): void {
     const { data } = ev.detail;
 }
 ````
-[Back to top](#operateurs) 
+[Back to top](#opérateurs) 
 
 ### Destructuration paramètres de fonction
 
@@ -304,7 +304,7 @@ maFunct({param2: 5, param1: 1});
 > Important : permet de s'affranchir de l'ordre des paramètres et de gérer plus facilement les 
 paramètres optionnels
 
-[Back to top](#operateurs) 
+[Back to top](#opérateurs) 
 
 ### Destructuration avec renommage
 
@@ -332,7 +332,7 @@ const { results: AllPokemon } = result.data;	// destructuration de l'objet data 
 console.log(AllPokemon); // => [{...}, {...}]
 ````
 
-[Back to top](#operateurs) 
+[Back to top](#opérateurs) 
 
 ## Casser une référence
 
@@ -376,7 +376,7 @@ refreshData() {
 
 https://www.builder.io/blog/structured-clone
 
-[Back to top](#operateurs)
+[Back to top](#opérateurs)
 
 ## Shallow copy vs Deep copy
 
@@ -414,7 +414,7 @@ console.log(`name : ${task.name} - ${taskCopy.name}`);  // => Initial task - Tas
 taskCopy.metadata.workspace = 'production';
 console.log(`workspace : ${task.metadata.workspace} - ${taskCopy.metadata.workspace}`); // => 'production' - 'production'
 ````
-[Back to top](#operateurs) 
+[Back to top](#opérateurs) 
 
 ### Deep copy
 
@@ -452,7 +452,7 @@ console.log(`workspace : ${task.metadata.workspace} - ${taskDeepCopy.metadata.wo
   console.log('clone', clone);
 ````
 
-[Back to top](#operateurs)
+[Back to top](#opérateurs)
 
 ## Utilisation du type générique
 
@@ -472,7 +472,7 @@ fetchUsers() {
 }
 ````
 
-[Back to top](#operateurs)
+[Back to top](#opérateurs)
 
 ## Valeurs en doublon et opérateur set
 
@@ -489,9 +489,9 @@ hasDuplicates(['str', 'obj', 'str']);	// true
 
 ````
 
-[Back to top](#operateurs)
-
 ## Types génériques
+
+[Back to top](#opérateurs)
 
 Soit le code suivant que l'on souhaite rendre plus robuste :
 
