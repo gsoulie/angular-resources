@@ -257,3 +257,7 @@ L'espace maximum alloué à la mise en cache pour une PWA est le suivant :
 |IE10|< 250MB|
 
 https://stackoverflow.com/questions/58591353/how-much-can-a-pwa-store
+
+## Désinstaller une PWA du navigateur
+
+````chrome://apps/````
