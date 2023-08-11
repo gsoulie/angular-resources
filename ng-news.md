@@ -9,6 +9,182 @@
 * [AnalogJS](#analogjs)
 * [Dépréciations](#dépréciations)
 
+# ng-conf 2023
+
+# ng-conf 2023
+
+## Quelques annonces faites lors de la ng-conf 2023
+
+Les 14 et 15 juin 2023 avaient lieu la **ng-conf 2023**, l'occasion de présenter les nouveautés apportées par Angular 16, mais aussi de parler du futur. 
+
+A cette occasion quelques infos intéressantes ont été annoncées, en voici quelques unes
+
+> **Disclaimer** : Ces "nouveautés" ne sont pour l'heure par en version finale, il convient donc de rester prudent sur leur adoption pour le moment. Vous pouvez consulter les RFC ici [RFC Control flow](https://github.com/angular/angular/discussions/50719) et [RFC defer loading](https://github.com/angular/angular/discussions/50716)
+
+### Nouvelle API pour le control flow (*ngIf, *ngFor, ngSwitch)
+
+La façon de gérer le contrôle de l’affichage des parties d’un template va changer ! Comparons tout cela.
+
+#### Syntaxe actuelle
+
+***ngIf**
+````html
+<div *ngIf="someCondition;else other">
+  someCondition is true
+</div>
+
+<ng-template #other>
+  someCondition is false
+</ng-template>
+````
+***ngFor**
+````html
+<ng-container *ngIf="products.length > 0; else noProducts">
+  <div *ngFor="let product of products; trackBy: trackByProductId">
+    {{product.name}}
+  </div>
+</ng-container>
+
+<ng-template #noProducts>
+  <p>No products available.</p>
+</ng-template>
+````
+**[ngSwitch]**
+````html
+<div [ngSwitch]="role">
+  <p *ngSwitchCase="'director'">You are a director</p>
+  <p *ngSwitchCase="'teacher'">You are a teacher</p>
+  <p *ngSwitchCase="'student'">You are a student</p>
+  <p *ngSwitchDefault>You are a student</p>
+</div>
+````
+
+#### Nouvelle syntaxe
+
+````html
+{#if someCondition}
+ someCondition is true
+{:else}
+  someCondition is false
+{/if}
+````
+````html
+{#for product of products; track product.id}
+  <div>{{ product.name }}</div>
+{:empty}
+  <p>No products available.</p>
+{/for}
+````
+
+> On note l'apparition de ````{:empty}```` qui est très intéressante pour les boucles for
+````html
+{#switch role}
+  {:case 'director'}
+    <p>You are a director</p>
+  {:case 'teacher'}
+    <p>You are a teacher</p>
+  {:case 'student'}
+    <p>You are a student</p>
+  {:default}
+    <p>You are a student</p>
+{/switch}
+````
+
+Nous passons donc à un **Control Flow par bloc**, tout cela a été mis en place **pour plusieurs raisons** :
+
+* Se rapprocher davantage d’une syntaxe JS classique
+* Réduire la complexité avec les <ng-template />
+* Permettre une adoption des applications *zoneless* plus simple
+
+Pour le dernier point cité, pour **rappel** : Aujourd’hui les applications Angular reposent sur **zone.js** pour gérer leurs détection de changement, dans un avenir très proche cette librairie externe **ne sera plus nécessaire grâce à Signal**.
+
+<img src="https://img.shields.io/badge/Important-DD0031.svg?logo=LOGO">
+
+* **A terme, les directives actuelles vont être dépréciées** !
+* La fonction *trackBy* de ````{:for}```` va devenir **obligatoire**
+
+### defer
+
+Autre grande nouveauté annoncée, l'apparition d'un mot clé **````defer````**
+
+L’idée est d’apporter une façon **agréable** et **facile** de **gérer le chargement** des différentes parties de nos pages. Actuellement le lazy loading nous permet de retarder le chargement du code JS d’une route via ````loadComponent()```` ou ````loadChildren()```` directement dans nos fichiers de routing.
+
+L'arrivée de **````defer````** va permettre **de différer le chargement de parties distinctes des pages** (typiquement les composants utilisés dans nos pages).
+
+**Il s’agit donc d’optimisation de performance.**
+
+*Exemple*
+````html
+<p>some content</p>
+
+<my-list />
+
+{#defer when someCondition}
+  <some-component />
+{/defer}
+````
+
+Tout ce qui sera se trouvera à l’intérieur du bloc ````{#defer}...{/defer}```` sera lazy loadé de manière asynchrone, c’est à dire après que tout le reste soit chargé.
+
+Afin de rendre ce chargement conditionnel, plusieurs mots clés associés à defer sont disponibles 
+
+* le mot-clé **````when````** qui permet une gestion impérative du bloc. Il suffit simplement de renseigner une expression qui retourne un booléen.
+  
+* le mot-clé **````on````** qui permet une gestion plus déclarative. Il suffit de spécifier un évènement dont voici quelques exemples :
+
+````html
+  // Si le user passe sa souris par dessus le bloc
+{#defer on hover}
+  <some-component />
+{/defer}
+
+// Si le user clique sur le composant ou lors d'évènements claviers notamment
+{#defer on interaction}
+  <some-component />
+{/defer}
+
+// après n millisecondes 
+{#defer on timer(500)}
+  <some-component />
+{/defer}
+
+// lorsque le bloc entre dans le viewport 
+{#defer on viewport}
+  <some-component />
+{/defer}
+````
+
+**Par défaut, les blocs defer n’affichent rien** lorsqu’ils ne sont pas déclenchés. Mais il est possible de spécifier un contenu qui s’affiche avant que les blocs ne soient eux-mêmes chargés :
+
+````html
+{#defer on viewport}
+  <some-component />
+{:loading}
+  <div class="loading">Loading the component...</div>
+{/defer}
+
+<!-- autre exemple -->
+
+{#defer on viewport}
+  <some-component />
+{:placeholder minimum 500ms}
+  <img src="placeholder.png" />
+{/defer}
+````
+
+Il est aussi possible de faire une gestion des erreurs :
+
+````html
+{#defer when someCondition}
+  <some-component />
+{:error}
+  <p> Failed to load</p>
+  <p><strong>Error:</strong> {{$error.message}}</p>
+{/defer}
+````
+
+[Back to top](#nouveautés)    
+
 # v16
 
 ## Résumé des principales nouveautés
@@ -42,6 +218,9 @@ Quelques avantages que l'on peut y voir sont :
 - Adoption incrémentale de l'hydratation avec l'attribut `ngSkipHydratation`
 
 > Voir tutorial : [Angular 16 Server-side rendering](https://github.com/gsoulie/angular-resources/blob/master/ng-ssr.md)
+
+[Back to top](#nouveautés)    
+
 ### Outils
 
 - **mode standalone** : La commande `ng new --standalone` permet de créer une solution directement en mode standalone complet sans aucun fichier *NgModule*
@@ -70,7 +249,7 @@ class ExampleComponent {
 
 - **self-closing tags** : Simplification de l'écriture des balises du template avec la syntaxe de self-closing tag
 
-`07/04/2023`
+[Back to top](#nouveautés)    
 
 ## Nouvelle fonctionnalité du Router
 
@@ -246,6 +425,7 @@ bootstrapApplication(App, {
 });
 
 ```
+[Back to top](#nouveautés)    
 
 ### Comment migrer vers la nouvelle API ?
 
@@ -256,6 +436,8 @@ Si nous avons un composant qui utilise le service **ActivatedRoute**, nous pouvo
 - Activer la fonctionnalité **bindToComponentInputs** dans le **RouterModule** ou la fonction **provideRouter**.
 
 En résumé, avec la nouvelle fonctionnalité d'Angular v16, la récupération des informations de la route dans un composant sera beaucoup plus simple. Nous pourrons passer directement les informations de la route aux inputs du composant, ce qui évitera d'avoir à manipuler des observables et à injecter le service ActivatedRoute.
+
+[Back to top](#nouveautés)    
 
 ## Signals, vers la fin d'RxJS et de zone.js ?
 
@@ -339,6 +521,8 @@ export class AppComponent {
 
 Ce n'est bien sûr qu'un exemple très basique. Vous trouverez plus d'infos et d'exemples ici :
 
+[Back to top](#nouveautés)    
+
 **Articles**
 
 - [https://itnext.io/angular-signals-the-future-of-angular-395a69e60062](https://itnext.io/angular-signals-the-future-of-angular-395a69e60062)
@@ -354,6 +538,8 @@ Ce n'est bien sûr qu'un exemple très basique. Vous trouverez plus d'infos et d
 [Angular Signals push-pull](https://angularexperts.io/blog/angular-signals-push-pull)  
 [Signals In Angular - Is RxJS doomed ?](https://levelup.gitconnected.com/signals-in-angular-is-rxjs-doomed-5b5dac574306)  
 [https://www.angulararchitects.io/en/aktuelles/angular-signals/](https://www.angulararchitects.io/en/aktuelles/angular-signals/)
+
+[Back to top](#nouveautés)    
 
 # v15
 
@@ -372,6 +558,8 @@ L'équipe Angular a donc simplifié la gestion de ce flag et en a profité pour 
 > **A retenir** : Désomais, lors de la création d'un projet Angular 15, les fichiers *environment.ts* ne sont plus créés par défaut. Il reste néanmoins possible de les générer avec la commande `ng generate environments` depuis angular **v15.1** ou bien de recréer la structure manuellement [voir la documentation](https://angular.io/guide/build#configure-environment-specific-defaults)
 
 [Article complémentaire](https://dev.to/this-is-angular/angular-15-what-happened-to-environmentts-koh)
+
+[Back to top](#nouveautés)    
 
 ## Angular 15 est là !
 
@@ -433,6 +621,8 @@ const route = {
 };
 
 ```
+
+[Back to top](#nouveautés)    
 
 ### V15.1 Dépréciation : Router Guards
 
@@ -508,6 +698,8 @@ const route = {
 
 ![](https://img.shields.io/badge/IMPORTANT-DD0031.svg?logo=LOGO) Pour rappel, le guard **CanLoad** sera remplacé par **CanMatch** en **v15.1**
 
+[Back to top](#nouveautés)    
+
 ### Simplification de l'import des composants dans le router
 
 Afin de simplifier l'écriture des imports des composants en mode lazy-loading, le router utilise maintenant un système d'auto-unwrap lui permettant de chercher un élément `export default` dans le fichier spécifié et de l'utiliser le cas échéant.
@@ -571,6 +763,8 @@ Error
     at AppComponent_click_3_listener (app.component.html:4)
 
 ```
+
+[Back to top](#nouveautés)    
 
 ### Refactorisation des Composants Material Design
 
@@ -641,180 +835,6 @@ Pour faire simple, **AnalogJS** est à Angular ce que *NextJS* est à React et c
 La doc par ici : [https://analogjs.org/docs](https://analogjs.org/docs)
 
 Extrait Vite Conf 2022 (17min) [https://www.youtube.com/watch?v=IlUssKC3Mt4&amp;ab\_channel=ViteConf](https://www.youtube.com/watch?v=IlUssKC3Mt4&ab_channel=ViteConf)
-
-[Back to top](#nouveautés)    
-
-# ng-conf 2023
-
-## Quelques annonces faites lors de la ng-conf 2023
-
-Les 14 et 15 juin 2023 avaient lieu la **ng-conf 2023**, l'occasion de présenter les nouveautés apportées par Angular 16, mais aussi de parler du futur. 
-
-A cette occasion quelques infos intéressantes ont été annoncées, en voici quelques unes
-
-> **Disclaimer** : Ces "nouveautés" ne sont pour l'heure par en version finale, il convient donc de rester prudent sur leur adoption pour le moment. Vous pouvez consulter les RFC ici [RFC Control flow](https://github.com/angular/angular/discussions/50719) et [RFC defer loading](https://github.com/angular/angular/discussions/50716)
-
-### Nouvelle API pour le control flow (*ngIf, *ngFor, ngSwitch)
-
-La façon de gérer le contrôle de l’affichage des parties d’un template va changer ! Comparons tout cela.
-
-#### Syntaxe actuelle
-
-***ngIf**
-````html
-<div *ngIf="someCondition;else other">
-  someCondition is true
-</div>
-
-<ng-template #other>
-  someCondition is false
-</ng-template>
-````
-***ngFor**
-````html
-<ng-container *ngIf="products.length > 0; else noProducts">
-  <div *ngFor="let product of products; trackBy: trackByProductId">
-    {{product.name}}
-  </div>
-</ng-container>
-
-<ng-template #noProducts>
-  <p>No products available.</p>
-</ng-template>
-````
-**[ngSwitch]**
-````html
-<div [ngSwitch]="role">
-  <p *ngSwitchCase="'director'">You are a director</p>
-  <p *ngSwitchCase="'teacher'">You are a teacher</p>
-  <p *ngSwitchCase="'student'">You are a student</p>
-  <p *ngSwitchDefault>You are a student</p>
-</div>
-````
-
-#### Nouvelle syntaxe
-
-````html
-{#if someCondition}
- someCondition is true
-{:else}
-  someCondition is false
-{/if}
-````
-````html
-{#for product of products; track product.id}
-  <div>{{ product.name }}</div>
-{:empty}
-  <p>No products available.</p>
-{/for}
-````
-
-> On note l'apparition de ````{:empty}```` qui est très intéressante pour les boucles for
-````html
-{#switch role}
-  {:case 'director'}
-    <p>You are a director</p>
-  {:case 'teacher'}
-    <p>You are a teacher</p>
-  {:case 'student'}
-    <p>You are a student</p>
-  {:default}
-    <p>You are a student</p>
-{/switch}
-````
-
-Nous passons donc à un **Control Flow par bloc**, tout cela a été mis en place **pour plusieurs raisons** :
-
-* Se rapprocher davantage d’une syntaxe JS classique
-* Réduire la complexité avec les <ng-template />
-* Permettre une adoption des applications *zoneless* plus simple
-
-Pour le dernier point cité, pour **rappel** : Aujourd’hui les applications Angular reposent sur **zone.js** pour gérer leurs détection de changement, dans un avenir très proche cette librairie externe **ne sera plus nécessaire grâce à Signal**.
-
-<img src="https://img.shields.io/badge/Important-DD0031.svg?logo=LOGO">
-
-* **A terme, les directives actuelles vont être dépréciées** !
-* La fonction *trackBy* de ````{:for}```` va devenir **obligatoire**
-
-### defer
-
-Autre grande nouveauté annoncée, l'apparition d'un mot clé **````defer````**
-
-L’idée est d’apporter une façon **agréable** et **facile** de **gérer le chargement** des différentes parties de nos pages. Actuellement le lazy loading nous permet de retarder le chargement du code JS d’une route via ````loadComponent()```` ou ````loadChildren()```` directement dans nos fichiers de routing.
-
-L'arrivée de **````defer````** va permettre **de différer le chargement de parties distinctes des pages** (typiquement les composants utilisés dans nos pages).
-
-**Il s’agit donc d’optimisation de performance.**
-
-*Exemple*
-````html
-<p>some content</p>
-
-<my-list />
-
-{#defer when someCondition}
-  <some-component />
-{/defer}
-````
-
-Tout ce qui sera se trouvera à l’intérieur du bloc ````{#defer}...{/defer}```` sera lazy loadé de manière asynchrone, c’est à dire après que tout le reste soit chargé.
-
-Afin de rendre ce chargement conditionnel, plusieurs mots clés associés à defer sont disponibles 
-
-* le mot-clé **````when````** qui permet une gestion impérative du bloc. Il suffit simplement de renseigner une expression qui retourne un booléen.
-  
-* le mot-clé **````on````** qui permet une gestion plus déclarative. Il suffit de spécifier un évènement dont voici quelques exemples :
-
-````html
-  // Si le user passe sa souris par dessus le bloc
-{#defer on hover}
-  <some-component />
-{/defer}
-
-// Si le user clique sur le composant ou lors d'évènements claviers notamment
-{#defer on interaction}
-  <some-component />
-{/defer}
-
-// après n millisecondes 
-{#defer on timer(500)}
-  <some-component />
-{/defer}
-
-// lorsque le bloc entre dans le viewport 
-{#defer on viewport}
-  <some-component />
-{/defer}
-````
-
-**Par défaut, les blocs defer n’affichent rien** lorsqu’ils ne sont pas déclenchés. Mais il est possible de spécifier un contenu qui s’affiche avant que les blocs ne soient eux-mêmes chargés :
-
-````html
-{#defer on viewport}
-  <some-component />
-{:loading}
-  <div class="loading">Loading the component...</div>
-{/defer}
-
-<!-- autre exemple -->
-
-{#defer on viewport}
-  <some-component />
-{:placeholder minimum 500ms}
-  <img src="placeholder.png" />
-{/defer}
-````
-
-Il est aussi possible de faire une gestion des erreurs :
-
-````html
-{#defer when someCondition}
-  <some-component />
-{:error}
-  <p> Failed to load</p>
-  <p><strong>Error:</strong> {{$error.message}}</p>
-{/defer}
-````
 
 [Back to top](#nouveautés)    
 
