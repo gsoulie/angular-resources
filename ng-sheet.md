@@ -4,7 +4,13 @@
 
 * Généralités    
 	* [Présentation et Ressources](https://github.com/gsoulie/angular-resources/blob/master/ng-resources.md)     
-	* [Nouveautés](https://github.com/gsoulie/angular-resources/blob/master/ng-news.md)   <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">    
+	* [Nouveautés](https://github.com/gsoulie/angular-resources/blob/master/ng-news.md)   <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">
+ 		* ng-conf 2023
+		* v16
+		* v15
+		* v14
+		* AnalogJS
+		* Dépréciations 	
 	* [Commandes](https://github.com/gsoulie/angular-resources/blob/master/ng-commands.md)     
 	* [Template projet personnalisé](https://github.com/gsoulie/angular-resources/blob/master/ng-degit.md)      
 	* [Arborescence projet](https://github.com/gsoulie/angular-resources/blob/master/ng-treemap.md)     
