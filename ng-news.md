@@ -586,6 +586,64 @@ Se référer au guide de migration pour plus de détails : [https://github.com/a
 
 [Back to top](#nouveautés)    
 
+# v14
+
+> [Blog officiel Angular - Angular 14 is now available !](https://blog.angular.io/angular-v14-is-now-available-391a6db736af)
+
+**Nouveautés notables**
+
+- Les standalone components : Une nouvelle propriété `standalone` a fait son apparition dans les composants (dans le decorator) et leur permet de ce fait, de ne plus avoir besoin d'être importés dans un module via `NgModule()`. CLI `ng g c myCompo --standalone`
+- Formulaires strictement typés pour plus de contrôle
+- Nouvel attribut `title` dans le fichier de routing, permettant enfin pouvoir donner des titres aux pages
+- CLI avec auto-complétion
+- Nouvelle façon d'injecter un service : [lien](https://www.youtube.com/watch?v=nXjK7tWZ8sQ&ab_channel=DecodedFrontend)
+
+### Migration Angular 13 - A savoir !
+
+Petite info **non négligeable** mais passée inaperçue, **Angular 13** a introduit un **"cache"** pour rendre la compilation plus rapide. Ceci se traduit, vous le verrez lorsque vous créerez votre premier projet en Angular 13 par la création automatique d'un nouveau répertoire `.angular/cache` à la racine du projet.
+
+Ce répertoire **peut contenir des 100 aines de fichiers** (cas d'une migration d'une appli en version &lt; 12 par exemple).
+
+Le **point de vigilance à avoir** par rapport à ça est, que par défaut ce répertoire n'est pas ajouté au `.gitignore` et que par conséquent lors du premier push vous risquez de balancer son contenu dans le git.
+
+Ce qui aura le même effet que pousser le répertoire node\_modules.
+
+Donc **N'OUBLIEZ PAS** de vérifier votre .gitignore et y ajouter la ligne suivante si besoin
+
+*.gitignore*
+
+```
+/.angular/cache
+
+```
+
+[Back to top](#nouveautés)      
+
+# AnalogJS
+
+Maintenant que le marché des framework JS commence à saturer, la guerre se joue à présent sur les Meta-Framework ! Et dans le domaine, Angular était le dernier à ne pas en avoir un ! Et bien c'est maintenant chose faite avec **AnalogJS.**
+
+Pour faire simple, **AnalogJS** est à Angular ce que *NextJS* est à React et ce que *NuxtJS* est à Vue. Il s'agit donc d'un **meta-framework fullstack** proposant les features suivantes :
+
+- propulsé par ViteJS (concurrent de webpack beaucoup plus rapide, ça c'est cool !)
+- routing basé sur l'arborescence fichier (à chacun de se faire un avis mais perso je trouve ça horrible !)
+- support contenu markdown pour les routes et fichiers de contenu
+- support API / routes serveur
+- support SSR/SSG hybride (c'est la norme maintenant)
+- support CLI/Nx
+- support Angular components avec Astro (très prometteur en terme de perf)
+
+\*\*Côté requirements : \*\*
+
+- Node v16+
+- Angular 15+
+
+La doc par ici : [https://analogjs.org/docs](https://analogjs.org/docs)
+
+Extrait Vite Conf 2022 (17min) [https://www.youtube.com/watch?v=IlUssKC3Mt4&amp;ab\_channel=ViteConf](https://www.youtube.com/watch?v=IlUssKC3Mt4&ab_channel=ViteConf)
+
+[Back to top](#nouveautés)    
+
 # ng-conf 2023
 
 ## Quelques annonces faites lors de la ng-conf 2023
@@ -757,3 +815,11 @@ Il est aussi possible de faire une gestion des erreurs :
   <p><strong>Error:</strong> {{$error.message}}</p>
 {/defer}
 ````
+
+[Back to top](#nouveautés)    
+
+# Dépréciations
+
+## @angular/flex-layout
+
+La librairie **@angular/flex-layout** qui a toujours été en version béta depuis Angular V5, va être dépréciée car détrônée par les directive **css flex-layout et flex-grid**. Cette lib aura donc ça dernière release dans Angular v15 et après ça il faudra lui dire au revoir
