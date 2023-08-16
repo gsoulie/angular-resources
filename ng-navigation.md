@@ -41,6 +41,17 @@ La route par défaut, doit toujours être à la fin du fichier de routing !!
 }
 ````
 
+### Chemins absolus et relatifs 
+
+Toujours faire attention au type de chemin !
+
+chemins absolus : commençent par un "/"
+chemins relatifs : ne commençent **pas** par un "/" est sont **concaténés à la route parent**
+
+Lors de la définition d'un lien, si ce dernier est écrit en chemin absolu, alors il ne faudra pas oublier de spécifier le path dans son entièreté depuis la racine.
+
+Dans le cas d'un chemin relatif, alors il faudra veiller à ce qu'il ne commence pas par un "/". Le path sera ensuite concaténé à sa racine
+
 ### A savoir : *href* recharge la page, pas le *routerLink*
 
 ````
