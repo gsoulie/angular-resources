@@ -3,7 +3,8 @@
 # Change Detection
 
 * [Fonctionnement de la Change Detection](#fonctionnement-de-la-change-detection)     
-* [Comparaison Angular et React](#comparaison-angular-et-react)     
+* [Comparaison Angular et React](#comparaison-angular-et-react)
+* [Le future de Change Detection avec Signal](https://medium.com/ngconf/future-of-change-detection-in-angular-with-signals-fb367b66a232#:~:text=Signals%20Change%20Detection,or%20other%20type%20of%20data.)     
 
 ## Fonctionnement de la Change Detection
 [Explication rapide et simple](https://www.youtube.com/watch?v=eNuMUslF8Bw&ab_channel=SimplifiedCourses)      
