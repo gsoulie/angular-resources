@@ -9,7 +9,8 @@
 * [Shallow copy vs Deep copy](#shallow-copy-vs-deep-copy)      
 * [Utilisation du type générique](#utilisation-du-type-générique)     
 * [Valeurs en doublon et opérateur Set](#valeurs-en-doublon-et-opérateur-set)      
-* [Types génériques](#types-génériques)     
+* [Types génériques](#types-génériques)
+* [Comparaison de 2 objets avec copie des propriétés manquantes](#comparaison-de-2-objets-avec-copie-des-propriétés-manquantes)     
 
 ## Typescript expert : https://angularexperts.io/blog/advanced-typescript      
 
@@ -380,9 +381,12 @@ https://www.builder.io/blog/structured-clone
 
 ## Shallow copy vs Deep copy
 
+<details>
+	<summary>Comparaison des différents modes de copie d'objet à savoir le shallow copy et le deep copy</summary>
+
+ 
 > [DevTheory : Shallow copy vs Deep copy](https://www.youtube.com/watch?v=Wv3UaiTxlUs&ab_channel=DevTheory)     
 
-Comparaison des différents modes de copie d'objet à savoir le *shallow copy* et le *deep copy*
 
 Soit l'objet initial suivant :
 ````typescript
@@ -399,6 +403,9 @@ const task = {
 
 ### Shallow copy
 
+<details>
+	<summary>Copie superficielle</summary>
+	
 Le Shallow copy réalise une copie *superficielle* d'un objet. C'est à dire que les propriétés de l'objet sont copiées, mais **pas** les propriétés **imbriquées**.
 Lorsqu'une propriété imbriquée est rencontrée, c'est sa **référence** qui est copiée. Par conséquent, toute modification d'une propriété imbriquée depuis l'objet copié, entrainera aussi la modification de la propriété dans l'objet initial
 
@@ -416,8 +423,13 @@ console.log(`workspace : ${task.metadata.workspace} - ${taskCopy.metadata.worksp
 ````
 [Back to top](#opérateurs) 
 
+</details>
+
 ### Deep copy
 
+<details>
+	<summary>Copie profonde</summary>
+	
 Il existe plusieurs façon de réaliser une copie *profonde*, et elles ne se valent pas toutes.
 
 #### Méthode JSON.parse
@@ -452,7 +464,11 @@ console.log(`workspace : ${task.metadata.workspace} - ${taskDeepCopy.metadata.wo
   console.log('clone', clone);
 ````
 
+</details>
+
 [Back to top](#opérateurs)
+
+</details>
 
 ## Utilisation du type générique
 
@@ -489,10 +505,13 @@ hasDuplicates(['str', 'obj', 'str']);	// true
 
 ````
 
-## Types génériques
-
 [Back to top](#opérateurs)
 
+## Types génériques
+
+<details>
+	<summary>Utilisation du type T</summary>
+	
 Soit le code suivant que l'on souhaite rendre plus robuste :
 
 ````typescript
@@ -545,5 +564,110 @@ function getBy<T, P extends keyof T>(model: T[], prop: P, value: T[P]): T | null
     return model.filter(item => item[prop] === value)[0] || null
 }
 ````
+
+[Back to top](#opérateurs)     
+
+</details>
+
+## Comparaison de 2 objets avec copie des propriétés manquantes
+
+<details>
+	<summary>Voici une fonction permettant de comparer 2 objets et d'ajouter les clés manquantes (ainsi que leurs valeurs) dans l'objet cible.</summary>
+
+Soit les 2 objets suivants, le but est d'ajouter dans l'objet *target* toutes les clés manquantes, qui sont présentes dans *obj1*
+
+```typescript
+obj1 = {
+  name: 'object 1',
+  data: {
+    address: {
+      street: '10 rue des genêts',
+      postalCode: '34000',
+      country: 'montpellier'
+    },
+    telephone: '0605040302',
+    email: 'test@gmail.com'
+  },
+  coordinates: {
+    lat: 3.056798798797,
+    lng: -7.5464879
+  }
+};
+
+target = {
+  name: 'object target',
+  data: {
+    address: {
+      street: '6 avenue du pont juvenal'
+    },
+    phone: '0988776655'
+  },
+  moreStuff: {
+    items: [1, 2, 3]
+  }
+}
+
+```
+
+Fonction utilisée
+
+```typescript
+/**
+   * Comparer 2 objets et ajouter les propriétés manquantes (avec leur valeur) dans le second objet
+   * @param from
+   * @param to
+   */
+fillObject(from: any, to: any) {
+  for (var key in from) {
+    if (from.hasOwnProperty(key)) {
+      if (Object.prototype.toString.call(from[key]) === '[object Object]') {
+        if (!to.hasOwnProperty(key)) {
+          to[key] = {};
+        }
+        this.fillObject(from[key], to[key]);
+      }
+      else if (!to.hasOwnProperty(key)) {
+        to[key] = from[key];
+      }
+    }
+  }
+}
+
+this.fillObject(this.obj1, this.obj2);
+console.log('------------------------')
+console.log('obj1', JSON.stringify(this.obj1));
+console.log('target', JSON.stringify(this.target));
+
+```
+
+Contenu de l'objet *target* après comparaison
+
+```typescript
+{
+	"name": "object target",
+	"data": {
+		"address": {
+			"street": "6 avenue du pont juvenal",
+			"postalCode": "34000",
+			"country": "montpellier"
+		},
+		"phone": "0988776655",
+		"telephone": "0605040302",
+		"email": "test@gmail.com"
+	},
+	"object2Special": {
+		"items": [1, 2, 3]
+	},
+	"coordinates": {
+		"lat": 3.056798798797,
+		"lng": -7.5464879
+	}
+}
+
+```
+
+On constate que l'objet *target* a gardé **toutes** ses propriétés initiales ainsi que leurs valeurs, et il possède maintenant en plus toutes les propriétés manquantes présentent dans *obj1*
+ 
+</details>
 
 [Back to top](#opérateurs)     
