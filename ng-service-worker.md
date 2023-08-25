@@ -144,7 +144,7 @@ Le noeud *assetsGroups* est utilisé pour mettre en cache les ressources statiqu
 ````"installMode": "prefetch",```` **// Met en cache les ressources même si on en a pas encore besoin. Conseillé pour les ressources importantes**        
 ````"installMode": "lazy",```` **// Met en cache uniquement les ressources pour lesquelles on a reçu une requête. Conseillé pour les ressources moins importantes**
 
-### Configuration du *web.config*
+### Configuration du *web.config* pour IIS
 
 Rajouter la ligne suivante pour éviter une erreur 404 lors du chargement du fichier *manifest.webmanifest*
 
@@ -154,6 +154,7 @@ Rajouter la ligne suivante pour éviter une erreur 404 lors du chargement du fic
     <system.webServer>
         <staticContent>
             <mimeMap fileExtension=".webmanifest" mimeType="application/json" />
+            <!-- <clientCache cacheControlMode="UseMaxAge" cacheControlMaxAge="364.00:00:00" /> -->
         </staticContent>
      </system.webServer>
 </configuration>
