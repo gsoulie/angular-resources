@@ -11,7 +11,7 @@
 
 ````
 npm install -g @angular/cli
-ng new <YOUR-APP-NAME>
+ng new <YOUR-APP-NAME> --standalone
 cd <YOUR-APP-NAME>
 ng serve
 ````
