@@ -375,8 +375,6 @@ mat-dialog-actions {
 }
 ````
 </details>
-*html*
-
 
 
 [Back to top](#angular-material-tips)    
