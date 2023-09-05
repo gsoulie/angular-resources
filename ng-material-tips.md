@@ -295,7 +295,37 @@ mat-dialog-actions {
 ### mat-select
 [Back to top](#angular-material-tips)    
 
-*html*
+<details>
+    <summary>Material 15+</summary>
+
+## Angular Material 3
+
+### mat-select
+
+````css
+.mdc-list-item--selected {
+  //font-family: $font-family-base !important;
+}
+
+// Couleur de l'item sélectionné (liste dépliée)
+.mdc-list-item--selected .mdc-list-item__primary-text {
+  color: orange !important;
+}
+
+// Couleur de l'item sélectionné (liste repliée)
+.mat-mdc-select-value-text {
+  color: red !important;
+}
+
+// Couleur de la checkmark de l'item sélectionné (liste dépliée)
+.mat-pseudo-checkbox-checked::after {
+  color: var(--color-green-text) !important;
+}
+````
+</details>
+
+<details>
+    <summary>Anciennes versions de material</summary>
 
 ````html
 <mat-select
@@ -344,6 +374,10 @@ mat-dialog-actions {
   }
 }
 ````
+</details>
+*html*
+
+
 
 [Back to top](#angular-material-tips)    
 
