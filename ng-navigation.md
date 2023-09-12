@@ -398,6 +398,38 @@ On peut aussi définir plusieurs classes à l'aide d'une chaîne séparée par d
 ## Routing parameters
 [Back to top](#navigation)   
 
+### Récupération des paramètres via @Input
+
+<details>
+	<summary>Depuis Angular 16, il est possible de récupérer les paramètres de route comme tout paramètre d'un composant avec un @Input</summary>
+
+Afin d'utiliser cette nouvelle fonctionnalité, nous devons l'activer dans le RouterModule :
+````typescript
+@NgModule({
+	imports: [
+		RouterModule.forRoot([], {
+			// ... autres fonctionnalités
+			bindToComponentInputs: true // <-- activer cette fonctionnalité
+		})
+	],
+})
+export class AppModule {}
+````
+
+Ou si nous sommes dans une application **standalone**, nous pouvons l'activer de cette manière :
+
+````typescript
+bootstrapApplication(App, {
+	providers: [
+		provideRouter(routes,
+			// ... autres fonctionnalités
+			withComponentInputBinding() // <-- activer cette fonctionnalité
+		)
+	],
+});
+````
+</details>
+
 ### Passage de données statiques
 
 Exemple de passage de données statiques à une route : 
