@@ -1378,8 +1378,10 @@ const route = {
 
 # Tuto Deactive Guard
 
-Petit "tuto" du jour sur les guards de **"désactivation"**. Voici donc à quoi cela peut servir
+<details>
+	<summary>Petit "tuto" du jour sur les guards de **"désactivation"**. Voici donc à quoi cela peut servir</summary>
 
+ 
 Les guards de désactivation **CanDeactivate permettent de contrôler si une route peut être "désactivée" ou non**. Ils peuvent être très pratiques pour se prémunir d'une perte de données dans des écrans de type formulaire par exemple. L'utilisateur pourrait quitter la page involontairement après avoir modifié des informations dans le formulaire sans les avoir sauvegardées au préalable.
 
 Les Guards de désactivation sont couplées aux composants car ils doivent communiquer avec le composant pour établir leur décision d'accès. Ce type de guard est un service qui implémente l'interface **CanDeactivate**. Ce service doit donc implémenter la méthode **canDeactivate()**.
@@ -1392,7 +1394,7 @@ Voici un exemple de création basique de guard de désactivation sur un écran a
 
 *can-deactivate-guard.service.ts*
 
-```
+````typescript
 import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -1414,14 +1416,13 @@ export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate>
     return component.canDeactivate();
   }
 }
-
-```
+````
 
 Il faut ensuite implémenter ce guard dans le composant concerné
 
 *user-detail.component.ts*
 
-```
+````typescript
 import { CanComponentDeactivate } from './../deactivate/deactivate.guard';
 import { Observable } from 'rxjs';
  
@@ -1469,14 +1470,13 @@ export class UserComponent implements OnInit, CanComponentDeactivate {
   
   submit() { /*... enregistrement des données */ }
 }
-
-```
+````
 
 Enfin, attacher le guard à la route
 
 *app-routing.module.ts*
 
-```
+````typescript
 import { CanDeactivateGuard } from './components/deactivate/deactivate.guard';
  
 const routes: Routes = [{
@@ -1486,5 +1486,8 @@ const routes: Routes = [{
     loadComponent: () => import('./components/user/user.component').then(m => m.UserComponent)
   },
 ];
+````
 
-```
+</details>
+
+
