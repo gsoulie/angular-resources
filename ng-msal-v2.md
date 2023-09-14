@@ -225,8 +225,8 @@ export const protectedResources = {
     toDoListAPI: {
         endpoint: 'http://localhost:4070/',
         scopes: {
-            read: ['api://a1bb7622-aa50-4216-a923-0eacc088c317/tasks.read'],
-            write: ['api://a1bb7622-aa50-4216-a923-0eacc088c317/tasks.write'],
+            read: ['api://<guid>/tasks.read'],
+            write: ['api://<guid>/tasks.write'],
         },
     },
 };
@@ -248,7 +248,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [MsalGuard, AuthguardService], data: { expectedRole: 'RH' } },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [MsalGuard, AuthguardService], data: { expectedRole: 'Dev' } },
   { path: 'auth', component: MsalRedirectComponent },
   { path: 'login', component: LoginComponent, canActivate: [MsalGuard] },
   { path: 'login-failed', component: FailedComponent },
