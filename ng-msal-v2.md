@@ -14,7 +14,7 @@
 Ce tuto explique pas à pas comment utiliser la bibliothèque msal-angular version 2 sur une application angular. 
 Le but est d’authentifier un utilisateur, déterminer son rôle et de générer un jeton utilisable par l’api pour vérifier sa portée.
 
-Nous utiliserons les inscriptions d’applications d’Azure AD à tenant unique (GROUPE ISIA).
+Nous utiliserons les inscriptions d’applications d’Azure AD à tenant unique.
 
 ## Note
 
@@ -31,10 +31,6 @@ L' inscription à l'API Web permet à votre application d'appeler une API Web pr
 
 ### 1.1 Enregistrement de l'API
 
-On peut suivre le tuto "Tutoriel pour la gestion des tokens" à partir du point 2.1
-
-[![](https://wiki-collab.groupe-isia.com/uploads/images/gallery/2023-08/scaled-1680-/image-1691393841283.png)](https://wiki-collab.groupe-isia.com/uploads/images/gallery/2023-08/image-1691393841283.png)
-
 #### 1.1.1 Onglet Exposer une API
 
 A partir de l'accueil : Inscriptions d'applications -> rechercher l'application.
@@ -42,8 +38,6 @@ A partir de l'accueil : Inscriptions d'applications -> rechercher l'application.
 a. Onglet Exposer une API -> Ajouter (Laisser le nom de base api://{guid})
 b. Ajouter une étendue -> app.read (Remplir les autres champs obligatoire)
 c. Ajouter une étendue -> app.write
-
-[![](https://wiki-collab.groupe-isia.com/uploads/images/gallery/2023-08/scaled-1680-/image-1691395701841.png)](https://wiki-collab.groupe-isia.com/uploads/images/gallery/2023-08/image-1691395701841.png)
 
 #### 1.1.2 Onglet Rôle d'application
 
@@ -55,8 +49,6 @@ a. Onglet Rôles d'application -> Créer un rôle d'application
 Modifiez la valeur de ```"accessTokenAcceptedVersion": null``` par ```"accessTokenAcceptedVersion": 2```
 
 ### 1.2 Enregistrement de l'application Angular
-
-[![](https://wiki-collab.groupe-isia.com/uploads/images/gallery/2023-08/scaled-1680-/image-1691395962785.png)](https://wiki-collab.groupe-isia.com/uploads/images/gallery/2023-08/image-1691395962785.png)
 
 #### 1.2.1 Onglet Authentification
 
@@ -72,13 +64,9 @@ Pour microsoft Graph : ```Offline-access``` & ```openid``` à ajouter
 
 Pour l'api : 
 
-[![](https://wiki-collab.groupe-isia.com/uploads/images/gallery/2023-08/scaled-1680-/image-1691396176331.png)](https://wiki-collab.groupe-isia.com/uploads/images/gallery/2023-08/image-1691396176331.png)
-
 Sélectionnez le nom de l'api précédemment créé et sélectionné les étendues précédemment créé.
 
 Résultat : 
-
-[![](https://wiki-collab.groupe-isia.com/uploads/images/gallery/2023-08/scaled-1680-/image-1691396328088.png)](https://wiki-collab.groupe-isia.com/uploads/images/gallery/2023-08/image-1691396328088.png)
 
 #### 1.2.3 Onglet Manifeste
 
