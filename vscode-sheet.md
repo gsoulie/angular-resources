@@ -43,7 +43,7 @@ Full vscode customization : https://code.visualstudio.com/api/references/theme-c
 
 > Tips : if you want to group tasks by role, set a same prefix to the task name for all tasks you want to group by
 
-*tasks.json*
+*.vscode/tasks.json*
 ````typescript
 {
     "version": "2.0.0",
