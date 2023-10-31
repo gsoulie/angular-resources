@@ -2,6 +2,7 @@
 
 # Nouveautés
 
+* [v17](#v17)     
 * [ng-conf 2023](#ng--conf-2023)     
 * [v16](#v16)    
 * [v15](#v15)     
@@ -9,7 +10,73 @@
 * [AnalogJS](#analogjs)
 * [Dépréciations](#dépréciations)
 
-# ng-conf 2023
+# v17
+
+[angular 17 defer](https://dev.to/this-is-angular/new-angular-v17-feature-deferred-loading-41mi)      
+
+active le lazy-loading sur le contenu d'un bloc, ainsi qu'à toutes ses dépendances (composants, pipes, directives)
+
+Exemple d'implémentation avec une checkbox bindée sur la valeur isCheckDefer (qui est un signal)
+
+````typescript
+<div>
+  <input #checkboxDefer type="checkbox" [checked]="isCheckedDefer()" (change)="isCheckedDefer.set(checkboxDefer.checked)" id="checkboxDefer"/>
+  <label for="checkboxDefer">Open the network tab of the browser's developer tools, then check this checkbox to load the <strong>app-c1</strong> component</label>
+</div>
+<br>
+
+@defer (when isCheckedDefer()) {
+  <app-c1/>
+}
+@placeholder {
+  <span>Placeholder</span>
+}
+@error {
+  <span>Error</span>
+}
+@loading(minimum 1s) {
+  <span>Loading...</span>
+}
+````
+
+Le bloc ````@defer```` est rendu lorsque la condition est validée (ici la valeur du signal isCheckDefer devient vrai)    
+le bloc ````@placeholder```` est rendu **avant** le bloc ````@defer````      
+Le bloc ````@loading```` est rendu pendant le temps de chargement du bloc ````@defer````     
+Le bloc ````@error```` est affiché en cas d'échec du chargement     
+
+Les blocs ````@placeholder, @loading et @error```` sont optionnels.
+
+### Conditions de déclenchement
+
+Le bloc ````@defer```` peut être déclenché par les triggers suivants :
+
+* on interaction
+* on hover
+* on idle
+* on timer
+* on viewport
+
+````typescript
+@defer (on timer(5s)) {
+  <span>Visible after 5s&lt;/span>
+}
+@placeholder {
+  <span>Placeholder&lt;/span>
+}
+````
+
+### Pré-chargement
+
+Il est également possible de spécifier une condition de pré-chargement
+
+````typescript
+@defer (on interaction; prefetch on hover) {
+  <app-c3/>
+}
+@placeholder {
+  <span>Placeholder (hover it, then click on it!)</span>
+}
+````
 
 # ng-conf 2023
 
