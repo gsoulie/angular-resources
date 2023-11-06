@@ -2,6 +2,7 @@
 
 # Nouveautés
 
+* [Keynote du 06/11/2023](##keynote-du-06--11--2023)     
 * [v17](#v17)     
 * [ng-conf 2023](#ng--conf-2023)     
 * [v16](#v16)    
