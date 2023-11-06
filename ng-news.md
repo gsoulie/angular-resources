@@ -10,6 +10,247 @@
 * [AnalogJS](#analogjs)
 * [Dépréciations](#dépréciations)
 
+# Keynote du 06/11/2023
+
+<details>
+	<summary>Présentation du nouveau branding et de la v17 à l'occasion de la keynote</summary>
+
+ Le 6 novembre 2023, une **importante keynote Angular** a eu lieu. Durant cet événement, largement teasé sur les réseaux sociaux, l'équipe Angular a tout d'abord dévoilé un tout nouveau branding pour son framework.
+
+Nous avons ainsi découvert un nouveau logo, accompagné d'une nouvelle charte graphique, marquant ainsi une réelle rupture avec l'ancien branding défini par AngularJS.
+
+Ce coup de frais esthétique vient surtout appuyer une forte volonté de l'équipe de montrer que le framework Angular est plus que jamais d'actualité et toujours dans la course que se livrent les frameworks front-end JS. 
+
+En effet, depuis la version 15, de nombreuses améliorations et refontes importantes ont fait leur arrivée, rendant la technologie Angular plus accessible et performante pour rivaliser avec les leaders du marché, tels que React et NextJS.
+
+Qui dit refonte graphique, dit aussi **nouveau site web** ! 
+
+> [Nouveau site angular.dev](https://angular.dev/)
+
+En y regardant de plus près, on remarque que ce nouveau site ressemble beaucoup à ses concurrents NextJS ou VueJS, il respecte donc les codes actuels, ce qui est tout à son avantage.
+
+* Angular nous propose ainsi un **site plus clair**, avec une **documentation plus accessible et à jour** !
+* On y trouve aussi des **playgrounds intégrés basés sur différents templates** (Signal, Control Flow, Minigame, Hello world) permettant de tester Angular en ligne
+* Une **section tutorial** permettant d'apprendre angular directement depuis le site, en réalisant des exercices via des playgrounds.
+* Une **section Reference** permettant d'avoir un **accès rapide** sur les API, commandes CLI, codes erreur, release et versioning, configuration de projet etc... (très pratique)
+
+> [Retrouvez la présentation sur angular.blog.io](https://blog.angular.io/announcing-angular-dev-1e1205fa3039?source=collection_home---4------0-----------------------)
+> 
+
+Mais ce n'est pas tout, la keynote a bien évidemment été l'occasion de présenter la **nouvelle version v17 (date de sortie 8/11/2023)** (voir ce que nous avions déjà rédigé sur [Angular 17](https://wiki-collab.groupe-isia.com/books/angular/page/angular-17)). 
+
+Voici un résumé des points qui ont été abordés durant la keynote :
+
+## Progressive hydration
+
+=> migration de Angular Universal vers SSR
+> TODO : sujet à préciser
+
+## New control flow syntax
+
+Nouvelle syntaxe dans les templates **@if @else @for @switch** :
+
+- Nouveau builtin qui permet de s'affranchir des imports de NgIf, NgFor du CommonModule etc... Il en résulte ainsi une **amélioration des performances**
+- écriture **plus simple à lire et à écrire**
+- nouvelle **fonctionnalité if-else**
+
+````html
+<section>
+	@if (use.isLoggedIn) {
+		<app-dashboard/>
+	} @else if (use.role === 'admin') {
+		<app-admin-controls />
+	} @else {
+		<app-login />
+	}
+</section>
+````
+  
+- fonction **track obligatoire** dans les boucles for pour **optimiser les performances**. L'ancienne syntaxe fonction "trackBy" est désormais simplement remplacée par le paramètre track, suivi de la propriété à tracer
+- section de fallback **@empty** dans les boucles @for
+
+````html
+<section>
+	@for (user of userList; track user) {
+		<app-card [data]="user" />
+	} @empty {
+		<p>No users in the list</p>
+	}
+</section>
+````
+
+- nouvelle syntaxe **@switch**
+
+````html
+<section>
+	@switch (membershipStatus) {
+		@case ('gold') {
+			<p>Your discount is 20%</p>
+		}
+		@case ('silver') {
+			<p>Your discount is 10%</p>
+		}
+		@case ('bronze') {
+			<p>Your discount is 5%</p>
+		}
+		@default {
+			<p>Keep earning rewards</p>
+		}
+	}
+</section>
+````
+  
+> **Important** : pour le moment la nouvelle syntaxe est expérimentale et non obligatoire. Il n'est donc pas nécessaire de migrer tout de suite la syntaxe des projets migrés en 17
+
+
+
+## Lazy-loading avec @defer
+
+### Présentation
+
+> en dev preview v17
+
+Nouvelle façon de déclencher le chargement d'un contenu côté template en fonction d'un déclencheur
+
+> A noter : **@defer n'est pas bloquant !**
+
+Comment cela fonctionne sous le capot ? 
+- Lorsque @defer est utilisée dans un template, le compilateur collecte toutes les dépendances nécessaires et établi une liste d'imports dynamiques. Après ça, lors du runtime, ces imports dynamiques sont invoqués lors du déclenchement
+
+Liste des triggers natifs :
+
+|Trigger|Action|
+|-|-|
+|viewport|déclenche lorsque l'élément spécifique demandé arrive dans le viewport|
+|idle|déclenche dès que le navigateur signale qu'il est en état d'inactivité| 
+|interaction|déclenche lorsqu'un élément est cliqué, prend le focus, ou autre comportements similaires|
+|hover|déclenche lorsque la souris passe en survol d'une zone|
+|timer|déclenche après un timeout spécfique|
+|when|déclencheur personnalisé|
+
+````html
+<section #trigger>
+	@defer (on viewport(trigger)) {
+		<large-content />
+	}
+	<huge-content />
+	<enormous-content />
+</section>
+````
+
+Mais il est aussi **possible de créer son propre déclencheur** avec ````when````
+
+````html
+<button (click)="load = true">
+	Load component
+</button>
+
+@defer (when load == true)) {
+	<large-content />
+}
+</section>
+````
+
+On peut encore **aller plus loin en combinant plusieurs déclencheurs**
+
+````html
+<button #trigger (click)="load = true">
+	Load component
+</button>
+
+@defer (on viewport(trigger); when load == true)) {
+	<large-content />
+}
+````
+
+### prefetch
+
+````html
+<section #trigger>
+	@defer (prefetch on immediate; prefetch when val === true) {
+		<large-content />
+	}
+</section>
+````
+
+### placeholder 
+
+Gestion des différents blocs de placeholder : **@placeholder, @loading, @error**
+````html
+<button #trigger (click)="load = true">
+	Load component
+</button>
+
+@defer (on interaction(trigger)) {
+	<large-content />
+} @placeholder {
+	<img src="placeholder-image.png" />
+} @loading (minimum 500ms){
+    // ne sera affiché que si le temps de chargement est supérieur à 500ms,
+    // utile pour les chargement très rapide afin d'éviter un affichage inutile
+	<spinner />
+} @error {
+	<p>Oops, something went wrong !</p>
+}
+````
+
+## Standalone Components
+
+Le mode standalone sera désormais **activé par défaut** lors de la création d'un projet ````ng new my-app```` et lors de la création d'un composant via CLI ````ng g c my-component````
+
+## Compilation avec ESBuild / Vite
+
+Afin d'optimiser les temps de compilation, **la compilation avec ESBuild et Vite est désormais activée par défaut** (en remplacement de webpack). 
+
+Webpack ne disparaît pas pour l'instant est peut toujours être
+utilisé. Il est cependant recommandé de commencer à migrer vers le nouveau mode de compilation pour adopter les optimisations futures.
+
+## Custom @Input transforms
+
+Petite amélioration qui facilite la vie dans la gestion des champs, la possibilité de transformer automatiquement des valeurs d'Input :
+
+````typescript
+@Component({...})
+
+export class TextInput {
+	// Transforms string inputs to boolean automatically
+	@Input({ transform: booleanAttribute }) disabled: boolean = false;
+	
+}
+````
+
+````html
+<!-- Before --> 
+<text-input [disabled]="true" />
+
+<!-- After -->
+<text-input disabled />
+````
+
+Il existe d'autres méthodes de transformation comme ````numberAttribute````
+
+## Inline style 
+
+Il est désormais possible de déclarer les styles dans une chaîne seule et non plus obligatoirement dans un tableau de chaîne. Une nouvelle propriété ````styleUrl```` fait également sont apparition
+
+````typescript
+@Component({
+	// Before
+	styles: `[
+		.username: { color: red; }
+	]`
+	
+	// After 
+	styles: `
+		.username: { color: red; }
+	`
+	
+	// Nouvelle propriété
+	styleUrl: './user.component.scss'
+})
+````
+</details>
+
 # v17
 
 [angular 17 defer](https://dev.to/this-is-angular/new-angular-v17-feature-deferred-loading-41mi)      
