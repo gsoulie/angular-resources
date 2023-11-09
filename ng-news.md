@@ -30,8 +30,9 @@ Qui dit refonte graphique, dit aussi **nouveau site web** !
 
 En y regardant de plus près, on remarque que ce nouveau site ressemble beaucoup à ses concurrents NextJS ou VueJS, il respecte donc les codes actuels, ce qui est tout à son avantage.
 
-* Angular nous propose ainsi un **site plus clair**, avec une **documentation plus accessible et à jour** !
-* On y trouve aussi des **playgrounds intégrés basés sur différents templates** (Signal, Control Flow, Minigame, Hello world) permettant de tester Angular en ligne
+* Angular nous propose ainsi un **site plus clair**, plus UX friendly, avec une **documentation plus accessible et à jour** !
+* Une documentation open-source
+* On y trouve aussi des **playgrounds intégrés basés sur différents templates** (Signal, Control Flow, Minigame, Hello world) permettant de tester les dernières nouveautés Angular, en ligne
 * Une **section tutorial** permettant d'apprendre angular directement depuis le site, en réalisant des exercices via des playgrounds.
 * Une **section Reference** permettant d'avoir un **accès rapide** sur les API, commandes CLI, codes erreur, release et versioning, configuration de projet etc... (très pratique)
 
@@ -40,12 +41,52 @@ En y regardant de plus près, on remarque que ce nouveau site ressemble beaucoup
 
 Mais ce n'est pas tout, la keynote a bien évidemment été l'occasion de présenter la **nouvelle version v17 (date de sortie 8/11/2023)** (voir ce que nous avions déjà rédigé sur [Angular 17](https://wiki-collab.groupe-isia.com/books/angular/page/angular-17)). 
 
-Voici un résumé des points qui ont été abordés durant la keynote :
+#### Voici un résumé des points qui ont été abordés durant la keynote :
 
-## Progressive hydration
+# Angular v17
 
-=> migration de Angular Universal vers SSR
-> TODO : sujet à préciser
+> [présentation de la v17 - blog officiel Angular](https://blog.angular.io/introducing-angular-v17-4d7033312e4b)      
+
+## Progressive hydration et SSR
+
+Un **nouveau paquet ````@angular/ssr```` package** vient remplacer Angular Universal (il s'agit d'une migration).
+
+Désormais, pour ajouter le rendu hybride dans  un projet il suffit d'exécuter la commande suivante :
+````
+ng add @angular/ssr
+````
+Cette commande générera le point d'entrée du serveur, ajoutera des fonctionnalités de SSR et SSG et activera l'hydratation par défaut. ````@angular/ssr```` fournit des fonctionnalités équivalentes à ````@nguniversal/express-engine```` celles qui sont actuellement en mode maintenance. Si vous utilisez le moteur express, Angular CLI mettra automatiquement à jour votre code en ````@angular/ssr````.
+
+> [https://angular.dev/guide/ssr](https://angular.dev/guide/ssr)     
+> [https://angular.dev/guide/hydration](https://angular.dev/guide/hydration)
+
+### Nouveaux lifecycle hook
+
+Afin d'améliorer les performances du SSR et SSG et d'éviter de trop manipuler le DOM directement, deux nouveaux lifecycle hook font leur apparition :
+
+* ````afterRender```` : Enregistrer une fonction callback à chaque fois que l'application a terminé le rendu
+* ````afterNextRender```` : Enregistrer une fonction callback à appeler la prochaine fois que l'application termine le rendu.
+
+Ces hooks seront invoqués uniquement par le navigateur, ce qui permet de connecter une logique DOM personnalisée directement dans les composants.
+
+Par exemple, instancier un graphe après que la page ait été rendue 
+
+````typescript
+@Component({
+  selector: 'my-chart-cmp',
+  template: `<div #chart>{{ ... }}</div>`,
+})
+export class MyChartCmp {
+  @ViewChild('chart') chartRef: ElementRef;
+  chart: MyChart|null;
+
+  constructor() {
+    afterNextRender(() => {
+      this.chart = new MyChart(this.chartRef.nativeElement);
+    }, {phase: AfterRenderPhase.Write});
+  }
+}
+````
 
 ## New control flow syntax
 
@@ -111,12 +152,12 @@ Nouvelle syntaxe dans les templates **@if @else @for @switch** :
 
 > en dev preview v17
 
-Nouvelle façon de déclencher le chargement d'un contenu côté template en fonction d'un déclencheur
+Nouvelle façon de déclencher le chargement d'un contenu (en lazy-loading) côté template en fonction d'un déclencheur. Cette nouvelle feature apporte un gain significatif en terme de performance, il est donc recommandé de l'utiliser.
 
 > A noter : **@defer n'est pas bloquant !**
 
 Comment cela fonctionne sous le capot ? 
-- Lorsque @defer est utilisée dans un template, le compilateur collecte toutes les dépendances nécessaires et établi une liste d'imports dynamiques. Après ça, lors du runtime, ces imports dynamiques sont invoqués lors du déclenchement
+- Lorsque @defer est utilisé dans un template, le compilateur collecte toutes les dépendances nécessaires et établi une liste d'imports dynamiques. Après ça, lors du runtime, ces imports dynamiques sont invoqués lors du déclenchement
 
 Liste des triggers natifs :
 
@@ -166,6 +207,8 @@ On peut encore **aller plus loin en combinant plusieurs déclencheurs**
 
 ### prefetch
 
+Il est également possible de spécifier une condition de pré-chargement
+
 ````html
 <section #trigger>
 	@defer (prefetch on immediate; prefetch when val === true) {
@@ -176,7 +219,8 @@ On peut encore **aller plus loin en combinant plusieurs déclencheurs**
 
 ### placeholder 
 
-Gestion des différents blocs de placeholder : **@placeholder, @loading, @error**
+Pour plus de finesse, il est aussi possible de gérer différents blocs de placeholder : **@placeholder, @loading, @error**
+
 ````html
 <button #trigger (click)="load = true">
 	Load component
@@ -201,10 +245,12 @@ Le mode standalone sera désormais **activé par défaut** lors de la création 
 
 ## Compilation avec ESBuild / Vite
 
-Afin d'optimiser les temps de compilation, **la compilation avec ESBuild et Vite est désormais activée par défaut** (en remplacement de webpack). 
+Afin d'optimiser les temps de compilation, **la compilation avec ESBuild et Vite est désormais activée par défaut** (en remplacement de webpack) dans toute nouvelle application. 
 
 Webpack ne disparaît pas pour l'instant est peut toujours être
 utilisé. Il est cependant recommandé de commencer à migrer vers le nouveau mode de compilation pour adopter les optimisations futures.
+
+Dans une prochaine release, des commandes permettrons de migrer les anciennes applications vers le rendu hybride (rendu côté client avec SSG ou SSR)
 
 ## Custom @Input transforms
 
@@ -230,6 +276,8 @@ export class TextInput {
 
 Il existe d'autres méthodes de transformation comme ````numberAttribute````
 
+> [Un article dev.to sur le sujet](https://dev.to/this-is-angular/angular-transform-your-inputs-at-will-and-simply-12oo)     
+
 ## Inline style 
 
 Il est désormais possible de déclarer les styles dans une chaîne seule et non plus obligatoirement dans un tableau de chaîne. Une nouvelle propriété ````styleUrl```` fait également sont apparition
@@ -250,6 +298,10 @@ Il est désormais possible de déclarer les styles dans une chaîne seule et non
 	styleUrl: './user.component.scss'
 })
 ````
+
+## Material 3
+
+La prise en charge de Material 3 arrivera dans une version future
 </details>
 
 # v17
