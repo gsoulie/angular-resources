@@ -163,12 +163,13 @@ Liste des triggers natifs :
 
 |Trigger|Action|
 |-|-|
-|viewport|déclenche lorsque l'élément spécifique demandé arrive dans le viewport|
-|idle|déclenche dès que le navigateur signale qu'il est en état d'inactivité| 
-|interaction|déclenche lorsqu'un élément est cliqué, prend le focus, ou autre comportements similaires|
-|hover|déclenche lorsque la souris passe en survol d'une zone|
-|timer|déclenche après un timeout spécfique|
+|on viewport|déclenche lorsque l'élément spécifique demandé arrive dans le viewport|
+|on idle|déclenche dès que le navigateur signale qu'il est en état d'inactivité| 
+|on interaction|déclenche lorsqu'un élément est cliqué, prend le focus, ou autres comportements similaires|
+|on hover|déclenche lorsque la souris passe en survol d'une zone|
+|on timer|déclenche après un timeout spécfique|
 |when|déclencheur personnalisé|
+|on immediate||
 
 ````html
 <section #trigger>
