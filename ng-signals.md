@@ -131,7 +131,7 @@ export class SignalComponent {
 ## effect
 
 <details>
-	<summary>Détecter le changement d'un signa avec effect</summary>
+	<summary>Détecter le changement d'un signal avec effect</summary>
 
 https://angularexperts.io/blog/angular-signals-push-pull      
 
