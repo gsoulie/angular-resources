@@ -4,7 +4,8 @@
 
 * [Concept](#concept)
 * [Syntaxe](#syntaxe)     
-* [effect](#effect)     
+* [effect](#effect)
+* [Bonnes pratiques](#bonnes-pratiques)     
 * [Avantages et inconvénients](#avantages-et-inconvénients)     
 * [Signal vs RxJS](#signal-vs-rxjs)    
 
@@ -126,6 +127,18 @@ export class SignalComponent {
 }
 ````
 
+### Signal Read only
+
+Il est possible de déclarer un signal en lecture seule de la manière suivante :
+
+````typescript
+counter = signal(0);
+
+const readOnlyCounter = this.counter.asReadonly();
+
+// Ceci lèvera une erreur !
+readOnlyCounter.set(5);
+````
 [Back to top](#signals)     
 
 ## effect
@@ -221,6 +234,77 @@ export class CounterComponent {
 }
 ````
 
+</details>
+
+## Bonnes pratiques
+
+### Partager un signal entre plusieurs composants 
+
+<details>
+	<summary>Voici comment partager un signal dans toute l'application</summary>
+
+ > Attention, cela implique que le signal peut être modifié de n'importe où, il faut donc être prudent avec cette façon de faire. La meilleure solution est de partager le signal via un service (voir solution plus bas)
+
+
+*Déclarer le signal dans un fichier externe*
+
+````typescript
+// main.ts
+import { signal } from "@angular/core";
+
+export const count = signal(0);
+````
+
+*Utiliser le signal dans les composants*
+
+````typescript
+// app.component.ts
+import { Component } from "@angular/core";
+import { count } from "./main";
+
+@Component({
+  selector: "app",
+  template: `
+    <div>
+      <p>Counter: {{ count() }}</p>
+      <button (click)="increment()">Increment from HundredIncrComponent</button>
+    </div>
+  `,
+})
+export class HundredIncrComponent {
+  count = count;
+
+  increment() {
+    this.count.update((value) => value + 100);
+  }
+}
+````
+
+La meilleure solution est de partager le Signal via un **service**
+
+````typescript
+@Injectable({
+  providedIn: "root",
+})
+export class CounterService {
+
+  // this is the private writeable signal
+  private counterSignal = signal(0);
+
+  // this is the public read-only signal
+  readonly counter = this.counterSignal.asReadonly();
+
+  constructor() {
+    // inject any dependencies you need here
+  }
+
+  // anyone needing to modify the signal 
+  // needs to do so in a controlled way
+  incrementCounter() {
+    this.counterSignal.update((val) => val + 1);
+  }
+}
+````
 </details>
 
 ## Avantages et inconvénients
