@@ -2,8 +2,9 @@
 
 # Signals
 
-* [Concept](#concept)     
+* [Concept](#concept)
 * [Syntaxe](#syntaxe)     
+* [effect](#effect)     
 * [Avantages et inconvénients](#avantages-et-inconvénients)     
 * [Signal vs RxJS](#signal-vs-rxjs)    
 
@@ -11,7 +12,10 @@
 
 ## Concept 
 
-Les signaux sont la pierre angulaire de la réactivité dans Solid. Ils contiennent des valeurs qui changent avec le temps ; lorsque vous modifiez la valeur d'un signal, il met automatiquement à jour tout ce qui l'utilise. Un signal est un **wrapper autour d'une valeur simple qui enregistre ce qui dépend de cette valeur et notifie ces dépendants chaque fois que sa valeur change**
+<details>
+	<summary></summary>
+
+ Les signaux sont la pierre angulaire de la réactivité dans Solid. Ils contiennent des valeurs qui changent avec le temps ; lorsque vous modifiez la valeur d'un signal, il met automatiquement à jour tout ce qui l'utilise. Un signal est un **wrapper autour d'une valeur simple qui enregistre ce qui dépend de cette valeur et notifie ces dépendants chaque fois que sa valeur change**
 
 **Signals** va très probablement introduire un future dans lequel nous n'aurions **plus besoin de zone.js** ce qui pourrait êrte un gros changement ! D'autre part, l'arrivée de **Signals** devrait grandement faciliter l'apprentissage de la programmation réactive aux débutants sur Angular.
 
@@ -94,9 +98,40 @@ Ce n'est bien sûr qu'un exemple très basique. Vous trouverez plus d'infos et d
 [Signals In Angular - Is RxJS doomed ?](https://levelup.gitconnected.com/signals-in-angular-is-rxjs-doomed-5b5dac574306)     
 https://www.angulararchitects.io/en/aktuelles/angular-signals/      
 
+</details>
+
 [Back to top](#signals)     
 
-### Complément
+## Syntaxe
+
+Exemples de syntaxes Signals
+
+````typescript
+// declarative update
+export class SignalComponent {
+	list = signal<Items[]>([]);
+	
+	addItem(item: Item) {
+		this.list.update([...list, item]);
+	}
+}
+
+// impérative mutation
+export class SignalComponent {
+	list = signal<Items[]>([]);
+	
+	addItem(item: Item) {
+		this.list.mutate(ls => ls.push(item));
+	}
+}
+````
+
+[Back to top](#signals)     
+
+## effect
+
+<details>
+	<summary>Détecter le changement d'un signa avec effect</summary>
 
 https://angularexperts.io/blog/angular-signals-push-pull      
 
@@ -104,7 +139,7 @@ Un signal est un wrapper autour d'une valeur, qui est capable d'informer les con
 
 Les signaux **computed** se basent sur la valeur actuelle (la plus récente) des émetteurs référencés s'il est obsolète (une seule fois, même s'il a reçu plusieurs notifications)
 
-**effect()** doit s'exécuter dans un contexte d'injection (temps du constructeur) car il injecte **DestroyRef** en arrière plan pour fournir un auto-nettoyage. Il est **déclenché** lorsque la valeur des signaux qui sont à l'intérieur du bloc de code sont mises à jour.
+Si l'on souhaite uniquement *détecter* le changement de valeur d'un signal, on peut utiliser la fonction **effect()**. Cette dernière doit s'exécuter dans un contexte d'injection (temps du constructeur) car il injecte **DestroyRef** en arrière plan pour fournir un auto-nettoyage. Il est **déclenché** lorsque la valeur des signaux qui sont à l'intérieur du bloc de code sont mises à jour.
 
 **IMPORTANT** ````effect()```` ne se déclenche pas si la valeur observée n'est pas modifiée. 
 
@@ -142,31 +177,7 @@ Par la suite, un clic que le bouton update ne déclenchera plus le effect car la
 
 [Back to top](#signals)     
 
-## Syntaxe
-
-Exemples de syntaxes Signals
-
-````typescript
-// declarative update
-export class SignalComponent {
-	list = signal<Items[]>([]);
-	
-	addItem(item: Item) {
-		this.list.update([...list, item]);
-	}
-}
-
-// impérative mutation
-export class SignalComponent {
-	list = signal<Items[]>([]);
-	
-	addItem(item: Item) {
-		this.list.mutate(ls => ls.push(item));
-	}
-}
-````
-
-[Back to top](#signals)     
+</details>
 
 ## Avantages et inconvénients
 
