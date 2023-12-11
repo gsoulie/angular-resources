@@ -181,7 +181,10 @@ Par la suite, un clic que le bouton update ne déclenchera plus le effect car la
 
 ## Avantages et inconvénients
 
-AVANTAGE SIGNALS
+<details>
+	<summary></summary>
+
+ AVANTAGE SIGNALS
 
 * Réactivité fine     
 Avec les signaux, les modifications apportées à des propriétés de données spécifiques peuvent déclencher des mises à jour uniquement sur les composants qui en dépendent, plutôt que de mettre à jour l'intégralité de l'arborescence des composants. Cette réactivité fine conduit à une détection des changements plus rapide et plus efficace.
@@ -205,11 +208,16 @@ Pendant ce temps, les signaux ont un support intégré pour le suivi des dépend
 
 Cela étant dit, les signaux et RxJS ne s'excluent pas mutuellement. En fait, ils peuvent être utilisés ensemble pour créer de puissantes applications réactives. Par exemple, vous pouvez utiliser RxJS pour modéliser des flux asynchrones complexes, puis utiliser des signaux pour déclencher des mises à jour de l'interface utilisateur en fonction des modifications apportées à ces données.
 
+</details>
+
 ## Signal vs RxJS
 
 [source - Josh MORONY](https://www.youtube.com/watch?v=iA6iyoantuo&ab_channel=JoshuaMorony)     
 
-syntaxe plus claire, concise
+<details>
+	<summary></summary>
+
+ syntaxe plus claire, concise
 signal gère lui-même les souscription, il n'est donc plus nécessaire de se préoccuper d'utiliser les pipe async ou de unsubscribe ses observables
 intégrité des valeurs
 
@@ -344,4 +352,7 @@ counter1.set(3);
 counter0.set(2);
 // logs 2 3
 ````
-[Back to top](#signals)     
+[Back to top](#signals)  
+
+</details>
+   
