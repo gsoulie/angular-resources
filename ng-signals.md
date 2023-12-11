@@ -197,7 +197,29 @@ Par la suite, un clic que le bouton update ne déclenchera plus le effect car la
 * ````update```` : prend en paramètre l'ancienne valeur et fourni une nouvelle valeur
 * ````set```` : équivalent à *update*
 
-[Back to top](#signals)     
+[Back to top](#signals)    
+
+### Cas très particulier
+
+Il peut arriver dans de rares cas, que l'on ait besoin de modifier un signal depuis le *effect*. Pour se faire, il faut utiliser le paramètre ````allowSignalWrites: true````
+
+
+````typescript
+@Component({...})
+export class CounterComponent {
+  count = signal(0);
+
+  constructor() {
+
+    effect(() => {
+      this.count.set(1);
+    },
+        {
+            allowSignalWrites: true
+        });
+  }
+}
+````
 
 </details>
 
