@@ -141,9 +141,31 @@ Les signaux **computed** se basent sur la valeur actuelle (la plus récente) des
 
 Si l'on souhaite uniquement *détecter* le changement de valeur d'un signal, on peut utiliser la fonction **effect()**. Cette dernière doit s'exécuter dans un contexte d'injection (temps du constructeur) car il injecte **DestroyRef** en arrière plan pour fournir un auto-nettoyage. Il est **déclenché** lorsque la valeur des signaux qui sont à l'intérieur du bloc de code sont mises à jour.
 
-**IMPORTANT** ````effect()```` ne se déclenche pas si la valeur observée n'est pas modifiée. 
+**IMPORTANT** Pour traquer le changement de valeur, il faut utiliser le signal dans le ````effect()````. De plus, ce dernier ne se déclenche pas si la valeur observée n'est pas modifiée. 
+
+*exemple 1*
+
+````typescript
+//The effect will be re-run whenever any 
+// of the signals that it uses changes value.
+effect(() => {
+
+  // We just have to use the source signals 
+  // somewhere inside this effect
+  const currentCount = this.counter();
+
+  const derivedCounter = this.derivedCounter();
+
+  console.log(`current values: ${currentCount} 
+    ${derivedCounter}`);
+
+});
+````
+
 
 Dans le code suivant, l'effect est déclenché à l'initialisation et affichera 'Effect runs with : true' :
+
+*Exemple 2*
 
 ````typescript
 @Component({
