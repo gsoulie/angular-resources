@@ -307,10 +307,59 @@ export class CounterService {
 ````
 </details>
 
+### Ne pas modifier directement les propriétés ou la valeur d'un signal
+
+<details>
+	<summary>Il est fortement déconseillé de modifier directement la valeur ou la propriété d'un Signal </summary>
+
+ ````typescript
+@Component(
+    selector: "app",
+    template: `
+  <h3>List value: {{list()}}</h3>
+  <h3>Object title: {{object().title}}</h3>
+`)
+export class AppComponent {
+
+    list = signal([
+        "Hello",
+        "World"
+    ]);
+
+    object = signal({
+       id: 1,
+       title: "Angular For Beginners"
+    });
+
+    constructor() {
+        this.list().push("Again");		
+        this.object().title = "overwriting title";
+    }
+}
+````
+
+Modifier directement le Signal sans passer par une fonction ````set()```` ou ````update()```` contourne l'ensemble du système de fonctionnement
+de Signal, ce qui peut provoquer des bugs. En effet, modifier directement la propriété ou la valeur d'un signal, ne déclenchera pas la mise à jour
+des autres Signaux de type ````computed()```` qui pourrait lui être rattaché.
+
+</details>
+
+### Vérification d'égalité
+
+Une autre chose à mentionner concernant les signaux de tableau ou d'objet est que la vérification d'égalité par défaut est "===".
+
+Cette vérification d'égalité est importante car un signal n'émettra une nouvelle valeur que si la nouvelle valeur que nous essayons d'émettre est différente de la valeur précédente.
+
+Si la valeur que nous essayons d'émettre est considérée comme la même que la valeur précédente, alors Angular n'émettra pas la nouvelle valeur du signal.
+
+Il s'agit d'une optimisation des performances qui évite potentiellement un nouveau rendu inutile de la page, au cas où nous émettrions systématiquement la même valeur.
+
+Le comportement par défaut est cependant basé sur l'égalité référentielle "===", ce qui ne nous permet pas d'identifier des tableaux ou des objets fonctionnellement identiques.
+
 ## Avantages et inconvénients
 
 <details>
-	<summary></summary>
+	<summary>Que nous apporte Signal ?</summary>
 
  AVANTAGE SIGNALS
 
