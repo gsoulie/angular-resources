@@ -423,33 +423,38 @@ La façon de gérer le contrôle de l’affichage des parties d’un template va
 
 #### Nouvelle syntaxe
 
+
 ````html
-{#if someCondition}
+@if (someCondition) {
  someCondition is true
-{:else}
+} @else{
   someCondition is false
-{/if}
+}
 ````
 ````html
-{#for product of products; track product.id}
+@for (product of products; track product.id) {
   <div>{{ product.name }}</div>
-{:empty}
+} @empty {
   <p>No products available.</p>
-{/for}
+}
 ````
 
-> On note l'apparition de ````{:empty}```` qui est très intéressante pour les boucles for
+> On note l'apparition de ````@empty```` qui est très intéressante pour les boucles for
 ````html
-{#switch role}
-  {:case 'director'}
-    <p>You are a director</p>
-  {:case 'teacher'}
-    <p>You are a teacher</p>
-  {:case 'student'}
-    <p>You are a student</p>
-  {:default}
-    <p>You are a student</p>
-{/switch}
+@switch (membershipStatus) {
+    @case ('gold') {
+        <p>Your discount is 20%</p>
+    }
+    @case ('silver') {
+        <p>Your discount is 10%</p>
+    }
+    @case ('bronze') {
+        <p>Your discount is 5%</p>
+    }
+    @default {
+        <p>Keep earning rewards</p>
+    }
+}
 ````
 
 Nous passons donc à un **Control Flow par bloc**, tout cela a été mis en place **pour plusieurs raisons** :
