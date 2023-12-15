@@ -45,8 +45,12 @@ Mais ce n'est pas tout, la keynote a bien évidemment été l'occasion de prése
 
 # Angular v17
 
-> [présentation de la v17 - blog officiel Angular](https://blog.angular.io/introducing-angular-v17-4d7033312e4b)      
+> [présentation de la v17 - blog officiel Angular](https://blog.angular.io/introducing-angular-v17-4d7033312e4b)
 
+<details>
+	<summary>Présentation</summary>
+
+ 
 ## Progressive hydration et SSR
 
 Un **nouveau paquet ````@angular/ssr```` package** vient remplacer Angular Universal (il s'agit d'une migration).
@@ -305,77 +309,12 @@ Il est désormais possible de déclarer les styles dans une chaîne seule et non
 La prise en charge de Material 3 arrivera dans une version future
 </details>
 
-# v17
-
-[angular 17 defer](https://dev.to/this-is-angular/new-angular-v17-feature-deferred-loading-41mi)      
-
-active le lazy-loading sur le contenu d'un bloc, ainsi qu'à toutes ses dépendances (composants, pipes, directives)
-
-Exemple d'implémentation avec une checkbox bindée sur la valeur isCheckDefer (qui est un signal)
-
-````typescript
-<div>
-  <input #checkboxDefer type="checkbox" [checked]="isCheckedDefer()" (change)="isCheckedDefer.set(checkboxDefer.checked)" id="checkboxDefer"/>
-  <label for="checkboxDefer">Open the network tab of the browser's developer tools, then check this checkbox to load the <strong>app-c1</strong> component</label>
-</div>
-<br>
-
-@defer (when isCheckedDefer()) {
-  <app-c1/>
-}
-@placeholder {
-  <span>Placeholder</span>
-}
-@error {
-  <span>Error</span>
-}
-@loading(minimum 1s) {
-  <span>Loading...</span>
-}
-````
-
-Le bloc ````@defer```` est rendu lorsque la condition est validée (ici la valeur du signal isCheckDefer devient vrai)    
-le bloc ````@placeholder```` est rendu **avant** le bloc ````@defer````      
-Le bloc ````@loading```` est rendu pendant le temps de chargement du bloc ````@defer````     
-Le bloc ````@error```` est affiché en cas d'échec du chargement     
-
-Les blocs ````@placeholder, @loading et @error```` sont optionnels.
-
-### Conditions de déclenchement
-
-Le bloc ````@defer```` peut être déclenché par les triggers suivants :
-
-* on interaction
-* on hover
-* on idle
-* on timer
-* on viewport
-
-````typescript
-@defer (on timer(5s)) {
-  <span>Visible after 5s&lt;/span>
-}
-@placeholder {
-  <span>Placeholder&lt;/span>
-}
-````
-
-### Pré-chargement
-
-Il est également possible de spécifier une condition de pré-chargement
-
-````typescript
-@defer (on interaction; prefetch on hover) {
-  <app-c3/>
-}
-@placeholder {
-  <span>Placeholder (hover it, then click on it!)</span>
-}
-````
+</details>
 
 # ng-conf 2023
 
-## Quelques annonces faites lors de la ng-conf 2023
+<details>
+	<summary>Quelques annonces faites lors de la ng-conf 2023</summary>
 
 Les 14 et 15 juin 2023 avaient lieu la **ng-conf 2023**, l'occasion de présenter les nouveautés apportées par Angular 16, mais aussi de parler du futur. 
 
@@ -383,11 +322,11 @@ A cette occasion quelques infos intéressantes ont été annoncées, en voici qu
 
 > **Disclaimer** : Ces "nouveautés" ne sont pour l'heure par en version finale, il convient donc de rester prudent sur leur adoption pour le moment. Vous pouvez consulter les RFC ici [RFC Control flow](https://github.com/angular/angular/discussions/50719) et [RFC defer loading](https://github.com/angular/angular/discussions/50716)
 
-### Nouvelle API pour le control flow (*ngIf, *ngFor, ngSwitch)
+## Nouvelle API pour le control flow (*ngIf, *ngFor, ngSwitch)
 
 La façon de gérer le contrôle de l’affichage des parties d’un template va changer ! Comparons tout cela.
 
-#### Syntaxe actuelle
+### Syntaxe actuelle
 
 ***ngIf**
 ````html
@@ -421,7 +360,7 @@ La façon de gérer le contrôle de l’affichage des parties d’un template va
 </div>
 ````
 
-#### Nouvelle syntaxe
+### Nouvelle syntaxe
 
 
 ````html
@@ -470,7 +409,7 @@ Pour le dernier point cité, pour **rappel** : Aujourd’hui les applications An
 * **A terme, les directives actuelles vont être dépréciées** !
 * La fonction *trackBy* de ````{:for}```` va devenir **obligatoire**
 
-### defer
+## defer
 
 Autre grande nouveauté annoncée, l'apparition d'un mot clé **````defer````**
 
@@ -479,82 +418,16 @@ L’idée est d’apporter une façon **agréable** et **facile** de **gérer le
 L'arrivée de **````defer````** va permettre **de différer le chargement de parties distinctes des pages** (typiquement les composants utilisés dans nos pages).
 
 **Il s’agit donc d’optimisation de performance.**
+ 
+</details>
 
-*Exemple*
-````html
-<p>some content</p>
-
-<my-list />
-
-{#defer when someCondition}
-  <some-component />
-{/defer}
-````
-
-Tout ce qui sera se trouvera à l’intérieur du bloc ````{#defer}...{/defer}```` sera lazy loadé de manière asynchrone, c’est à dire après que tout le reste soit chargé.
-
-Afin de rendre ce chargement conditionnel, plusieurs mots clés associés à defer sont disponibles 
-
-* le mot-clé **````when````** qui permet une gestion impérative du bloc. Il suffit simplement de renseigner une expression qui retourne un booléen.
-  
-* le mot-clé **````on````** qui permet une gestion plus déclarative. Il suffit de spécifier un évènement dont voici quelques exemples :
-
-````html
-  // Si le user passe sa souris par dessus le bloc
-{#defer on hover}
-  <some-component />
-{/defer}
-
-// Si le user clique sur le composant ou lors d'évènements claviers notamment
-{#defer on interaction}
-  <some-component />
-{/defer}
-
-// après n millisecondes 
-{#defer on timer(500)}
-  <some-component />
-{/defer}
-
-// lorsque le bloc entre dans le viewport 
-{#defer on viewport}
-  <some-component />
-{/defer}
-````
-
-**Par défaut, les blocs defer n’affichent rien** lorsqu’ils ne sont pas déclenchés. Mais il est possible de spécifier un contenu qui s’affiche avant que les blocs ne soient eux-mêmes chargés :
-
-````html
-{#defer on viewport}
-  <some-component />
-{:loading}
-  <div class="loading">Loading the component...</div>
-{/defer}
-
-<!-- autre exemple -->
-
-{#defer on viewport}
-  <some-component />
-{:placeholder minimum 500ms}
-  <img src="placeholder.png" />
-{/defer}
-````
-
-Il est aussi possible de faire une gestion des erreurs :
-
-````html
-{#defer when someCondition}
-  <some-component />
-{:error}
-  <p> Failed to load</p>
-  <p><strong>Error:</strong> {{$error.message}}</p>
-{/defer}
-````
 
 [Back to top](#nouveautés)    
 
 # v16
 
-## Résumé des principales nouveautés
+<details>
+	<summary>Résumé des principales nouveautés</summary>
 
 > [Article complet Blog Angular 16 officiel](https://blog.angular.io/angular-v16-is-here-4d7a28ec680d)
 
@@ -907,10 +780,13 @@ Ce n'est bien sûr qu'un exemple très basique. Vous trouverez plus d'infos et d
 [https://www.angulararchitects.io/en/aktuelles/angular-signals/](https://www.angulararchitects.io/en/aktuelles/angular-signals/)
 
 [Back to top](#nouveautés)    
+ 
+</details>
 
 # v15
 
-`13/03/2023`
+<details>
+	<summary>13/03/2023</summary>
 
 ## Suppression des fichiers environment.ts
 
@@ -1146,13 +1022,17 @@ Se référer au guide de migration pour plus de détails : [https://github.com/a
 ![](https://img.shields.io/badge/Important-DD0031.svg?logo=LOGO) le passage à la v15 implique une potentielle **mise à jour de NodeJS** vers l'une des versions suivantes : 14.20.x, 16.13.x and 18.10.x
 
 [Back to top](#nouveautés)    
+ 
+</details>
 
 # v14
 
 > [Blog officiel Angular - Angular 14 is now available !](https://blog.angular.io/angular-v14-is-now-available-391a6db736af)
 
-**Nouveautés notables**
+<details>
+	<summary>Nouveautés notables</summary>
 
+ 
 - Les standalone components : Une nouvelle propriété `standalone` a fait son apparition dans les composants (dans le decorator) et leur permet de ce fait, de ne plus avoir besoin d'être importés dans un module via `NgModule()`. CLI `ng g c myCompo --standalone`
 - Formulaires strictement typés pour plus de contrôle
 - Nouvel attribut `title` dans le fichier de routing, permettant enfin pouvoir donner des titres aux pages
@@ -1178,9 +1058,14 @@ Donc **N'OUBLIEZ PAS** de vérifier votre .gitignore et y ajouter la ligne suiva
 
 ```
 
-[Back to top](#nouveautés)      
+[Back to top](#nouveautés)  
 
+</details>
+    
 # AnalogJS
+
+<details>
+	<summary>Le nouveau meta-framework</summary>
 
 Maintenant que le marché des framework JS commence à saturer, la guerre se joue à présent sur les Meta-Framework ! Et dans le domaine, Angular était le dernier à ne pas en avoir un ! Et bien c'est maintenant chose faite avec **AnalogJS.**
 
@@ -1203,7 +1088,10 @@ La doc par ici : [https://analogjs.org/docs](https://analogjs.org/docs)
 
 Extrait Vite Conf 2022 (17min) [https://www.youtube.com/watch?v=IlUssKC3Mt4&amp;ab\_channel=ViteConf](https://www.youtube.com/watch?v=IlUssKC3Mt4&ab_channel=ViteConf)
 
-[Back to top](#nouveautés)    
+[Back to top](#nouveautés)   
+ 
+</details>
+
 
 # Dépréciations
 
