@@ -27,14 +27,15 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   // withComponentInputBinding : activé pour pouvoir récupérer les paramètres de route via les @Input()
   providers: [
     provideRouter(routes, withComponentInputBinding()),
     provideAnimations(),
-    importProvidersFrom(HttpClientModule)	// <---
+    provideHttpClient(),	// <--
+    //importProvidersFrom(HttpClientModule)	// <--- Ancienne méthode
   ]
 };
 ````
