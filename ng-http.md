@@ -169,6 +169,11 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable } from '@angular/core';
 
 @Injectable()
+/*
+@Injectable({
+  providedIn: 'root'
+})*/
+
 export class HttpInterceptorService implements HttpInterceptor {
 
   constructor(private authService: AuthService) { }
