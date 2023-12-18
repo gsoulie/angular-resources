@@ -17,6 +17,7 @@ npm i ws
 <details>
   <summary>Code du serveur</summary>
 
+*server.js*
 ````typescript
 const express = require("express");
 const jwt = require("jsonwebtoken");
