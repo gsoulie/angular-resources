@@ -1436,6 +1436,8 @@ export function authJwtGuard(fallbackRoute: string = 'login'): CanActivateFn {
 ````typescript
 import { Routes } from '@angular/router';
 import { authJwtGuard } from './lib/auth/auth-jwt/guards/auth-jwt.guard';
+import { inject } from '@angular/core';
+import { AuthJwtService } from './lib/auth/auth-jwt/services/auth-jwt.service';
 
 export const routes: Routes = [{
   path: 'todos',
@@ -1445,9 +1447,11 @@ export const routes: Routes = [{
   loadComponent: () => import('./pages/protected/protected.component').then(m => m.ProtectedPage),
   canActivate: [authJwtGuard('/login')]
 }, {
-  path: 'login',
-  loadComponent: () => import('./lib/auth/auth-jwt/components/auth-jwt-login.component').then(m => m.LoginJwtComponent)
+  path: 'login',	// Accessible uniquement si on n'est pas connecté
+  loadComponent: () => import('./lib/auth/auth-jwt/components/auth-jwt-login.component').then(m => m.LoginJwtComponent),
+  canActivate: [() => !inject(AuthJwtService).isLoggedIn()]
 }];
+
 ````
  
 </details>
