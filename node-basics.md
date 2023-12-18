@@ -24,6 +24,9 @@ Dans le répertoire du server ````npm i --save express mongoose body-parser morg
 
 *server.js*
 
+<details>
+	<summary>Code du serveur</summary>
+
 ````typescript
 const express = require('express');
 const mongoose = require('mongoose');
@@ -120,6 +123,8 @@ app.listen(app.get('port'), () => {
 // Exports (si besoin d'utiliser dans un autre fichier)
 module.exports = app;
 ````
+ 
+</details>
 
 ## Architecture Multi-fichiers
 
