@@ -1337,8 +1337,10 @@ export default class HomeComponent {	// <-- déclarer le composant en "default" 
 [Back to top](#navigation)
 	
 ## Dépréciation v15
-	
-Actuellement, la déclaration et l'utilisation classique d'un guard est réalisée de la manière suivante : 
+
+<details>
+	<summary>Actuellement, la déclaration et l'utilisation classique d'un guard est réalisée de la manière suivante : </summary>
+
 
 ````typescript
 @Injectable({ providedIn: 'root' })
@@ -1405,7 +1407,51 @@ const route = {
   path: 'admin',
   canActivate: mapToActivate([IsAdminGuard]),
 };
+```` 
+</details>
+
+<details>
+	<summary>Exemple functionnal guard avec redirection</summary>
+
+*auth-guard.guard.ts*
+````typescript
+import { inject } from "@angular/core";
+import { AuthJwtService } from "../services/auth-jwt.service";
+import { CanActivateFn, Router } from "@angular/router";
+
+export function authJwtGuard(fallbackRoute: string = 'login'): CanActivateFn {
+  return () => {
+    const isLoggedIn = inject(AuthJwtService).isLoggedIn();
+    const router = inject(Router);
+
+    if (!isLoggedIn) {
+      router.navigate([fallbackRoute]);
+    }
+    return isLoggedIn;
+  }
+};
 ````
+
+*app.routes.ts*
+````typescript
+import { Routes } from '@angular/router';
+import { authJwtGuard } from './lib/auth/auth-jwt/guards/auth-jwt.guard';
+
+export const routes: Routes = [{
+  path: 'todos',
+  loadComponent: () => import('./pages/todolist/todos.component')
+}, {
+  path: 'protected',
+  loadComponent: () => import('./pages/protected/protected.component').then(m => m.ProtectedPage),
+  canActivate: [authJwtGuard('/login')]
+}, {
+  path: 'login',
+  loadComponent: () => import('./lib/auth/auth-jwt/components/auth-jwt-login.component').then(m => m.LoginJwtComponent)
+}];
+````
+ 
+</details>
+
 [Back to top](#navigation)
 
 # Tuto Deactive Guard
