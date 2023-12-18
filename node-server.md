@@ -14,6 +14,9 @@ npm install express jsonwebtoken body-parser
 npm i ws
 ````
 
+<details>
+  <summary>Code du serveur</summary>
+
 ````typescript
 const express = require("express");
 const jwt = require("jsonwebtoken");
@@ -248,7 +251,9 @@ wss.on("connection", (ws) => {
 
 // node server.js
 
-````
+````  
+</details>
+
 
 Lancer le serveur ````node server.js````
 
@@ -271,9 +276,10 @@ fetch("http://localhost:3000/generateToken", {
       .catch(console.log);
 ````
 
-*Composant React websocket*
+#### Composant React websocket
 
-Affiche le flux en temps réel
+<details>
+  <summary>Afficher le flux en temps réel</summary>
 
 ````typescript
 import { useEffect, useState } from "react";
@@ -316,5 +322,5 @@ export default function Websocket() {
     </div>
   );
 }
-
-````
+```` 
+</details>
