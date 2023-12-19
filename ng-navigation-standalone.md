@@ -260,4 +260,19 @@ export const routes: Routes = [{
 
 </details>
 
+<details>
+	<summary>Exemple avec injection de service</summary>
+
+ ````typescript
+export const canActivate = (authService = inject(AuthService)) => authService.isLogged
+
+export const routes: Routes = [
+{
+    path: 'guard',
+    canActivate: [() => canActivate()],
+    loadComponent: () => import('./components/functionl-guards/functionl-guards.component')
+  }
+]
+</details>
+
 </details>
