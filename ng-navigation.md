@@ -58,77 +58,6 @@ Dans le cas d'un chemin relatif, alors il faudra veiller à ce qu'il ne commence
 ng g guard my-guard --functional
 ng g guard my-guard --functional --guard-type canDeactivate
 ````
-
-## Functional guards et migration
-
-Depuis Angular 14, il est possible et conseillé, d'écrire les gardes sous forme de fonction plutôt que de classe :
-
-````typescript
-const hasRole = (role: string): boolean => {
-	return inject(AuthService).role$.pipe(
-		map(roles => roles.map(x => x.name).includes(role))
-	)
-}
-
-export const routes: Routes = [
-	{
-		path: 'home',
-		children: [
-			{
-				path: '',
-				canMatch: [() => hasRole('user')],
-				loadComponent: () => import('./user-home.component'),
-			},
-			{
-				path: '',
-				canMatch: [() => hasRole('admin')],
-				loadComponent: () => import('./user-admin.component'),
-			}
-		]
-	}
-]
-````
-
-### Migration des class-based guards bientôt dépréciés
-
-Les gardes sous forme de classe ainsi que les resolver sont voués à disparaîtres. Il faudra donc à terme convertir les gardes en gardes fonctionnels :
-
-````typescript
-// Class-based classic guard
-@Injectable({providedIn: 'root'})
-export class AuthGuard implements CanActivate {
-	#authService = inject(AuthService);
-	
-	canActivate() {
-		return this.#authService.isLoggedIn$;
-	}
-}
-
-// Functional guard
-export const authGuard: CanActivateFn = () => {
-	const authService = inject(AuthService);
-	return authService.isLoggedIn$;
-}
-
-// Utilisation actuelle
-const routes: Routes = [
-	{
-		path: 'admin',
-		canActivate: [authGuard],
-		loadComponent: () => import('./user-admin.component'),
-	}
-]
-
-// Utilisation FUTURE lorsque les class-based guard et resolver seront dépréciés
-const routes: Routes = [
-	{
-		path: 'admin',
-		canActivate: mapToGuards.canActivate([AuthGuard]),
-		loadComponent: () => import('./user-admin.component'),
-	}
-]
-````
-
 ## Relative route
 
 Soit le routage suivant :
@@ -317,49 +246,6 @@ export class UsersRoutingModule { }
 ````
 [Back to top](#navigation)   
 
-### Utilisation avec composants standalone
-
-Depuis Angular 14 il est possible d'utiliser des composants de type *standalone*. Cette utilisation présente quelques différences dans la gestion du routage.
-
-Le chargement d'un composant standalone se fait avec la fonction **loadComponent**. Si ce dernier comporte des routes enfants, alors on utilisera la fonction **loadChildren**
-
-*app-routing.module.ts*
-
-````typescript
-import { HomeComponent } from './components/home/home.component';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [
-  {
-    path: 'home',
-    component: HomeComponent
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
-    path: 'parent',
-    loadChildren: () => import('./components/standalone/parent/routes').then(mod => mod.STANDALONE_ROUTES)	// chargement avec routes enfant
-    //loadComponent: () => import('./components/standalone/parent/parent.component').then(m => m.ParentComponent)	// chargement composant standalone seul sans routes enfant
-  }
-];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
-````
-
-L'utilisation de routes enfant dans un composant standalone nécessite de créer un fichier contenant les routes un peu à la manière du *app-routing.module.ts*
-
->  Code complet disponible ici : (https://github.com/gsoulie/ng-routing-v14)   
-
-[Back to top](#navigation)   
-
 ## Naviguer depuis la vue
 
 Syntaxes possibles :
@@ -397,38 +283,6 @@ On peut aussi définir plusieurs classes à l'aide d'une chaîne séparée par d
 
 ## Routing parameters
 [Back to top](#navigation)   
-
-### Récupération des paramètres via @Input
-
-<details>
-	<summary>Depuis Angular 16, il est possible de récupérer les paramètres de route comme tout paramètre d'un composant avec un @Input</summary>
-
-Afin d'utiliser cette nouvelle fonctionnalité, nous devons l'activer dans le RouterModule :
-````typescript
-@NgModule({
-	imports: [
-		RouterModule.forRoot([], {
-			// ... autres fonctionnalités
-			bindToComponentInputs: true // <-- activer cette fonctionnalité
-		})
-	],
-})
-export class AppModule {}
-````
-
-Ou si nous sommes dans une application **standalone**, nous pouvons l'activer de cette manière :
-
-````typescript
-bootstrapApplication(App, {
-	providers: [
-		provideRouter(routes,
-			// ... autres fonctionnalités
-			withComponentInputBinding() // <-- activer cette fonctionnalité
-		)
-	],
-});
-````
-</details>
 
 ### Passage de données statiques
 
@@ -574,7 +428,6 @@ ngOnInit() {
 ````
 
 ### router State
-
 
 *home.page.ts*
 
