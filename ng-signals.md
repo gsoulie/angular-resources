@@ -139,6 +139,59 @@ const readOnlyCounter = this.counter.asReadonly();
 // Ceci lèvera une erreur !
 readOnlyCounter.set(5);
 ````
+
+
+### Exemple d'écriture : signal, control flow
+
+````typescript
+@Component({
+	standalone: true,
+	selector: 'app-detail',
+	template: `
+		@if(todo() as todo) {
+			<h2>{{ todo.title }}</h2>
+			<p>{{ todo.description }}</p>
+		} @ else {
+			<p>Could not find todo...</p>
+		}
+	`
+})
+
+export default class DetailComponent {
+	private route = inject(ActivatedRoute);
+	private todoService = inject(TodoService);
+	
+	private paramMap = toSignal(this.route.paramMap);	// transformation de l'observable paramMap en signal
+	
+	todo = computed(() => 
+		this.todoService
+			.todos()
+			.find((todo) => todo.id === this.paramMap()?.get('id'))
+	);
+}
+````
+
+### Exemple de service avec Signal
+
+export class TodoService {
+
+	// On souhaite que seule cette classe puisse modifier ce signal. 
+	// Ajouter un '#' rend cette variable privée
+	#todos = signal<Todo[]>([]);
+	
+	todos = this.#todos.asReadonly();	// cette variable est lisible publiquement
+	
+	addTodo(todo: CreateTodo) {
+		this.#todo.update((todos) => [
+			...todos, 
+			{...todo, id: Date.now().toString() },
+		]);
+	}
+}
+
+## Bonnes pratiques Signal
+
+https://blog.angular-university.io/angular-signals/
 [Back to top](#signals)     
 
 ## effect
