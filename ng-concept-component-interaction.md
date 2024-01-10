@@ -4,7 +4,7 @@
 
 Angular fonctionne en single way data-binding, c'est à dire que les enfants ne peuvent communiquer qu'avec leur parent direct. C'est donc le parent qui transmet ses propriété via un *@Input*. Si l'enfant souhaite modifier une valeur, il doit en notifier son parent via un Event Emitter dans avec un *@Output*
 
-### @Input
+## @Input
 
 Depuis Angular v16, le décorateur ````@Input```` prend en charge plusieurs nouvelles fonctionnalités, notamment :
 
@@ -14,7 +14,6 @@ Depuis Angular v16, le décorateur ````@Input```` prend en charge plusieurs nouv
 * transform (booleanAttribute)
 * transform (numberAttribute)
 
-*Child component*
 ````typescript
 export class WidgetComponent {
   @Input({required: true}) title: string = '';
@@ -34,6 +33,26 @@ export class WidgetComponent {
 	disabled
 	zoom="7"
 	[value]="100" />
+````
+
+### @Input / @Output de type Signal
+
+utilisation classique des @Input / @Output 
+
+````typescript
+@Input({required: true}) todos!: Todo[];
+
+@Ouput() todoSubmitEvent = new EventEmitter<CreateTodo>();
+````
+
+Nouvelle syntaxe permettant de recevoir des input / output de type Signal :
+
+````typescript
+todos = input<Todo[]>();
+
+todoSubmitEvent = output<CreateTodo>();
+
+firstTodo = computed(() => this.todos()[0])
 ````
 
 > Important : l'enfant ne peut pas modifier l'objet fourni par le parent !
