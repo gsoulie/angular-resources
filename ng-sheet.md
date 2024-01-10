@@ -50,7 +50,8 @@
 		* Design pattern bridge      
 	* [ng-template](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-ng-template.md)     
 		* Skeleton view       	
-	* [Intéraction composant](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-component-interaction.md)      
+	* [Intéraction composant](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-component-interaction.md)
+ 		* @Input / @Output	
 	* [Directives structurelles](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-structural-directive.md)   
 	* [PWA : Service worker - Web worker](https://github.com/gsoulie/angular-resources/blob/master/ng-service-worker.md)       
 	* [Gestion du state avec NgRx](https://github.com/gsoulie/angular-resources/blob/master/ng-ngrx.md)     
