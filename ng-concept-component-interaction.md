@@ -6,30 +6,35 @@ Angular fonctionne en single way data-binding, c'est à dire que les enfants ne 
 
 ### @Input
 
-**Enfant**
+Depuis Angular v16, le décorateur ````@Input```` prend en charge plusieurs nouvelles fonctionnalités, notamment :
 
-Propriété dans composant enfant
+* required 
+* alias 
+* transform (fn)
+* transform (booleanAttribute)
+* transform (numberAttribute)
 
+*Child component*
 ````typescript
-@Input() public user: Object;
-
-<input type="text" [(ngModel)]="user.name" />
-````
-
-**Parent**
-
-````typescript
-<app-compo-enfant [user]="myUser"></app-compo-enfant>
-
-myUser: Object
-
-ngOnInit() {
-	this.myUser = {
-		name: 'Mon user'
-	}
+export class WidgetComponent {
+  @Input({required: true}) title: string = '';
+  @Input({alias: 'content'}) body: string | undefined;
+  @Input({transform: booleanAttribute}) disable = false;
+  @Input({transform: numberAttribute}) zoom = 5;
+  @Input({transform: (value: number) => value * 1000 }) value: number | undefined;
 }
 ````
 
+*Parent*
+
+````html
+<app-widget
+	title="Hello"
+	content="..."
+	disabled
+	zoom="7"
+	[value]="100" />
+````
 
 > Important : l'enfant ne peut pas modifier l'objet fourni par le parent !
 Si l'enfant modifie l'objet, il doit remonter l'information au père avec event emitter
