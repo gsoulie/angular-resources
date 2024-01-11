@@ -78,7 +78,7 @@ npm install -g @angular/cli@latest
 
 L'équipe Angular préconise de mettre à jour en premier le CLI et le Core :
 
-````$ ng update @angular/cli @angular/core````
+````ng update @angular/cli @angular/core````
 Après quoi, mettre à jour le reste des packages Angular.
 
 [Back to top](#commandes)
