@@ -37,6 +37,8 @@ export class WidgetComponent {
 
 ### @Input / @Output de type Signal
 
+https://justangular.com/blog/signal-inputs-are-here-to-change-the-game
+
 utilisation classique des @Input / @Output 
 
 ````typescript
