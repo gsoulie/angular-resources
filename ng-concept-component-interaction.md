@@ -21,6 +21,7 @@ export class WidgetComponent {
   @Input({transform: booleanAttribute}) disable = false;
   @Input({transform: numberAttribute}) zoom = 5;
   @Input({transform: (value: number) => value * 1000 }) value: number | undefined;
+  @Input({transform: (product: Product) => {...value, displayedName: product?.name.toUpperCase() }) product: Product | undefined;
 }
 ````
 
