@@ -18,7 +18,7 @@ Depuis Angular v16, le décorateur ````@Input```` prend en charge plusieurs nouv
 export class WidgetComponent {
   @Input({required: true}) title: string = '';
   @Input({alias: 'content'}) body: string | undefined;
-  @Input({transform: booleanAttribute}) disable = false;
+  @Input({transform: booleanAttribute}) disabled string | boolean = false;	// transformer une chaîne en bool
   @Input({transform: numberAttribute}) zoom = 5;
   @Input({transform: (value: number) => value * 1000 }) value: number | undefined;
   @Input({transform: (product: Product) => {...value, displayedName: product?.name.toUpperCase() }) product: Product | undefined;
