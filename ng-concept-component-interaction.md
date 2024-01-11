@@ -45,7 +45,7 @@ utilisation classique des @Input / @Output
 @Ouput() todoSubmitEvent = new EventEmitter<CreateTodo>();
 ````
 
-Nouvelle syntaxe permettant de recevoir des input / output de type Signal :
+Depuis Angular **v17.1**, une nouvelle syntaxe permet de recevoir des input / output de type Signal :
 
 ````typescript
 todos = input<Todo[]>();
@@ -53,6 +53,28 @@ todos = input<Todo[]>();
 todoSubmitEvent = output<CreateTodo>();
 
 firstTodo = computed(() => this.todos()[0])
+````
+
+Cette nouvelle syntaxe permet de définir automatiquement la variable comme *undefined* si cette dernière n'a pas été marquée comme *required*
+
+Il est aussi possible de définir cet input comme *required* de la manière suivante
+
+````typescript
+export class UserComponent {
+  user = input.required<User>();
+}
+
+// équivalent à :
+
+@Input({ required: true }) user!: User;
+````
+
+On peut également passer des valeurs par défaut 
+
+````typescript
+export class UserComponent {
+  user = input<User>({ name: '', email: '' });
+}
 ````
 
 > Important : l'enfant ne peut pas modifier l'objet fourni par le parent !
