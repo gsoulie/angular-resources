@@ -17,7 +17,7 @@ Depuis Angular v16, le décorateur ````@Input```` prend en charge plusieurs nouv
 ````typescript
 export class WidgetComponent {
   @Input({required: true}) title: string = '';
-  @Input({alias: 'content'}) body: string | undefined;
+  @Input({alias: 'content'}) body: string | undefined;	// renommer le paramètre content en body
   @Input({transform: booleanAttribute}) disabled string | boolean = false;	// transformer une chaîne en bool
   @Input({transform: numberAttribute}) zoom = 5;
   @Input({transform: (value: number) => value * 1000 }) value: number | undefined;
