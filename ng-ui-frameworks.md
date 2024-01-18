@@ -188,7 +188,8 @@ Liste des icônes Material : https://www.angularjswiki.com/fr/angular/angular-ma
 
 <details>
 	<summary>Composant custom permettant de facilement manipuler un svg (couleur, taille, url)</summary>
-
+> Important : si l'icône ne s'affiche pas, essayer de le placer dans une div en mode flex avec des dimensions pour tester
+	
 *svg-icon.component.ts*
 
 ````typescript
