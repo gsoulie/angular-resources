@@ -3,7 +3,8 @@
 # UI
 
 * [Frameworks](#frameworks)       
-* [Icons](#icons)      
+* [Icons](#icons)
+* [Svg](#svg)     
 * [Svg custom et mat-icon](#svg-custom-et-mat-icon)       
 * [Theming](#theming)     
 * [Variables sass](#variables-sass)     
@@ -182,6 +183,72 @@ Installation : ```npm install --save bootstrap```, ensuite ajouter la configurat
 [Back to top](#ui)
 
 Liste des icônes Material : https://www.angularjswiki.com/fr/angular/angular-material-icons-list-mat-icon-list/       
+
+## Svg
+
+<details>
+	<summary>Composant custom permettant de facilement manipuler un svg (couleur, taille, url)</summary>
+
+*svg-icon.component.ts*
+
+````typescript
+import { Component, HostBinding, Input } from "@angular/core";
+export type svgSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+
+@Component({
+  selector: 'app-svg-icon',
+  standalone: true,
+  template: ``,
+  styles: `
+  :host {
+    /*height: 100%;
+    width: 100%;*/
+    -webkit-mask-size: contain;
+    -webkit-mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+  }
+  `
+})
+
+export class SvgIconComponent {
+
+  @HostBinding('style.-webkit-mask-image')
+  private _path!: string;
+
+  @Input()
+  public set path(filePath: string) {
+    this._path = `url("${filePath}")`;
+    // this._path = `url("./assets/icons/${filePath}")`;	// si on sait que les svg sont localisé de manière précise
+  }
+
+  @HostBinding('style.background-color') private _svgColor: string = 'black';
+  @Input()
+  public set color(color: string) {
+    this._svgColor = `${color}`;
+  }
+
+  @HostBinding('style.height') private _height: string = '30px';
+  @Input()
+  public set height(height: string) {
+    this._height = `${height}`;
+  }
+
+  @HostBinding('style.width') private _width: string = '30px';
+  @Input()
+  public set width(width: string) {
+    this._width = `${width}`;
+  }
+}
+````
+
+*Utilisation*
+
+````typescript
+<app-svg-icon path="./assets/icons/user.svg" color="red" height="60px" width="60px" />
+<!-- <app-svg-icon path="user.svg" color="red" height="60px" width="60px" />-->
+````
+
+</details>
 
 ## Svg custom et mat-icon
 [Back to top](#ui)
