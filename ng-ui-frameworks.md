@@ -193,7 +193,6 @@ Liste des icônes Material : https://www.angularjswiki.com/fr/angular/angular-ma
 
 ````typescript
 import { Component, HostBinding, Input } from "@angular/core";
-export type svgSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 @Component({
   selector: 'app-svg-icon',
