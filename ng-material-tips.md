@@ -726,6 +726,31 @@ https://www.youtube.com/watch?v=ArTVfdHOB-M&ab_channel=OnlineTutorials
 ## mat-table
 
 ````css
+
+.mat-mdc-table {
+  border: 1px solid $grey200 !important;
+  border-radius: 6px !important;
+}
+
+// border arrondi sur la dernière ligne
+table tr:last-child td /*to remove the last border*/ {
+  border-bottom-left-radius: 6px !important;
+  border-bottom-right-radius: 6px !important;
+}
+
+// Configuration header avec bord arrondi et couleur
+.table-header {
+  .mat-mdc-header-cell {
+    border-top-left-radius: 6px !important;
+    border-top-right-radius: 6px !important;
+    color: $grey400 !important;
+    font-weight: 800 !important;
+  }
+}
+.mat-mdc-header-row {
+  background-color: $grey100 !important;
+}
+
 // couleur du suvrol d'une ligne
 .mat-row:hover > .mat-cell {
   color:  white;
