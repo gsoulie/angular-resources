@@ -17,8 +17,8 @@ Depuis Angular v16, le décorateur ````@Input```` prend en charge plusieurs nouv
 ````typescript
 export class WidgetComponent {
   @Input({required: true}) title: string = '';
-  @Input({alias: 'content'}) body: string | undefined;	// renommer le paramètre content en body
-  @Input({transform: booleanAttribute}) disabled string | boolean = false;	// transformer une chaîne en bool
+  @Input({alias: 'content'}) body: string | undefined;
+  @Input({transform: booleanAttribute}) disable = false;
   @Input({transform: numberAttribute}) zoom = 5;
   @Input({transform: (value: number) => value * 1000 }) value: number | undefined;
   @Input({transform: (product: Product) => {...value, displayedName: product?.name.toUpperCase() }) product: Product | undefined;
@@ -36,19 +36,9 @@ export class WidgetComponent {
 	[value]="100" />
 ````
 
-### @Input / @Output de type Signal
+## @Input / @Output de type Signal
 
-https://justangular.com/blog/signal-inputs-are-here-to-change-the-game
-
-utilisation classique des @Input / @Output 
-
-````typescript
-@Input({required: true}) todos!: Todo[];
-
-@Ouput() todoSubmitEvent = new EventEmitter<CreateTodo>();
-````
-
-Depuis Angular **v17.1**, une nouvelle syntaxe permet de recevoir des input / output de type Signal :
+Depuis Angular **v17.1**, une nouvelle fonction ````input()```` permet de transformer un paramètre input / output en type Signal :
 
 ````typescript
 todos = input<Todo[]>();
@@ -56,6 +46,10 @@ todos = input<Todo[]>();
 todoSubmitEvent = output<CreateTodo>();
 
 firstTodo = computed(() => this.todos()[0])
+
+constructor() {
+  effect(() => console.log(`New value ${this.todos()}`);
+}
 ````
 
 Cette nouvelle syntaxe permet de définir automatiquement la variable comme *undefined* si cette dernière n'a pas été marquée comme *required*
@@ -77,6 +71,30 @@ On peut également passer des valeurs par défaut
 ````typescript
 export class UserComponent {
   user = input<User>({ name: '', email: '' });
+  age = input<number>();
+
+  // équivalent à
+  age = signal(0)
+  @Input({alias: 'age'}) set _age(age: number){
+    this.age.set(age)
+  };
+}
+````
+
+### Input source d'observable
+On peut désormais utiliser le signal comme source d'un observable, pour déclencher une action lorsque l'input change. Par exemple, pour récupérer des données sur un serveur 
+
+````typescript
+export class UserComponent {
+  userService = inject(UserService);
+  
+  userId = input.required<number>();    // peut être soit un paramètre de composant ou directement provenir du paramètre de route via la directive bindToComponentInputs ajoutée depuis la v16
+  
+  // entité récupérée depuis le serveur à chaque fois que le userId change
+  userModel = toSignal(toObservable(this.userId)
+    .pipe(switchMap(id => this.userService.get(id))));
+	
+  imageUrl = computed(() => `assets/user-${this.userModel()!.color}.gif`);
 }
 ````
 
