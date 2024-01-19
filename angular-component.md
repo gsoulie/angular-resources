@@ -113,6 +113,49 @@ De plus, il faut **s'assurer** que le nom donné au ````matColumnsDef```` corres
  </ng-container>
 ````
 
+### Datasource observable
+
+> Noter l'importance de ````?? []```` dans le template qui évite une erreur à cause du mode strict
+
+````typescript
+@Component({
+  selector: 'app-formula-list-table',
+  standalone: true,
+  imports: [CommonModule, MatTableModule, SvgComponent, FormulaIndicatorIconPipe, MatSortModule],
+  template: `
+	<table mat-table [dataSource]="(dataset$ | async) ?? []" matSort>
+		<!-- ... -->
+	</table>
+  `,
+  styleUrl: './formula-list-table.component.scss'
+})
+
+export class FormulaListTableComponent implements AfterViewInit {
+  displayedColumns: string[] = ['fmStatus', 'factory', 'code', 'version',
+    'order', 'description', 'scada', 'calisto', 'veritas', 'date'];
+  
+  @ViewChild(MatSort) sort!: MatSort;
+  
+  private dataSource = new MatTableDataSource<Formula>();
+  private formualService = inject(FormulaService);
+
+  dataset$: Observable<MatTableDataSource<Formula>> = this.formualService.fetchFormulas()
+    .pipe(
+      map(formulas => {
+        const dataSource = this.dataSource;
+        dataSource.data = formulas;
+        return dataSource
+      })
+    )
+
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
+  
+}
+````
+
 ### Propriétés
 
 * matSortDisableClear : Par défaut, la mat-table présente 3 sort-direction (asc, desc, "" -> réinitialiser le tri). Cette propriété permet de supprimer le sortDirection = ""
