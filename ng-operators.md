@@ -83,7 +83,7 @@ const cart = [
   { customer: 'alex', item: 'apple', qte: 1},
 ];
 
-console.log('cart cost = ' + JSON.stringify(cart.reduce((acc, curr) => {
+console.log('cart cost = ' + JSON.stringify(cart.reduce((acc: any, curr: {customer: string, item :string, qte: number}) => {
   if (Object.keys(acc).includes(curr.item)) {
 	acc[curr.item] += curr.qte;
   } else {
