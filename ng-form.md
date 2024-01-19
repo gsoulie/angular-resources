@@ -75,6 +75,7 @@ Permet de simplifier l'écriture des formulaires ReactiveForm
       </div>
     </form>
     <button mat-raised-button type="submit" [disabled]="poolForm.invalid">Custom Submit button</button>
+    <button mat-raised-button type="button" (click)="resetForm()">Reset</button>
   </div>
 ````
 
@@ -113,6 +114,10 @@ Permet de simplifier l'écriture des formulaires ReactiveForm
 onSubmit() {
    console.log(this.poolForm.value.sampleSpot);
    console.log(this.poolForm.value.sampleNumber);
+}
+
+resetForm() {
+	this.poolForm.reset();
 }
 ````
 
