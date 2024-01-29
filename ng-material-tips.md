@@ -250,6 +250,25 @@ Customize progress bar colors :
 ### mat-checkbox
 [Back to top](#angular-material-tips)     
 
+````css
+// changer le border radius de la coche
+.mat-mdc-checkbox._mat-animation-noopable *,
+.mat-mdc-checkbox._mat-animation-noopable *::before {
+  border-radius: 5px !important;
+}
+
+// changer le background et le border en mode disabled
+.mdc-checkbox--disabled {
+  .mdc-checkbox__background {
+    background-color: $grey150 !important;
+    border-color: $grey200 !important;
+  }
+}
+````
+
+<details>
+	<summary>old</summary>
+ 
 *html* 
 ````html 
 <mat-checkbox class="custom-frame">Indeterminate</mat-checkbox>
@@ -289,6 +308,7 @@ Customize progress bar colors :
   width: 24px !important;
 }
 ````
+</details>
 
 ### mat-radio-button 
 [Back to top](#angular-material-tips)    
