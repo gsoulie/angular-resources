@@ -480,6 +480,7 @@ $_color-disabled-unselected-track: $_color-unselected-track;
 }
 
 ````
+</details>
  
 <details>
 	<summary>Avant Angular 15</summary>
