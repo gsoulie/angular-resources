@@ -385,6 +385,36 @@ export class AppComponent implements OnInit, OnDestroy {
 }
 ````
 
+## mat-button avec svg custom
+
+<details>
+	<summary></summary>
+
+ ````html
+<button mat-button>
+    <div
+      [style.display]="'flex'"
+      [style.align-items]="'center'"
+      [style.gap]="'10px'"
+    >
+      <div
+	[style.display]="'flex'"
+	[style.height]="'24px'"
+	[style.width]="'24px'"
+      >
+	<app-svg
+	  path="filter.svg"
+	  color="#333333"
+	  height="24px"
+	  width="24px"
+	/>
+      </div>
+      More filters
+    </div>
+  </button>
+````
+</details>
+
 ## Theming
 [Back to top](#ui)     
 
