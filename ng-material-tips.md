@@ -415,7 +415,76 @@ mat-form-field {
 ### mat-slide-toggle
 [Back to top](#angular-material-tips)      
 
-*home.component.scss*
+<details>
+	<summary>Depuis Angular 15</summary>
+
+*style.scss*
+````typescript
+@use "@material/switch/switch" as mdc-switch;
+@use "@material/switch/switch-theme" as mdc-switch-theme;
+
+$_color-selected-handle: red;
+$_color-unselected-handle: yellow;
+
+$_color-unselected-track: grey;
+$_color-selected-track: purple;
+$_color-disabled-selected-track: $_color-selected-track;
+$_color-disabled-unselected-track: $_color-unselected-track;
+
+.mat-mdc-slide-toggle {
+  .mdc-switch {
+    @include mdc-switch-theme.theme(
+      (
+        //handle color
+        disabled-selected-handle-color: $_color-selected-handle,
+        disabled-unselected-handle-color: $_color-unselected-handle,
+
+        selected-handle-color: $_color-selected-handle,
+        selected-focus-handle-color: $_color-selected-handle,
+        selected-hover-handle-color: $_color-selected-handle,
+        selected-pressed-handle-color: $_color-selected-handle,
+
+        unselected-handle-color: $_color-unselected-handle,
+        unselected-focus-handle-color: $_color-unselected-handle,
+        unselected-hover-handle-color: $_color-unselected-handle,
+        unselected-pressed-handle-color: $_color-unselected-handle,
+
+        //tracks color
+        // disabled-selected-track-color: $_color-selected-track,
+        // disabled-unselected-track-color: $_color-unselected-track,
+        // selected-track-color: $_color-selected-track,
+        // selected-focus-track-color: $_color-selected-track,
+        // selected-hover-track-color: $_color-selected-track,
+        // selected-pressed-track-color: $_color-selected-track,
+        // unselected-track-color: $_color-unselected-track,
+        // unselected-focus-track-color: $_color-unselected-track,
+        // unselected-hover-track-color: $_color-unselected-track,
+        // unselected-pressed-track-color: $_color-unselected-track,
+        // icon colors
+        disabled-selected-icon-color: $_color-selected-handle,
+        disabled-unselected-icon-color: $_color-unselected-handle,
+        selected-icon-color: $_color-selected-handle,
+        unselected-icon-color: $_color-unselected-handle
+      )
+    );
+  }
+}
+
+// Retirer l'indicateur checkmark
+
+.mdc-switch.mdc-switch--selected:enabled .mdc-switch__icon {
+  display: none !important;
+}
+.mdc-switch.mdc-switch--unselected:enabled .mdc-switch__icon {
+  display: none !important;
+}
+
+````
+ 
+<details>
+	<summary>Avant Angular 15</summary>
+
+ *home.component.scss*
 ````css
 :host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
   background-color: #009DE0 !important;
@@ -432,6 +501,10 @@ mat-form-field {
   border: 1px solid #D8E0ED;
 }
 ````
+
+</details>
+
+
 ### mat-dialog
 [Back to top](#angular-material-tips)    
 
