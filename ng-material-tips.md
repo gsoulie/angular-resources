@@ -388,6 +388,15 @@ Pour masquer le sous-lignage de l'input, il suffit de positionner la propriété
 </mat-form-field>
 ````
 
+Supprimer la couleur de fond lors du survol
+
+````css
+// Supprimer le fond du mat-form-field lors du focus
+.mat-mdc-form-field-focus-overlay {
+  background-color: transparent !important;
+}
+````
+
 Autres customisations 
 
 ````css
