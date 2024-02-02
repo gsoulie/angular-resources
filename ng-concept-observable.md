@@ -166,6 +166,69 @@ puis la suite des valeurs en cours d'émission.
 ## Bonnes pratiques
 [Back to top](#observables)
 
+<details>
+	<summary>Ne pas sur-uriliser RxJS lorsque cela n'est pas nécessaire</summary>
+
+**RxJS** est un **outil très puissant** pour gérer les observables. Cependant on peut rapidement se retrouver à **complexifier son code** alors que cela n'est pas nécessaire
+
+**Voici un exemple d'utilisation complexe, dans lequel on réalise 3 appels http imbriqués** :
+
+````typescript
+complexSaveOperation(newLessons: Lesson[], newCourse: Course, newUser: User) {
+    this.isLoading = true;
+
+    // Enregistrement des lessons
+    this.http.post<Lesson[]>("/api/lessons", { lessons: newLessons })
+      .pipe(
+        // Récupération de la réponse du premier appel, et enregistrement des cours
+        concatMap(lessons => this.http.post<Course[]>("/api/courses", { course: newCourse, lessons })
+          .pipe(
+            // On retourne les résultats du premier et second appels http
+            map(([course, lessons]) => [course, lessons])
+          )
+        ),
+      // Récupération des résultats des 2 premiers appels, et enregistrement de l'utilisateur
+      concatMap(([course, lessons]) => this.http.post<User[]>("/api/users", { user: newUser, course, lessons })),
+      catchError(err => {
+        console.error(err);
+        return throwError(() => new Error("error saving data"))
+      }),
+        finalize(() => this.isLoading = false)
+    ),
+  }
+````
+
+L'exemple proposé est parfaitement opérationnel, mais il demeure compliqué à lire, comprendre et à maintenir. Il est aussi très facile de se tromper dans son écriture et de mal gérer les erreurs et la fusion des réponses.
+
+**Voici une proposition de simplification du code précédent** :
+
+````typescript
+async simpleSaveOperation(newLessons: Lesson[], newCourse: Course, newUser: User) {
+    try {
+      this.isLoading = true;
+
+      const lesson = await firstValueFrom(this.http.post<Lesson[]>("/api/lessons", {lessons: newLessons}));
+      
+      const course = await firstValueFrom(this.http.post<Course[]>("/api/courses", { course: newCourse, lessons }));
+      
+      const user = await firstValueFrom(this.http.post<User[]>("/api/users", { user: newUser, course, lessons }));
+
+    } catch (err) {
+      // return and/or show error here
+    } finally {
+      this.isLoading = false;
+    }
+  }
+````
+
+Dans cette réécriture, on créé une fonction parente de type **async** et l'on transforme les appels http en promise via ````firstValueFrom()```` (attention l'utilisation de ````.toPromise()```` est désormais déprécié). 
+
+De cette manière **on supprime les appels http imbriqués**, ce qui rend le code **beaucoup plus clair, simple et facile à maintenir**.
+
+> **Note** : Dans la pluspart des cas classiques d'appels HTTP, l'utilisation de RxJS n'est pas justifiée, un fonctionnement à base de promise (async/await) comme présenté ci-dessous est très largement suffisant est optimal.
+ 
+</details>
+
 https://adrien.pessu.net/post/angular_best_practices/       
 https://nicolasfazio.ch/programmation/angular/angular-creer-service-reactif-observables        
 https://makina-corpus.com/front-end/mise-en-pratique-rxjs-angular     
