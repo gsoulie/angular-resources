@@ -397,6 +397,15 @@ Supprimer la couleur de fond lors du survol
 }
 ````
 
+Supprimer la zone "info" sous le champs de saisie (peut être insérer dans une classe pour ne pas l'appliquer à tous les champs)
+
+````css
+// Supprimer la zone d'info sous le champs de saisie
+.mat-mdc-form-field-subscript-wrapper {
+display: none !important;
+}
+````
+
 Autres customisations 
 
 ````css
