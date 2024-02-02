@@ -828,8 +828,227 @@ https://www.youtube.com/watch?v=ArTVfdHOB-M&ab_channel=OnlineTutorials
 
 ## mat-table
 
-````css
+<details>
+	<summary>Table avec column chooser, drag and drop colonne, colonne éditable</summary>
 
+*table.component.html*
+````html
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="column chooser">
+  <mat-icon>view_column</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="showHideCol('code')">
+    <mat-icon>{{
+      colIsVisible("code") ? "visibility_off" : "visibility"
+    }}</mat-icon>
+    <span>Code</span>
+  </button>
+  <button mat-menu-item (click)="showHideCol('description')">
+    <mat-icon>{{
+      colIsVisible("description") ? "visibility_off" : "visibility"
+    }}</mat-icon>
+    <span>Description</span>
+  </button>
+</mat-menu>
+
+<div class="table-container">
+  <table
+    mat-table
+    [dataSource]="(dataset$ | async) ?? []"
+    matSort
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <ng-container matColumnDef="code">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        cdkDrag
+        sortActionDescription="Sort by code"
+      >
+        Code
+        <button
+          mat-icon-button
+          aria-label="switch to edit mode"
+          (click)="setEditMode()"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        @if(editMode()) {
+        <mat-form-field>
+          <mat-select matNativeControl id="code" [value]="element.code">
+            <mat-option [value]="element.code">{{ element.code }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        } @else {
+        {{ element.code }}
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        cdkDrag
+        sortActionDescription="Sort by description"
+      >
+        Description
+      </th>
+      <td mat-cell *matCellDef="let element">
+        @if(editMode()) {
+        <mat-form-field class="form-field-flex">
+          <input matInput id="description" [value]="element.description" />
+        </mat-form-field>
+        } @else {
+
+        {{ element.description }}
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="rate">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        cdkDrag
+        sortActionDescription="Sort by rate"
+      >
+        Rate (%)
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.rate }}</td>
+    </ng-container>
+
+    <tr
+      mat-header-row
+      *matHeaderRowDef="displayedColumns()"
+      class="table-header"
+    ></tr>
+    <tr
+      class="table-row"
+      mat-row
+      *matRowDef="let row; columns: displayedColumns()"
+    ></tr>
+  </table>
+</div>
+
+````
+
+*table.component.ts*
+````typescript
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from "@angular/cdk/drag-drop";
+import { CommonModule } from "@angular/common";
+import { AfterViewInit, Component, ViewChild, computed, inject, signal } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatInputModule } from "@angular/material/input";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatSelectModule } from "@angular/material/select";
+import { MatSort, MatSortModule } from "@angular/material/sort";
+import { MatTableDataSource, MatTableModule } from "@angular/material/table";
+import { FormulaDetail } from "../../../models/formula.model";
+import { FormulaService } from "../../../services/formula/formula.service";
+import { Observable, map } from "rxjs";
+import { MatIconModule } from "@angular/material/icon";
+
+export type TableColumnWithVisible = {
+  name: string,
+  isVisible: boolean
+}
+
+@Component({
+  standalone: true,
+  selector: 'app-example-table',
+  imports: [MatButtonModule, CommonModule, MatTableModule, MatSortModule, CdkDropList, CdkDrag,
+    MatSelectModule, MatMenuModule, MatInputModule, FormsModule, ReactiveFormsModule,
+    MatIconModule],
+  templateUrl: './example-table.component.html'
+})
+
+export class ExampleTableComponent implements AfterViewInit {
+  fullColumns = signal<TableColumnWithVisible[]>([
+    { name: 'code', isVisible: true },
+    { name: 'description', isVisible: true },
+    { name: 'rate', isVisible: true }]);
+
+  //displayedColumns: string[] = ['code', 'description', 'rate'];
+  displayedColumns = computed<string[]>(() => this.fullColumns().filter(c => c.isVisible === true).map(c => c.name));
+
+  editMode = signal(false);
+
+  private dataSource = new MatTableDataSource<FormulaDetail>();
+  @ViewChild(MatSort) sort!: MatSort;
+  private formualService = inject(FormulaService);
+
+  dataset$: Observable<MatTableDataSource<FormulaDetail>> = this.formualService.fetchFormulaDetail()
+    .pipe(
+      map(formulas => {
+        const dataSource = this.dataSource;
+        dataSource.data = formulas;
+        return dataSource
+      })
+    )
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.displayedColumns(), event.previousIndex, event.currentIndex);
+  }
+
+  showHideCol(colName: string) {
+    this.fullColumns.update(old =>
+      old.map(c => c.name === colName ? { ...c, isVisible: !c.isVisible } : c)
+    );
+  }
+
+  colIsVisible(colName: string): boolean {
+    return this.fullColumns().find(c => c.name === colName)?.isVisible ?? false;
+  }
+
+  setEditMode() {
+    this.editMode.update(old => !old);
+  }
+}
+````
+
+*service.ts*
+
+````typescript
+fetchFormulaDetail(): Observable<FormulaDetail[]> {
+    return of([
+      { id: 1, code: '2015', description: 'Lorem ipsum dolor', rate: 52.7645 },
+      { id: 2, code: '5468', description: 'Lorem ipsum dolor', rate: 21.054 },
+      { id: 3, code: '1111', description: 'Lorem ipsum dolor', rate: 10.1523 },
+      { id: 4, code: '2457', description: 'Lorem ipsum dolor', rate: 6.0914 },
+      { id: 5, code: '3567', description: 'Lorem ipsum dolor', rate: 3.0457 },
+      { id: 6, code: '1894', description: 'Lorem ipsum dolor', rate: 2.0305 },
+      { id: 7, code: '3237', description: 'Lorem ipsum dolor', rate: 1.5228 },
+      { id: 8, code: '6549', description: 'Lorem ipsum dolor', rate: 1.0152 },
+      { id: 9, code: '8440', description: 'Lorem ipsum dolor', rate: 0.9949 },
+      { id: 10, code: '6549', description: 'Lorem ipsum dolor', rate: 0.9566 },
+      { id: 11, code: '7789', description: 'Lorem ipsum dolor', rate: 0.8454 },
+      { id: 12, code: '6646', description: 'Lorem ipsum dolor', rate: 0.8445 },
+      { id: 13, code: '1123', description: 'Lorem ipsum dolor', rate: 0.7879 },
+      { id: 14, code: '6542', description: 'Lorem ipsum dolor', rate: 0.3553 },
+      { id: 15, code: '5432', description: 'Lorem ipsum dolor', rate: 0.1604 },
+      { id: 16, code: '2984', description: 'Lorem ipsum dolor', rate: 0.014 },
+    ])
+  }
+````
+
+</details>
+
+<details>
+	<summary>Customisation</summary>
+
+ ````css
 .mat-mdc-table {
   border: 1px solid $grey200 !important;
   border-radius: 6px !important;
@@ -877,6 +1096,8 @@ table tr:last-child td /*to remove the last border*/ {
   background-color: rgba(103, 58, 183, 0.1);
 }
 ````
+</details>
+
 [Back to top](#angular-material-tips)    
 
 ## input
