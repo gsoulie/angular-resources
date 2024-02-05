@@ -115,6 +115,9 @@ De plus, il faut **s'assurer** que le nom donné au ````matColumnsDef```` corres
 
 ### Datasource observable
 
+<details>
+	<summary>Implémentation</summary>
+
 > Noter l'importance de ````?? []```` dans le template qui évite une erreur à cause du mode strict
 
 ````typescript
@@ -155,12 +158,15 @@ export class FormulaListTableComponent implements AfterViewInit {
   
 }
 ````
+ 
+</details>
 
 ### Propriétés
 
 * matSortDisableClear : Par défaut, la mat-table présente 3 sort-direction (asc, desc, "" -> réinitialiser le tri). Cette propriété permet de supprimer le sortDirection = ""
 
-### Exemple d'utilisation
+<details>
+	<summary>Exemple d'utilisation</summary>
 
 *View file*
 
@@ -279,8 +285,14 @@ export class HomeComponent implements OnInit {
 ````
 
 Pour définir un style particulier à une colonne, il suffit d'ajouter une classe *.mat-column-* suffixée par la valeur de l'attribut **matColumnDef** 
+ 
+</details>
 
 ### mat-table avec checkbox
+
+<details>
+	<summary>Implémentation</summary>
+
 
 *view file*
 
@@ -367,9 +379,14 @@ export class TableSelectionExample {
   }
 }
 ````
-
+ 
+</details>
 
 ### mat-table avec ruptures
+
+<details>
+	<summary>home.html</summary>
+
 
 *home.html*
 
@@ -490,7 +507,12 @@ export class TableSelectionExample {
 </div>
 ````
 
-````typescript
+</details>
+
+<details>
+	<summary>home.ts</summary>
+
+ ````typescript
   dataSource = new MatTableDataSource<any>([]);
   fullDataColumns: string[] = [];
 
@@ -501,6 +523,11 @@ export class TableSelectionExample {
     this.dataSource = new MatTableDataSource(this.mock.ruptures2);
   }
 ````
+
+</details>
+
+<details>
+	<summary>mock.service.ts</summary>
 
 *mock.service.ts*
 
@@ -590,6 +617,11 @@ export class MockService {
   }
 }
 ````
+ 
+</details>
+
+<details>
+	<summary>home.scss</summary>
 
 *home.css*
 
@@ -687,10 +719,13 @@ td.mat-cell {
     background-color: #009DE0 !important;
   }
 ````
+ 
+</details>
 
 ### Filtrage avec prédicat
 
-En partant du jeu de données de l'exemple précédant
+<details>
+	<summary>En partant du jeu de données de l'exemple précédant</summary>
 
 ````typescript
 ngOnInit(): void {
@@ -725,11 +760,17 @@ ngOnInit(): void {
 </table>
 ````
 
+</details>
+
 ### mat-table avec observable
 
 mat-table avec observable + tri : https://stackblitz.com/edit/angular-6fomv1-h2hdk3?file=app%2Ftable-basic-example.ts
 https://stackblitz.com/edit/angular-ivy-seskzc?file=src%2Fapp%2Fuser.ts
 https://stackblitz.com/edit/angular-6fomv1?file=app%2Ftable-basic-example.ts
+
+### mat-table avec pagination
+
+[Voir le tuto : https://www.youtube.com/watch?v=I5wnWaa2g14&ab_channel=AngularUniversity](https://www.youtube.com/watch?v=I5wnWaa2g14&ab_channel=AngularUniversity)
 
 ## Fullcalendar
 [Back to top](#components)  
