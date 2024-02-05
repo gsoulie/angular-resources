@@ -163,7 +163,7 @@ export class FormulaListTableComponent implements AfterViewInit {
 
 ### Propriétés
 
-* matSortDisableClear : Par défaut, la mat-table présente 3 sort-direction (asc, desc, "" -> réinitialiser le tri). Cette propriété permet de supprimer le sortDirection = ""
+````matSortDisableClear```` : Par défaut, la mat-table présente 3 sort-directions (*asc*, *desc*, "" -> réinitialiser le tri). Cette propriété permet de supprimer le sortDirection = ""
 
 <details>
 	<summary>Exemple d'utilisation</summary>
