@@ -330,10 +330,10 @@ export class IconsService {
     private matIconRegistery: MatIconRegistry,
     private domSanitizer: DomSanitizer) { }
 
-  public registerIcons(): void {
+  public registerIcons(iconPath: string): void {
     this.loadIcons(
       Object.values(Icons),
-      'assets');
+      iconPath);
   }
 
   private loadIcons(iconsKey: string[], iconUrl: string): void {
@@ -362,7 +362,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 export class AppComponent implements OnInit, OnDestroy {
 
   constructor(private iconService: IconsService) {
-    this.iconService.registerIcons();
+    this.iconService.registerIcons('assets');
   }
 }
 
