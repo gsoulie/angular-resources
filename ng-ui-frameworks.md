@@ -190,6 +190,38 @@ Liste des icônes Material : https://www.angularjswiki.com/fr/angular/angular-ma
 	<summary>Composant custom permettant de facilement manipuler un svg (couleur, taille, url)</summary>
 > Important : si l'icône ne s'affiche pas, essayer de le placer dans une div en mode flex avec des dimensions pour tester
 	
+*svg-wrapper.component.ts*
+
+````typescript
+import { Component, Input } from "@angular/core";
+import { SvgIconComponent } from "./svg-icon.component";
+
+@Component({
+  selector: 'app-svg',
+  standalone: true,
+  imports: [SvgIconComponent],
+  template: `<div [style.height]="height" [style.width]="width" class="svgWrapper">
+  <app-svg-icon [color]="color" [height]="height" [width]="width" [path]="path"></app-svg-icon>
+</div>`,
+  styles: `
+  .svgWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  `
+})
+
+export class SvgComponent {
+
+  @Input({ required: true }) path: string = '';
+  @Input() color: string = '';
+  @Input() height: string = '';
+  @Input() width: string = '';
+}
+
+````
+
 *svg-icon.component.ts*
 
 ````typescript
@@ -198,7 +230,7 @@ import { Component, HostBinding, Input } from "@angular/core";
 @Component({
   selector: 'app-svg-icon',
   standalone: true,
-  template: ``,
+  template: `<div [style.height]="height" [style.width]="width"></div>`,
   styles: `
   :host {
     /*height: 100%;
@@ -215,10 +247,9 @@ export class SvgIconComponent {
   @HostBinding('style.-webkit-mask-image')
   private _path!: string;
 
-  @Input()
+  @Input({ required: true })
   public set path(filePath: string) {
-    this._path = `url("${filePath}")`;
-    // this._path = `url("./assets/icons/${filePath}")`;	// si on sait que les svg sont localisé de manière précise
+    this._path = `url("./assets/icons/${filePath}")`;
   }
 
   @HostBinding('style.background-color') private _svgColor: string = 'black';
@@ -244,8 +275,8 @@ export class SvgIconComponent {
 *Utilisation*
 
 ````typescript
-<app-svg-icon path="./assets/icons/user.svg" color="red" height="60px" width="60px" />
-<!-- <app-svg-icon path="user.svg" color="red" height="60px" width="60px" />-->
+<app-svg path="./assets/icons/user.svg" color="red" height="60px" width="60px" />
+<!-- <app-svg path="user.svg" color="red" height="60px" width="60px" />-->
 ````
 
 </details>
