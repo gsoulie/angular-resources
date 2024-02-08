@@ -7,6 +7,8 @@
 <details>
   <summary>Code yaml de la pipeline</summary>
 
+ps : Dans cet exemple, on réalise l'étape de build via yarn, il suffit de remplacer les commandes yarn par npm si besoin
+
 ````yaml
 trigger:
   - master
