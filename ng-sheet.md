@@ -147,4 +147,4 @@
 * [Angular Universal - NestJS](https://github.com/gsoulie/angular-resources/blob/master/ng-angular-universal.md)     
 * [Erreurs connues](https://github.com/gsoulie/angular-resources/blob/master/ng-issues.md)
 	* (Change Detection) partage d'une dataset commun entre plusieurs composants enfants
-
+* [Azure Devops - Pipeline](https://github.com/gsoulie/angular-resources/blob/master/ng-azure.md)     
