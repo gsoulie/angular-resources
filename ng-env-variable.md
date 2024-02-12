@@ -175,6 +175,9 @@ https://nx.dev/recipes/angular/use-environment-variables-in-angular
 
 ## Solution avec assets http
 
+<details>
+	<summary>Implémentation</summary>
+
 Ensuite la lecture peut se faire au lancement de l'application via un httpClient
 
 > ATTENTION : version non optimisée, en effet il est préférable d'injecter le service qui lit les données dans une factory appellée dans le APP_INITIALIZER ([voir solution 2](#app_initializer))
@@ -224,6 +227,8 @@ export class DataService {
   }
 }
 ````
+ 
+</details>
 
 ## APP_INITIALIZER 
 
@@ -263,7 +268,6 @@ Dernier point vraiment **important**, sans ça le code n'attendra pas d'avoir te
 <details>
 	<summary>Cette solution utilise une factory dans le APP_INITIALIZER</summary>
 
- 
 https://www.prestonlamb.com/blog/loading-app-config-in-app-initializer
 
 ### exemple perso
