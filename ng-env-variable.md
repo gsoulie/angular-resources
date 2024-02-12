@@ -2,6 +2,7 @@
 
 # Variables environnement
 
+* [Utilisation au runtime](#utilisation-au-runtime)     
 * [Solution avec assets http](#solution-avec-assets-http)     
 * [APP_INITIALIZER](#app_initializer)       
 * [Solution avec factory](#solution-avec-factory)     
@@ -33,6 +34,144 @@ Par exemple :
 	"AllowedHosts": "*"
 }
 ````
+
+## Utilisation au runtime
+
+<details>
+	<summary>Changer de fichier environnement au runtime</summary>
+
+
+1 - créer un répertoire *config* sous *src*
+
+2 - créer autant de fichiers nécessaire que de configurations voulues :
+	* un fichier *development/config.env.json*
+	* un fichier *production/config.env.json*
+
+example de format 
+````json
+{
+  "production": true,
+  "baseUrl": "https://www.my-site/api",
+  "title": "PROD MODE"
+}
+````
+
+3 - création d'un service ConfigService
+
+````typescript
+import { Injectable, inject } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { tap } from "rxjs";
+
+export type Config = {
+  production: boolean,
+  baseUrl: string,
+  title: string
+}
+declare global {
+  interface Window {
+    MY_APP_ENV: string;
+  }
+}
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ConfigService {
+  private _config: Config | undefined = undefined;
+  private http = inject(HttpClient);
+  private environment: string;
+
+  constructor() {
+    // Accéder à l'environnement à partir de process.env ou window selon le contexte d'exécution
+    // this.environment = (typeof process !== 'undefined' && process.env && process.env['NODE_ENV']) ?
+    //   process.env['NODE_ENV'] : (typeof window !== 'undefined' && window['MY_APP_ENV']) ? window['MY_APP_ENV'] : 'development';
+
+    this.environment = process.env['NODE_ENV'] ?? 'development';
+  }
+
+  get config(): Config | undefined { return this._config; }
+  set config(value: Config) { this._config = value; }
+
+  loadConfig() {
+    const configFilePath = `../config/${this.environment}/config.env.json`;
+    return this.http.get<any>(configFilePath)
+      .pipe(
+        tap((config: Config) => this._config = config)
+      );
+  }
+}
+
+export const initConfig = (configService = inject(ConfigService)) => {
+  return () => configService.loadConfig()
+}
+````
+
+4 - Ajouter le service et APP_INITIALIZER dans le *app.config.ts*
+
+````typescript
+ providers: [
+    // ...
+    ConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initConfig,
+      deps: [ConfigService],
+      multi: true
+    }
+  ]
+````
+
+5 - app.component.ts
+
+Récupérer la configuration chargée
+
+````typescript
+config: Config | undefined;
+  private configService = inject(ConfigService);
+
+  constructor() {
+    this.config = this.configService.config;
+  }
+````
+
+6 - ````npm i --save-dev @types/node````
+
+7 - ajouter le type node dans *tsconfig.app.json*
+````json
+{
+  ...
+  "compilerOptions": {
+    ...
+    "types": ["node"]
+  },
+ ...
+}
+````
+
+8 - ajouter *"src/config"* dans les *"assets"* du *angular.json*
+
+````json
+ "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/config"
+            ],
+````
+			
+9 - compilation
+
+compiler en spécifiant l'environnement : 
+````
+ng build --configuration=development 
+ng build --configuration=production
+````
+
+DOC : 
+https://nx.dev/recipes/angular/use-environment-variables-in-angular
+ 
+</details>
 
 ## Solution avec assets http
 
@@ -88,6 +227,9 @@ export class DataService {
 
 ## APP_INITIALIZER 
 
+<details>
+	<summary>Solution avec APP_INITIALIZER</summary>
+
 APP_INITIALIZER est un type multi-provider qui permet de spécifier une factory qui retourne une promise. Quand la promise est *complete* l'application continue son exécution. Ainsi, lorsqu'on arrive à l'endroit du code code où nous avons besoin des informations de configuration, on est certain qu'elles ont été chargées.
 
 *app.module.ts*
@@ -111,12 +253,17 @@ import { APP_INITIALIZER } from '@angular/core'
 Dernier point vraiment **important**, sans ça le code n'attendra pas d'avoir terminé avant de continuer, *useFactory* **DOIT** pointer vers une fonction qui pointe sur une **Promise**
 
 *multi* : true est appliqué car APP_INITIALIZER autorise plusieurs instances de ce provider. Toutes les instances sont exécutées simultanément mais le code ne continuera pas tant que toutes les instances (Promises) ne sont pas terminées.
+ 
+</details>
+
 
 ## Solution avec factory
 [Back to top](#variables-environnement)
 
-Cette solution utilise une factory dans le APP_INITIALIZER
+<details>
+	<summary>Cette solution utilise une factory dans le APP_INITIALIZER</summary>
 
+ 
 https://www.prestonlamb.com/blog/loading-app-config-in-app-initializer
 
 ### exemple perso
@@ -216,9 +363,11 @@ export class AppconfigService {
   }
 ````
 
+</details>
 
-### Exemple complexe
-[Back to top](#variables-environnement)    
+<details>
+	<summary>Exemple complexe</summary>
+
 
 *exemple*
 
@@ -326,7 +475,8 @@ export class Config extends ConfigService {
     return <Promise<ApisConfigurationInterface>> super.loadConfig();
   }
 }
-````
+```` 
+</details>
 
 ### Conclusion
 
