@@ -41,23 +41,48 @@ Par exemple :
 	<summary>Changer de fichier environnement au runtime</summary>
 
 
-1 - créer un répertoire *config* sous *src*
+* 1 - créer un répertoire *config* sous *src*
 
-2 - créer autant de fichiers nécessaire que de configurations voulues :
-	* un fichier *development/config.env.json*
-	* un fichier *production/config.env.json*
+* 2 - créer autant de fichiers *config.env.json* nécessaire que de configurations voulues :
+````
+src
+ ├── config
+ │    ├── development
+ │    │       └── config.env.json 
+ │    └── production
+ │            └── config.env.json
+ ├── assets
+...
+````
 
-example de format 
+example de structure des fichier *config.env.json* 
 ````json
 {
   "production": true,
   "baseUrl": "https://www.my-site/api",
-  "title": "PROD MODE"
+  "title": "PROD MODE",
+  "baseHref": "/int/mySite/"
 }
 ````
 
-3 - création d'un service ConfigService
+* 3 - Rendre accessible le répertoire config comme un asset
 
+ajouter *"src/config"* dans les *"assets"* du *angular.json*
+
+````json
+ "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/config"
+            ],
+````
+
+* 4 - création d'un service *ConfigService*
+
+<details>
+  <summary>Code</summary>
+
+*config.service.ts*
 ````typescript
 import { Injectable, inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
@@ -103,13 +128,17 @@ export class ConfigService {
   }
 }
 
+// Factory qui sera utilisée dans le app.config.ts
 export const initConfig = (configService = inject(ConfigService)) => {
   return () => configService.loadConfig()
 }
 ````
+  
+</details>
 
-4 - Ajouter le service et APP_INITIALIZER dans le *app.config.ts*
+* 5 - Injecter le ConfigService avec le token APP_INITIALIZER dans le *app.config.ts*
 
+*app.config.ts*
 ````typescript
  providers: [
     // ...
@@ -123,10 +152,11 @@ export const initConfig = (configService = inject(ConfigService)) => {
   ]
 ````
 
-5 - app.component.ts
+* 6 - Lecture de la configuration chargée
 
-Récupérer la configuration chargée
+Lire la configuration chargée et l'utiliser de la manière suivante 
 
+*app.component.ts*
 ````typescript
 config: Config | undefined;
   private configService = inject(ConfigService);
@@ -136,9 +166,11 @@ config: Config | undefined;
   }
 ````
 
-6 - ````npm i --save-dev @types/node````
+* 7 - Installation du types node
 
-7 - ajouter le type node dans *tsconfig.app.json*
+````npm i --save-dev @types/node````
+
+* 8 - ajouter le type node dans *tsconfig.app.json*
 ````json
 {
   ...
@@ -149,20 +181,10 @@ config: Config | undefined;
  ...
 }
 ````
-
-8 - ajouter *"src/config"* dans les *"assets"* du *angular.json*
-
-````json
- "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/config"
-            ],
-````
 			
-9 - compilation
+* 9 - compilation
 
-compiler en spécifiant l'environnement : 
+compiler maintenant en spécifiant l'environnement souhaité : 
 ````
 ng build --configuration=development 
 ng build --configuration=production
