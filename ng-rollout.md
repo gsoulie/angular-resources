@@ -35,7 +35,8 @@ Suivant le serveur et la configuration utilisée, il est probable qu'il faille c
 ````
 Ce fichier doit se trouver à la racine avec le index.html.
 
-### Autre exemple de web.config
+<details>
+	<summary>Autre exemple de web.config</summary>
 
 ````xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -62,6 +63,9 @@ Ce fichier doit se trouver à la racine avec le index.html.
       </system.webServer>
     </configuration>
 ````
+ 
+</details>
+
 
 ## Déploiement projet type workspace
 
@@ -84,7 +88,8 @@ https://mon-env-prod/mon-app-3/home
 
 Pour parvenir à ce résultat il existe plusieurs solutions. 
 
-**Solution 1**
+<details>
+	<summary>Solution 1</summary>
 
 Compiler le projet avec la ligne de commande suivante ````ng build --configuration=production --base-href "/mon-suffixe/"````
 
@@ -118,8 +123,11 @@ on va paramétrer la réécriture des routes. Sans ça, le serveur ne parviendra
 ````
 
 Remarque : Selon les serveurs, le regex peut être ````^myApp\/(.+)(\.[A-z0-9]+)$````  pour échapper le "/"
+ 
+</details>
 
-**Solution 2**
+<details>
+	<summary>Solution 2</summary>
 
 On peut aussi spécifier la *base-href* dans le fichier **app.module.ts**
 
@@ -140,6 +148,8 @@ pour réécrire les routes.
 ### Gérer les redirections d'authentification
 
 Si les applications utilisent une authentification tierce type SSO (IS4, Aure AD...) il faut aussi ajouter des règles spécifiques dans le fichier de configuration serveur.
+ 
+</details>
 
 [Back to top](#déploiement)     
 
@@ -219,7 +229,7 @@ Pour modifier le base href sur lequel le site pointera une fois déployé, il ex
 
 > IMPORTANT : le chemin configuré doit **toujours** se terminer par un **/**
 
-* compiler avec la commande ````ng build --base-href "/xxx/xxx/"
+* compiler avec la commande ````ng build --base-href "/xxx/xxx/"````
 * paramétrage configurable avec :
 
 *app.config.ts*
