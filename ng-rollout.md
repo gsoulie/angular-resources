@@ -5,7 +5,8 @@
 * [Méthode générale](#méthode-générale)
 * [Déploiement projet type workspace](#déploiement-projet-type-workspace)         
 * [Déployer une application avec url suffixée](#déployer-une-application-avec-url-suffixée)      
-* [Environnements multiples](#environnements-multiples)      
+* [Environnements multiples](#environnements-multiples)
+* [Configurer le base-href](#configurer-le-base--href)     
 
 ## Méthode générale
 Après avoir compilé en mode production ````ng build --configuration=production```` copier le contenu du répertoire dist sur le serveur web.
@@ -211,3 +212,33 @@ ng build --configuration=recette
 ````
 
 [Back to top](#déploiement)     
+
+## Configurer le base-href
+
+Pour modifier le base href sur lequel le site pointera une fois déployé, il existe plusieurs façon de faire :
+
+> IMPORTANT : le chemin configuré doit **toujours** se terminer par un **/**
+
+* compiler avec la commande ````ng build --base-href "/xxx/xxx/"
+* paramétrage configurable avec :
+
+*app.config.ts*
+````typescript
+export const appConfig: ApplicationConfig = {
+  providers: [
+    { provide: APP_BASE_HREF, useValue: '/int/test/' }	// la valeur peut ainsi provenir d'un fichier de config dynamique
+  ]
+}
+````
+
+* solution classique mais figée
+
+*index.html*
+````html
+<html lang="en">
+  <head>
+    <title>Angular 17 sandbox</title>
+    <base href="/int/test/" />
+  </head>
+</html>
+````
