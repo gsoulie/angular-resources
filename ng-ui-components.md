@@ -21,7 +21,9 @@
 ## mat-dialog
 [Back to top](#ui-components)
 
-Fonction générique pour appeler des mat-dialog. 
+<details>
+	<summary>Fonction générique pour appeler des mat-dialog.</summary>
+
 
 ````typescript
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -59,12 +61,14 @@ export class DialogService {
     }
   });
 ````
-
+ 
+</details>
 
 ## loading spinner
 [Back to top](#ui-components)
 
-### Méthode avec Pipe dans la vue
+<details>
+	<summary>Méthode avec Pipe dans la vue</summary>
 
 Voir plus en détail pour les cas plus complexe : 
 https://medium.com/angular-in-depth/angular-show-loading-indicator-when-obs-async-is-not-yet-resolved-9d8e5497dd8     
@@ -118,8 +122,11 @@ ngOnInit() {
   this.posts$ = this.behaviourService.fetchPosts();
 }
 ````
+ 
+</details>
 
-### Méthode avec CDK
+<details>
+	<summary>Méthode avec CDK</summary>
 
 Intégrer un layout transparent noir sur toute une page avec un *mat-spinner*. La technique conciste à utiliser le package **cdk portal** (https://material.angular.io/cdk/portal/overview) d'angular material qui permet d'insérer dynamiquement un composant dans un conteneur.
   
@@ -192,9 +199,15 @@ export class OverlayService {
   }
 }
 ````
+ 
+</details>
+
 
 ## virtual scroll
 [Back to top](#ui-components)
+
+<details>
+	<summary>Implémentation</summary>
 
 ````
 npm install @angular/cdk
@@ -243,9 +256,15 @@ cdk-virtual-scroll-viewport {
   width: 100%;
 }
 ````
+ 
+</details>
+
 
 ## Signature pad
 [Back to top](#ui-components)
+
+<details>
+	<summary>Signature avec signature_pad</summary>
 
 ### composant 1
 
@@ -363,6 +382,10 @@ export class ModalSignatureComponent implements OnInit, AfterViewInit {
   padding: 30px;
 }
 ````
+ 
+</details>
+
+
 [Back to top](#ui-components)
 
 ## ng-select
