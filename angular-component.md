@@ -13,6 +13,9 @@
 ## Dropdown directive
 [Back to top](#components)  
 
+<details>
+	<summary>Implementation</summary>
+
 In this example we create a dropdown button. The ```appDropdown``` directive shows / hides the menu on the click event
 
 *recipe-detail.component.html*
@@ -85,6 +88,9 @@ export class DropdownDirective {
    </div>
 </nav>
 ```
+ 
+</details>
+
 
 ## mat-table
 [Back to top](#components)  
