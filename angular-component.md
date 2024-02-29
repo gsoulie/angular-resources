@@ -294,6 +294,220 @@ Pour définir un style particulier à une colonne, il suffit d'ajouter une class
  
 </details>
 
+<details>
+	<summary>Exemple mat-table avec pagination, filtrage et source observable</summary>
+
+*component.html*
+
+````html
+<div class="formula-list__wrapper">
+  <app-formula-list-form (handleSearchEmitter)="onFilter($event)" />
+
+  <div class="table-container">
+    <table
+      mat-table
+      [dataSource]="(dataSource$ | async) ?? []"
+      matSort
+      matSortDisableClear
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <ng-container matColumnDef="FormulaStatus">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          cdkDrag
+          sortActionDescription="Sort by Status"
+        >
+          Status
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="col-center">
+            <div [class]="'badge ' + getBadgeClass(element.fmStatus)">
+              {{ element.fmStatus }}
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="FormulaDescription">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          cdkDrag
+          sortActionDescription="Sort by description"
+        >
+          Description
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+      </ng-container>
+
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="displayedColumns; sticky: true"
+        class="table-header"
+      ></tr>
+      <tr
+        class="table-row"
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        (click)="openDetail($event, row)"
+      ></tr>
+    </table>
+  </div>
+  <div class="paginator-wrapper" id="formulaListTablePaginator">
+    <mat-paginator
+      [pageSizeOptions]="pageSizeOption"
+      [length]="totalFormulasCount"
+      aria-label="Select page"
+    ></mat-paginator>
+  </div>
+</div>
+
+````
+
+*component.ts*
+
+````typescript
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  CdkDragDrop,
+  CdkDrag,
+  CdkDropList,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
+import { Router, RouterModule } from '@angular/router';
+import { FormulaListFormComponent } from '../form/formula-list-form.component';
+@Component({
+  selector: 'app-list-table',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginator,
+    MatButtonModule,
+    CdkDropList,
+    CdkDrag,
+    RouterModule,
+  ],
+  templateUrl: './list-table.component.html',
+})
+export class ListTableComponent implements AfterViewInit {
+  displayedColumns: string[] = [
+    'FormulaStatus',    
+    'FormulaDescription'
+  ];
+  pageSizeOption = [20, 50, 100, 250];
+
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  private formulaService = inject(FormulaService);
+  private propertyForSorting: FormulaListPropertyNameForDataSorting =
+    FormulaListPropertyNameForDataSorting.FormulaImportDate;
+  private sortingOrder: OrderForDataSorting = OrderForDataSorting.Descending;
+
+  public totalFormulasCount?: number;
+  private dataSource = new MatTableDataSource<FormulaListItemDto>();
+  dataSource$: Observable<MatTableDataSource<FormulaListItemDto>> | undefined;
+
+  constructor() {}
+
+  ngAfterViewInit() {
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+    this.fetchFormula();
+  }
+
+  setFormulaListDisplayOptions() {
+    // Set sorting order for body request
+    switch (this.sort.direction) {
+      case 'asc':
+        this.sortingOrder = OrderForDataSorting.Ascending;
+        break;
+      case 'desc':
+        this.sortingOrder = OrderForDataSorting.Descending;
+        break;
+      default:
+        this.sortingOrder = OrderForDataSorting.Descending;
+        break;
+    }
+    //set sorted property for body request
+    const sortingKey = this.sort
+      .active as keyof typeof FormulaListPropertyNameForDataSorting;
+    if (FormulaListPropertyNameForDataSorting.hasOwnProperty(sortingKey)) {
+      this.propertyForSorting =
+        FormulaListPropertyNameForDataSorting[sortingKey];
+    } else {
+      console.error('Invalid sorting key:', this.sort.active);
+      // Gérer l'erreur ou assigner une valeur par défaut à this.propertyForSorting
+    }
+  }
+
+  onFilter(e: any) {
+    this.fetchFormula();
+  }
+
+  fetchFormula() {
+    this.dataSource$ = merge(this.sort.sortChange, this.paginator.page).pipe(
+      startWith({}),
+      switchMap(() => {
+        this.setFormulaListDisplayOptions();
+        
+        return this.formulaService
+          .fetchFormulas()
+          .pipe(catchError(() => of(null)));
+      }),
+      map((data) => {
+        if (data === null) {
+          return [];
+        }
+
+        // Only refresh the result length if there is new data. In case of rate
+        // limit errors, we do not want to reset the paginator to zero, as that
+        // would prevent users from re-triggering requests.
+        this.totalFormulasCount = data.totalFormulasForPagination;
+        return data.formulaListPaginated;
+      }),
+      map((data) => {
+        const dataSource = this.dataSource;
+        dataSource.data = data ?? [];
+        return dataSource;
+      })
+    );
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(
+      this.displayedColumns,
+      event.previousIndex,
+      event.currentIndex
+    );
+  }
+
+  handleAction(event: Event) {
+    event.stopPropagation();
+  }
+
+  openDetail(event: Event, row: any) {
+    event.stopPropagation();
+    console.log('row ?', row);
+    this.router.navigateByUrl('formula/77');
+  }
+}
+
+````
+ 
+</details>
+
 ### mat-table avec checkbox
 
 <details>
