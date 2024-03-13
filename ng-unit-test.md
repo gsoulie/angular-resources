@@ -474,7 +474,7 @@ import 'jest-preset-angular/setup-jest';
 		  "builder": "@angular-devkit/build-angular:jest",
 ````
 
-**Lancer les tests **
+**Lancer les tests**
 
 ````
 npm run test
