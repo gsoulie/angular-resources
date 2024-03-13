@@ -641,6 +641,7 @@ it('should add user', () => {
 <details>
 	<summary>Implémentation</summary>
 
+*user.service.ts*
 ````typescript
 users$ = new BehaviourSubject<User[]>([]);
 
@@ -654,7 +655,7 @@ removeUser(userId: number) {
 }
 ````
 
-
+*user.service.spec.ts*
 ````typescript
 it('should add a user', () => {
 	const user: User = { id: 3, name: 'Paul' }
