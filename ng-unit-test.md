@@ -636,6 +636,38 @@ it('should add user', () => {
 ````
 </details>
 
+### Test des erreurs Http
+
+<details>
+	<summary>Implémentation</summary>
+
+````typescript
+it('throws an error if request fails', () => {
+    let actualError: HttpErrorResponse | undefined;
+
+    configService.loadConfig().subscribe({
+      next: () => {
+        fail('Success should not be called');
+      },
+      error: (err) => {
+        actualError = err;
+      }
+    })
+
+    const req = httpTestingController.expectOne('../config/test/config.env.json');
+
+    req.flush('Server error', {
+      status: 422,
+      statusText: 'Unprocessible entiry'
+    })
+
+    expect(actualError?.status).toEqual(422)
+    expect(actualError?.statusText).toEqual('Unprocessible entiry')
+  })
+````
+ 
+</details>
+
 ### Tester un observable
 
 <details>
