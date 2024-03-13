@@ -421,7 +421,7 @@ describe('menu-navigation', () => {
 ### Installation / configuration
 
 <details>
-	<summary></summary>
+	<summary>Implémentation</summary>
 	
 **Retirer les dépendances à Karma / Jasmine**
 ````
@@ -485,7 +485,7 @@ npm run test -- <my_specific_file>.spec.ts  // tester uniquement le fichier spé
 
 ### Structure des tests
 <details>
-	<summary></summary>
+	<summary>Implémentation</summary>
 
 > A savoir : il est possible d'imbriquer plusieurs blocs "describe". Cela permet de structurer le fichier de test afin de regrouper les fonctions 
 par domaine fonctionnel par exemple
@@ -517,7 +517,7 @@ describe('UserService', () => {
 ### Tester un service
 
 <details>
-	<summary></summary>
+	<summary>Implémentation</summary>
 
 Test d'un service. La première chose à faire avant de tester les fonctions d'un service, est de l'injecter dans testBed 
 et de s'assurer qu'il a bien été injecté (toBeTruthy) pour pouvoir ensuite en tester toutes les fonctions
@@ -639,7 +639,7 @@ it('should add user', () => {
 ### Tester un observable
 
 <details>
-	<summary></summary>
+	<summary>Implémentation</summary>
 
 ````typescript
 users$ = new BehaviourSubject<User[]>([]);
