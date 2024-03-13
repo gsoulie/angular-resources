@@ -6,7 +6,8 @@
 * [Tests unitaires et e2e tests](#tests-unitaires-et-e2e-tests)     
 * [Tests unitaires](#tests-unitaires)     
 * [e2e avec Cypress](#e2e-avec-cypress)     
-* [Karma](#karma)      
+* [Karma (déprécié depuis Angular 16)]
+* [Tests unitaires avec Jest](#tests-unitaires-avec-jest)          
 
 ## Tester le bundle généré dans le répertoire dist
 
@@ -400,6 +401,375 @@ describe('menu-navigation', () => {
 ````
 [Back to top](#tests-unitaires)
 
+## Tests unitaires avec Jest
+
+**karma étant déprécié depuis Angular 16**, Angular s'attaque à intégrer Jest (expérimental pour le moment).
+
+- karma = test runner conçu pour fonctionner avec le frmk de test jasmine. Va être remplacé par web-test-runner de ModernWeb
+- jasmine frmk de test JS historiquement intégré à Angular
+- Jest frmk de test JS (dev par facebook), c'est un fork de jasmine initialement développé pour fonctionner avec React
+- Jest moins de fonctionnalités que Jasmine (ne peut pas jouer un son, stocker dans du local storage...)
+- jasmine plus lent que jest. jest intègre une mise en cache des tests, parralélisation des tests, watch mode (ne rééxécute que les tests affectés par les changements de code)
+- jasmine plus anciens, plus grande communeauté, plus de documentation...
+- Jest a des erreur d'import, il doit effectuer la compilation lui-même et n'a pas connaissance de toutes les métadonnées du projet, contrairement au projet angular qui compile via le compilateur typescript jest-angular-preset ne règle pas toutes les erreurs
+
+> [Jest cheatsheet](https://devhints.io/jest)
+
+<details>
+	<summary></summary>
+
+### Installation / configuration
+
+<details>
+	<summary></summary>
+	
+**Retirer les dépendances à Karma / Jasmine**
+````
+npm remove @types/jasmine jasmine-core karma-jasmine karma karma-chrome-launcher karma-coverage karma-jasmine-html-reporter
+````
+
+**Installer Jest**
+
+````
+//npm i --save-dev @types/jest jest-preset-angular
+npm i jest jest-preset-angular @types/jest jest-environment-jsdom -D
+````
+
+*package.json*
+````json
+"test": "jest",
+"test:watch": "jest --watch",
+"test:coverage": "jest --coverage"
+````
+
+* Supprimer le noeud "test" dans angular.json
+
+* Créer un fichier jest.config.js à la racine du projet
+
+````typescript
+module.exports = {
+  preset: "jest-preset-angular",
+  setupFilesAfterEnv: ["<rootDir>/src/setup.jest.ts"],
+};
+````
+
+* Remplacer ````jasmine```` par ````jest```` dans le fichier *tsconfig.spec.json*
+* Rajouter la rubrique files dans le fichier *tsconfig.spec.json*
+````json
+ "files": [
+    "src/setup.jest.ts"
+  ],
+````
+* Créer le fichier src/setupe.jest.ts 
+````typescript
+import 'jest-preset-angular/setup-jest';
+````
+
+* Modifier le test-runner dans le fichier *angular.json*
+
+*angular.json*
+````typescript
+"test": {
+          //"builder": "@angular-devkit/build-angular:karma",
+		  "builder": "@angular-devkit/build-angular:jest",
+````
+
+**Lancer les tests **
+
+````
+npm run test
+npm run test -- <my_specific_file>.spec.ts  // tester uniquement le fichier spécifié
+````
+ 
+</details>
+
+### Structure des tests
+<details>
+	<summary></summary>
+
+> A savoir : il est possible d'imbriquer plusieurs blocs "describe". Cela permet de structurer le fichier de test afin de regrouper les fonctions 
+par domaine fonctionnel par exemple
+
+````typescript
+describe('UserService', () => {
+	describe('user infos', () => {
+		it('add user info', () => {
+		
+		})
+		it('remove user info', () => {
+		
+		})
+	})
+	
+	describe('user product', () => {
+		it('add user product', () => {
+		
+		})
+		it('remove user product', () => {
+		
+		})
+	})
+})
+````
+
+</details>
+
+### Tester un service
+
+<details>
+	<summary></summary>
+
+Test d'un service. La première chose à faire avant de tester les fonctions d'un service, est de l'injecter dans testBed 
+et de s'assurer qu'il a bien été injecté (toBeTruthy) pour pouvoir ensuite en tester toutes les fonctions
+
+````typescript
+describe('UserService', () => {
+	let userService: UserService;
+	
+	beforeEach(() => {
+		TestBed.configureTestingModule({
+			providers: [UserService]
+		});
+		
+		userService = testBed.inject(UserService)
+	});
+	
+	it('creates userService', () => {
+		expect(userService).toBeTruthy();
+	})
+})
+
+````
+
+Dans le code ci-dessus, toute la partie beforeEach est jouée avant chaque test unitaire. Ici, on injecte donc le service avant toute chose.
+
+beforeAll est joué une fois avant tout le reste
+ 
+</details>
 
 
-[Back to top](#tests-unitaires)      
+### Tester HttpClient
+
+<details>
+	<summary>Pour tester les appels Http, on importera le module HttpClientTestingModule afin de pouvoir créer des mocks, car on ne souhaite jamais tester les appels réels, mais juste
+le traitement des réponses.</summary>
+
+Voici la déclaration standard d'un service avec http
+
+````typescript
+describe('ConfigService', () => {
+  let configService: ConfigService;
+  let httpTestingController: HttpTestingController;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [ ConfigService ]
+    });
+    configService = TestBed.inject(ConfigService);
+    httpTestingController = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpTestingController.verify(); // Vérifie qu'il n'y a pas de requêtes HTTP en attente
+  });
+
+  it('config service should be created', () => {
+    expect(configService).toBeTruthy();
+  });
+}
+```` 
+</details>
+
+<details>
+	<summary>Test d'une fonction get</summary>
+
+````typescript
+it('should load config', () => {
+    const httpMockConfig = {
+      production: true,
+      baseUrl: 'https://my-mock-url',
+      title: 'http client mock data'
+    }
+	
+	let response: Config | undefined;
+
+    configService.loadConfig().subscribe((config: Config) => {
+      //expect(config).toEqual(httpMockConfig);
+	  response = config
+    })
+
+    const req = httpTestingController.expectOne('../config/test/config.env.json');	// Important : doit être appelé APRES le subscribe (ci-dessus)
+    expect(req.request.method).toEqual('GET');
+    req.flush(httpMockConfig);  // objet qui sera injecté dans le retour de la requête http
+	
+	expect(response).toEqual(httpMockConfig);
+
+    httpTestingController.verify();
+  })
+````
+</details>
+
+<details>
+	<summary>Test d'une fonction POST</summary>
+
+````typescript
+it('should add user', () => {
+	
+	let userId: number | undefined;
+
+    configService.addUser({name: 'Paul', age: 35}).subscribe((response) => {
+      userId = response.id
+    })
+
+    const req = httpTestingController.expectOne('https://localhost:8000/user');
+	
+    expect(req.request.method).toEqual('POST');	// tester la méthode http utilisée : peut être sorti dans un autre test 
+	expect(req.request.body).toEqual({name: 'Paul', age: 35});	// tester le body de la requête : peut être sorti dans un autre test 
+	
+    req.flush({id: 25550});  // objet qui sera injecté dans le retour de la requête http
+	
+	expect(userId).toEqual(25550);
+
+    httpTestingController.verify();
+  })
+````
+</details>
+
+### Tester un observable
+
+<details>
+	<summary></summary>
+
+````typescript
+users$ = new BehaviourSubject<User[]>([]);
+
+addUser(user: User) {
+	this.users$.next([...this.users$.getValue(), user);
+}
+
+removeUser(userId: number) {
+	const updatedUsers = this.users$.getValue().filter(u => u.id !== userId);
+	this.users$.next(updatedUsers);
+}
+````
+
+
+````typescript
+it('should add a user', () => {
+	const user: User = { id: 3, name: 'Paul' }
+	
+	userService.addUser(user);
+	expect(userService.usesr$.getValue()).toEqual([{id: 3, name: 'Paul'}])	
+})
+
+it('should add a user', () => {
+	userService.users$.next([{ id: 3, name: 'Paul' }]);
+	
+	userService.removeUser(3);
+	expect(userService.usesr$.getValue()).toEqual([])
+	
+})
+````
+ 
+</details>
+
+### Mock and Spy
+
+Lorsqu'un service utilise d'autres dépendances (par exemple HttpClient) il faut créer un mock des dépendances pour éviter d'avoir des erreurs de type "NullInjector for xxxxx"
+
+La méthode "simple" pour supprimer l'erreur consiste à rajouter les dépendances dans le providers TestBed
+
+````typescript
+describe('ConfigService', () => {
+  let configService: ConfigService;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      providers: [
+		ConfigService, 
+		HttpClient	// <-- ajout de la dépendance 
+	  ]
+    });
+    configService = TestBed.inject(ConfigService);
+  });
+})
+```` 
+
+On pourrait en rester là, cependant, si l'on souhaite rester très "stricte" dans les tests et garantir que chaque service est testé de manière totalement "isolée", et 
+que ses dépendances n'impactent pas ces tests, alors il faut créer un mock pour chaque dépendances.
+
+Dans le cas ci-dessus, injecter *HttpCLient* de la sorte va exécuter des requêtes Http, ce que nous ne voulons pas car cela alourdirai les tests. On préfèrera créer un mock dans ce cas.
+
+<details>
+	<summary>Mock</summary>
+
+Un mock est un objet plein ou un ensemble de données préparées qui n'ont aucun lien avec la dépendance qui ont pour but de "simuler" la réponse de la dépendance
+
+````typescript
+describe('ConfigService', () => {
+  let configService: ConfigService;
+  
+  const userServiceMock = {	// définition du mock
+    getUser: jest.fn(id => {name: '', age: 35}),
+	setUser: jest.fn()
+  }
+  
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      providers: [
+        ConfigService,
+        {
+          provide: UserService, useValue: userServiceMock
+        }
+      ]
+    });
+	// ...
+}
+````
+</details>
+
+<details>
+	<summary>Spy</summary>
+
+Le *spy* est différent du mock dans le sens ou on ne créé pas un faux service, mais on observe le service réel
+
+````typescript
+describe('ConfigService', () => {
+  let configService: ConfigService;
+  let userService: UserService;
+  
+  
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      providers: [
+        ConfigService,
+        UserService
+      ]
+    });
+	
+	configService = TestBed.inject(ConfigService);
+	userService = TestBed.inject(UserService);
+	
+	
+	it('soulhd get username', () => {
+		jest.spyOn(userService, 'getUserName');
+		
+		expect(userService.getUserName).toHaveBeenCalledWith('25');	// passage de l'id 25 en paramètre à la fonction
+		
+	})
+}
+````
+</details>
+
+### Remarques 
+
+toBe() vs toEqual()
+
+toBe() réalise un test ````===````
+
+var arr = [1, 2, 3];
+expect(arr).toEqual([1, 2, 3]);  // success; equivalent
+expect(arr).toBe([1, 2, 3]);     // failure; not the same array
+
+</details>
