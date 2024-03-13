@@ -116,7 +116,8 @@
 * [Variables d'environnement](https://github.com/gsoulie/angular-resources/blob/master/ng-env-variable.md)     
 * [Tests unitaires](https://github.com/gsoulie/angular-resources/blob/master/ng-unit-test.md)     
 	* tester le bundle de production dist
-	* e2e avec Cypress      
+	* e2e avec Cypress
+	* tests unitaires avec Jest      	 
 * [template générique mat-dialog](https://github.com/gsoulie/angular-resources/blob/master/angular-dialog-template.md)      
 * [Local storage, Session storage, Cookies](https://github.com/gsoulie/angular-resources/blob/master/ng-local-storage.md)     
 * [Animations](https://github.com/gsoulie/angular-resources/blob/master/ng-animation.md)     
