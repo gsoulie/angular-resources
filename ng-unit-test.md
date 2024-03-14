@@ -432,7 +432,7 @@ npm remove @types/jasmine jasmine-core karma-jasmine karma karma-chrome-launcher
 
 ````
 //npm i --save-dev @types/jest jest-preset-angular
-npm i jest jest-preset-angular @types/jest jest-environment-jsdom -D
+npm i --save-dev jest jest-preset-angular @types/jest jest-environment-jsdom -D
 ````
 
 *package.json*
