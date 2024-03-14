@@ -460,18 +460,9 @@ module.exports = {
     "src/setup.jest.ts"
   ],
 ````
-* Créer le fichier src/setupe.jest.ts 
+* Créer le fichier src/setup.jest.ts 
 ````typescript
 import 'jest-preset-angular/setup-jest';
-````
-
-* Modifier le test-runner dans le fichier *angular.json*
-
-*angular.json*
-````typescript
-"test": {
-          //"builder": "@angular-devkit/build-angular:karma",
-		  "builder": "@angular-devkit/build-angular:jest",
 ````
 
 **Lancer les tests**
