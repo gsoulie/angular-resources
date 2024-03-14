@@ -454,6 +454,7 @@ module.exports = {
 ````
 
 * Remplacer ````jasmine```` par ````jest```` dans le fichier *tsconfig.spec.json* et *tsconfig.json*
+* Ajouter ````"types": ["node", "jest"]```` dans le *tsconfig.json*
 * Rajouter la rubrique files dans le fichier *tsconfig.spec.json*
 ````json
  "files": [
