@@ -576,6 +576,17 @@ describe('ConfigService', () => {
 <details>
 	<summary>Test d'une fonction get</summary>
 
+*Fonction du service à tester*
+````typescript
+loadConfig() {
+    const configFilePath = `../config/${this.environment}/config.env.json`;
+    return this.http.get<any>(configFilePath)
+      .pipe(
+        tap((config: Config) => this._config = config)
+      );
+  }
+````
+
 ````typescript
 it('should load config', () => {
     const httpMockConfig = {
