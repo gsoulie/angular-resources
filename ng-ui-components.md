@@ -386,6 +386,12 @@ export class ModalSignatureComponent implements OnInit, AfterViewInit {
  
 </details>
 
+## ng-select
+
+Angular ng-select - Lightweight all in one UI Select, Multiselect and Autocomplete : https://github.com/ng-select/ng-select     
+
+[Back to top](#ui-components)
+
 ## mat-datepicker
 
 <details>
@@ -438,11 +444,5 @@ export const appConfig: ApplicationConfig = {
 <mat-datepicker #pickerFrom></mat-datepicker>
 ````
 </details>
-
-[Back to top](#ui-components)
-
-## ng-select
-
-Angular ng-select - Lightweight all in one UI Select, Multiselect and Autocomplete : https://github.com/ng-select/ng-select     
 
 [Back to top](#ui-components)
