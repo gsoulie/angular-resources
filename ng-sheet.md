@@ -103,7 +103,8 @@
 	* loading spinner     
 	* virtual scroll       
 	* Signature_pad     
-	* ng-select     
+	* ng-select
+ 	* mat-date-picker    
 * [Charts](https://github.com/gsoulie/angular-resources/blob/master/ng-chart.md)     
 * [Adapter pattern](https://github.com/gsoulie/angular-resources/blob/master/ng-adapter-pattern.md)     
 * [Api swagger](https://github.com/gsoulie/angular-resources/blob/master/ng-api-swagger.md)     
