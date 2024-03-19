@@ -11,7 +11,8 @@
 * [loading spinner](#loading-spinner)       
 * [virtual scroll](#virtual-scroll)       
 * [Signature_pad](#signature-pad)     
-* [ng-select](#ng-select)      
+* [ng-select](#ng-select)
+* [mat-datepicker](#mat-datepicker)    
 
 ## fullcalendar
 
@@ -385,6 +386,58 @@ export class ModalSignatureComponent implements OnInit, AfterViewInit {
  
 </details>
 
+## mat-datepicker
+
+<details>
+	<summary>Configurer le format des dates</summary>
+
+ *app.config.ts*
+
+````typescript
+import { MAT_MOMENT_DATE_FORMATS, provideMomentDateAdapter } from '@angular/material-moment-adapter';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+
+const MY_DATE_FORMAT = {
+  parse: {
+    dateInput: 'DD/MM/YYYY', // this is how your date will be parsed from Input
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY', // this is how your date will get displayed on the Input
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  }
+};
+
+export const appConfig: ApplicationConfig = {
+  providers: [    
+    provideMomentDateAdapter(),
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT },
+    
+  ],
+};
+````
+
+*Component.ts*
+````typescript
+ <mat-form-field class="form-field-md simple-field">
+	<mat-label for="lastStatusUpdateFrom">From</mat-label>
+	<input
+	  matInput
+	  [matDatepicker]="pickerFrom"
+	  formControlName="lastStatusUpdateFrom"
+	  id="lastStatusUpdateFrom"
+	  (ngModelChange)="setDateToMinValue()"
+	  [max]="maxDateFrom"
+	  aria-label="Formula last update date from"
+	/>
+	<mat-datepicker-toggle
+	  matIconSuffix
+	  [for]="pickerFrom"
+            ></mat-datepicker-toggle>
+<mat-datepicker #pickerFrom></mat-datepicker>
+````
+</details>
 
 [Back to top](#ui-components)
 
