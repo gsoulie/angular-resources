@@ -2,6 +2,11 @@
 
 # Server-Side Rendering
 
+* [Présentation et rappel](#présentation-et-rappel)
+* [CSR vs SSR](#csr-vs-ssr)
+* [Historique](#historique)     
+* [Angular 17 SSR](#angular-17-ssr)    
+
 ## Présentation et rappel
 Angular 16 apporte une avancée majeure avec la nouvelle hydratation non-destructive pour le rendu côté serveur (SSR)
 
@@ -19,7 +24,7 @@ Le rendu côté serveur (SSR) résout ces problèmes.
 
 Avec le **SSR**, le HTML est généré côté serveur, ce qui permet d'obtenir des pages complètement formées et adaptées au référencement. De plus, le temps de chargement initial est plus rapide, car le HTML est renvoyé au navigateur et affiché avant le téléchargement des bundles JavaScript. Ainsi, lorsque le référencement et le temps de chargement initial sont prioritaires, le SSR est l'option recommandée.
 
-## Le SSR avec Angular Universal (depuis Angular 4)
+## Historique
 Angular prend en charge le SSR grâce à **Angular Universal**, son package de rendu côté serveur qui permet de générer le rendu à la fois côté client et côté serveur. Angular Universal offre des fonctionnalités de rendu côté serveur dynamique et de prérendu statique. Cependant, cette forme de SSR avait quelques limitations en raison de sa nature **"destructive"**.
 
 Pour comprendre comment fonctionne Angular Universal, intéressons-nous au concept d'**hydratation**. L'hydratation Angular consiste à ajouter de l'interactivité à une page HTML rendue côté serveur en ajoutant des écouteurs d'événements et des états. Une hydratation efficace est essentielle pour une expérience utilisateur fluide, mais sa mise en œuvre peut être complexe en raison des nombreux éléments à gérer.
@@ -43,36 +48,6 @@ Angular 16 résout ce problème grâce à l'introduction de l'hydratation non-de
 
 > Une autre amélioration importante est l'**actualisation de HttpClient** pour permettre la **mise en cache des requêtes côté serveur**. Cette amélioration évite la récupération redondante de données côté client en mettant en cache les données précédemment récupérées, ce qui améliore les performances de l'application.
 
-## Comment appliquer le SSR dans une app existante
-
-L'activation du SSR se fait via la commande suivante ````ng add @nguniversal/express-engine````, ce qui aura pour effet de mettre à jour votre application en lui intégrant le support du SSR.
-
-Pour activer l'hydratation non-destructive, il est nécessaire d'importer la fonction ````provideClientHydratation```` en tant que provider dans votre fichier ````AppModule````
-
-````typescript
-import {provideClientHydration} from '@angular/platform-browser';
-// ...
-
-@NgModule({
- // ...
- providers: [ provideClientHydration() ],  // add this line
- bootstrap: [ AppComponent ]
-})
-export class AppModule {
- // ...
-}
-````
-
-Vous devriez aussi retrouver les nouvelles commandes suivantes dans votre fichier ````package.json````
-
-````
-"dev:ssr": "ng run angularSSR:serve-ssr",
-"serve:ssr": "node dist/angularSSR/server/main.js",
-"build:ssr": "ng build && ng run angularSSR:server",
-"prerender": "ng run angularSSR:prerender"
-````
-
-Vous pouvez ensuite tester le SSR en local avec la commande ````npm run dev:ssr````
 
 ## Angular SSR vs. React SSR : Quelles différences ?
 
@@ -92,3 +67,75 @@ L'utilisation de Next.js facilite grandement la prise en charge du SSR avec Reac
 |Combinaison du SSR et du SSG|Vous devez écrire du code personnalisé dans server.ts pour gérer les routes|Vous permet de choisir le SSR ou le SSG pour chaque page individuellement|
 
 En résumé, Angular 16 Universal offre un niveau de SSR similaire à Next.js + React, mais Next.js dispose d'un support plus abouti dans certaines fonctionnalités telles que l'ISR et la combinaison de différentes stratégies de rendu.
+
+## Angular 17 SSR
+
+https://www.youtube.com/watch?v=U1MP4uCuUVI&ab_channel=AngularUniversity
+https://javascript.plainenglish.io/server-side-rendering-explained-in-brief-words-angular-17-76d23a30ae24
+
+### Installation
+
+````
+ng add @angular/ssr
+````
+
+### Activer la mise en cache des requêtes http
+
+*app.config.ts*
+
+````typescript
+providers: [provideHttpClient(withFetch())]
+
+providers: [provideClientHydration(withHttpTransferCacheOptions({
+    includePostRequests: true
+}))]
+````
+C'est ce qui va activer la mise en cache des requêtes
+
+### Code conditionnel browser / server
+
+permet de filtrer certaines fonctionnalités en fonction de la plateforme. Ex : le localstorage n'est pas accessible côté serveur
+
+````typescript
+platformId = inject(PLATFORM_ID);
+
+if (isPlatformServer(this.platformId)) {	
+	
+}
+
+if (isPlatformBrowser(this.platformId)) {
+	// accéder au localStorage par exemple
+}
+````
+
+Peut aussi être remplacé par 
+
+````typescript
+afterRender(()=>{
+    // runs on client / browser
+    console.log("prints only in browser not in server");
+})
+````
+
+### lifecycle
+
+````typescript
+export class AppComponent implements OnInit {  
+  i=0;
+  ngOnInit(): void {
+    console.log("prints in both server and browser");
+  }
+  constructor(){
+    console.log("prints in both server and browser");
+	
+	afterRender(()=>{
+		// runs on client / browser
+		console.log("prints only in browser not in server");
+    })
+  }
+  buttonClick(){
+    console.log("prints only in browser not in server");
+    this.i++;
+  }
+}
+````
