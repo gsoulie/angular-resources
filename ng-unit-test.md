@@ -798,6 +798,31 @@ describe('ConfigService', () => {
 ````
 </details>
 
+### Tester une fonction private
+
+*service.ts*
+````typescript
+  private buildUrl(baseUrl: string = '', suffix: string = ''): string {
+    const cleanBaseUrl = baseUrl.replace(/\/+$/, '');
+    const cleanSuffix = suffix.replace(/^\/+/, '');
+
+    // Concaténer l'URL de base et le suffixe avec un "/" entre eux
+    return cleanBaseUrl + '/' + cleanSuffix;
+  }
+````
+
+*service.spec.ts*
+````typescript
+it('should build url', () => {
+    const baseUrl = 'http://localhost';
+    const suffix = 'api';
+    const expectedUrl = 'http://localhost/api';
+
+    const url = service['buildUrl'](baseUrl, suffix);
+    expect(url).toEqual(expectedUrl);
+})
+````
+
 ### Remarques 
 
 toBe() vs toEqual()
