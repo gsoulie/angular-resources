@@ -81,6 +81,14 @@ ng add @angular/ssr
 
 ### Activer la mise en cache des requêtes http
 
+Lorsque SSR est activé, les réponses HttpClient sont mises en cache lors de leur exécution sur le serveur. Après cela, ces informations sont sérialisées et transférées vers un navigateur dans le cadre du HTML initial envoyé depuis le serveur. 
+Dans un navigateur, HttpClient vérifie s'il a des données dans le cache et si c'est le cas, les réutilise au lieu de faire une nouvelle requête HTTP lors du rendu initial de l'application. 
+HttpClient cesse d'utiliser le cache une fois qu'une application devient stable lors de son exécution dans un navigateur.
+
+La mise en cache est effectuée par défaut pour toutes les requêtes HEAD et GET. 
+
+Vous pouvez configurer ce cache en utilisant withHttpTransferCacheOptions lors de l'hydratation.
+
 *app.config.ts*
 
 ````typescript
