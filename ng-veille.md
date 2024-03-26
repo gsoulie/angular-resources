@@ -258,6 +258,37 @@ Au niveau UI, NativeScript permet d'écrire les UI sur chaque plate-forme indép
 
 > A noter : Le poids des bundle est plus important qu'avec Ionic / React et il n'y a pas de support du HTML et du DOM
 
+<details>
+	<summary>Comparaison Nativescript / Capacitor</summary>
+
+Architecture :
+
+NativeScript : Il s'agit d'un framework de développement d'applications mobiles open source basé sur JavaScript. NativeScript permet aux développeurs de créer des applications natives pour Android et iOS en utilisant des langages Web standard tels que JavaScript, TypeScript ou Angular.
+Capacitor : Capacitor est également un framework de développement d'applications mobiles multiplateformes open source, mais il se concentre davantage sur la création d'applications à l'aide des technologies Web modernes, telles que HTML, CSS et JavaScript/TypeScript. Capacitor est développé par Ionic et est conçu pour fonctionner avec n'importe quel framework Web, comme Angular, React ou Vue.js.
+
+**Approche de développement :**
+
+NativeScript : Avec NativeScript, vous développez principalement en utilisant des composants et des APIs natifs. Le code est compilé en code natif pour chaque plateforme cible.
+Capacitor : Capacitor fonctionne en encapsulant votre application Web existante dans un conteneur natif pour chaque plateforme cible. Cela signifie que vous développez essentiellement une application Web standard et utilisez Capacitor pour accéder aux fonctionnalités natives du périphérique.
+
+**Support de la communauté et écosystème :**
+
+NativeScript : NativeScript a une communauté active et une bibliothèque d'extensions (plugins) pour accéder à des fonctionnalités spécifiques des appareils mobiles. Il est soutenu par Progress Software.
+Capacitor : Capacitor bénéficie également d'une communauté active, notamment grâce au soutien d'Ionic, qui est bien établi dans l'écosystème des applications mobiles.
+
+**Performance :**
+
+NativeScript : Étant donné que NativeScript compile le code en code natif, les performances sont généralement excellentes, car les applications sont exécutées directement sur le périphérique.
+Capacitor : Capacitor utilise un WebView pour exécuter l'application Web encapsulée, ce qui peut entraîner une légère perte de performance par rapport aux applications complètement natives.
+
+**Taille de l'application :**
+
+NativeScript : Les applications NativeScript peuvent être relativement plus grandes en taille par rapport aux applications Capacitor, en raison de la compilation du code en code natif.
+Capacitor : Les applications Capacitor sont généralement plus légères car elles encapsulent simplement une application Web standard.
+En résumé, NativeScript est mieux adapté pour ceux qui veulent créer des applications entièrement natives avec une expérience de développement proche de celle du développement Web, tandis que Capacitor est idéal pour ceux qui préfèrent utiliser leurs compétences Web existantes pour créer des applications mobiles multiplateformes avec un accès aux fonctionnalités natives.
+ 
+</details>
+
 [Back to top](#veille)     
 
 ### Flutter
