@@ -28,6 +28,87 @@ Générateur automatique de formulaires : http://zerocodeform.com/
 
 Permet de simplifier l'écriture des formulaires ReactiveForm
 
+<details>
+	<summary>Code à jour Angular 17+ avec Typed form, mat-hint et mat-error</summary>
+
+
+*controller*
+````typescript
+
+@Component({
+  selector: 'app-form',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormField,
+    MatInput,
+    MatError,
+    MatHint
+  ],
+  templateUrl: './form.component.html'
+})
+
+export default class FormPageComponent implements OnInit {
+  formG: FormGroup<{
+    name: FormControl<string>,
+    email: FormControl<string>,
+    age: FormControl<number>
+  }> | undefined;
+
+  fb = inject(NonNullableFormBuilder);
+
+  ngOnInit(): void {
+    this.initializeForm();
+  }
+
+  private initializeForm() {
+    this.formG = this.fb.group({
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      age: [0, [Validators.required, Validators.min(10)]]
+    })
+  }
+
+  handleSubmit() { }
+}
+````
+
+*template*
+
+````html
+@if(formG) {
+<form (ngSubmit)="handleSubmit()" [formGroup]="formG" id="userForm">
+  <mat-form-field appearance="fill">
+    <label for="name">Name</label>
+    <input type="text" id="name" formControlName="name" matInput required />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <label for="email">Email</label>
+    <input type="email" id="email" formControlName="email" matInput required />
+    @if (formG.get('email')?.invalid) {
+    <mat-error>Invalid email</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <label for="age">Age</label>
+    <input type="number" id="age" formControlName="age" matInput required />
+    @if (formG.get('age')?.invalid) {
+    <mat-error>Invalid age</mat-error>
+    } @else { }
+    <mat-hint align="start">Age must be greater or equal than 10</mat-hint>
+  </mat-form-field>
+  <button type="submit" [style.marginTop]="'40px'">Save form</button>
+</form>
+}
+````
+ 
+</details>
+
+<details>
+	<summary>old code</summary>
+
 *vue.html*
 ````html
  <div class="container">
@@ -151,6 +232,8 @@ resetForm() {
  <span *ngIf="password.errors?.minLength">password is invalid</span>
 </div>
 ````
+ 
+</details>
 
 ## Custom validator
 [Back to top](#form) 
