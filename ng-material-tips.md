@@ -18,7 +18,8 @@ Pour surcharger les composant Angular Material, il est important d'utiliser le c
 * [unités % vs vh](#unites-%-vs-vh)     
 * [custom css menu](#custom-css-menu)       
 * [mat-table](#mat-table)       
-* [input](#input)     
+* [input](#input)
+* [matTooltip](#matTooltip)     
 
 ## Schematic commands
 
@@ -1120,6 +1121,32 @@ input {
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
   box-sizing: border-box;         /* Opera/IE 8+ */
+}
+````
+
+## matTooltip
+
+````css
+.mat-mdc-tooltip {
+  --mdc-plain-tooltip-supporting-text-size: 14px;
+  // --mdc-plain-tooltip-supporting-text-weight: 100;
+  // --mdc-plain-tooltip-supporting-text-color: #000;
+
+  display: flex !important;
+  padding: 12px !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.mdc-tooltip__surface {
+  border-radius: 4px !important;
+  border: 1px solid $grey200 !important;
+  background: $grey100 !important;
+  padding: 12px !important;
+  color: $grey300 !important;
+
+  //letter-spacing: -0.5px !important;
+  //border: 1px solid #333 !important;
 }
 ````
 
