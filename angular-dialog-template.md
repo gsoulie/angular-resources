@@ -1,8 +1,105 @@
 [< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)    
 
+* [Helper générique](#helper-generique)
+* [Angular Dialog Template](#angular-dialog-template)    
+
+# Helper générique
+
+<details>
+  <summary>Service générique pour gérer les mat-dialog</summary>
+
+*dialog-helper.service.ts*
+
+````typescript
+import { ComponentType } from "@angular/cdk/portal";
+import { Injectable, inject } from "@angular/core";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+
+export type InfoDialogProps = {
+  title?: string,
+  message?: string,
+  closeButtonLabel?: string,
+}
+
+export type ConfirmDialogProps = InfoDialogProps & {
+  cancelButtonLabel?: string,
+  confirmButtonLabel?: string
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class DialogHelperService {
+  private _dialog = inject(MatDialog);
+
+  showInfoDialog<T>(props: InfoDialogProps, dialogComponent: ComponentType<T>): MatDialogRef<T> {
+    const dialogRef = this._dialog.open<T>(dialogComponent, {
+      panelClass: 'custom-dialog',
+      data: {
+        title: props.title || 'Title',
+        message: props.message || '',
+        closeButtonLabel: props.closeButtonLabel || 'Close'
+      }
+    })
+    return dialogRef;
+  }
+
+  showConfirmDialog<T>(props: ConfirmDialogProps, dialogComponent: ComponentType<T>): MatDialogRef<T> {
+    const dialogRef = this._dialog.open<T>(dialogComponent, {
+      panelClass: 'custom-dialog',
+      data: {
+        title: props.title || 'Confirm',
+        message: props.message || '',
+        cancelButtonLabel: props.cancelButtonLabel || 'Cancel',
+        confirmButtonLabel: props.confirmButtonLabel || 'Confirm',
+        closeButtonLabel: props.closeButtonLabel || 'Close'
+      }
+    })
+
+    return dialogRef;
+  }
+}
+````
+
+**Utilisation depuis un composant**
+
+````typescript
+import { DialogConfirmComponent } from '../../../ui/modals/confirm/confirm.component';
+import { DialogComponent } from '../../../ui/modals/info/dialog.component';
+import { DialogHelperService } from '../../../../libs/helpers/dialog-helper.service';
+
+_dialogHelper = inject(DialogHelperService);
+
+handleInfo() {
+  const dialogRef = this._dialogHelper.showInfoDialog({
+    title: 'Info dialog',
+    message: 'This is just an info',
+  }, DialogComponent)
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log(`Dialog result: ${result}`);
+  });
+
+}
+handleConfirm() {
+  const dialogRef = this._dialogHelper.showConfirmDialog({
+    title: 'Confirm changes',
+    message: 'Do you want to delete this user ?',
+  }, DialogConfirmComponent)
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log(`Dialog result: ${result}`);
+  });
+}
+````
+  
+</details>
+
 # Angular Dialog Template
 
-This template explain how to create an angular material mat-dialog generic template using *ng-container*
+<details>
+  <summary>Créer une mat-dialog basée sur un template générique avec ng-container</summary>
 
 *template-dialog.component.html*
 
@@ -170,3 +267,7 @@ export class DialogDashboardComponent implements OnInit {
 }
 
 ````
+  
+</details>
+
+
