@@ -6,7 +6,7 @@
 * [Tests unitaires et e2e tests](#tests-unitaires-et-e2e-tests)     
 * [Tests unitaires](#tests-unitaires)     
 * [e2e avec Cypress](#e2e-avec-cypress)     
-* [Karma (déprécié depuis Angular 16)]
+* [Karma (déprécié depuis Angular 16)]()
 * [Tests unitaires avec Jest](#tests-unitaires-avec-jest)          
 
 ## Tester le bundle généré dans le répertoire dist
@@ -212,6 +212,9 @@ describe('ReversePipe', () => {
 
 ## e2e avec Cypress
 
+<details>
+	<summary>Tests fonctionnels</summary>
+
 ````
 ng add @briebug/cypress-schematic
 npm install --legacy-peer-deps
@@ -399,6 +402,10 @@ describe('menu-navigation', () => {
 
 })
 ````
+ 
+</details>
+
+
 [Back to top](#tests-unitaires)
 
 ## Tests unitaires avec Jest
