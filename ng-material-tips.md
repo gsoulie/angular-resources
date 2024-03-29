@@ -839,6 +839,22 @@ https://www.youtube.com/watch?v=ArTVfdHOB-M&ab_channel=OnlineTutorials
 ## mat-table
 
 <details>
+	<summary>Remplir une ligne sur deux en couleur</summary>
+
+*styles.scss*
+````css
+.mat-mdc-row:nth-child(even) {
+  background-color: red !important;
+}
+
+.mat-mdc-row:nth-child(even) {
+  background-color: #f6f6f6 !important;
+}
+````
+ 
+</details>
+
+<details>
 	<summary>Table avec column chooser, drag and drop colonne, colonne éditable</summary>
 
 *table.component.html*
