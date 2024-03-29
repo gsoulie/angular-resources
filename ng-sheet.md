@@ -120,7 +120,8 @@
 	* e2e avec Cypress
 	* tests unitaires avec Jest
 * Helper
-	* [Helper mat-dialog](https://github.com/gsoulie/angular-resources/blob/master/angular-dialog-template.md)
+	* [Helper mat-dialog](https://github.com/gsoulie/ionic-angular-snippets/tree/master/helpers/dialog)
+ 	* [Helper mat-dialog avec template](https://github.com/gsoulie/angular-resources/blob/master/angular-dialog-template.md)
  	* [Helper mat-snackbar](https://github.com/gsoulie/ionic-angular-snippets/tree/master/helpers/snackbar)    	
 * [Local storage, Session storage, Cookies](https://github.com/gsoulie/angular-resources/blob/master/ng-local-storage.md)     
 * [Animations](https://github.com/gsoulie/angular-resources/blob/master/ng-animation.md)     
