@@ -558,9 +558,23 @@ Concurrent de **NuxtJS** pour *Vue*
 [Back to top](#veille)     
 
 ### Prisma 
-=> Est un ORM (Object Relational Mapper), soit un ensemble de classes permettant de manipuler les tables d’une base de données relationnelle comme s’il s’agissait d’objets.
 
-Un ORM est une couche d’abstraction d’accès à la base de données qui donne l’illusion de ne plus travailler avec des requêtes mais de manipuler des objets.
+Prisma est un outil ORM (Object-Relational Mapping) moderne et open source pour les bases de données SQL et NoSQL. Il offre une manière plus simple et plus productive d'interagir avec votre base de données en utilisant un modèle de données déclaratif et en générant automatiquement du code pour accéder à la base de données en fonction de ce modèle.
+
+Voici quelques avantages et inconvénients de Prisma :
+
+**Avantages :**
+
+* Productivité accrue : Prisma simplifie l'interaction avec la base de données en générant automatiquement du code pour effectuer les opérations CRUD (Create, Read, Update, Delete).
+* Modèle de données déclaratif : Vous pouvez définir votre modèle de données à l'aide de Prisma Schema, ce qui rend la structure de la base de données plus transparente et plus facile à maintenir.
+* Sécurité : Prisma utilise des requêtes paramétrées pour protéger contre les attaques par injection SQL.
+* Intégration avec GraphQL : Prisma peut être utilisé avec GraphQL pour créer rapidement des API GraphQL en utilisant les types de données définis dans Prisma Schema.
+* Gestion de la migration : Prisma offre des outils pour gérer les migrations de schéma de base de données de manière transparente.
+
+**Inconvénients :**
+
+* Documentation limitée : Bien que Prisma dispose d'une documentation décente, elle peut parfois manquer de détails spécifiques ou de cas d'utilisation avancés.
+* Moins de flexibilité : Prisma impose une certaine structure et des conventions, ce qui peut ne pas convenir à tous les cas d'utilisation ou à toutes les architectures de base de données.
 
 > En bref : Couche de mapping object relationnel entre nodejs et typescript
 
@@ -571,56 +585,6 @@ Prisma => définition du modèle de données => génération fichier TS
 npx prisma init
 ````
 
-En Angular, les Injection Tokens sont utilisés pour fournir des instances de dépendances spécifiques lors de l'injection de dépendances dans des composants ou des services. Les Injection Tokens sont des objets qui agissent comme des clés uniques pour identifier une dépendance lorsqu'elle est injectée dans un constructeur de classe.
-
-Voici quelques cas d'utilisation courants des Injection Tokens en Angular :
-
-Remplacement de dépendances par défaut : Les Injection Tokens peuvent être utilisés pour remplacer les dépendances par défaut fournies par Angular avec des implémentations personnalisées. Par exemple, vous pouvez fournir une implémentation personnalisée d'un service en utilisant un Injection Token et en l'injectant dans un composant ou un service.
-
-Fournir des configurations : Les Injection Tokens peuvent également être utilisés pour fournir des configurations à un service. Vous pouvez définir un Injection Token qui représente une configuration spécifique et l'injecter dans le constructeur du service qui utilise cette configuration.
-
-Injection de dépendances conditionnelle : Les Injection Tokens peuvent également être utilisés pour injecter différentes dépendances en fonction des conditions. Par exemple, vous pouvez définir deux Injection Tokens différents pour deux implémentations de service différentes et choisir laquelle injecter en fonction d'une condition.
-
-Les Injection Token permettent de définir des constantes
-
-````typescript
-export interface UsersServiceConfigInterface {
-	api: string
-}
-
-providers: [
-	{ provide: 'USER_SERVICE', useClass: UsersServices },
-	{ provide: 'USERS_SERVICE_CONFIG',
-	useValue: { api: 'https://my-url'}}
-]
-````
-
-Le nom devant être obligatoirement unique, on utilise des injection token pour définir des identifiants uniques
-
-````typescript
-export const USERS_SERVICE_TOKEN = new InjectionToken<UsersService>('');
-export const USERS_SERVICE_CONFIG_TOKEN = new InjectionToken<UsersServiceConfigInterface>('');
-
-export interface UsersServiceConfigInterface {
-	api: string
-}
-
-providers: [
-	{ provide: USER_SERVICE_TOKEN, useClass: UsersServices },
-	{ provide: USERS_SERVICE_CONFIG_TOKEN,
-	useValue: { api: 'https://my-url'}}
-]
-````
-
-Utilisation dans le code
-
-````typescript
-export class AppComponent {
-	constructor(@Inject(USER_SERVICE_TOKEN) private usersService: UsersService) {
-		console.log('usersService', usersService);
-	}
-}
-````
 
 [Back to top](#veille)     
 
