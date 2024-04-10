@@ -2,6 +2,9 @@
 
 # Nouveautés
 
+* [v17.3](#v17-.-3)     
+* [v17.2](#v17-.-2)     
+* [v17.1](#v17-.-1)     
 * [Keynote du 06/11/2023](##keynote-du-06--11--2023)     
 * [ng-conf 2023](#ng--conf-2023)     
 * [v16](#v16)    
@@ -9,6 +12,389 @@
 * [v14](#v14)
 * [AnalogJS](#analogjs)
 * [Dépréciations](#dépréciations)
+
+# Angular 17.3
+
+<details>
+	<summary>Nouveautés Angular 17.3</summary>
+
+
+### Support Typescript 5.4
+
+### Nouveau compilateur de template
+
+Ce compilateur est basé sur une représentation intermédiaire des opérations de modèle, un concept commun dans les compilateurs, par exemple dans LLVM. Cette représentation intermédiaire encode sémantiquement ce qui doit se produire au moment de l'exécution pour rendre et détecter les modifications du modèle. L'utilisation d'une représentation intermédiaire permet de traiter indépendamment les différentes préoccupations de la compilation du modèle, ce qui n'était pas le cas avec l'implémentation précédente. Ce nouveau compilateur est plus facile à entretenir et à étendre, ce qui en fait une excellente base pour les améliorations futures dans le framework.
+
+### Fonction output() 
+
+à l'image de la fonction input() apparue dans la version 17.2, c'est au tour des output() de faire leur apparition.
+
+````typescript
+// Syntaxe traditionnelle des Output
+@Ouput() selectedUserOldSyntax = new EventEmitter<User>()
+
+// Nouvelle syntaxe
+selectedUser = output<User>();
+
+sendUser(user: User) {
+	this.selectedUser.emit(user)
+}
+````
+
+> **Important** : Contrairement à la fonction ````input()````, la fonction ````ouput()```` **ne retourne pas un Signal** mais un objet ````OutputEmitterRef````. ````ouput()```` **n'est pas** basé sur Signal, il s'agit juste d'une nouvelle syntaxe alternative à ````@Output()```` permettant de rester cohérent avec l'utilisation de ````input()```` et alléger ainsi le code
+
+> **A noter** : La syntaxe ````@Output()```` est toujours valide
+
+La fonction ````output()```` retourne un objet ````OutputEmitterRef<T>```` qui peut être utilisé pour émettre une valeur. Cet objet
+est très similaire à un objet ````EventEmitter```` simplifié et s'utilise de la même manière.
+
+La fonction ````output()```` est paramétrable. Pour l'instant, seul le paramètre ````alias```` est disponible.
+
+````typescript
+selectedUser = output<User>({
+	alias: 'newUser'
+});
+````
+
+Deux nouvelles fonctions ont été ajoutées afin de convertir un output() en observable et inversément :
+
+* ````outputFromObservable()````
+* ````outputToObservable()````
+
+````typescript
+@Ouput() oldSyntax = new EventEmitter<Todo>()
+
+todoAdded = output<Todo>();
+
+counter$ = from([1, 2, 3, 4, 5])
+
+counter = outputFromObservable(this.counter$);
+
+todo$ = outputToObservable(this.todoAdded)
+````
+
+### Dépréciation de RouterTestingModule
+
+Il est recommandé d'utiliser ````provideRouter()```` dans la configuration de TestBed
+
+### Nouveaux types pour le router
+
+On peut désormais simplifier la signature des guards
+
+````typescript
+export type CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree;
+````
+
+par
+
+````typescript
+export type CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => MaybeAsync<GuardResult>;
+````
+
+* ````GuardResult```` est un nouveau type égal à ````boolean | UrlTree````
+* ````MaybeAsync<T>```` est un nouveau type générique égal à ````T | Observable<T> | Promise<T>````
+ 
+</details>
+
+# Angular 17.2
+
+<details>
+	<summary>Nouveautés Angular 17.2</summary>
+
+> Angular **v17.2** : [Angular blog](https://blog.angular.io/angular-v17-2-is-now-available-596cbe96242d)     
+
+Angular **v17.2** continue d'améliorer la prise en charge de Signal, en introduisant entre autre les notions **model input**, **signal queries** : *viewChild, viewChildren, contentChild, contentChildren*. Mais aussi la prise en charge expérimentale de *Material 3*, image loader Netlify et de la prise en charge du débogage d'hydratation dans Angular DevTools.
+
+## model inputs
+
+L'écriture traditionnelle pour utiliser le 2-way binding ````[(ngModel)]```` **ne fonctionne pas avec Signal**. Pour se faire, nous avons besoin d'avoir accès à un *writable signal*. C'est pourquoi Angular **v17.2** introduit la notion de **model input**
+
+> le **model** défini un couple d'*input/output* qui peut être utilisé en 2-way binding.
+
+
+*parent*
+````typescript
+<signal-counter [(count)]="parentCounter" />
+
+export class ParentComponent {
+  parentCounter = 0;
+}
+````
+
+*enfant*
+````typescript
+@Component({
+	selector: 'signal-counter',
+	template: `
+		<div class="counter">
+			Counter value : {{ count() }}
+			
+			<button (click)="onIncrement()">Increment</button>
+		</div>
+	`
+})
+
+export class CounterComponent {
+	
+	count = model(0);	// est de type ModelSignal<number>, autorise le 2-way binding
+	
+	onIncrement() {
+		this.count.update(val => val + 1);
+	}
+}
+````
+
+<details>
+  <summary>Exemple avec 2 signaux connectés qui ont toujours la même valeur</summary>
+
+*counter.component.ts*
+````typescript
+@Component{
+  selector: 'app-counter',
+  template: `<button (click)="increase()">Counter : {{ value() }}</button>`
+}
+export class CounterComponent {
+  value = model.required<number>();
+
+  increase() {
+    this.value.update(count => count + 1);
+  }
+````
+
+*wrapper.component.ts*
+````typescript
+@Component{
+  selector: 'app-wrapper',
+  imports: [CounterComponent],
+  template: `
+  <app-counter [(value)]="count" />
+  <button (click)="increase()">Wrapper Counter : {{ count() }}</button>`
+}
+export class WrapperComponent {
+  count = signal(0);
+
+  increase() {
+    this.count.update(count => count + 1);
+  }
+````
+  
+</details>
+
+> [**Voir article détaillé ici**](https://netbasal.com/angulars-model-function-explored-a-comprehensive-overview-4481d023c822)    
+
+## Signal queries
+
+Angular permet d'accéder à la référence des éléments du DOM via les directives ````@ViewChild()```` et ````@ViewChildren()````. Cependant, ces directives ne fonctionnent pas avec Signal, c'est pourquoi les nouvelles directives ````viewChild()```` et ````viewChildren()```` ont été introduites.
+
+### viewChild
+
+<details>
+  <summary>(Pour rappel) Accéder à une référence Sans Signal</summary>
+
+````typescript
+@Component({
+	imports: [CounterComponent],
+	template: `
+	
+		<p>Parent counter: {{ parentCounter }}</p>
+		<signal-counter [(count)]="parentCounter" />
+	`
+})
+export class SignalDemoComponent implements AfterViewInit {
+	parentCounter = 0;
+	
+	@ViewChild(CounterComponent) counter: CounterComponent;	// est une référence de CounterComponent
+	
+	ngAfterViewInit() {
+		console.log('counter component', this.counter)
+	}
+}
+````
+  
+</details>
+
+
+Accéder à une référence **Avec** Signal
+````typescript
+@Component({
+	imports: [CounterComponent],
+	template: `
+	
+		<p>Parent counter: {{ parentCounter }}</p>
+		<signal-counter [(count)]="parentCounter" />
+	`
+})
+export class SignalDemoComponent {
+	parentCounter = 0;
+	
+	counter = viewChild(CounterComponent);	// est une référence de CounterComponent de type Signal<CounterComponent>
+	
+	constructor() {
+		effect(() => console.log('counter component', this.counter()));
+	}
+	
+}
+````
+
+*Obtenir une référence sur un élément précis avec un id*
+````typescript
+<signal-counter #myCounter [(count)]="parentCounter" />
+
+counter = viewChild('myCounter');
+
+// Si l'on souhaite forcer le required
+counter = viewChild.required('myCounter');
+````
+
+### viewChildren
+
+De la même manière que *viewChild*, on peut désormais utiliser *viewChildren* dans le cas où il y a plusieurs composant du même type
+
+````typescript
+@Component({
+	imports: [CounterComponent],
+	template: `
+	
+		<p>Parent counter: {{ parentCounter }}</p>
+		<signal-counter [(count)]="parentCounter" />
+		<signal-counter [(count)]="parentCounter" />
+		<signal-counter [(count)]="parentCounter" />
+	`
+})
+export class SignalDemoComponent {
+	parentCounter = 0;
+	
+	counters = viewChildren(CounterComponent);	// est une référence de CounterComponent de type Signal<CounterComponent>
+	
+	constructor() {
+		effect(() => console.log('array of counter components', this.counters()));
+	}
+	
+}
+````
+
+### contentChild, contentChildren
+
+Fonctionnement similaire à *viewChild()* et *viewChildren()*
+
+> [Présentation vidéo de la chaîne Angular University](https://www.youtube.com/watch?v=abUBuWVwK14&ab_channel=AngularUniversity)
+ 
+</details>
+
+# Angular 17.1
+
+<details>
+	<summary>Voici les principales nouveautés de la version 17.1</summary>
+
+> [source complète](https://blog.ninja-squad.com/2024/01/17/what-is-new-angular-17.1/)     
+
+## Support Typescript 5.3
+
+Voir les nouveautés typescript 5.3 ici : [https://devblogs.microsoft.com/typescript/announcing-typescript-5-3/](https://devblogs.microsoft.com/typescript/announcing-typescript-5-3/)
+
+## Inputs as Signal
+
+La feature la plus attendue de cette version est la possibilité d'utiliser les inputs comme Signaux via la création d'une fonction ````input()```` qui retourne un Signal.
+
+Un article détaillé présente les nouveautés apportées par cette nouvelle feature [@Input / @Output](https://wiki-collab.groupe-isia.com/books/angular/page/at-input-at-output) 
+
+## Zoneless change detection
+
+Une nouvelle Api "private" appelée **ɵprovideZonelessChangeDetection** a été ajoutée à *@angular/core* permettant au framework de ne plus utiliser **zone.js** pour la détection des changements.
+
+Il est **important** de noter que cette api est **encore au stade expérimental** comme le suggère son aspect "private", mais cela montre que l'équipe s'oriente clairement vers une détection de changement sans *zone.js* pour l'avenir
+
+## Router info
+
+Le routeur dispose désormais d'une option ````info```` dans les *NavigationExtras* qui peut être utilisée pour stocker des informations sur la navigation. Contrairement à l’option ````state````, ces informations ne sont pas conservées dans l’historique de la session.
+
+````
+<a [routerLink]="['/user', user.id]" [info]="{ userName: user.name }"></a>
+````
+
+## Angular CLI
+
+### Vite v5
+
+Angular 17.1 utilise maitenant Vite v5
+
+### Application builder
+
+Nouvelle commande pour migrer vers le nouveau Application Builder
+
+````
+ng update @angular/cli --name=use-application-builder
+````
+
+Pour rappel sur Angular Builder : 
+
+> [Angular builder](https://robert-isaac.medium.com/angular-v17-the-application-builder-2482979648bf)    
+
+L'équipe Angular travaille sur un nouveau builder appelé "application" (le builder actuel est appelé "browser"). 
+Il est actuellement disponible en tant que version developer preview dans Angular 16.2 et deviendra le **choix par défaut pour les nouvelles applications générées avec Angular 17**.
+
+Tout d'abord, qu'est-ce qu'un builder dans Angular ?
+
+Le builder Angular (appelé "executer" dans les dépôts nx) est essentiellement le compilateur qui convertit les fichiers Angular TS, HTML Angular et SCSS de votre application en fichiers HTML, JS et CSS simples compréhensibles par le navigateur.
+
+Actuellement, plusieurs builder sont disponibles, tels que 
+* ````@angular-devkit/build-angular:browser```` pour le build en production, 
+* ````@angular-devkit/build-angular:dev-server```` pour le service (par exemple, ng serve), qui utilise toujours ````@angular-devkit/build-angular:browser```` en interne, 
+mais sans beaucoup d'optimisation et en exposant certaines parties du compilateur Angular pendant l'exécution. 
+* ````@angular-devkit/build-angular:server```` pour le build production en SSR, 
+* ````@nguniversal/builders:ssr-dev-server```` pour le service SSR, 
+* ````@nguniversal/builders:prerender```` pour le prérendu.
+
+Tous ces builder reposent actuellement sur webpack. Cependant, un nouveau builder, ````@angular-devkit/build-angular:browser-esbuild````, utilise esbuild, et il est disponible en developer preview
+
+Où s'inscrit le nouveau builder ?
+
+Il utilisera ````@angular-devkit/build-angular:browser-esbuild```` en interne, mais il l'étendra pour remplacer également ````@angular-devkit/build-angular:server```` et ````@nguniversal/builders:prerender````.
+
+Et maintenant qu'il peut effectuer à la fois la construction du navigateur et du SSR, il permettra à ````@angular-devkit/build-angular:dev-server```` de remplacer ````@nguniversal/builders:ssr-dev-server````.
+
+Dans le futur, nous aurons seulement 2 builder au lieu des 5 actuels. Cela simplifiera la configuration dans angular.json (ou project.json dans le cas de nx) et accélérera le processus de construction, car les étapes communes entre la construction du navigateur, le prérendu et le SSR ne seront exécutées qu'une seule fois au lieu de trois. 
+De plus, cela permettra l'utilisation de modules ES (ESM) dans le SSR, ce qui fonctionne maintenant pour les projets sans SSR.
+
+
+
+### loader option
+
+L'application builder dispose d'une nouvelle option ````loader````. Elle permet de définir le type de fichier à utiliser pour une extension de fichier spécifiée. 
+Le fichier correspondant à l'extension peut ensuite être utilisé dans le code de l'application via une instruction d'importation.
+
+Les types disponibles sont les suivants :
+
+* "text" qui traite le contenu comme une chaîne de caractères.
+* "binary" qui traite le contenu comme un Uint8Array.
+* "file" qui émet le fichier et fournit l'emplacement d'exécution du fichier.
+* "empty" qui considère le contenu comme vide et ne l'inclura pas dans les paquets.
+
+Par exemple, pour intégrer le contenu des fichiers SVG dans l'application, vous pouvez utiliser la configuration suivante dans le fichier angular.json : 
+
+*angular.json*
+````json
+loader: {
+    ".svg": "text"
+}
+````
+
+Le fichier SVG peut ensuite être importé de la manière suivante 
+
+````typescript
+import content from './logo.svg';
+````
+
+TypeScript doit connaître le type de module pour l'importation afin d'éviter les erreurs de vérification de type lors de la construction. Vous devrez donc ajouter une définition de type pour le fichier SVG.
+
+````typescript
+declare module "*.svg" {
+  const content: string;
+  export default content;
+}
+````
+ 
+</details>
 
 # Keynote du 06/11/2023
 
