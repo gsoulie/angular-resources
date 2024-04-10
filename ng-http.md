@@ -115,7 +115,7 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
           default:
             break;
         }
-        return throwError(errorMessage);
+        return throwError(() => new Error(errorMessage));
       })
     );
 };
@@ -223,7 +223,7 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
                   default:
                     break;
                 }
-                return throwError(errorMessage);
+                return throwError(() => new Error(errorMessage));
             })
         );
     }
