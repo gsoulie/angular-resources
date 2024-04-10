@@ -43,9 +43,7 @@ export const appConfig: ApplicationConfig = {
 ## Catch
 
 <details>
-	<summary></summary>
-</details>
-Capturer les erreurs http unitairement dans l'observable
+	<summary>Capturer les erreurs http unitairement dans l'observable</summary>
 
 ````typescript
 import { map, catchError } from 'rxjs/operators';
@@ -62,6 +60,8 @@ fetchData() {
 	);
 }
 ````
+ 
+</details>
 
 ## HTTP Interceptor
 
@@ -78,45 +78,25 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req)
     .pipe(
       retry(1),
-      catchError((error: HttpErrorResponse) => {
-        let errorMessage = '';
-        if (error.error instanceof ErrorEvent) {
-          // client-side error
-          errorMessage = `>>>Error: ${error.error.message}`;
+      catchError((err: any) => {
+      	if (err instanceof HttpErrorResponse) {
+	        // Handle HTTP errors
+	        if (err.status === 401) {
+	          // Specific handling for unauthorized errors         
+	          console.error('Unauthorized request:', err);
+	          // You might trigger a re-authentication flow or redirect the user here
+	        } else {
+	          // Handle other HTTP error codes
+	          console.error('HTTP error:', err);
+	        }
         } else {
-          // server-side error
-          errorMessage = `>>>Error Status: ${error.status}\nMessage: ${error.message}`;
+		// Handle non-HTTP errors
+		console.error('An error occurred:', err);
         }
-        console.log(errorMessage);
-        switch (error.status) {
-          case 0:
-            // Traitement ici
-            console.log('ERREUR 0')
-            break;
-          case 500:
-            // Traitement ici
-            break;
-          case 503:
-            console.log('ERREUR 503')
-            // Traitement ici
-            break;
-          case 401:
-            // Traitement ici
-            break;
-          case 400:
-            // Traitement ici
-            break;
-          case 404:
-            // Traitement ici
-            break;
-          case 403:
-            // Traitement ici
-            break;
-          default:
-            break;
-        }
-        return throwError(() => new Error(errorMessage));
-      })
+
+      	// Re-throw the error to propagate it further
+      	return throwError(() => err); 
+      })      
     );
 };
 ````
