@@ -55,7 +55,8 @@
  		* @Input / @Output	
 	* [Directives structurelles](https://github.com/gsoulie/angular-resources/blob/master/ng-concept-structural-directive.md)   
 	* [PWA : Service worker - Web worker](https://github.com/gsoulie/angular-resources/blob/master/ng-service-worker.md)       
-	* [Gestion du state avec NgRx](https://github.com/gsoulie/angular-resources/blob/master/ng-ngrx.md)     
+	* [Gestion du state avec NgRx](https://github.com/gsoulie/angular-resources/blob/master/ng-ngrx.md)
+ 	* [Defer block](https://github.com/gsoulie/angular-resources/blob/master/ng-defer.md)     
 * [Gestion des erreurs](https://github.com/gsoulie/angular-resources/blob/master/ng-error.md)       
 
 * [Astuces](https://github.com/gsoulie/angular-resources/blob/master/ng-tips.md) <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">     
