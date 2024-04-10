@@ -42,6 +42,9 @@ export const appConfig: ApplicationConfig = {
 
 ## Catch
 
+<details>
+	<summary></summary>
+</details>
 Capturer les erreurs http unitairement dans l'observable
 
 ````typescript
@@ -62,12 +65,83 @@ fetchData() {
 
 ## HTTP Interceptor
 
+<details>
+	<summary>Exemple interceptor depuis Angular 17</summary>
+
+*http.interceptor.ts*
+````typescript
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import { catchError, retry, throwError } from 'rxjs';
+
+export const httpInterceptor: HttpInterceptorFn = (req, next) => {
+ 
+  return next(req)
+    .pipe(
+      retry(1),
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = '';
+        if (error.error instanceof ErrorEvent) {
+          // client-side error
+          errorMessage = `>>>Error: ${error.error.message}`;
+        } else {
+          // server-side error
+          errorMessage = `>>>Error Status: ${error.status}\nMessage: ${error.message}`;
+        }
+        console.log(errorMessage);
+        switch (error.status) {
+          case 0:
+            // Traitement ici
+            console.log('ERREUR 0')
+            break;
+          case 500:
+            // Traitement ici
+            break;
+          case 503:
+            console.log('ERREUR 503')
+            // Traitement ici
+            break;
+          case 401:
+            // Traitement ici
+            break;
+          case 400:
+            // Traitement ici
+            break;
+          case 404:
+            // Traitement ici
+            break;
+          case 403:
+            // Traitement ici
+            break;
+          default:
+            break;
+        }
+        return throwError(errorMessage);
+      })
+    );
+};
+````
+
+*app.config.ts*
+````typescript
+export const appConfig: ApplicationConfig = {
+  providers: [    
+    provideRouter(routes, withComponentInputBinding()),
+    provideHttpClient(withInterceptors([
+      httpInterceptor
+    ])),
+}
+````
+ 
+</details>
+
 ### Gestion des erreurs Http avec HTTP_INTERCEPTORS
 
 https://www.youtube.com/watch?v=OHbWHO1Iq5o&ab_channel=ng-conf      
 
-*app.module.ts*
+<details>
+	<summary>Avant Angular 17</summary>
 
+*app.module.ts*
 ````typescript
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -155,9 +229,45 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
     }
 }
 ````   
-[Back to top](#requêtes-http)     
+[Back to top](#requêtes-http)  
+ 
+</details>   
+
+### Gestion du Bearer depuis Angular 17
+
+````typescript
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+
+export const httpInterceptor: HttpInterceptorFn = (req, next) => {
+  const authToken = 'YOUR_AUTH_TOKEN_HERE';
+
+  // Clone the request and add the authorization header
+  const authReq = req.clone({
+    setHeaders: {
+      Authorization: `Bearer ${authToken}`
+    }
+  });
+
+  // Pass the cloned request with the updated header to the next handler
+  return next(authReq);
+};
+````
+
+*app.config.ts*
+````typescript
+export const appConfig: ApplicationConfig = {
+  providers: [    
+    provideRouter(routes, withComponentInputBinding()),
+    provideHttpClient(withInterceptors([
+      httpInterceptor
+    ])),
+}
+````
 
 ### Gestion du Bearer token avec Interceptor
+
+<details>
+	<summary>Déclaration Avant Angular 17</summary>
 
 Ajouter automatiquement le Bearer token à toutes les requêtes http
 
@@ -282,6 +392,9 @@ export class AppModule { }
 ````
 
 [Back to top](#requêtes-http)     
+ 
+</details>
+
 
 ### Gérer le déclenchement d'un spinner de chargement à chaque requête http
 
