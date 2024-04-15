@@ -479,3 +479,18 @@ export class ChildComponent {}
 ````
 
 [Back to top](#directives)
+
+## Directive listener sur resize
+
+<details>
+	<summary>Code directive</summary>
+
+````typescript
+@HostListener('resize', ['$event'])
+onResize([{ contentRect }]: ResizeObserverEntry[]) {
+	this.width = contentRect.width;
+	this.height = contentRect.height;
+}
+````
+ 
+</details>
