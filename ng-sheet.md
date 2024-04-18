@@ -96,6 +96,7 @@
 	* [Détection du mode mobile / handset](https://github.com/gsoulie/ionic-angular-snippets/blob/master/snippet-resources/handset-mode-helper.ts)    
 * [UI Components](https://github.com/gsoulie/angular-resources/blob/master/ng-ui-components.md)     
 	* Dropdown directive
+ 	* Dropdown custom avec type générique T     
 	* mat-table
 	* Fullcalendar
 	* mat-button-toggle-group
