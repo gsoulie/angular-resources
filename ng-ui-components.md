@@ -4,7 +4,8 @@
 
 * [mat-table](https://github.com/gsoulie/angular-resources/blob/master/angular-component.md#mat-table)        
 * [fullcalendar](#fullcalendar)       
-* [perso](https://github.com/gsoulie/angular-resources/blob/master/angular-component.md#components)        
+* [perso](https://github.com/gsoulie/angular-resources/blob/master/angular-component.md#components)
+* [Dropdown custom avec type T](dropdown-custom-avec-type-t)     
 * [Dropdown directive](https://github.com/gsoulie/angular-resources/blob/master/angular-component.md#dropdown-directive)      
 * [Swiper](https://github.com/gsoulie/angular-resources/blob/master/angular-component.md#swiper)      
 * [mat-dialog](#mat-dialog)       
@@ -18,6 +19,83 @@
 
 [Doc](https://github.com/gsoulie/angular-resources/blob/master/angular-component.md#fullcalendar)     
 [Projet exemple](https://github.com/gsoulie/angular-fullcalendar)      
+
+## Dropdown custom avec type T
+
+<details>
+	<summary>Voici un exemple d'implémentation d'une dropdown list personnalisée et utilisant un type générique T</summary>
+
+*dropdown.component.ts*
+
+````typescript
+export type DropdownOption<T> = {
+  text: string;
+  value: T;
+}
+
+@Component({
+  selector: 'app-dropdown',
+  templateUrl: `
+	<select>
+	  <option *ngFor="let option of options">
+		{{ option.text }}
+	  </option>
+	</select>
+  `
+})
+export class DropdownComponent<T> {
+  @Input()
+  value: DropdownOption<T>;
+
+  @Input()
+  options: DropdownOption<T>[];
+}
+````
+
+*app.component.ts*
+
+````typescript
+type MyCustomType = { name: string, value: number };
+
+@Component({
+  selector: 'app-root',
+  templateUrl: `
+	<app-dropdown [value]="valueAsDropdownItem" [options]="optionsAsDropdownItems" />
+  `,
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent {
+  currentOption: MyCustomType = { name: 'foo', value: 42};
+
+  options: MyCustomType[] = [
+    {
+      name: 'foo',
+      value: 42,
+    },
+    {
+      name: 'bar',
+      value: 13,
+    },
+  ]
+
+  get valueAsDropdownItem(): DropdownOption<MyCustomType> {
+    return this.toDropdownOption(this.currentOption);
+  }
+
+  get optionsAsDropdownItems(): DropdownOption<MyCustomType>[] {
+    return this.options.map(option => this.toDropdownOption(option));
+  }
+
+  toDropdownOption(item: MyCustomType): DropdownOption<MyCustomType> {
+    return {
+      title: item.name,
+      value: item,
+    }
+  }
+}
+````
+ 
+</details>
 
 ## mat-dialog
 [Back to top](#ui-components)
