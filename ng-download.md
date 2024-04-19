@@ -35,3 +35,7 @@ this.apiService.getFile()
     link.click();
   })
 ````
+
+## Autre exemple
+
+https://dev.to/tabernerojerry/angular-drag-and-drop-files-upload-made-simple-jb6
