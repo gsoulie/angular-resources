@@ -2,6 +2,7 @@
 
 # Form
 
+* [Nouveaux événements (Angular 18)](#nouveaux-événements)     
 * [Générateur de formulaire](#générateur-de-formulaire)         
 * [FormBuilder](#formbuilder)     
 * [Custom validator](#custom-validator)     
@@ -19,6 +20,105 @@ Pour faciliter l'écriture des formulaires, utiliser Angular FormBuilder : https
 ````
 import { ReactiveFormsModule } from '@angular/forms';
 ````
+
+## Nouveaux événements
+
+Angular 18 améliore l'API des formulaires en offrant plus de contrôle sur le processus de validation des formulaires. 
+
+Liste des nouveaux événements disponibles :
+
+* ````PristineChangeEvent````
+* ````ValueChangeEvent````
+* ````StatusChangeEvent````
+* ````TouchedChangeEvent````
+* ````FormSubmittedEvent````
+* ````FormResetEvent````
+
+<details>
+  <summary>Exemple d'implémentation sur un champ</summary>
+
+````html
+<input id="title" [formControl]="title">
+````
+
+````typescript
+title = new FormControl('my app');
+
+title.events.subscribe((event) => {
+
+	if (event instanceof TouchedChangeEvent) {
+		console.log('Touched', event.touched)
+	}
+	if (event instanceof PristineChangeEvent) {
+		console.log('Pristine', event.pristine)
+	}
+	if (event instanceof ValueChangeEvent) {
+		console.log('ValueChange', event.value)
+	}
+	if (event instanceof StatusChangeEvent) {
+		console.log('Status change', event.status)	// VALID, INVALID, PENDING, DISABLED
+	}
+})
+
+````  
+</details>
+
+<details>
+  <summary>Exemple d'implémentation sur un Form</summary>
+
+````html
+<form [formGroup]="myForm">
+	<label for="title">Title</label>
+	<input id="title" formControlName="title">
+	
+	<label for="version">Version</label>
+	<input id="version" formControlName="version">
+	
+	<button type="submit">Save</button>
+	<button type="reset">Reset</button>
+</form>
+````
+
+
+````typescript
+myForm = new FormGroup({
+	title: new FormControl('my app'),
+	version: new FormControl('1.1'),
+})
+
+
+this.myForm.events.subscribe((event) => {
+
+	if (event instanceof TouchedChangeEvent) {
+		console.log('Touched', event.touched)
+	}
+	if (event instanceof PristineChangeEvent) {
+		console.log('Pristine', event.pristine)
+	}
+	if (event instanceof ValueChangeEvent) {
+		console.log('ValueChange', event.value.title)
+		console.log('ValueChange', event.value.version)
+	}
+	if (event instanceof StatusChangeEvent) {
+		console.log('Status change', event.status)	// VALID, INVALID, PENDING, DISABLED
+	}
+	
+	if (event instanceof FormSubmittedEvent) {
+		console.log('Form submitted')
+	}
+	if (event instanceof FormResetEvent) {
+		console.log('Form Reset')
+	}
+})
+````
+
+Ne pas oublier d'importer les events
+
+````typescript
+import { TouchedChangeEvent, PristineChangeEvent, ValueChangeEvent, StatusChangeEvent, FormSubmittedEvent, FormResetEvent } from '@angular/forms'
+````
+  
+</details>
 
 ## Générateur de formulaires
 
