@@ -2,9 +2,10 @@
 
 # Nouveautés
 
-* [v17.3](#v17-.-3)     
-* [v17.2](#v17-.-2)     
-* [v17.1](#v17-.-1)     
+* [v18](#angular-v18)    
+* [v17.3](#angular-v17-.-3)     
+* [v17.2](#angular-v17-.-2)     
+* [v17.1](#angular-v17-.-1)     
 * [Keynote du 06/11/2023](##keynote-du-06--11--2023)     
 * [ng-conf 2023](#ng--conf-2023)     
 * [v16](#v16)    
@@ -13,6 +14,262 @@
 * [AnalogJS](#analogjs)
 * [Dépréciations](#dépréciations)
 
+# Angular v18
+
+<details>
+	<summary>Nouveautés Angular 18</summary>
+
+````11/04/2024````
+
+> [Angular v18 Blog](https://blog.angular.dev/angular-v18-is-now-available-e79d5ac0affe)
+
+Après avoir livré 3 grosses versions (15, 16 et 17) apportant de nombreuses nouveautés et amélioration, la version 18 se concentre sur la stabilisation de nombreuses features jusque là identifiées comme "expérimentales".
+
+Angular 18 est une version majeure qui inclut un certain nombre de nouvelles fonctionnalités et améliorations qui rendront les applications Angular plus rapides, plus puissantes et plus faciles à développer.
+
+## (expérimental) Première API disponible en mode zoneless
+
+Angular 18 fait un premier pas concret vers la migration *zoneless* avec la directive ````provideExperimentalZonelessChangeDetection````
+
+````typescript
+bootstrapApplication(App, {
+  providers: [
+    provideExperimentalZonelessChangeDetection()
+  ]
+});
+````
+
+Après l'activation de cette API, Angular va retirer *zone.js* des polyfills dans le fichier *angular.json*
+
+A terme, passer en mode *zoneless*  offrira les avantages suivants : 
+
+* Amélioration de la composabilité pour les micro-frontends et meilleure interopérabilité avec les autres frameworks
+* Runtime et rendu initial plus rapides
+* Bundle plus léger et chargement des pages plus rapide
+* Stack traces plus lisibles
+* Débuggage simplifié
+
+> Pour rappel, la meilleure solution de fonctionner en mode zoneless est d'utiliser **Signal**
+
+À partir de la version 18, Angular utilise le même planificateur pour les applications *zoneless* et les applications utilisant *zone.js* avec la fusion activée. Pour réduire le nombre de cycles de détection de modifications dans les nouvelles applications *zone.js*, la fusion de zones est activée par défaut.
+
+> Note : la fusion de zones est activée par défaut uniquement pour les nouvelles applications
+
+Le support du mode *zoneless* a aussi été activé pour *Angular CDK* et *Angular Material*
+
+## Angular.dev
+
+[https://angular.dev/](https://angular.dev/) est officiellement le nouveau site de la documentation d'Angular
+
+## Angular Material 3
+
+Le support d'Angular Material 3 est maintenant stable, et son site en a profité pour faire peau neuve [https://material.angular.io/](https://material.angular.io/)
+
+## HttpClientModule -> Déprécié
+
+Avec la migration vers les composants standalone, nous commençons à observer la dépréciation des premiers modules. A partir de la v18, les modules ````HttpClientModule````, ````HttpClientTestingModule````, ````HttpClientXsrfModule````, et ````HttpClientJsonpModule```` sont dépréciés.
+
+Désormais il faut utiliser ````provideHttpClient()````et ````provideHttpClientTesting()```` dans le fichier de configuration.
+
+## Internationalisation
+
+Les fonctions utilitaires proposées par ````@angular/common```` pour travailler avec les données locales ont été dépréciées au profit de l'API **Intl**.
+
+Il n'est donc **plus recommandé** d'utiliser ````getLocaleCurrencyCode(), getLocaleDateFormat(), getLocaleFirstDayOfWeek()````, etc... Mais préférable d'**utiliser Intl** (se référrer à la [Documentation Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat)).
+
+*Exemple*
+ ````Intl.DateTimeFormat```` pour travailler avec les dates locales
+
+ ## Contenu par défaut pour ng-content
+
+Il est désormais possible de spécifier un contenu par défaut à ````ng-content````
+
+````typescript
+@Component({
+  selector: 'app-profile',
+  template: `
+    <ng-content select=".greeting">Hello </ng-content>
+
+    <ng-content>Unknown user</ng-content>
+  `,
+})
+export class Profile {}
+````
+
+Now we can use the component:
+````typescript
+<app-profile>
+  <span class="greeting">Good morning </span>
+</app-profile>
+````
+
+Résultat : 
+````typescript
+<span class="greeting">Good morning </span>
+Unknown user
+````
+
+
+## Amélioration des performance du compilateur Ivy
+
+Angular 18 améliorera les performances des applications Angular en apportant des optimisations au compilateur Ivy. Ces optimisations se traduisent par :
+
+* Temps de démarrage plus rapide
+* Réduction de la taille des bundles
+* Meilleures performances globales
+
+## Nouvelle api ng-template
+
+Angular 18 introduira une nouvelle API ````ng-template```` qui facilitera la création et l'utilisation de modèles. La nouvelle API fournira :
+
+* Plus de flexibilité et de puissance
+* La possibilité de créer des modèles réutilisables et maintenables
+
+## Nouveaux événements pour les formulaires
+
+Angular 18 améliore l'API des formulaires en offrant plus de contrôle sur le processus de validation des formulaires. 
+
+Liste des nouveaux événements disponibles :
+
+* ````PristineChangeEvent````
+* ````ValueChangeEvent````
+* ````StatusChangeEvent````
+* ````TouchedChangeEvent````
+* ````FormSubmittedEvent````
+* ````FormResetEvent````
+
+<details>
+  <summary>Exemple d'implémentation sur un champ</summary>
+
+````html
+<input id="title" [formControl]="title">
+````
+
+````typescript
+title = new FormControl('my app');
+
+title.events.subscribe((event) => {
+
+	if (event instanceof TouchedChangeEvent) {
+		console.log('Touched', event.touched)
+	}
+	if (event instanceof PristineChangeEvent) {
+		console.log('Pristine', event.pristine)
+	}
+	if (event instanceof ValueChangeEvent) {
+		console.log('ValueChange', event.value)
+	}
+	if (event instanceof StatusChangeEvent) {
+		console.log('Status change', event.status)	// VALID, INVALID, PENDING, DISABLED
+	}
+})
+
+````  
+</details>
+
+<details>
+  <summary>Exemple d'implémentation sur un Form</summary>
+
+````html
+<form [formGroup]="myForm">
+	<label for="title">Title</label>
+	<input id="title" formControlName="title">
+	
+	<label for="version">Version</label>
+	<input id="version" formControlName="version">
+	
+	<button type="submit">Save</button>
+	<button type="reset">Reset</button>
+</form>
+````
+
+
+````typescript
+myForm = new FormGroup({
+	title: new FormControl('my app'),
+	version: new FormControl('1.1'),
+})
+
+
+this.myForm.events.subscribe((event) => {
+
+	if (event instanceof TouchedChangeEvent) {
+		console.log('Touched', event.touched)
+	}
+	if (event instanceof PristineChangeEvent) {
+		console.log('Pristine', event.pristine)
+	}
+	if (event instanceof ValueChangeEvent) {
+		console.log('ValueChange', event.value.title)
+		console.log('ValueChange', event.value.version)
+	}
+	if (event instanceof StatusChangeEvent) {
+		console.log('Status change', event.status)	// VALID, INVALID, PENDING, DISABLED
+	}
+	
+	if (event instanceof FormSubmittedEvent) {
+		console.log('Form submitted')
+	}
+	if (event instanceof FormResetEvent) {
+		console.log('Form Reset')
+	}
+})
+````
+
+Ne pas oublier d'importer les events
+
+````typescript
+import { TouchedChangeEvent, PristineChangeEvent, ValueChangeEvent, StatusChangeEvent, FormSubmittedEvent, FormResetEvent } from '@angular/forms'
+````
+  
+</details>
+
+> [Vidéo explicative](https://www.youtube.com/watch?v=v7r-7PHaEtY&ab_channel=IgorSedov)
+
+## Route redirectTo
+
+Pour apporter plus de flexibilité avec la redirection de route, Angular 18 permet maintenant d'utiliser une fonction qui retourne une chaîne dans l'attribut ````redirectTo````.
+Ceci permet de gérer la route de anière dynamique
+
+*app.routes.ts*
+````typescript
+const routes: Routes = [
+  { path: "first-component", component: FirstComponent },
+  {
+    path: "old-user-page",
+    redirectTo: ({ queryParams }) => {
+      const errorHandler = inject(ErrorHandler);
+      const userIdParam = queryParams['userId'];
+      if (userIdParam !== undefined) {
+        return `/user/${userIdParam}`;
+      } else {
+        errorHandler.handleError(new Error('Attempted navigation to user page without user ID.'));
+        return `/not-found`;
+      }
+    },
+  },
+  { path: "user/:userId", component: OtherComponent },
+];
+````
+
+## Amélioration des outils de debuggage
+
+Angular 18 comprendra plusieurs améliorations des outils de débogage qui faciliteront le débogage des applications Angular et fourniront plus d'informations sur l'état de l'application :
+
+* Débogage avec des source maps
+* Visualisation de l'arbre des composants et des liaisons de données
+* Profils de performance
+
+## Améliorations et autres fonctionnalités
+
+En plus des fonctionnalités énumérées ci-dessus, Angular 18 comprendra également :
+
+* Prise en charge des composants Web
+* Amélioration de la prise en charge de l'internationalisation
+* Une nouvelle API de routage
+* stabilisation control-flow, defferable views, APIs Signal
+ 
+</details>
 # Angular 17.3
 
 <details>
