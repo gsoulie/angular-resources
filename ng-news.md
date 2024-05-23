@@ -270,6 +270,7 @@ En plus des fonctionnalités énumérées ci-dessus, Angular 18 comprendra égal
 * stabilisation control-flow, defferable views, APIs Signal
  
 </details>
+
 # Angular 17.3
 
 <details>
