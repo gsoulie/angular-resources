@@ -6,7 +6,8 @@
 * [Lazy-loading standalone component](#lazy-loading-standalone-component)
 * [Routing en mode standalone](#routing-en-mode-standalone)
 * [Routing parameters](#routing-parameters)
-* [Functional Guards](#functional-guards)    
+* [Functional Guards](#functional-guards)
+* [DeactivateGuard](#deactivateguard)      
 
 ## Lazy-loading standalone component
 
@@ -276,3 +277,5 @@ export const routes: Routes = [
 </details>
 
 </details>
+
+
