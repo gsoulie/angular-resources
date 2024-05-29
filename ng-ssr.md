@@ -161,6 +161,17 @@ le fichier package.json est mis à jour avec les commandes spécifiques au lance
 => npm run dev:ssr
 => npm run build:ssr
 
-Après compilation, le bundle genéré contient 2 répertoires (client et server). Le répertoire server contient le code du server express qui se charge de rendre les pages et de les fournir au client. 
+Après compilation, le bundle genéré contient 2 répertoires (browser et server). Le répertoire server contient le code du server express qui se charge de rendre les pages et de les fournir au client. 
 
 > Note : il est intéressant d'étudier le code du server.js pour comprendre
+
+### Déploiement
+
+Nous avons vu qu'après compilation, nous avons 2 répertoires (browser et server). Le déploiement va se faire en 2 temps.
+
+````
+ng build --configuration production --deploy-url=<YOUR_CDN>
+````
+
+* La première chose à faire est de déployer le server express sur un serveur NodeJS et de run le ````main.js````
+* Ensuite déployer la partie browser sur le serveur ou un CDN (firebase, aws, etc...)
