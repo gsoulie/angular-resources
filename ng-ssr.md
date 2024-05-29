@@ -70,8 +70,8 @@ En résumé, Angular 16 Universal offre un niveau de SSR similaire à Next.js + 
 
 ## Angular 17 SSR
 
-https://www.youtube.com/watch?v=U1MP4uCuUVI&ab_channel=AngularUniversity
-https://javascript.plainenglish.io/server-side-rendering-explained-in-brief-words-angular-17-76d23a30ae24
+* https://www.youtube.com/watch?v=U1MP4uCuUVI&ab_channel=AngularUniversity
+* https://javascript.plainenglish.io/server-side-rendering-explained-in-brief-words-angular-17-76d23a30ae24
 
 ### Installation
 
