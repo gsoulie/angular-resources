@@ -156,3 +156,5 @@ le fichier package.json est mis à jour avec les commandes spécifiques au lance
 "dev:ssr": "ng run angular-ssr:serve-ssr",
 "serve:ssr": "node dist/angular-ssr/server/main.js"
 ````
+
+=> npm run dev:ssr
