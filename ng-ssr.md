@@ -147,3 +147,12 @@ export class AppComponent implements OnInit {
   }
 }
 ````
+
+### Run
+
+le fichier package.json est mis à jour avec les commandes spécifiques au lancement en mode SSR, par exemple : 
+
+````json
+"dev:ssr": "ng run angular-ssr:serve-ssr",
+"serve:ssr": "node dist/angular-ssr/server/main.js"
+````
