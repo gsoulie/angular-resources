@@ -70,6 +70,7 @@ En résumé, Angular 16 Universal offre un niveau de SSR similaire à Next.js + 
 
 ## Angular 17 SSR
 
+* https://www.youtube.com/watch?v=oRg065Ebb7U&ab_channel=Ga%C3%ABtanRouzi%C3%A8s
 * https://www.youtube.com/watch?v=U1MP4uCuUVI&ab_channel=AngularUniversity
 * https://javascript.plainenglish.io/server-side-rendering-explained-in-brief-words-angular-17-76d23a30ae24
 
@@ -148,7 +149,7 @@ export class AppComponent implements OnInit {
 }
 ````
 
-### Run
+### Compilation et Run
 
 le fichier package.json est mis à jour avec les commandes spécifiques au lancement en mode SSR, par exemple : 
 
@@ -158,3 +159,8 @@ le fichier package.json est mis à jour avec les commandes spécifiques au lance
 ````
 
 => npm run dev:ssr
+=> npm run build:ssr
+
+Après compilation, le bundle genéré contient 2 répertoires (client et server). Le répertoire server contient le code du server express qui se charge de rendre les pages et de les fournir au client. 
+
+> Note : il est intéressant d'étudier le code du server.js pour comprendre
