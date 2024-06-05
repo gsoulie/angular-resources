@@ -140,7 +140,8 @@
 	* Angular 14       
 * [Firebase - Angularfire](https://github.com/gsoulie/ionic2-resources/blob/master/ng-angular-fire.md)     
 * [Supabase](https://github.com/gsoulie/angular-resources/blob/master/ng-supabase.md)      
-* [PouchDB / CouchDB](https://github.com/gsoulie/angular-resources/blob/master/ng-pouchdb.md)      
+* [PouchDB / CouchDB](https://github.com/gsoulie/angular-resources/blob/master/ng-pouchdb.md)
+* [PDF](https://github.com/gsoulie/angular-resources/blob/master/ng-pdf.md)     
 * [Divers](https://github.com/gsoulie/angular-resources/blob/master/ng-divers.md)
 	* [Prise de photo avec ngx-webcam](https://github.com/gsoulie/ionic-angular-snippets/tree/master/ngx-webcam)     	
 	* Accès client lourd depuis front web 
