@@ -171,3 +171,42 @@ export default class UploadComponent {
 ````
 
 </details>
+
+<details>
+    <summary>Upload de fichier en mode multipart</summary>
+
+````typescript
+  async sendMultipart(filesToSend: LocalFile[]): Promise<any> {
+    const formData = new FormData();
+
+    for (let i = 0; i < filesToSend.length; i++) {  
+        const readFile = await Filesystem.readFile({
+          path: filesToSend[i].path,
+          directory: Directory.Data
+        });
+
+        // Conversion du fichier base64 en Blob
+        const rawData = atob(readFile.data);
+        const bytes = new Array(rawData.length);
+        for (let x = 0; x < rawData.length; x++) {
+            bytes[x] = rawData.charCodeAt(x);
+        }
+        const arr = new Uint8Array(bytes);
+        const extension = filesToSend[i].path.split('.').pop();
+        let mimeType = 'image/'+extension;
+
+        if (extension.toLowerCase() === 'pdf') { mimeType = 'application/pdf'; }
+
+        const blob = new Blob([arr], {type:  mimeType});
+
+        formData.append('MesFichiers', blob, filesToSend[i].name);
+      }
+
+    formData.append('json', JSON.stringify(missionSync));
+
+    return this.http.post(this.configurationService.config.api.synchro, formData)
+    .pipe(map((res: any) => res))
+    .toPromise();
+  }
+````    
+</details>
