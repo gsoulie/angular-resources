@@ -134,7 +134,7 @@
 * [Performances](https://github.com/gsoulie/angular-resources/blob/master/ng-performance.md)
 	* [SSR](https://github.com/gsoulie/angular-resources/blob/master/ng-ssr.md)     
 * [Gestion des logs](https://github.com/gsoulie/angular-resources/blob/master/ng-log.md)       
-* [Téléchargement de fichiers](https://github.com/gsoulie/angular-resources/blob/master/ng-download.md)       
+* [Téléchargement et upload de fichiers](https://github.com/gsoulie/angular-resources/blob/master/ng-download.md)       
 * [Veille](https://github.com/gsoulie/angular-resources/blob/master/ng-veille.md)         
 	* React,  Vue, Nx, NestJS, Next, Nuxt, Svelte, Prisma, Flutter, Supabase, Remix, Nativescript, GraphQL          
 	* Angular 14       
