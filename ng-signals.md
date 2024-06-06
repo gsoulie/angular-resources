@@ -7,7 +7,8 @@
 * [effect](#effect)
 * [Bonnes pratiques](#bonnes-pratiques)     
 * [Avantages et inconvénients](#avantages-et-inconvénients)     
-* [Signal vs RxJS](#signal-vs-rxjs)    
+* [Signal vs RxJS](#signal-vs-rxjs)
+* [toObservable, fromObservable](#toObservable-fromObservable)     
 
 > [Documentation angular officielle](https://angular.io/guide/signals)     
 
@@ -585,4 +586,60 @@ counter0.set(2);
 [Back to top](#signals)  
 
 </details>
-   
+
+## toObservable fromObservable
+
+<details>
+	<summary>Mixer les signals et observables</summary>
+
+````typescript
+@Component({
+  selector: 'app-desserts',
+  standalone: true,
+  imports: [DessertCardComponent, FormsModule, JsonPipe],
+  templateUrl: './desserts.component.html',
+  styleUrl: './desserts.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class DessertsComponent {
+  #dessertService = inject(DessertService);
+  #ratingService = inject(RatingService);
+  #toastService = inject(ToastService);
+
+  originalName = signal('');
+  englishName = signal('Cake');
+  loading = signal(false);
+
+  ratings = signal<DessertIdToRatingMap>({});
+  ratedDesserts = computed(() => this.toRated(this.desserts(), this.ratings()));
+
+  originalName$ = toObservable(this.originalName);
+  englishName$ = toObservable(this.englishName);
+
+  desserts$ = combineLatest({
+    originalName: this.originalName$,
+    englishName: this.englishName$,
+  }).pipe(
+    filter((c) => c.originalName.length >= 3 || c.englishName.length >= 3),
+    debounceTime(300),
+    tap(() => this.loading.set(true)),
+    switchMap((c) =>
+      this.#dessertService.find(c).pipe(
+        catchError((error) => {
+          this.#toastService.show('Error loading desserts!');
+          console.error(error);
+          return of([]);
+        }),
+      ),
+    ),
+    tap(() => this.loading.set(false)),
+  );
+
+  desserts = toSignal(this.desserts$, {
+    initialValue: [],
+  });
+
+  […]
+}
+````
+</details>
