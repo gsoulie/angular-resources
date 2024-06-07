@@ -2,6 +2,11 @@
 
 # Sauvegarde, Téléchargement et Upload de fichier
 
+**Voir aussi**
+* [tuto](https://uploadcare.com/blog/how-to-upload-files-in-angular/)     
+* [lib uploadcare/blocks](https://github.com/uploadcare/blocks)
+* [lib ngx-file-drop](https://www.npmjs.com/package/ngx-file-drop?activeTab=readme)    
+
 ## Sauvegarde et téléchargement
 
 <details>
