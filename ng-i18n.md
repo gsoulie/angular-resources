@@ -186,3 +186,53 @@ ng serve dist/i18n-project/
 // http://localhost:3000/en-US/
 // http://localhost:3000/fr-FR/
 ````
+
+## Aller plus loin
+
+<details>
+	<summary>Ajouter des configurations spécifiques pour tester chaque langues</summary>
+
+*angular.json*
+
+````json
+"architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "localize": [
+              "fr-FR"
+            ],
+            // ...
+          },
+          "configurations": {
+            "en": {
+              "localize": [
+                "en-US"
+              ]
+            },            
+            // ...
+          },
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "testAngular16:build:production"
+            },
+            "development": {
+              "buildTarget": "testAngular16:build:development"
+            },
+            "en": {	// serve avec une langue spécifique
+              "buildTarget": "testAngular16:build:development,en"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+````
+
+````
+ng serve -o --configuration=en
+````
+ 
+</details>
+
