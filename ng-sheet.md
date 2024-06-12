@@ -74,7 +74,8 @@
 * [Form](https://github.com/gsoulie/angular-resources/blob/master/ng-form.md)     
 * [ViewChild](https://github.com/gsoulie/angular-resources/blob/master/ng-viewchild.md)     
 * [Directives](https://github.com/gsoulie/angular-resources/blob/master/ng-directive.md)       
-	* Composition Directive       	
+	* Composition Directive
+* [internationalization - i18n](https://github.com/gsoulie/angular-resources/blob/master/ng-i18n.md)       
 * [UI](https://github.com/gsoulie/angular-resources/blob/master/ng-ui-frameworks.md)
 	* Frameworks     
 	* [Sass](https://github.com/gsoulie/angular-resources/blob/master/ng-sass.md)     
