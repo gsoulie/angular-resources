@@ -124,7 +124,7 @@
   	* [Helper loader](https://github.com/gsoulie/ionic-angular-snippets/tree/master/helpers/loader)    	
 * [Local storage, Session storage, Cookies](https://github.com/gsoulie/angular-resources/blob/master/ng-local-storage.md)     
 * [Animations](https://github.com/gsoulie/angular-resources/blob/master/ng-animation.md)     
-* [Images](https://github.com/gsoulie/angular-resources/blob/master/ng-image.md)     
+* [Images / assets](https://github.com/gsoulie/angular-resources/blob/master/ng-image.md)     
 	* NgOptimizedImage       
 * Authentification	
 	* [Identity Server 4 - oidc](https://github.com/manfredsteyer/angular-oauth2-oidc)      
