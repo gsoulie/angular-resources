@@ -2,10 +2,31 @@
 
 # Images
 
+* [assets](#assets)     
 * [Lazy loading](#lazy-loading)     
 * [Convert base64 with observable](#convert-base64-with-observable)      
 * [Directive NgOptimizedImage](#directive-ngoptimizedimage)      
 
+## Asssets
+
+Pour utiliser des assets, il suffit de créer un répertoire *src/assets* et ensuite d'ajouter ce chemin dans la configuration du projet
+
+*angular.json*
+````json
+// ...
+"architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            // ...
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              },
+              "src/assets"  // <-- rajouter le chemin des assets
+            ],
+````
 
 ## Lazy loading
 
