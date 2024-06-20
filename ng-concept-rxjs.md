@@ -18,6 +18,7 @@ https://rxmarbles.com/#map
 |combineLatest|combine les dernières valeurs de chaque observable qui le compose et n'émet un résultat que lorqu'il a reçu au moins une réponse pour chaque observabe|
 |debounceTime|permet d'ajouter un délai au traitement (ex : searchbar)|
 |distinctUntilChanged|émet uniquement si la valeur a changée (ex : searchbar)|
+|distinctUntilKeyChanged|émet uniquement si la valeur de la clé de l'objet passé en paramètre a changée (ex : searchbar)|
 |every|retourne vrai si toutes les valeurs de la source valident la condition, retourne faux sinon|
 |filter|permet de filtrer les résultats de la source|
 |finalize|appelé après le bloc .subscribe(), permet de gérer la fin d'un chargement (fermer un indicateur de chargement, afficher un toast etc...)|
