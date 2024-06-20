@@ -433,14 +433,31 @@ debouceTimeExample() {
 
 Emet uniquement si la valeur a changée. Très utilisé dans le cas d'une searchbar par exemple, évite de refaire un appel si l'utilisateur a saisi la même valeur que la précédente
 
+L'opérateur distinctUntilChanged() compare deux objets pour éffectuer sa comparaison. Si l'on compare 2 types primitifs, il n'y a pas de problème.
+En revanche si l'on compare 2 objets (json par exemple) alors la comparaison retournera toujours faux ({} === {} ==> false).
+
+C'est pour quoi, dans le cas où l'observable source émet des valeurs non primitives, il faut, au choix :
+
+* spécifier une fonction de comparaison
+
 ````typescript
-distinctUntilChangedExample() {
-return this.myForm.valueChanges.pipe(
-		debounceTime(400),
-		distinctUntilChanged((prev, curr) => prev.username === curr.username)
-	)
-}
+$myObs: Observable<{userName: string, userAge: number}>
+
+$myObs.pipe(
+	distinctUntilChanged((prev, curr) => prev.userName !== curr.userName)
+)
 ````
+
+* utiliser plutôt l'opérateur ````distinctUntilKeyChanged()````
+
+````typescript
+$myObs: Observable<{userName: string, userAge: number}>
+
+$myObs.pipe(
+	distinctUntilKeyChanged('userName'),
+)
+````
+
 #### Utilitaires
 [Back to top](#rxjs)     
 
