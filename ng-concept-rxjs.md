@@ -30,7 +30,7 @@ https://rxmarbles.com/#map
 |pipe|opérateur principal qui permet le chaînage de plusieurs opérateurs|
 |reduce|applique un accumulateur sur la source et retourne le résultat accumulé lorsque la source complete|
 |retry(x)|permet de rééxécuter une requête x fois|
-|shareReplay(x)|permet de mettre en cache des données et éviter d'appeler plusieurs fois un même service si nous n'avons pas besoin d'avoir des données constamment rafraichies|
+|shareReplay(x)|permet de mettre en cache des données et éviter d'appeler plusieurs fois un même service si nous n'avons pas besoin d'avoir des données constamment rafraichies. X est le nombre de dernières valeurs émises que l'on souhaite envoyer à chaque nouveau souscripteur|
 |mergeMap|assure la **mise en parallèle** : l'Observable extérieur peut souscrire aux Observables intérieurs suivants sans attendre que les précédents soient complétés. |
 |concatMap|assure la **mise en série**. Il attend que les Observables intérieurs complètent avant de souscrire aux suivants– même si l'Observable extérieur émet plusieurs fois. Les Observables intérieurs seront traités en séquence à la suite.|
 |exhaustMap|Attend le traitement complet d'un observable avant de lancer l'écoute d'un nouvel observable (**il est bloquant** en qq sortes)|
