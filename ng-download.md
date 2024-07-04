@@ -32,6 +32,26 @@ saveFile() {
 </details>
 
 <details>
+    <summary>Exemple avec gestion des conflits d'encodage</summary>
+
+````typescript
+private createDataExportLink(fileContent: string) {
+    const json = fileContent;
+    let BOM = new Uint8Array([0xEF, 0xBB, 0xBF]); // pour régler les conflits d'encodage suite à l'ouverture dans excel
+    let blob = new Blob([BOM, json]);
+    
+    //const blob = new Blob([json], {type: 'application/text'});
+    
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `export-${this.currentDate.format('MM-YYYY')}.csv`;
+    link.click();
+  }
+````
+    
+</details>
+
+<details>
     <summary>Autre exemple de téléchargement d'un flux texte récupéré via une api</summary>
 
 ````typescript
