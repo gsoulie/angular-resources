@@ -13,7 +13,8 @@
 * [async pipe](#async-pipe)    
 * [Exemples code](#exemples-code)      
 * [Tester la taille du contenu](#tester-la-taille-du-contenu)     
-* [Gestion des erreurs](#gestion-des-erreurs)       
+* [Gestion des erreurs](#gestion-des-erreurs)
+* [Catch error](#catch-error)      
 * [Filtrer un observable dans la vue via un pipe](#filtrer-un-observable-dans-la-vue-via-un-pipe)      
 * [Gérer un indicateur de loading](#gérer-un-indicateur-de-loading)      
 
@@ -1752,3 +1753,14 @@ ngOnInit(): void {
 ````
 
 [Back to top](#observables)
+
+## Catch error
+
+````typescript
+.subscribe({
+    complete: () => { ... }, // completeHandler
+    error: (err) => { ... },    // errorHandler 
+    next: (res) => { ... },     // nextHandler
+    someOtherProperty: 42
+});
+````
