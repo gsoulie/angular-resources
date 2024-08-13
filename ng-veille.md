@@ -959,6 +959,13 @@ SSE est souvent utilisé pour les applications où des mises à jour en temps r�
 * **SSE vs WebSockets** : Alors que les WebSockets permettent une communication bidirectionnelle (serveur et client peuvent envoyer des messages), SSE se concentre sur une communication unidirectionnelle plus simple à mettre en œuvre et à maintenir. Pour des applications nécessitant des interactions complexes, WebSockets sont généralement préférés. Pour des mises à jour en temps réel simples du serveur vers le client, SSE peut être suffisant et plus facile à utiliser.
 En résumé, les Server-Sent Events sont une solution élégante et simple pour les scénarios de mise à jour en temps réel, mais leur nature unidirectionnelle et leurs limites en termes de scalabilité peuvent les rendre moins adaptées pour des applications complexes nécessitant une interaction bidirectionnelle.
 
+**Bonnes pratiques pour sécuriser SSE**
+
+* Utiliser HTTPS pour toutes les connexions SSE.
+* Appliquer les mêmes pratiques de sécurité que pour toute autre requête HTTP, y compris la gestion correcte des tokens d'authentification et des sessions.
+* Valider et échapper toutes les données envoyées par le serveur.
+* Limiter le nombre de connexions simultanées et surveiller les modèles de trafic pour détecter d'éventuelles attaques de déni de service.
+* Configurer des politiques CORS (Cross-Origin Resource Sharing) strictes pour contrôler les domaines autorisés à établir des connexions SSE.
 </details>
 
 [Back to top](#veille)   
