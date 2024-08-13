@@ -34,7 +34,8 @@
 	* [Fullstack NX, NestJS, Prisma, Angular](#fullstack-nx-nestjd-prisma-angular)      
 	* [Remix - fullstack](#remix)     
 	* [ViteJS](#vite)     
-	* [esbuild](#esbuild)      
+	* [esbuild](#esbuild)
+ 	* [SSE (Server Sent Actions)](#sse)      	
 	
 ## Frameworks frontend
 
@@ -917,5 +918,47 @@ ViteJS est un outil de développement (meta-framework) rapide pour les projets J
 ### esbuild
 
 esbuild est un **compilateur JavaScript ultra-rapide basé sur Go**. Il est conçu pour gérer des projets JavaScript de grande envergure et peut être utilisé pour compiler des applications web, des bibliothèques et des modules Node.js. Il peut également être utilisé pour optimiser les performances en réduisant la taille des fichiers et en réduisant les temps de chargement. Il peut également gérer les dépendances et les imports, et générer des fichiers source maps pour le débogage. Il est particulièrement utile pour les projets de grande envergure ou les applications à haute performance.
+
+### SSE
+
+<details>
+	<summary>Server Sent Actions</summary>
+
+
+ 
+Les **Server-Sent Events (SSE)** sont une technologie web qui permet à un serveur d'envoyer des mises à jour automatiques à un client (typiquement un navigateur web) via une connexion HTTP persistante. Voici une explication concise des SSE :
+
+**Fonctionnement**
+
+* **Connexion unidirectionnelle** : SSE établit une connexion unidirectionnelle entre le serveur et le client, où seul le serveur peut envoyer des données au client, et non l'inverse.
+* **Format textuel** : Les données envoyées via SSE sont généralement en format texte (par exemple, du texte brut, du JSON) et sont transférées au client sous forme d'événements.
+* **Reconnexion automatique** : En cas de perte de connexion, le navigateur tentera automatiquement de se reconnecter au serveur, ce qui rend la communication plus robuste.
+
+**Avantages**
+
+* **Simplicité** : SSE est plus simple à implémenter que WebSockets pour les scénarios où il n'est pas nécessaire d'envoyer des messages du client vers le serveur.
+* **Support natif** : Les principaux navigateurs modernes supportent SSE sans nécessiter de bibliothèques externes.
+* **Reconnexion automatique** : La gestion des reconnexions en cas de perte de connexion est intégrée, ce qui facilite la gestion des erreurs.
+
+**Inconvénients**
+
+* **Unidirectionnel** : SSE ne permet qu'une communication unidirectionnelle (serveur vers client). Si une communication bidirectionnelle est nécessaire, il vaut mieux utiliser WebSockets.
+* **Pas compatible avec tous les navigateurs** : Bien que la plupart des navigateurs modernes supportent SSE, certains anciens navigateurs ou environnements non-navigateurs (comme certains clients mobiles ou de bureau) pourraient ne pas le faire.
+* **Scalabilité** : SSE utilise une connexion HTTP persistante par client, ce qui peut poser des problèmes de scalabilité sur des serveurs avec de nombreuses connexions simultanées, notamment si l'échelle est très grande.
+
+**Cas d'utilisation**
+
+SSE est souvent utilisé pour les applications où des mises à jour en temps réel ou quasi-réel sont nécessaires, mais où une communication unidirectionnelle suffit. Par exemple :
+
+* **Flux de notifications** : Mises à jour en direct de notifications.
+* **Mises à jour de données en temps réel** : Dans les tableaux de bord, monitoring, flux d'actualités.
+* **Systèmes de messagerie en temps réel** : Lorsqu'il est suffisant que le serveur envoie des messages au client.
+
+**Comparaison avec WebSockets**
+
+* **SSE vs WebSockets** : Alors que les WebSockets permettent une communication bidirectionnelle (serveur et client peuvent envoyer des messages), SSE se concentre sur une communication unidirectionnelle plus simple à mettre en œuvre et à maintenir. Pour des applications nécessitant des interactions complexes, WebSockets sont généralement préférés. Pour des mises à jour en temps réel simples du serveur vers le client, SSE peut être suffisant et plus facile à utiliser.
+En résumé, les Server-Sent Events sont une solution élégante et simple pour les scénarios de mise à jour en temps réel, mais leur nature unidirectionnelle et leurs limites en termes de scalabilité peuvent les rendre moins adaptées pour des applications complexes nécessitant une interaction bidirectionnelle.
+
+</details>
 
 [Back to top](#veille)   
