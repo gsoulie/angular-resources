@@ -179,6 +179,17 @@ export default class RoutingParametersComponent implements OnInit {
 }
 ````
 
+**Ajout des query parameters depuis la vue**
+
+*parent.html*
+````typescript
+<div routerLink="/routing-params/15" [queryParams]="{
+	childGuid: 'Az8sA545aAeeee8a7',
+	page: 1,
+	filter: 'search term'
+}">Link</div>
+````
+
 	
 </details>
 
