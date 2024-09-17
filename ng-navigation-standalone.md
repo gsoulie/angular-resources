@@ -115,14 +115,10 @@ const routes: Routes = [
 
 @Component({})
 export class SearchComponent implements OnInit {
-	@Input() query?: string; // Ce paramètre viendra des query params
-	@Input() id?: string; // Ce paramètre viendra des path params
-	@Input() title?: string; // Ce paramètre viendra des data
-	@Input() searchData?: any; // Ce paramètre viendra des resolved data
-
-	ngOnInit() {
-		
-	}
+	query = input<string>(''); // Ce paramètre viendra des query params
+	id = input<string>.required(); // Ce paramètre viendra des path params
+	title = input<string>(''); // Ce paramètre viendra des data
+	searchData = input<any>(); // Ce paramètre viendra des resolved data
 }
 ````
 
@@ -134,6 +130,55 @@ On peut aussi renommer les paramètres si besoin de la manière suivante :
 @Input('title') dataTitle?: string;
 @Input('searchData') resolvedData?: any;
 ````
+
+### Version Angular 17+
+
+Important, tous les paramètres doivent avoir le même nom que ceux déclarés dans le composant qui va les recevoir
+
+*routes.ts*
+````typescript
+  {
+    path: 'routing-params/:id',
+    data: {
+      info: 'Text informatif'
+    },
+    loadComponent: () => import('./components/routing-parameters/routing-parameters.component')
+  },
+````
+
+*routage avec ajout de paramètres dans la route en plus du paramètre obligatoire*
+````typescript
+  routerService = inject(Router);
+
+  routeWithQueryParam(childGuild: string, page: number, filter: string) {
+    this.routerService.navigate(['/routing-params/15'], {
+      queryParams: {
+        childGuid: childGuild,
+        page: page,
+        filter: filter
+      }
+    })
+  }
+````
+
+*composant enfant*
+````typescript
+export default class RoutingParametersComponent implements OnInit {
+  id = input<string>('');
+  info = input<string>('');
+  childGuid = input<string>('');
+  page = input<number>(0);
+  filter = input<string>('')
+
+  ngOnInit(): void {
+    console.log('PARAM ', this.id());
+    console.log('-- child param --', this.childGuid());
+    console.log('-- page param --', this.page());
+    console.log('-- filter param --', this.filter());
+  }
+}
+````
+
 	
 </details>
 
