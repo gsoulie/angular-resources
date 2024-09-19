@@ -7,9 +7,10 @@ un nouvel onglet chrome pour chacunes d'elles lors de la validation.
 
 ### manifest
 
-*manifest.json*
+<details>
+	<summary>manifest.json</summary>
 
-````json
+ ````json
 {
   "manifest_version": 3,
   "name": "Mon Extension",
@@ -31,10 +32,13 @@ un nouvel onglet chrome pour chacunes d'elles lors de la validation.
 ````
 
 Pour les icônes, prévoir de générer les icônes aux dimensions 16, 48 et 128 dans le répertoire de l'extension
+</details>
+
 
 ### html
 
-*popup.html*
+<details>
+	<summary>popup.html</summary>
 
 ````html
 <!DOCTYPE html>
@@ -100,10 +104,12 @@ Pour les icônes, prévoir de générer les icônes aux dimensions 16, 48 et 128
 <script src="popup.js"></script>
 </html>
 ````
+</details>
 
 ### javascript
 
-*popup.js*
+<details>
+	<summary>popup.js</summary>
 
 ````javascript
 document.addEventListener('DOMContentLoaded', function() {
@@ -152,6 +158,9 @@ function createCheckboxItem(url, label) {
 	urlList.appendChild(listItem);
 }
 ````
+ 
+</details>
+
 
 ## Déployer l'extension
 
