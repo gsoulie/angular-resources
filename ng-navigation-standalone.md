@@ -7,7 +7,8 @@
 * [Routing en mode standalone](#routing-en-mode-standalone)
 * [Routing parameters](#routing-parameters)
 * [Functional Guards](#functional-guards)
-* [DeactivateGuard](#deactivateguard)      
+* [DeactivateGuard](#deactivateguard)
+* [CanActivate CanMatch](#canactivate-canmatch)      
 
 ## Lazy-loading standalone component
 
@@ -514,5 +515,18 @@ export const routes: Routes = [
   
 </details>
 
+## CanActivate CanMatch
+
+**CanActivate**
+
+* Fonctionnalité: Détermine si un utilisateur peut accéder à une route après que le routeur ait trouvé une correspondance.
+* Utilisation: Il est généralement utilisé pour vérifier les conditions d'accès basées sur l'état de l'utilisateur, les permissions, ou d'autres données dynamiques.
+* Exemple: Vérifier si un utilisateur est connecté avant de lui autoriser l'accès à une zone sécurisée de l'application.
+
+**CanMatch**
+
+* Fonctionnalité: Détermine si une route correspond à l'URL demandée.
+* Utilisation: Il est idéal pour les scénarios où vous souhaitez influencer le routage en fonction de conditions spécifiques avant même que le routeur ne commence à chercher une correspondance exacte.
+* Exemple: Rediriger un utilisateur non authentifié vers une page de connexion, même si l'URL demandée est valide.
 
 
