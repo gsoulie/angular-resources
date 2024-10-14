@@ -69,7 +69,8 @@
 	* Codes retours Http 
 	* Multipart Form Data      	
 	* Chargement de données via json      
-	* CORS     
+	* CORS
+ 	* Validation de schéma avec Zod       
 * [Serveur JSON local](https://github.com/gsoulie/angular-resources/blob/master/ng-json-server.md)         
 * [Form](https://github.com/gsoulie/angular-resources/blob/master/ng-form.md)     
 * [ViewChild](https://github.com/gsoulie/angular-resources/blob/master/ng-viewchild.md)     
