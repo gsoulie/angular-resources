@@ -11,7 +11,8 @@
 * [Multipart Form Data](#multipart-form-data)      
 * [Mise en cache requête](#mise-en-cache-requête)     
 * [Chargement de données via JSON](#chargement-de-données-via-json)      
-* [CORS](#cors)     
+* [CORS](#cors)
+* [Validation de schéma avec Zod](#validation-de-schéma-avec-zod)      
 
 ## Documentation
 
@@ -815,5 +816,171 @@ La réponse peut également inclure un en-tête "Access-Control-Max-Age" spécif
 Avec cela, le client n'aura pas besoin de la demande de contrôle en amont chaque fois qu'il voudra accéder à la ressource CORS.
 
 La demande CORS réelle peut maintenant être effectuée comme d'habitude.
+
+## Validation de schéma avec Zod
+
+[Documentation Zod](https://zod.dev/)    
+
+*Zod* est une bibliothèque qui permet de faire de la validation de données. Elle permet de s'assurer que le format d'un objet reçu par un appel http (par exemple) 
+est bien structuré et correspond à ce qu'on attend.
+*Zod* permet donc de **définir des schémas** de validation, de valider automatiquement les données en fonction de ce schéma et de retourner les données ou un message d'erreur le cas échéant.
+
+Cette validation permet de s'assurer que l'application ne plantera pas lors de la manipulation de l'objet ainsi récupéré
+
+
+**Installation**
+
+````
+npm install zod
+````
+
+## Définition du schéma
+
+*users.dto.ts*
+
+<details>
+	<summary>Définition du schéma validateur et des dto</summary>
+
+
+````typescript
+import { z } from 'zod';
+
+/**
+ * Définir le schéma voulu avec Zod (définition des champs que l'on souhaite garder par rapport au dataset brut)
+ * Zod s'attend à trouver tous les champs définis dans le dataset brut. S'il ne les trouve pas lors du parsing, alors une erreur sera levée
+ */
+const usersSchema = z.object({
+  users: z.array(
+    z.object({
+      id: z.number(),
+      firstName: z.string(),
+      lastName: z.string(),
+      age: z.number().optional(),
+      gender: z.string(),
+      address: z.object({
+        address: z.string(),
+        city: z.string(),
+        state: z.string(),
+      }),
+      company: z.object({
+        address: z.object({
+          address: z.string(),
+          city: z.string().optional(),
+          state: z.string(),
+        }),
+        name: z.string(),
+      }),
+    })
+  ),
+});
+
+
+/**
+ * Création du type basé sur le schéma zod
+ */
+export type UsersDto = z.infer<typeof usersSchema>;
+
+
+/**
+ * Création d'un type "nettoyé" qui sera exploité par le front (facultatif)
+ */
+export type UserDto = {
+  id: number;
+  fullName: string;
+  age?: number;
+  gender: string;
+  company: {
+    name: string;
+    address: string;
+  };
+  address: string;
+}
+
+
+/**
+ * Parser le dataset brut avec le schéma zod défini.
+ * @param source
+ * @returns
+ */
+export function parseDTO(source: unknown) {
+  // la méthode safeParse retournera soit l'objet parsé avec succès, ou bien une instance de ZodError si le parsing s'est mal passé
+  return usersSchema.safeParse(source);
+}
+
+
+/**
+ * Mapper l'objet Zod avec le type "nettoyé" que l'on souhaite exploiter (facultatif)
+ * @param dto : objet mappé avec le schéma zod
+ * @returns 
+ */
+export function fromDTO(dto: UsersDto): UserDto[] {
+  return dto.users.map((user) => {
+    const companyAddress = user.company.address;
+    const userAddress = user.address;
+    const fullName = `${user.firstName} ${user.lastName}`;
+    return {
+      id: user.id,
+      fullName,
+      age: user.age,
+      gender: user.gender,
+      company: {
+        name: user.company.name,
+        address:
+          [companyAddress.address, companyAddress.city, companyAddress.state].join(', ')
+      },
+      address: [userAddress.address, userAddress.city, userAddress.state].join(', ')
+    };
+  });
+}
+````
+
+</details>
+
+
+
+## Utilisation
+
+<details>
+	<summary>Exemple de service utilisant la validation de schéma</summary>
+
+````typescript
+import { HttpClient } from "@angular/common/http";
+import { inject, Injectable } from "@angular/core";
+import { catchError, map, Observable, of } from "rxjs";
+import { fromDTO, parseDTO, UserDto } from "./models/users.dto";
+
+@Injectable({ providedIn: 'root' })
+
+export class DataService {
+  httpClient = inject(HttpClient);
+
+  fetchUsers(): Observable<UserDto[]> {
+    const url = 'https://dummyjson.com/users';
+    return this.httpClient.get(url).pipe(
+      map((response) => {
+        const dto = parseDTO(response);
+        
+        if (dto.success) {
+          return fromDTO(dto.data);
+        } else {
+        
+          const zodError = {
+            title: dto.error.name,
+            code: dto.error.issues[0].code,
+          }
+          console.error(zodError);        
+          return [];
+        }
+      }),
+      catchError((error) => {
+        return of([]);
+      })
+    );
+  }
+}
+````
+	
+</details>
+
 
 [Back to top](#requêtes-http)     
