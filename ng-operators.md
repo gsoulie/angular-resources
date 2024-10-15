@@ -3,6 +3,7 @@
 # Opérateurs
 
 * [?? vs ||]
+* [Opérateur !!](#opérateur-!!)    
 * [Tableaux](#tableaux)     
 * [Spread et Rest](#spread-et-rest)         
 * [Destructuration d'objet](#destructuration-objet)       
@@ -26,6 +27,20 @@
 
 * Fonction : Il retourne la valeur de droite si la valeur de gauche est falsy (c'est-à-dire false, 0, '', null, undefined, ou NaN).
 * Utilisation : Il est souvent utilisé pour fournir une valeur de secours en cas de valeurs falsy.  
+
+## Opérateur !!
+
+L'opérateur ````!!```` permet de convertir n'importe quelle valeur en booleén
+
+````
+try {
+  const cookieStore = cookies();
+  const tokenCookie = cookieStore.get(CustomKeys.token);
+  return !!tokenCookie;  // Direct return of boolean value
+} catch (e) {
+  return false;
+}
+````
 
 ## Tableaux
 
