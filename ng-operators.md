@@ -2,6 +2,7 @@
 
 # Opérateurs
 
+* [?? vs ||]
 * [Tableaux](#tableaux)     
 * [Spread et Rest](#spread-et-rest)         
 * [Destructuration d'objet](#destructuration-objet)       
@@ -13,6 +14,18 @@
 * [Comparaison de 2 objets avec copie des propriétés manquantes](#comparaison-de-2-objets-avec-copie-des-propriétés-manquantes)     
 
 ## Typescript expert : https://angularexperts.io/blog/advanced-typescript      
+
+## ?? vs ||
+
+**L'opérateur ?? (coalescence nulle) :**
+
+* Fonction : Il retourne la valeur de droite seulement si la valeur de gauche est null ou undefined.
+* Utilisation : Il est utilisé pour fournir une valeur par défaut si la première valeur est spécifiquement null ou undefined.
+
+**L'opérateur || (ou logique) :**
+
+* Fonction : Il retourne la valeur de droite si la valeur de gauche est falsy (c'est-à-dire false, 0, '', null, undefined, ou NaN).
+* Utilisation : Il est souvent utilisé pour fournir une valeur de secours en cas de valeurs falsy.  
 
 ## Tableaux
 
