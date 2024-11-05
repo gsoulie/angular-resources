@@ -8,7 +8,8 @@
 * [Routing parameters](#routing-parameters)
 * [Functional Guards](#functional-guards)
 * [DeactivateGuard](#deactivateguard)
-* [CanActivate CanMatch](#canactivate-canmatch)      
+* [CanActivate CanMatch](#canactivate-canmatch)
+* [Affichage popup confirmation](#affichage-popup-confirmation)     
 
 ## Lazy-loading standalone component
 
@@ -529,4 +530,30 @@ export const routes: Routes = [
 * Utilisation: Il est idéal pour les scénarios où vous souhaitez influencer le routage en fonction de conditions spécifiques avant même que le routeur ne commence à chercher une correspondance exacte.
 * Exemple: Rediriger un utilisateur non authentifié vers une page de connexion, même si l'URL demandée est valide.
 
+
+## Affichage popup confirmation
+
+Voici une astuce pour afficher une popup de confirmation lorsqu'on quitte une route contenant un formulaire par exemple, demandant ainsi une confirmation à l'utilisateur, si ce dernier tente de partir sans valider ses éventuelles modifications :
+
+````typescript
+export const ROUTES = [
+{
+	path: 'form',
+	component: FormFieldErrorExample,
+	canDeactivate: [
+		({email}: FormFieldErrorExample) => {
+			if (!email.pristine) {
+				const dialogRef = inject(MatDialog).open(ConfirmDialog, {
+					data: {title: 'Do you really want to leave ?', content: 'You have unsaved changes'}
+				},
+				disableClose: true,
+			});
+			return dialogRef.afterClosed().pipe(map((v) => v!!));
+			}
+		return true
+		}
+	]
+}
+]
+````
 
