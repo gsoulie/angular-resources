@@ -9,7 +9,8 @@
 * [Observables imbriqués](#observables-imbriqués)     
 * [Exemples cold et hot](#exemples-cold-et-hot)     
 * [Chaîner les observables](#chaîner-les-observables)     
-* [Unsubscribe to all / takeUntil](#unsubscribe-to-all)      
+* [Unsubscribe to all / takeUntil](#unsubscribe-to-all)
+* [Unsubscribe auto avec signal](#unsubscribe-auto-avec-signal)           
 * [async pipe](#async-pipe)    
 * [Exemples code](#exemples-code)      
 * [Tester la taille du contenu](#tester-la-taille-du-contenu)     
@@ -905,6 +906,17 @@ Public ngOnInit(): void {
  public ngOnDestroy(): void {
    this.onDestroy$.next();
  }
+````
+
+## Unsubscribe auto avec signal
+
+Il est possible de faire en sorte qu'une souscription se désabonne automatiquement, en transformant l'observable en signal de la manière suivante : 
+
+````typescript
+private readonly dataService = inject(DataService);
+data = toSignal(this.dataService.getData());
+
+<span>{{ data() }}</span>
 ````
 
 ## async pipe
