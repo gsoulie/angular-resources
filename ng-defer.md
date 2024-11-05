@@ -94,6 +94,28 @@ Pour plus de finesse, il est aussi possible de gérer différents blocs de place
 
 ## Exemples
 
+````html
+@defer (hydrate on interaction) {
+	<!-- header is not used as much, so we can hydrate it when the user interacts with it -->
+	<app-header />
+}
+
+@defer (hydrate on immediate) {
+	<!-- sidebar is very important as it contains navigation links used often, so we hydrate it immediatly -->
+	<app-sidebar />
+}
+
+@defer (hyrdrate on viewport) {
+	<!-- the main content can be presented as soon as it becomes visible to the user -->
+	<app-main />
+}
+
+@defer (hydrate never) {
+	<!-- footer contains static content with no real logic and interactions, we are good not hydrating it at all-->
+	<app-footer />
+}
+````
+
 ````typescript
 <div>
   @for(post of $posts | async; track postId) {
