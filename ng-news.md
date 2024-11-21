@@ -2,6 +2,7 @@
 
 # Nouveautés
 
+* [v19](#angular-v19)    
 * [v18](#angular-v18)    
 * [v17.3](#angular-v17-.-3)     
 * [v17.2](#angular-v17-.-2)     
@@ -13,6 +14,401 @@
 * [v14](#v14)
 * [AnalogJS](#analogjs)
 * [Dépréciations](#dépréciations)
+
+# Angular v19
+
+<details>
+	<summary>Nouveautés Angular 19</summary>
+
+*20/11/2024*
+
+La version 19 d'Angular met l'accent sur le rendu côté serveur Angular avec une hydratation incrémentielle, une nouvelle configuration de route de serveur, une relecture d'événements activée par défaut, et bien plus encore.
+
+[Meet Angular v19](https://blog.angular.dev/meet-angular-v19-7b29dfd05b84)   
+
+## En résumé
+
+**Hydratation incrémentielle (developer preview)**     :
+* Permet de charger et d’hydrater des parties spécifiques d’une application de manière progressive en utilisant la syntaxe (@defer).
+* Optimise les performances pour les cas sensibles, en différant le téléchargement de JavaScript jusqu'à ce qu'il soit nécessaire (par exemple, lorsqu'un utilisateur interagit avec une section).
+* Utilise une fonction de "relecture d'événements" **Event Replay** pour garantir une expérience fluide, même avec des composants chargés de manière asynchrone.
+  
+**Configuration avancée des routes côté serveur** :
+* Contrôle précis sur le rendu des routes (côté client, serveur ou lors de la construction).
+* Possibilité de résoudre les paramètres de route durant le pré-rendu.
+
+**Améliorations des outils (Schematics)** :
+* Mise à jour automatisée avec les meilleures pratiques (ex. : injection de dépendances, nouvelles méthodes de construction).
+* Simplification de tâches courantes comme la gestion des entrées/sorties et des requêtes dans les composants.
+
+**Primitives réactives stabilisées** :
+* Introduction de nouvelles primitives comme ````linkedSignal```` et ````resource```` pour gérer la réactivité.
+
+**Améliorations diverses basées sur la communauté** :
+* Ajout d’un sélecteur de temps (time picker Material 3), suppression automatique des imports inutilisés, rafraîchissement de styles en mode HMR, et plus.
+
+
+## Hydratation incrémentielle
+  
+L'hydratation incrémentielle permet d'annoter des parties du template, en utilisant la syntaxe ````@defer````, en demandant à Angular de les charger et de les hydrater sur des déclencheurs spécifiques de manière *lazy*.
+
+*Activer l'hydratation incrémentielle*
+
+````typescript
+import {provideClientHydratation, withIncrementalHydratation} from '@angular/platform-browser'
+
+bootstrapApplication(App, {
+	providers: [provideClientHydratation(withIncrementalHydratation())]
+})
+````
+
+Pour appliquer une hydratation progressive à une partie de du modèle :
+
+````typescript
+@defer (hydrate on viewport) {
+  <shopping-cart/>
+}
+````
+
+Lorsque l'application se charge, Angular ne téléchargera et n'hydratera pas le composant du panier d'achat jusqu'à ce qu'il entre dans l'écran. 
+
+**Les avantages de l'hydratation incrémentielle** :
+* un bundle plus léger
+* un bootstraping plus rapide
+* plus de nécessité d'utiliser un bloc de placeholder  
+
+
+## Event Replay activé par défaut
+  
+Un problème courant dans les applications rendues côté serveur est le décalage entre un événement utilisateur (ex. : un clic) et le moment où le code JavaScript nécessaire pour le gérer est téléchargé et exécuté.
+Pour résoudre cela, Angular utilise la bibliothèque Event Dispatch, déjà éprouvée par Google Search sur des milliards d’utilisateurs. Cette fonctionnalité capture les événements pendant le chargement initial de la page et les rejoue dès que le code requis est prêt.
+
+Pour activer l'event replay dans une application Angular, il suffit de configurer le provider d’hydratation comme suit :
+
+````typescript
+bootstrapApplication(App, {
+  providers: [
+    provideClientHydration(withEventReplay())
+  ]
+});
+````
+
+**Fonctionnement** :
+* Lorsque l’application est initialement rendue, aucun JavaScript n’est encore téléchargé. Les composants apparaissent en gris pour indiquer cet état.
+* Un utilisateur peut interagir avec l’application (ex. : cliquer sur "Ajouter au panier").
+* En arrière-plan, la bibliothèque Event Dispatch capture ces clics.
+* Une fois le JavaScript chargé, les clics sont rejoués, mettant à jour l’interface utilisateur (comme le nombre d’articles dans le panier).
+  
+Cette approche garantit une expérience utilisateur fluide, même avec un chargement progressif des scripts.
+
+> En version 19, l'Event Replay est stabilisé et est activé par défaut pour toutes les applications qui utilisent le rendu serveur
+
+
+## Mode de rendu au niveau des Routes
+
+Angular v19 introduit une nouvelle interface, ````ServerRoute````, pour configurer le mode de rendu de chaque route :
+* Rendu côté serveur (Server).
+* Pré-rendu (Prerender).
+* Rendu côté client (Client).
+
+Exemple de configuration :
+````typescript
+export const serverRouteConfig: ServerRoute[] = [
+  { path: '/login', mode: RenderMode.Server },  // rendue côté serveur
+  { path: '/dashboard', mode: RenderMode.Client }, // rendue côté client
+  { path: '/**', mode: RenderMode.Prerender }, // pré-rendue
+];
+````
+Cela permet une gestion fine des routes sans duplication, même avec des chemins paramétrés.
+
+### Résolution des paramètres de routes au moment du pré-rendu (developer preview)
+Auparavant, il n'existait aucun moyen ergonomique de résoudre les paramètres de route au moment du pré-rendu. Avec la configuration de route du serveur, c'est désormais plus simple :
+
+````typescript
+export const routeConfig: ServerRoute = [{
+ path: '/product/:id',
+ mode: 'prerender',
+ async getPrerenderPaths() {
+   const dataService = inject(ProductService);
+   const ids = await dataService.getIds(); // ["1", "2", "3"]
+   return ids.map(id => ({ id })); // `id` is used in place of `:id` in the route path.
+  },
+}];
+````  
+
+## Rendu côté serveur sans zone.js (zoneless)
+
+Angular continue à réduire sa dépendance à *zone.js*, introduisant des primitives pour gérer les requêtes en attente ou la navigation avant de rendre la page.
+
+Exemple avec ````HttpClient```` et ````Router```` :
+
+Un opérateur RxJS, ````pendingUntilEvent````, permet de notifier que le rendu n’est pas encore terminé :
+
+````typescript
+subscription
+  .asObservable()
+  .pipe(
+    pendingUntilEvent(injector),
+    catchError(() => EMPTY),
+  )
+  .subscribe();
+````
+
+Quand une nouvelle valeur est émise, Angular considère l’application prête et envoie le rendu au client.  
+
+## linkedSignal (experimental)
+
+````linkedSignal```` permet de créer un signal lié à un autre signal. Il peut se réinitialiser en cas de modification du signal source.
+
+Cela le rend particulièrement utile dans les situations où l'état local doit rester synchronisé avec les données dynamiques. 
+
+
+````typescript
+const options = signal(['apple', 'banana', 'fig']);
+
+// Choice defaults to the first option, but can be changed.
+const choice = linkedSignal(() => options()[0]);
+console.log(choice()); // apple
+
+choice.set('fig');
+console.log(choice()); // fig
+
+// When options change, choice resets to the new default value.
+options.set(['peach', 'kiwi']);
+console.log(choice()); // peach
+````
+
+## api resource (intégration des signaux avec des opérations asynchrones)
+
+Jusqu'à présent, les signaux dans Angular se concentraient sur les **données synchrones** : stockage de l'état dans les signaux, ````computed()````, ````input()````, ````output()````, ````viewChild()````, ````viewChildren()````, etc. 
+
+Angular v19 fait ses premiers pas vers l'intégration des signaux avec des **opérations asynchrones** en introduisant une nouvelle API **expérimentale** ````resource()````. 
+
+**Une ressource est une dépendance asynchrone** qui participe au graphique de signal. On peut considérer une ressource comme ayant trois parties :
+
+1.	**Request** : Décrit une requête (ex : dépend des paramètres de la route).
+2.	**Loader** : Exécute une opération asynchrone en réponse aux changements de la requête.
+3.	**Instance Resource** : Fournit des signaux pour suivre l’état (loading, resolved, errored).
+
+**Exemple** :
+````typescript
+@Component(...)
+export class UserProfile {
+  userId = input<number>();
+
+  userService = inject(UserService);
+
+  user = resource({
+    request: user,
+    loader: async ({request: id}) => await userService.getUser(id),
+  });
+}
+````
+
+Étant donné que de nombreuses applications Angular utilisent aujourd’hui RxJS pour la récupération de données, un équivalent ````rxResource```` a été ajouté via ````@angular/core/rxjs-interop```` qui crée une ressource à partir d’un chargeur basé sur Observable
+
+
+## Améliorations Angular Material et CDK
+
+Le support de Material 3 rend plus facile la customisation des thèmes grace à la nouvelle api ````mat.theme````
+
+Voici quelques exemples d'utilisation :
+
+````css
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$light-theme: mat.define-theme((
+    color: (
+      primary: mat.$violet-palette,
+      tertiary: mat.$orange-palette,
+      theme-type: light
+    ),
+    typography: Roboto,
+    density: 0
+  ));
+
+html {
+  // Apply the light theme by default
+  @include mat.core-theme($light-theme);
+  @include mat.button-theme($light-theme);
+  @include mat.card-theme($light-theme); 
+  ...
+}
+````
+
+*Version avec déclaration d'un seul mixin*
+
+````css
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$violet-palette,
+      tertiary: mat.$orange-palette,
+      theme-type: light
+    ),
+    typography: Roboto,
+    density: 0
+  ));
+}
+````
+
+*override de couleur*
+````
+@use '@angular/material' as mat;
+
+@include mat.theme-overrides(( primary: red ));
+````
+
+*override component*
+
+````
+@use '@angular/material' as mat;
+
+@include mat.button-overrides(( label-text-color: red ));
+
+@include mat.sidenav-overrides(
+  (
+    'content-background-color': purple,
+    'container-divider-color': orange,
+  )
+);
+````
+
+
+## Amélioration de l'expérience développeur
+
+### Mode standalone par défaut
+
+Angular 19 rend désormais tous les composants, pipes, directives etc... **standalone** par défaut. Cela signifie qu'il n'est plus nécessaire
+de spécifier manuellement le mode standalone
+
+````typescript
+@Component({
+	selector: 'app-user',
+	standalone: true // <--- plus nécessaire
+})
+````
+
+D'autre part, la commande ````ng update```` supprime automatiquement la propriété standalone des composants autonomes et définit ````standalone: false```` pour les abstractions non autonomes.
+
+Enfin, un nouveau flag de compilation, ````strictStandalone````, déclenche une erreur si un composant, une directive ou un pipe n'est pas autonome. 
+
+Configuration dans *angular.json* :
+
+````json
+{
+  "angularCompilerOptions": {
+    "strictStandalone": true
+  }
+}
+````
+
+### Remplacement à chaud des modules (HMR)
+
+Angular v19 prend en charge le remplacement de module à chaud (HMR) pour les styles et permet une prise en charge expérimentale du HMR pour les templates ! 
+  
+Avant cette amélioration, chaque fois que vous modifiez le style ou le template d'un composant et enregistrez le fichier, Angular CLI reconstruisait votre application et envoyait une notification au navigateur qui l'actualisait. 
+  
+  Le nouveau HMR compile le style ou le template qui a été modifié, envoie le résultat au navigateur et met à jour l'application sans actualisation de page ni perte d'état. 
+
+* Le HMR **pour les styles** est donc **activé par défaut**
+* Pour le tester avec les templates, il faut utiliser la commande ````NG_HMR_TEMPLATES=1 ng serve````
+
+Pour **désactiver le hmr**, il faut soit positionner le flag ````"hmr": false```` dans le fichier *angular.json* ou bien utiliser la commande ````ng serve --no-hmr````
+
+
+### Outils de test
+
+* Support pour Karma avec le nouveau builder basé sur esbuild : Permet des temps de construction plus rapides pour les tests unitaires et une intégration fluide des fonctionnalités du builder d'application.
+* **Dépréciation de Karma** : **Prévue pour début 2025**. Angular continue d’évaluer d’autres frameworks (comme Jest ou Web Test Runner) pour définir une recommandation officielle.
+  
+
+### Renforcement de la sécurité : Politique de sécurité du contenu stricte (CSP)
+
+
+* Génération automatique de CSP à base de hachage :
+  * Ajoute un hachage unique pour chaque script inline dans index.html.
+  * Empêche l'exécution de scripts malveillants sans le hachage correspondant dans la CSP.
+* Activation (developer preview) : Configuration dans *angular.json* :
+
+````json
+{
+  "security": {
+    "autoCSP": true
+  }
+}
+````  
+
+
+### Stabilisation des API inputs, outputs, view queries
+  
+Les nouvelles API ````input()````, ````output()````, ````viewChild()````, ````viewChildren()```` sont désormais stables. Pour simplifier l’adoption de ces nouvelles API, de nouvelles commandes permettent la conversion automatique vers la nouvelle syntaxe :
+
+````
+ng generate @angular/core:signal-input-migration
+ng generate @angular/core:signal-queries-migration
+ng generate @angular/core:output-migration
+````
+Alias pour tout exécuter à la fois :
+````
+ng generate @angular/core:signals
+````
+
+> Note : Les inputs basés sur des signaux sont en lecture seule, ce qui peut nécessiter des ajustements manuels dans certaines parties du code.
+  
+### Suppression automatique des imports inutilisés
+
+Une nouvelle option permet désormais de signaler à l'IDE de supprimer automatiquement tout import non utilisé via le paramétrage suivant 
+
+*angular.json*
+
+````typescript
+{
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "unusedStandaloneImports": "suppress"
+      }
+    }
+  }
+}
+````
+
+### Déclaration de variable d'environnement à la volée
+
+Il est désormais possible de fournir une variable d'environnement pendant la compilation avec la commande suivante utilisant le flag ````--define````:
+
+````
+ng build --define "apiKey='$API_KEY'"
+````
+
+````
+declare global {
+  var apiKey: string;
+}
+
+await fetch(`/api/data?apiKey=${globalThis.apiKey}`);
+````
+
+### Variables locales dans les templates
+
+Avec la nouvelle syntaxe de bloc pour le control-flow et les defferable views, il est maintenant possible de déclarer des variables locales dans les templates. 
+
+````html
+<!-- Use with a template variable referencing an element -->
+<input #name>
+
+@let greeting = 'Hello ' + name.value;
+
+<!-- Use with an async pipe -->
+@let user = user$ | async;
+````
+ 
+</details>
 
 # Angular v18
 
