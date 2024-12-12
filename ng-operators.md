@@ -12,7 +12,8 @@
 * [Utilisation du type générique](#utilisation-du-type-générique)     
 * [Valeurs en doublon et opérateur Set](#valeurs-en-doublon-et-opérateur-set)      
 * [Types génériques](#types-génériques)
-* [Comparaison de 2 objets avec copie des propriétés manquantes](#comparaison-de-2-objets-avec-copie-des-propriétés-manquantes)     
+* [Comparaison de 2 objets avec copie des propriétés manquantes](#comparaison-de-2-objets-avec-copie-des-propriétés-manquantes)
+* [Astuce construction de chaînes avec join](#astuce-construction-de-chaîne-avec-join)     
 
 ## Typescript expert : https://angularexperts.io/blog/advanced-typescript      
 
@@ -697,5 +698,19 @@ Contenu de l'objet *target* après comparaison
 On constate que l'objet *target* a gardé **toutes** ses propriétés initiales ainsi que leurs valeurs, et il possède maintenant en plus toutes les propriétés manquantes présentent dans *obj1*
  
 </details>
+
+### Astuce construction de chaîne avec join
+
+L'utilisation de ````filter(Boolean)```` sur un tableau de valeur aura pour effet de supprimer toutes les valeurs *falsy* (chaîne vide, null, undefined, false, 0)
+
+````typescript
+['A', '', 'B'].filter(Boolean); // Retourne ['A', 'B']
+
+['A', '', 'B'].filter(Boolean).join('.'); // Retourne 'A.C'
+
+// cas concret
+const { code = '', version = '', orderNumber = '' } = props
+const title = [code, version, orderNumber].filter(Boolean).join('.'); // xxx.xxx.xxx
+````
 
 [Back to top](#opérateurs)     
