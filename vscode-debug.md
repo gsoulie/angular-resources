@@ -14,25 +14,37 @@
 {
     "version": "0.2.0",
     "configurations": [
-       "name": "launch ng serve and chrome",
-            "type": "chrome",
-            "request": "launch",
-            "preLaunchTask": "npm: start",
-            "url": "http://localhost:4200/",
-            "webRoot": "${workspaceFolder}",
-            "sourceMaps": true,
-            "sourceMapPathOverrides": {
-                "webpack:/*": "${webRoot}/*",
-                "/./*": "${webRoot}/*",
-                "/src/*": "${webRoot}/*",
-                "/*": "*",
-                "/./~/*": "${webRoot}/node_modules/*"
-              }
+	{
+		"name": "launch ng serve and chrome",
+            	"type": "chrome",
+            	"request": "launch",
+            	"preLaunchTask": "npm: start",
+            	"url": "http://localhost:4200/",
+            	"webRoot": "${workspaceFolder}",
+            	"sourceMaps": true,
+            	"sourceMapPathOverrides": {
+                	"webpack:/*": "${webRoot}/*",
+                	"/./*": "${webRoot}/*",
+                	"/src/*": "${webRoot}/*",
+                	"/*": "*",
+                	"/./~/*": "${webRoot}/node_modules/*"
+              	}
+	}
+	// CONFIGURATION NEXTJS
+	{
+		  "name": "Debug Next.js",
+		  "type": "chrome",
+		  "request": "launch",
+		  "url": "<YOUR_URL>",	// ex: http://localhost:3000
+		  "webRoot": "${workspaceFolder}",
+		  "sourceMaps": true,
+		  "skipFiles": ["node_modules/**"]
+	},
     ]
 }
 ````
 
-- 3 : créer une nouvelle task dans le fichier *task.json*
+- 3 : (facultatif) créer une nouvelle task dans le fichier *task.json*
 
 ````
 {
@@ -63,8 +75,10 @@
 }
 ````
 
-- 4 : placer des points d'arrêts dans le code
-- 5 : aller dans l'onglet debug et exécuter le fichier *launch.json* voulu (important : il est possible qu'il faille le lancer 2 fois)
+- 4 : placer des points d'arrêts dans le code ou le mot "debugger" aux endroits stratégiques
+- 5 : faire un run du projet normalement : ````ng serve```` pour angular ou ````npm run dev```` pour Nexts / React
+- 6 : aller dans l'onglet debug et exécuter le fichier *launch.json* en sélectionnant la configuration désirée (important : il est possible qu'il faille le lancer 2 fois).
+  	* Un second navigateur chrome va alors s'ouvrir
 
 Depuis le volet debug on a alors accès aux variables du scope dans le volet *variables* et il est possible d'ajouter des variables spécifiques à surveiller en les ajoutant dans l'onglet *watch*
 
