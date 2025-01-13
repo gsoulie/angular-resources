@@ -147,6 +147,41 @@ export class DialogService {
 [Back to top](#ui-components)
 
 <details>
+	<summary>Méthode avec Signal</summary>
+
+ Composant affichant un lodaing indicator ou n'importe quel contenu
+
+````typescript
+@Component({
+	selector: 'app-loading-container',
+	imports: [MatProgressSpinner],
+	template: `
+		@if(loading()) {
+			<mat-progress-spinner
+			class="!absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+			[diameter]="size()"
+			mode="indeterminate"
+			/>
+		} @else {
+			<ng-content />
+		}
+	`,
+	styles: `
+		:host {
+			display: block;
+			position: relative;
+		}
+	`
+})
+export default class LoadingContainerComponent {
+	loading = input<boolean>(false);
+	size = input<number>(40);
+}
+````
+ 
+</details>
+
+<details>
 	<summary>Méthode avec Pipe dans la vue</summary>
 
 Voir plus en détail pour les cas plus complexe : 
