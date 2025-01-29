@@ -207,6 +207,18 @@ export class UserProfile {
 
 Étant donné que de nombreuses applications Angular utilisent aujourd’hui RxJS pour la récupération de données, un équivalent ````rxResource```` a été ajouté via ````@angular/core/rxjs-interop```` qui crée une ressource à partir d’un chargeur basé sur Observable
 
+````typescript
+// resource()
+products = resource({
+  loader: () => fetch(url).then(res => res.json())
+})
+
+// rxResource()
+products = rxResource({
+  loader: () => this.http.get(url))
+})
+
+````
 
 ## Améliorations Angular Material et CDK
 
