@@ -97,7 +97,8 @@
 	* mat-table
 	* Fullcalendar
 	* mat-button-toggle-group
-	* [swiper](https://github.com/gsoulie/ionic2-resources/blob/master/ionic-ui-component.md#swiper-replace-ion-slide-from-v6)      
+	* [swiper](https://github.com/gsoulie/ionic2-resources/blob/master/ionic-ui-component.md#swiper-replace-ion-slide-from-v6)
+ 	* [SwiperJS](https://github.com/gsoulie/angular-resources/blob/master/ng-swiper.md)
 	* mat-dialog    
 	* loading spinner     
 	* virtual scroll       
