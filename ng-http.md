@@ -1017,7 +1017,7 @@ readonly usersResource = httpResource<Array<UserModel>>('/users');
 
 Elle contient également quelques propriétés spécifiques aux ressources HTTP :
 
-|||
+|-|-|
 |statusCode|un signal contenant le code de statut de la réponse sous forme de number.|
 |headers|un signal contenant les en-têtes de la réponse sous forme de HttpHeaders.|
 |progress|un signal contenant la progression du téléchargement de la réponse sous forme de HttpProgressEvent.|
