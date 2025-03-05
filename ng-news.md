@@ -2,6 +2,7 @@
 
 # Nouveautés
 
+* [v19.2](#angular-v19-.-2)    
 * [v19](#angular-v19)    
 * [v18](#angular-v18)    
 * [v17.3](#angular-v17-.-3)     
@@ -14,6 +15,89 @@
 * [v14](#v14)
 * [AnalogJS](#analogjs)
 * [Dépréciations](#dépréciations)
+
+# Angular v19.2
+
+<details>
+	<summary>Nouveautés principales</summary>
+
+````27/02/2025````
+
+> [Angular 19.2](https://blog.ninja-squad.com/2025/02/26/what-is-new-angular-19.2/)   
+
+# Quoi de neuf dans Angular 19.2 ?
+Angular 19.2.0 est une mise à jour mineure qui apporte plusieurs nouvelles fonctionnalités intéressantes. Voici un aperçu détaillé des principales améliorations :
+
+## Support de TypeScript 5.8
+Angular 19.2 supporte désormais TypeScript 5.8, actuellement en version RC. Cela permet aux développeurs d'utiliser les dernières fonctionnalités de TypeScript dans leurs applications Angular.
+
+## Modifications des API resource() et rxResource()
+Les API ````resource```` et ````rxResource````, introduites pour gérer les ressources asynchrones, ont été améliorées :
+
+* ````defaultValue```` : Il est maintenant possible de définir une valeur par défaut pour les ressources, utilisée lorsque la ressource est inactive, en cours de chargement ou en erreur.
+
+````typescript
+list(): ResourceRef<Array<UserModel>> {
+  return resource({
+    defaultValue: [],
+    loader: async () => {
+      const response = await fetch('/users');
+      return (await response.json()) as Array<UserModel>;
+    }
+  });
+}
+````
+* **Streaming** : Les ressources peuvent désormais être créées avec des données de réponse en streaming, permettant des mises à jour continues des valeurs.
+
+````typescript
+list(): ResourceRef<Array<UserModel> | undefined> {
+  return resource({
+    stream: async ({ abortSignal }) => await firebaseCollection('users', abortSignal)
+  });
+}
+````
+
+## Nouvelle API httpResource()
+Cette version introduit l'API ````httpResource()````, qui facilite la création de ressources qui récupèrent des données depuis un endpoint HTTP.
+
+## Chaînes de caractères de modèle dans les templates
+Le compilateur Angular supporte désormais les chaînes de caractères de modèle dans les templates, permettant une interpolation plus flexible et l'utilisation de pipes dans les parties dynamiques.
+
+````typescript
+<p>{{ `Hello, ${name()}!` }}</p>
+<button [class]="`btn-${theme()}`">Toggle</button>
+<p>{{ `Hello, ${name() | uppercase}!` }}</p>
+````
+
+## Migration vers les balises auto-fermantes
+Une migration a été ajoutée pour convertir les éléments vides en balises auto-fermantes, améliorant la lisibilité du code.
+````
+ng generate @angular/core:self-closing-tag
+````
+
+## Validateurs de formulaires
+Les validateurs ````Validators.required````, ````Validators.minLength````, et ````Validators.maxLength```` fonctionnent désormais avec les ensembles (Set) en plus des tableaux (Array) et des chaînes de caractères (string).
+
+````typescript
+const atLeastTwoElementsValidator = Validators.minLength(2);
+
+// minLength error before v19.2
+atLeastTwoElementsValidator(new FormControl("a")); // string
+atLeastTwoElementsValidator(new FormControl(["a"])); // Array
+
+// 👇 NEW in v19.2! minLength error as well with a Set
+atLeastTwoElementsValidator(new FormControl(new Set(["a"]))); // Set
+````
+
+## Dépréciation du package d'animations
+Le package ````@angular/animations```` est **progressivement retiré** en raison de son manque de maintenance. Il n'est plus inclus dans le squelette de projet généré par le CLI.
+
+## Angular CLI
+* **Support AoT pour Karma, Jest et WTR** : Il est maintenant possible d'exécuter les tests avec la compilation AoT (Ahead-of-Time), ce qui permet de détecter des problèmes dans les composants de test.
+* **Karma builder** : Le builder d'application Karma a été déplacé vers le package @angular/build.
+* **SSR** : La configuration des routes côté serveur a été simplifiée et améliorée.
+ 
+</details>
 
 # Angular v19
 
