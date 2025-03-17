@@ -838,9 +838,15 @@ ngOnInit(): void {
 
 ### Etendre un service Unsubscriber
 
-Créer un service *Unsubscriber* [https://github.com/gsoulie/ionic-angular-snippets/blob/master/unsubscriber.service.ts] et étendre ce service dans les composants.
+<details>
+	<summary>Service custom de type unsubscriber</summary>
 
-### Subsink
+Créer un service *Unsubscriber* [https://github.com/gsoulie/ionic-angular-snippets/blob/master/unsubscriber.service.ts](https://github.com/gsoulie/ionic-angular-snippets/blob/master/unsubscriber.service.ts) et étendre ce service dans les composants.
+ 
+</details>
+
+<details>
+	<summary>Utilisation du package subsink</summary>
 
 Astuce pour économiser du code lors du désabonnement aux observable. La méthode suivante permet de faciliter l'action de désabonnement à plusieurs observable en une seule ligne. Cette méthode s'appuie sur le package **subsink**
 
@@ -875,6 +881,8 @@ export class SomeComponent implements OnDestroy {
   }
 }
 ````
+ 
+</details>
 
 ### utilisation du takeUntil
 
