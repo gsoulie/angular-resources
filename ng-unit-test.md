@@ -1033,9 +1033,9 @@ test.skip(({isMobile}) => isMobile)
 
 ou
 
-// 1 : démarrer le serveur local dans un terminal
+1 : démarrer le serveur local dans un terminal
 
-// 2 : lancer codegen dans un second terminal 
+2 : lancer codegen dans un second terminal 
 ````npx playwright codegen localhost:3000 --save-storage=auth.json````
 
 * ````--save-storage=<your-file-name>.json```` : enregistre l'état de connexion (cookies et localStorage) une fois la session terminée
@@ -1081,9 +1081,9 @@ Notez que vous devez supprimer l'état stocké à son expiration. Si vous n'avez
 
 Une fois enregistré, on peut modifier ce script pour :
 
-✔ Ajouter des assertions supplémentaires (ex. vérifier la présence d’un élément spécifique)
-✔ Paramétrer les tests avec des variables dynamiques
-✔ Exécuter les tests sur plusieurs navigateurs ou appareils
+✔ Ajouter des assertions supplémentaires (ex. vérifier la présence d’un élément spécifique)     
+✔ Paramétrer les tests avec des variables dynamiques     
+✔ Exécuter les tests sur plusieurs navigateurs ou appareils     
 
 ### Rejouer les tests enregistrés
 
