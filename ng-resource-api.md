@@ -45,6 +45,25 @@ const userResource = resource({
 * loader : Fonction asynchrone effectuant la récupération.
 * defaultValue : Valeur initiale avant la fin de la récupération.
 
+````typescript
+postId = signal(1);
+
+profileResource = resource<Post, { postId: number }> ({
+  request: () => ({
+    postId: this.postId(),
+  }),
+  loader: ({ request }) =>  fetch(`http://xxxxxx/${request.postId}`).then((res) =>  res.json())
+})
+
+changePostId() {
+  this.postId.set(2)
+}
+````
+
+> La fonction **loader** sera re-déclenchée à chaque changement de postId
+
+> IMPORTANT : L'api resource ne fonctionne actuellement **QUE pour les requêtes Get**
+
 ## HTTP Resources Spécialisées
 Angular simplifie davantage la récupération HTTP avec httpResource, qui s'intègre directement avec HttpClient et supporte les motifs réactifs.
 
@@ -66,6 +85,8 @@ const product = httpResource('/api/product', { parse: ProductSchema.parse });
 ````
 
 * Streaming de Resources : Gestion des réponses en streaming.
+
+Les ressources peuvent désormais être créées avec des données de réponse en streaming, permettant des mises à jour continues des valeurs.
 
 ````typescript
 const streamResource = resource({
