@@ -60,6 +60,8 @@ list(): ResourceRef<Array<UserModel> | undefined> {
 ## Nouvelle API httpResource()
 Cette version introduit l'API ````httpResource()````, qui facilite la création de ressources qui récupèrent des données depuis un endpoint HTTP.
 
+[Plus de détail ici](https://github.com/gsoulie/angular-resources/blob/master/ng-http-resource.md)    
+
 ## Chaînes de caractères de modèle dans les templates
 Le compilateur Angular supporte désormais les chaînes de caractères de modèle dans les templates, permettant une interpolation plus flexible et l'utilisation de pipes dans les parties dynamiques.
 
