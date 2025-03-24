@@ -849,10 +849,11 @@ expect(arr).toBe([1, 2, 3]);     // failure; not the same array
 <details>
 	<summary>e2e test avec Playwright</summary>
 
-
 # Présentation
 
 Playwright est un outil de test automatisé développé par Microsoft qui permet d’interagir avec des navigateurs web pour tester des applications. Il prend en charge Chromium, Firefox et WebKit et permet d’exécuter des tests sur différentes plateformes (Windows, Mac, Linux) ainsi que sur des navigateurs en mode headless (sans interface graphique).
+
+> [Best practices](https://playwright.dev/docs/best-practices)    
 
 ## Fonctionnalités Clés :
 
