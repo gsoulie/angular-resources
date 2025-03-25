@@ -26,5 +26,6 @@ setup('Authentification', async ({ page }) => {
   const searchBox = await page.getByRole('searchbox', { name: 'Submit' })
   await expect(searchBox).toBeVisible()
 
-  await page.context().storageState({ path: authFile });
+  await page.context().storageState({ path: authFile });  // Enregistrer le contexte d'authentification (token, cookies) dans un storageState qui sera créé sous ../playwright/.auth/auth.json
+  // Ce contexte peut éventuellement être réutilisé pour s'authentifié directement
 })
