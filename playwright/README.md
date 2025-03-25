@@ -21,11 +21,21 @@ npx playwright codegen https://my-app/dashboard -o ./tests/01_INT-authenticate.s
 // Jouer le test 01
 npx playwright test ./tests/01_INT-authenticate.spec.ts --headed
 
+// Jouer plusieurs tests spécifiques
+npx playwright test tests/todo-page/ tests/landing-page/
+
 // Jouer tous les tests
 npx playwright test
 
 // Visualiser les tests dans un dashboard avec timeline etc...
 npx playwright test --ui
+
+//  Jouer les test sur webkit
+npx playwright test --project webkit
+
+// Jouer les tests sur webkit et firefox
+npx playwright test --project webkit --project firefox
+
 ````
 * ````--headed```` : permet de lancer le test en mode UI
 
