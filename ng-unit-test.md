@@ -1117,6 +1117,108 @@ Lancez les tests avec la commande suivante :
 
 
 ## Intégration CI/CD
+
+Ajouter les éléments suivants dans le fichier de configuration de Playwright
+
+*playwright.config.ts*
+
+````typescript
+export default defineConfig({
+  testDir: './tests',
+  /* Run tests in files in parallel */
+  fullyParallel: true,
+  /* Fail the build on CI if you accidentally left test.only in the source code. */
+  forbidOnly: !!process.env.CI,
+  /* Retry on CI only */
+  retries: process.env.CI ? 2 : 0,
+  /* Opt out of parallel tests on CI. */
+  workers: process.env.CI ? 1 : undefined,
+
+  reporter: [
+    ['list'], // Affiche les résultats des tests dans la console
+    ['html', { outputFolder: 'test-results' }], // Génère un rapport HTML dans le dossier test-results
+    ['junit', { outputFile: 'test-results/e2e-junit-results.xml' }]
+  ],
+})
+````
+
+*Exemple de pipelines*
+
+Template de la pipeline : *azure-pipeline.test.template.playwright.yml*
+
+````yml
+parameters:
+  - name: project
+    displayName: Project name
+  - name: workingDir
+    displayName: Working directory
+variables:
+  vmImage: ubuntu-latest
+  project: ${{ parameters.project }}
+  workingDir: ${{ parameters.workingDir }}
+  nodeVersionSpec: "20"
+stages:
+  - stage: Test
+    jobs:
+      - job: PlaywrightTests
+        displayName: Run Playwright Tests
+        pool:
+          vmImage: $(vmImage)
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: $(nodeVersionSpec)
+            displayName: Install Node.js $(nodeVersionSpec)
+          - task: Npm@1
+            displayName: Install npm packages
+            inputs:
+              workingDir: $(workingDir)
+              verbose: false
+          - task: Npm@1
+            displayName: Install Playwright Dependencies
+            inputs:
+              workingDir: $(workingDir)
+              command: custom
+              verbose: false
+              customCommand: exec playwright install --with-deps
+          - task: Npm@1
+            displayName: Run Playwright Tests
+            inputs:
+              workingDir: $(workingDir)
+              command: custom
+              verbose: false
+              customCommand: run test:e2e
+            condition: succeededOrFailed()
+          - task: PublishBuildArtifacts@1
+            displayName: Publish Playwright Report
+            inputs:
+              PathtoPublish: $(workingDir)/playwright-report
+              ArtifactName: PlaywrightReport
+            condition: always()
+
+````
+
+Pipeline : *azure-pipeline.test.app.yml*
+
+````yml
+trigger:
+  branches:
+    include:
+      # - feature/*
+      - develop
+      - release/*
+      - master
+  paths:
+    include:
+      - Pipelines/azure-pipeline.test.template.playwright.yml
+      - Frontends/*
+
+extends:
+  template: azure-pipeline.test.template.playwright.yml
+  parameters:
+    project: 'My project'
+    workingDir: 'Frontends'
+````
  
 </details>
 
