@@ -8,6 +8,34 @@ Playwright est un outil de test automatisé développé par Microsoft qui permet
 
 > [Best practices](https://playwright.dev/docs/best-practices)    
 
+## Commandes principales
+
+*Créer un test via l'enregistrement codegen*
+````
+// npx playwright codegen <my-app-url> -o ./tests/<test-filename>.spec.ts
+npx playwright codegen https://my-app/dashboard -o ./tests/01_INT-authenticate.spec.ts
+````
+
+*Jouer un test*
+````
+// Jouer le test 01
+npx playwright test ./tests/01_INT-authenticate.spec.ts --headed
+
+// Jouer tous les tests
+npx playwright test
+
+// Visualiser les tests dans un dashboard avec timeline etc...
+npx playwright test --ui
+````
+* ````--headed```` : permet de lancer le test en mode UI
+
+*Consulter les rapports*
+Les rapports sont enregistrés dans le répertoire *test-results*
+````
+npx playwright show-report test-results
+````
+
+
 ## Fonctionnalités Clés :
 
 * Automatisation Multi-Navigateurs : Playwright permet de tester des applications web sur plusieurs navigateurs (Chromium, Firefox, WebKit) avec une seule API, ce qui simplifie le processus de test et assure une couverture plus large.
@@ -45,22 +73,13 @@ https://www.youtube.com/watch?v=kD1jjfwer5Y&ab_channel=HudsonYuen
 
 Lors de l'installation, le fichier *playwright.config.ts* est créé à la racine de votre projet. Ce fichier contiendra les paramètres de configuration pour Playwright, comme les navigateurs à utiliser et les options de lancement.
 
+[Voici un exemple de fichier de configuration](https://github.com/gsoulie/angular-resources/blob/master/playwright/playwright.config.ts)    
+
 
 ## Écriture des Tests
 
-Placez vos tests E2E dans un répertoire dédié, par exemple tests/e2e. Utilisez les fixtures et les fonctions fournies par Playwright pour écrire vos tests6.
-````typescript
-import { test, expect } from '@playwright/test';
+Placez vos tests E2E dans un répertoire dédié, par exemple *tests/e2e*. Utilisez les fixtures et les fonctions fournies par Playwright pour écrire vos tests.
 
-test('should navigate to the homepage', async ({ page }) => {
-  await page.goto('/');
-  expect(await page.title()).toBe('My Next.js App');
-});
-````
-
-**Autre exemple :**
-
-Dans un dossier *tests/*, crée un fichier *home.spec.ts* et écris un test simple :
 ````typescript
 import { test, expect } from '@playwright/test';
 
@@ -69,6 +88,8 @@ test('La page d’accueil affiche le bon titre', async ({ page }) => {
   await expect(page).toHaveTitle(/Mon Application/);
 });
 ````
+
+> [Exemple de fichiers de tests](https://github.com/gsoulie/angular-resources/tree/master/playwright/tests)     
 
 ### Ajouter des restrictions
 ````
@@ -97,7 +118,6 @@ Exemples de commandes :
 npx playwright codegen localhost:3000/dev -o ./tests/mkp-dev-codegen.spec.ts
 npx playwright codegen https://gecet.groupeisia.dev/int/marketplace/auth -o ./tests/mkp-int-codegen.spec.ts --channel=chrome
 ````
-
 
 * ````-o <test-filename.spec.ts>```` : permet de copier la sortie dans un fichier
 * ````--channel=chrome```` : forcer l'exécution sur un browser précis
@@ -137,26 +157,12 @@ Une fois enregistré, on peut modifier ce script pour :
 ✔ Paramétrer les tests avec des variables dynamiques     
 ✔ Exécuter les tests sur plusieurs navigateurs ou appareils     
 
-### Rejouer les tests enregistrés
-
-````npx playwright test nom_du_fichier.spec.ts````
-
-ex : 
-
-````npx playwright test ./tests/mkp-dev-codegen.spec.ts --headed````
-
-* ````--headed```` : permet de visualiser le déroulement du test dans un browser. Sans cette option, le test sera jouée dans le terminal
 
 ## Exécution des Tests
 
-### methode 1 
-````npx playwright test````, ou pour visualiser les tests en action avec une UI :
-* ````npx playwright test --ui```` : ouvre une interface de test avec visualisation, timeline etc...
-* ````npx playwright test --headed```` : ouvre un navigateur et simule le test
+Pour exécuter les tests il suffit d'utiliser les commandes ````npx playwright test````
 
-### methode 2 
-
-Ajoutez un script dans votre *package.json* pour exécuter les tests Playwright.
+Il est possible d'ajouter une commande dans le package.json 
 ````
 "scripts": {
   "test:e2e": "playwright test"
@@ -169,7 +175,9 @@ Lancez les tests avec la commande suivante :
 
 ## Intégration CI/CD
 
-Ajouter les éléments suivants dans le fichier de configuration de Playwright
+> [Intégration CI](https://playwright.dev/docs/ci)
+
+* Ajouter les éléments suivants dans le fichier de configuration de Playwright
 
 *playwright.config.ts*
 
@@ -191,5 +199,17 @@ export default defineConfig({
     ['junit', { outputFile: 'test-results/e2e-junit-results.xml' }]
   ],
 })
+````
+
+* Ajouter la commande de test dans la partie script du *package.json*
+
+````
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test:e2e": "playwright test --reporter=html"  // <-- nécessaire pour la pipeline
+  },
 ````
 
