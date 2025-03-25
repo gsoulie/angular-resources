@@ -78,6 +78,8 @@ Lors de l'installation, le fichier *playwright.config.ts* est créé à la racin
 
 ## Écriture des Tests
 
+> [Ecriture des tests](https://playwright.dev/docs/writing-tests)     
+
 Placez vos tests E2E dans un répertoire dédié, par exemple *tests/e2e*. Utilisez les fixtures et les fonctions fournies par Playwright pour écrire vos tests.
 
 ````typescript
