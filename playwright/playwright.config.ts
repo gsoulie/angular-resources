@@ -65,7 +65,7 @@ export default defineConfig({
         channel: "chrome",
         viewport: { width: 1500, height: 889 },// 1920*1080
         trace: "on", // génère un fichier dans le répertoire test-results/trace/index.html
-        storageState: 'playwright/.auth/auth.json'
+        storageState: 'playwright/.auth/auth.json'  // Permet de réutiliser le contexte d'authentification pour tous les tests
       },
       dependencies: ['setup'],  // Ajouter une dépendance au setup défini dans auth.setup.ts. Sera joué en premier avant tous les tests (pratique pour gérer l'authentification)
     },
