@@ -1,0 +1,57 @@
+parameters:
+  - name: project
+    displayName: Project name
+  - name: workingDir
+    displayName: Working directory
+
+variables:
+  vmImage: ubuntu-latest
+  project: ${{ parameters.project }}
+  workingDir: ${{ parameters.workingDir }}
+  nodeVersionSpec: "20"
+
+stages:
+  - stage: Test
+    jobs:
+      - job: PlaywrightTests
+        variables:
+          - group: PlaywrightSecrets # Spécifier le répertoire variables d'environnements d'Azure dans lequel récupérer les secrets
+
+        displayName: Run Playwright Tests
+        pool:
+          vmImage: $(vmImage)
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: $(nodeVersionSpec)
+            displayName: Install Node.js $(nodeVersionSpec)
+          - task: Npm@1
+            displayName: Install npm packages
+            inputs:
+              workingDir: $(workingDir)
+              verbose: false
+          - task: Npm@1
+            displayName: Install Playwright Dependencies
+            inputs:
+              workingDir: $(workingDir)
+              command: custom
+              verbose: false
+              customCommand: exec playwright install --with-deps
+
+          # Lancer le script des tests en lui indiquant d'utiliser les variables d'environnement Azure  AUTH_EMAIL et AUTH_PASSWORD pour s'authentifier lors des test
+          - script: |
+              set -e
+              npm run test:e2e
+            displayName: Run Playwright Tests
+            workingDirectory: $(workingDir)
+            env:
+              AUTH_EMAIL: $(AUTH_EMAIL)
+              AUTH_PASSWORD: $(AUTH_PASSWORD)
+            continueOnError: false
+          
+          - task: PublishBuildArtifacts@1
+            displayName: Publish Playwright Report
+            inputs:
+              PathtoPublish: $(workingDir)/playwright-report
+              ArtifactName: PlaywrightReport
+            condition: always()
