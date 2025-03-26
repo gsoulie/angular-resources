@@ -106,6 +106,15 @@ await page.waitForURL('./dashboard'); // pointe https://my.app.dev/dashboard
 await expect(page).toHaveURL('./dashboard');
 ````
 
+Il est aussi possible de redéfinir l'url de base ponctuellement si un test particulier l'exige :
+
+````typescript
+test.use({
+	baseURL: 'https://other-url/'
+})
+````
+
+
 ## Écriture des Tests
 
 > [Ecriture des tests](https://playwright.dev/docs/writing-tests)     
