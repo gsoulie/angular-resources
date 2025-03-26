@@ -200,6 +200,23 @@ Lancez les tests avec la commande suivante :
 
 ````npm run test:e2e````
 
+### Jouer les tests en localhost
+
+Si l'on souhaite jouer les tests en localhost (en mode dev) il suffit de rajouter la configuration suivante dans le fichier *playwright.conf.ts*
+
+````typescript
+export default defineConfig({
+webServer: {
+    command: "npm run dev",
+
+ //command: 'npm run start',
+    url: 'http://localhost:3000/dev',
+    reuseExistingServer: !process.env.CI,
+  },
+})
+````
+
+Ensuite remplacer les urls utilisées dans les tests (fonction goto...) pour qu'elle pointent vers 'http://localhost:3000'
 
 ## Intégration CI/CD
 
