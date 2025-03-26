@@ -1,0 +1,17 @@
+trigger:
+  branches:
+    include:
+      # - feature/*
+      - develop
+      - release/*
+      - master
+  paths:
+    include:
+      - Pipelines/azure-pipeline.test.template.playwright.yml
+      - Frontends/*
+
+extends:
+  template: azure-pipeline.test.template.playwright.yml
+  parameters:
+    project: 'MyApp'
+    workingDir: 'Frontends'
