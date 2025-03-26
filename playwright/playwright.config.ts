@@ -27,7 +27,7 @@ export default defineConfig({
   reporter: [
     ['list'], // Affiche les résultats des tests dans la console
     ['html', { outputFolder: 'test-results' }], // Génère un rapport HTML dans le dossier test-results
-    ['junit', { outputFile: 'test-results/e2e-junit-results.xml' }]
+    ['junit', { outputFile: 'test-results/e2e-junit-results.xml' }] // Nécessaire pour le CI/CD
   ],
   //timeout: 30000, // 30s par défaut
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
