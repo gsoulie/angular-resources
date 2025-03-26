@@ -85,6 +85,26 @@ Lors de l'installation, le fichier *playwright.config.ts* est créé à la racin
 
 [Voici un exemple de fichier de configuration](https://github.com/gsoulie/angular-resources/blob/master/playwright/playwright.config.ts)    
 
+### baseURL
+
+Il est possible de définir une url de base afin de simplifier le routing lors des tests :
+
+````typescript
+export default defineConfig({
+  use: {
+    baseURL: 'https://my.app.dev',
+  },
+//  ...
+})
+````
+
+Utilisation dans les tests : 
+
+````typescript
+await page.goto('./auth');  // pointe https://my.app.dev/auth
+await page.waitForURL('./dashboard'); // pointe https://my.app.dev/dashboard
+await expect(page).toHaveURL('./dashboard');
+````
 
 ## Écriture des Tests
 
@@ -212,6 +232,7 @@ webServer: {
  //command: 'npm run start',
     url: 'http://localhost:3000/dev',
     reuseExistingServer: !process.env.CI,
+    // timeout: 120 * 1000,
   },
 })
 ````
