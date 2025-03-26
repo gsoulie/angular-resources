@@ -27,5 +27,6 @@ setup('Authentification', async ({ page }) => {
   await expect(searchBox).toBeVisible()
 
   await page.context().storageState({ path: authFile });  // Enregistrer le contexte d'authentification (token, cookies) dans un storageState qui sera créé sous ../playwright/.auth/auth.json
-  // Ce contexte peut éventuellement être réutilisé pour s'authentifié directement
+  // Ce contexte peut être réutilisé pour éviter de se réauthentifier pour chaque test. 
+  // Rajouter l'option dependencies: ['setup'] dans le playwrgith.config.ts pour activer la dépendence
 })
