@@ -706,7 +706,7 @@ L'utilisation de ````filter(Boolean)```` sur un tableau de valeur aura pour effe
 ````typescript
 ['A', '', 'B'].filter(Boolean); // Retourne ['A', 'B']
 
-['A', '', 'B'].filter(Boolean).join('.'); // Retourne 'A.C'
+['A', '', 'B'].filter(Boolean).join('.'); // Retourne 'A.B'
 
 // cas concret
 const { code = '', version = '', orderNumber = '' } = props
