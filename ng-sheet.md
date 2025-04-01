@@ -20,7 +20,7 @@
 	* [Optimisations & NR](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)    
 		* source-map-explorer
 		* webpack-bundle-analyzer      	        
-	* [Opérateurs, Destructuration d'objets et Tableaux, Object assign, Type générique](https://github.com/gsoulie/angular-resources/blob/master/ng-operators.md)
+	* [Opérateurs, Destructuration d'objets et Tableaux, Object assign, Type générique]([https://github.com/gsoulie/angular-resources/blob/master/ng-operators.md](https://github.com/gsoulie/typescript-resources/blob/main/ts-operator.md)
 		* Shallow copy vs Deep copy 
 		* [Opérateur d'assertion "!"](https://blog.logrocket.com/understanding-exclamation-mark-typescript/)
   		* Comparaison de 2 objets avec copie des propriétés manquantes     	
