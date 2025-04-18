@@ -180,10 +180,10 @@ npx playwright codegen https://gecet.groupeisia.dev/int/marketplace/auth -o ./te
 * ````--channel=chrome```` : forcer l'exécution sur un browser précis
 
 
-Cela va :
-✅ Ouvrir un navigateur Playwright
-✅ Enregistrer toutes tes interactions (clics, saisies, navigation, etc.)
-✅ Générer automatiquement un script de test en TypeScript, JavaScript, Python ou Java
+Cela va :      
+✅ Ouvrir un navigateur Playwright      
+✅ Enregistrer toutes tes interactions (clics, saisies, navigation, etc.)     
+✅ Générer automatiquement un script de test en TypeScript, JavaScript, Python ou Java     
 
 ### Gérer l'authentification
 
@@ -195,14 +195,14 @@ de connexion dans le fichier de test.
 
 Voici les étapes à suivre pour mettre en place cette fonctionnalité :
 
-1 - créer un répertoire *playwright/.auth* à la racine du projet
-2 - créer un fichier json dans ce répertoire qui contiendra les informations de connexion (par ex: 'auth.json')
-3 - Dans un terminal, lancer l'application (npm run dev)
-4 - dans un second terminal, lancer la génération de test via la commande : 
+1 - créer un répertoire *playwright/.auth* à la racine du projet      
+2 - créer un fichier json dans ce répertoire qui contiendra les informations de connexion (par ex: 'auth.json')      
+3 - Dans un terminal, lancer l'application (npm run dev)     
+4 - dans un second terminal, lancer la génération de test via la commande :      
 ````npx playwright codegen http://localhost:3000/dev -o ./tests/mkp-localhost-codegen.spec.ts --save-storage=./playwright/.auth/auth.json````
-5 - s'authentifier manuellement dans l'application et fermer Codegen. Ceci va implémenter le fichier auth.json avec les informations de connexion
-6 - Créer un fichier */tests/auth.setup.ts*
-7 - Ajouter la propriété *storageState* dans le projet correspondant dans  le fichier *playwright.config.ts*
+5 - s'authentifier manuellement dans l'application et fermer Codegen. Ceci va implémenter le fichier auth.json avec les informations de connexion     
+6 - Créer un fichier */tests/auth.setup.ts*     
+7 - Ajouter la propriété *storageState* dans le projet correspondant dans  le fichier *playwright.config.ts*     
 
 Notez que vous devez supprimer l'état stocké à son expiration. Si vous n'avez pas besoin de conserver l'état entre les tests, écrivez l'état du navigateur dans testProject.outputDir, qui est automatiquement nettoyé avant chaque test.
 
