@@ -6,7 +6,7 @@
 * [Themes](#themes)     
 * [Extensions](https://github.com/gsoulie/angular-resources/blob/master/vscode-extension.md)     
 * [Tasks](#tasks)   
-* [ESLint](https://github.com/gsoulie/angular-resources/blob/master/vscode-eslint.md)   
+* [Configuration ESLint, Prettier](https://github.com/gsoulie/angular-resources/blob/master/vscode-eslint.md)   
 * [Debug](https://github.com/gsoulie/angular-resources/blob/master/vscode-debug.md)     
 * [Cursive fonts](#cursive-fonts)      
 * Snippets
