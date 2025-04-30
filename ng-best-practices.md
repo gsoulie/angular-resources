@@ -17,9 +17,8 @@
 ## Clean code
 
 <details>
-	<summary>Mémo des principes de clean code</summary>
+	<summary>Le **Clean Code** est une approche de développement logiciel qui vise à rendre le code plus lisible, maintenable et évolutif. En adoptant les principes du Clean Code, nous pouvons améliorer la qualité de nos livrables, réduire les bugs et faciliter l'intégration de nouvelles ressources dans le projet. Ce document présente de manière synthétique et concrète les principes **SOLID**, **KISS** et **DRY**, accompagnés d'exemples et d'images pour faciliter leur mémorisation.</summary>
 
-Le **Clean Code** est une approche de développement logiciel qui vise à rendre le code plus lisible, maintenable et évolutif. En adoptant les principes du Clean Code, nous pouvons améliorer la qualité de nos livrables, réduire les bugs et faciliter l'intégration de nouvelles ressources dans le projet. Ce document présente de manière synthétique et concrète les principes **SOLID**, **KISS** et **DRY**, accompagnés d'exemples et d'images pour faciliter leur mémorisation.
 
 ### Objectifs du Clean Code
 
