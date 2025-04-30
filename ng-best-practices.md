@@ -10,7 +10,8 @@
 * [Pipe](#pipe)      
 * [Numérique Responsable](https://github.com/gsoulie/angular-resources/blob/master/ng-nr.md)      
 * [Unsubscriber](#unsubscriber)     
-* [Optimisations](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)     
+* [Optimisations](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)
+* [Check list](#check-list)     
 
 
 ## Généralités 
@@ -146,4 +147,165 @@ export class ControlsPage extends Unsubscriber implements OnInit {
 **I M P O R T A N T** : Il ne faut surtout pas implémenter la fonction *ngOnDestroy()* dans le composant, sinon celle-ci prendra l'ascendant sur celle du service *unsubscriber* qui ne sera pas joué
 
 [Back to top](#bonnes-pratiques-et-nr)
+
+## Check list
+
+<details>
+	<summary>Liste de bonnes pratiques</summary>
+
+
+`25/05/2023`
+
+## Quelques bonnes pratiques générales
+
+- Utiliser / migrer la dernière version d'Angular (actuellement Passer en v17 et utiliser les nouvelles fonctionnalités (nouvelle syntaxe control flow, standalone component, defer ...)
+- Utiliser autant que possible le concept **Signal** pour les variables qui sont utilisées côté template, les inputs de composants...
+- Depuis Angular 16, utiliser les composants en mode **standalone**
+- Maintenir à jour son CLI / RxJS
+- Respecter le principe de **responsabilité unique** pour chaque fonction, service, composant
+- Développer des fonctions / composants les plus unitaires possibles (pas de code de 200 lignes).
+- Utilisation d'un **interceptor http** pour gérer les entête de requête (ajout de bearer token) / codes erreurs / retry...
+- Depuis Angular 13, vérifier que le répertoire **.angular/cache** est bien ajouté au fichier *.gitignore* `/.angular/cache`
+- Auditer chaque page de l'application via **lighthouse** depuis la console chrome. **Attention !** l'audit de *performance* ne sera cohérent que s'il est réalisé sur le projet compilé et hosté en local ou sur un serveur. L'audit d'accessibilité, lui, peut-être directement réalisé en mode *serve* classique
+- Lazy load des composants dans le fichier routing : `loadComponent: () => import('./tabs/tabs.component').then(m => m.TabsPageComponent)` et ne pas importer les modules lazy-loadé dans les fichiers *app.module.ts* car ils **seraient alors chargés 2 fois !**
+- Utiliser les blocs ````@defer()```` afin de lazy-loader les composants
+- Utilisation du package **a11y** pour gérer l'accessibilité
+- Supprimer les effets d'animation de transition des pages inutiles
+- Utilisation de fonts standard et privilégier le format de font **WOFF2**
+- Faire la chasse au fonts non utilisées
+- Utiliser l'attribut `font-display: swap` dans les `@font-face` permet l'affichage d'un élément avec une font de substitution si la font initialement demandée n'est pas encore chargée
+- Rendu à la demande avec Angular Universal => Devenu SSR depuis Angular v17
+- Utilisation du Virtual scroll
+- Utiliser en priorité les **pipes** dans la vue lorsqu'il s'agit de mettre en forme du contenu plutôt que de passer par des fonctions
+- **Sé désabonner systématiquement** de chaque souscription manuelle à un observable ou à minima implémenter sa fonction **complete()** qui termine les abonnements
+- Gestion du `onDestroy` pour libérer les souscriptions des observables via l'injection de **DestroyRef** (Depuis Angular 16):
+
+```typescript
+constructor(private dataService: DataService) {
+    this.data$ = this.dataService.fetchData();
+    this.sub = this.data$.subscribe((res: any) => this.data = res);
+
+    inject(DestroyRef).onDestroy(() => {
+      this.sub.unsubscribe();
+    })
+  }
+
+```
+- Renforcement de la sécurité CSP (voir news angular 19) : activation en mode preview
+*angular.json*
+````
+{
+  "security": {
+    "autoCSP": true
+  }
+}
+````
+- Activation de la suppression automatique des imports inutilisés :
+*angular.json*
+````
+{
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "unusedStandaloneImports": "suppress"
+      }
+    }
+  }
+}
+````
+- Utiliser au maximum les pipe `async` pour gérer automatiquement la souscription/désabonnement des observables depuis le template
+- Utiliser le `pipe(take(1))` sur les Observables ou les convertir en promise lorsqu'un observable n'est pas nécessaire (ex: réponse unique attendue, pas de gestion de flux...)
+- Utiliser des images JPEG (compressées avec TinyPNG par ex...) et SVG
+- Utiliser la propriété `loading="lazy"` dans les balises images ou la directive [**NgOptimizedImage**](https://wiki-collab.groupe-isia.com/books/angular/page/directive-ngoptimizedimage) depuis Angular **v15**
+- Configurer les app Angular comme des PWA : `ng add @angular/pwa && ng build — prod`. Et configurer le service worker pour mettre certaines ressources en cache (assets/fonts)
+- Limiter le nombre de module tiers utilisés. Utiliser autant que possible ce qui est faisable directement en JS ou Angular, idem pour les composants graphiques, ce qui peut être fait en css pur est à privilégier.
+- Supprimer tous les `console.log` avant de mettre en prod =&gt; peut causer des memory leak =&gt; ajouter le code suivant dans le fichier **main.ts** pour faire simple :
+
+```typescript
+if (environment.production) {
+ window.console.log = () => {};
+}
+
+```
+
+### Bonne pratique refactoring behaviourSubject -> Signal
+
+[![]()
+
+### Bonnes pratiques Typescript
+
+- Typer toutes les variables, retours de fonction, paramètres etc...
+- **Proscrire** le type ````any````. Si le type est inconnu, préférer le type ````unknown````
+- Utiliser le principe de **early return**: consiste à retourner les cas de retour négatifs le plus rapidement possible pour sortir de la fonction le plus rapidement :
+
+```typescript
+function lessConfusingFonction(String name, int value, AuthenticationInfo perms) {
+    if (!globalCondition) {
+        return BAD_COND;
+    }
+    if (name == null || name.equals("")) {
+        return BAD_NAME;
+    }
+    if (value == 0) {
+        return BAD_VALUE;
+    }
+    if (!perms.allow(name)) {
+        return DENY;
+    }
+    
+    return SUCCESS;
+}
+
+```
+
+- Utiliser des verbes pour les noms de fonctions getUser, setNotification, sendMessage...
+- Éviter l'utilisation des ````enum````. en TS, les enums sont moins intéressants que dans d'autres langages. Ils n'apportent pas grand chose et alourdissent le code dans le bundle. D'autre part, on ne peut
+pas itérer dessus. Il est donc **recommandé d'utiliser les types et union de types**
+- Simplifier les chemins d'importation :
+
+````typescript
+import { Function } from '../../../../../shared/functions.service'
+````
+
+en configurant les paths dans le fichier *tsconfig.json*
+
+````typescript
+...
+"paths": {
+	"@shared/*": ["shared/*"]
+}
+````
+
+Va permettre d'importer de la manière suivante
+
+````typescript
+import { Function } from '@shared/functions.service'
+````
+
+## Appels asynchrones
+
+Voici une des meilleures façon de coder les appels asynchrones 
+
+````typescript
+getAllData = async () => {
+	try {
+		const res = await fetch(url);
+		const reponse = await res.json();
+		
+		// some stuff 
+
+		
+	} catch(err) {
+        console.error(err)
+        
+        throw new Error(<object-or-string>)
+
+        // log serveur...
+
+        // toast message...        
+	}
+}
+````
+ 
+</details>
 
