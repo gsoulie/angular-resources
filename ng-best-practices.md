@@ -216,7 +216,7 @@ constructor(private dataService: DataService) {
 - Utiliser au maximum les pipe `async` pour gérer automatiquement la souscription/désabonnement des observables depuis le template
 - Utiliser le `pipe(take(1))` sur les Observables ou les convertir en promise lorsqu'un observable n'est pas nécessaire (ex: réponse unique attendue, pas de gestion de flux...)
 - Utiliser des images JPEG (compressées avec TinyPNG par ex...) et SVG
-- Utiliser la propriété `loading="lazy"` dans les balises images ou la directive [**NgOptimizedImage**](https://wiki-collab.groupe-isia.com/books/angular/page/directive-ngoptimizedimage) depuis Angular **v15**
+- Utiliser la propriété `loading="lazy"` dans les balises images ou la directive **NgOptimizedImage** depuis Angular **v15**
 - Configurer les app Angular comme des PWA : `ng add @angular/pwa && ng build — prod`. Et configurer le service worker pour mettre certaines ressources en cache (assets/fonts)
 - Limiter le nombre de module tiers utilisés. Utiliser autant que possible ce qui est faisable directement en JS ou Angular, idem pour les composants graphiques, ce qui peut être fait en css pur est à privilégier.
 - Supprimer tous les `console.log` avant de mettre en prod =&gt; peut causer des memory leak =&gt; ajouter le code suivant dans le fichier **main.ts** pour faire simple :
@@ -230,7 +230,7 @@ if (environment.production) {
 
 ### Bonne pratique refactoring behaviourSubject -> Signal
 
-[![]()
+[![](https://github.com/gsoulie/angular-resources/blob/master/image-1724688936040.png)
 
 ### Bonnes pratiques Typescript
 
