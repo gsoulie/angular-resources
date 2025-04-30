@@ -2,6 +2,7 @@
 
 # Bonnes pratiques et NR
 
+* [Clean code](#clean-code)    
 * [Généralités](#généralités)      
 * [Input ou Service ?](#input-ou-service-?)      
 * [Workflow complet](#workflow-complet)      
@@ -11,8 +12,441 @@
 * [Numérique Responsable](https://github.com/gsoulie/angular-resources/blob/master/ng-nr.md)      
 * [Unsubscriber](#unsubscriber)     
 * [Optimisations](https://github.com/gsoulie/angular-resources/blob/master/ng-optimization.md)
-* [Check list](#check-list)     
+* [Check list](#check-list)
 
+## Clean code
+
+<details>
+	<summary>Mémo des principes de clean code</summary>
+
+Le **Clean Code** est une approche de développement logiciel qui vise à rendre le code plus lisible, maintenable et évolutif. En adoptant les principes du Clean Code, nous pouvons améliorer la qualité de nos livrables, réduire les bugs et faciliter l'intégration de nouvelles ressources dans le projet. Ce document présente de manière synthétique et concrète les principes **SOLID**, **KISS** et **DRY**, accompagnés d'exemples et d'images pour faciliter leur mémorisation.
+
+### Objectifs du Clean Code
+
+- **Réduire la complexité** : Un code simple est plus facile à comprendre et à maintenir.
+- **Augmenter la qualité** : Un code propre est moins sujet aux bugs et aux erreurs.
+- **Faciliter l'évolution** : Un code bien structuré est plus facile à modifier et à étendre.
+- **Améliorer la maintenance** : Un code lisible permet de corriger rapidement les problèmes.
+- **Intégrer de nouvelles ressources** : Un code clair facilite l'intégration de nouveaux développeurs.
+
+### Soyez acteur de la qualité
+
+Il est crucial de ne pas hésiter à corriger et refactoriser le code, même si ce n'est pas nous qui l'avons écrit initialement. Chaque membre de l'équipe doit contribuer à maintenir un haut niveau de qualité.
+
+---
+
+## Principes SOLID
+
+Les principes **SOLID** sont des concepts fondamentaux en développement logiciel qui visent à améliorer la qualité et la maintenabilité du code.
+
+### 1. Single Responsibility Principle (SRP)
+
+**Concept** : Une classe / composant / fonction, doit avoir une, et une seule, raison de changer, une seule responsabilité.
+
+**Exemple concret** :
+Imaginez une classe `Voiture` qui gère à la fois la conduite et la gestion des passagers. Si vous devez modifier la manière dont les passagers sont gérés, vous risquez de casser la logique de conduite.
+
+**Image** :
+
+*Un couteau suisse avec une seule lame. Chaque outil (lame) a une seule fonction.*
+
+**Exemple détaillé**
+Dans cet exemple, la classe ````UserManager```` gère à la fois l'authentification et l'envoi de notifications, ce qui viole le principe SRP. Nous allons séparer ces responsabilités en deux classes distinctes.
+
+<details>
+  <summary>Code de l'exemple</summary>
+
+````typescript
+class UserManager {
+    authenticate(username: string, password: string): boolean {
+        // Logique d'authentification
+        return true;
+    }
+
+    sendEmail(user: string, message: string): void {
+        // Logique d'envoi d'email
+        console.log(`Sending email to ${user}: ${message}`);
+    }
+}
+
+>>>>> Refactorisé de la manière suivante :
+
+class AuthenticationManager {
+    authenticate(username: string, password: string): boolean {
+        // Logique d'authentification
+        return true;
+    }
+}
+
+class NotificationManager {
+    sendEmail(user: string, message: string): void {
+        // Logique d'envoi d'email
+        console.log(`Sending email to ${user}: ${message}`);
+    }
+}
+
+
+````  
+</details>
+
+
+
+**Conclusion** : En séparant les responsabilités, vous rendez le code plus modulaire et facile à maintenir.
+
+### 2. Open/Closed Principle (OCP)
+
+**Concept** : Les entités logicielles doivent être ouvertes pour extension, mais fermées pour modification.
+
+**Exemple concret** :
+Si vous avez une classe `Calculatrice` qui effectue des opérations mathématiques de base, vous devriez pouvoir ajouter de nouvelles opérations (comme la racine carrée) sans modifier le code existant.
+
+**Image** :
+*Un livre où vous pouvez ajouter des pages (extensions) sans réécrire les pages existantes.*
+
+**Exemple détaillé**
+
+Dans cet exemple, la classe ````ReportGenerator```` doit être modifiée chaque fois qu'un nouveau format de rapport est ajouté. Nous allons utiliser une interface pour permettre l'ajout de nouveaux formats sans modifier la classe existante.
+
+<details>
+  <summary>Code de l'exemple</summary>
+
+````typescript
+class ReportGenerator {
+    generatePDF(data: any): void {
+        // Logique de génération de PDF
+        console.log("Generating PDF report");
+    }
+
+    // Si vous devez ajouter un nouveau format, vous devez modifier cette classe
+    generateExcel(data: any): void {
+        // Logique de génération d'Excel
+        console.log("Generating Excel report");
+    }
+}
+
+>>>> Refactorisé de la manière suivante
+
+interface ReportFormat {
+    generate(data: any): void;
+}
+
+class PDFReport implements ReportFormat {
+    generate(data: any): void {
+        // Logique de génération de PDF
+        console.log("Generating PDF report");
+    }
+}
+
+class ExcelReport implements ReportFormat {
+    generate(data: any): void {
+        // Logique de génération d'Excel
+        console.log("Generating Excel report");
+    }
+}
+
+class ReportGenerator {
+    constructor(private reportFormat: ReportFormat) {}
+
+    generateReport(data: any): void {
+        this.reportFormat.generate(data);
+    }
+}
+````
+  
+</details>
+
+**Conclusion** : Ce principe permet d'ajouter de nouvelles fonctionnalités sans risquer de casser le code existant.
+
+### 3. Liskov Substitution Principle (LSP)
+
+**Concept** : Les objets d'une classe dérivée doivent pouvoir remplacer les objets de la classe de base sans altérer le fonctionnement du programme.
+
+**Exemple concret** :
+Si vous avez une classe `Oiseau` et une classe dérivée `Pingouin`, vous ne devriez pas supposer que tous les oiseaux peuvent voler, car un pingouin ne peut pas voler.
+
+**Image** :
+*Un puzzle où chaque pièce (classe dérivée) s'emboîte parfaitement dans l'emplacement prévu (classe de base).*
+
+**Exemple détaillé**
+
+Dans cet exemple, la classe ````Penguin```` hérite de ````Bird```` mais ne peut pas voler, ce qui viole le principe LSP. Nous allons utiliser une interface ````Flyable```` pour les oiseaux qui peuvent voler.
+
+<details>
+  <summary>Code de l'exemple</summary>
+
+````typescript
+class Bird {
+    fly(): void {
+        console.log("Bird is flying");
+    }
+}
+
+class Penguin extends Bird {
+    fly(): void {
+        throw new Error("Penguins can't fly!");
+    }
+}
+
+>>>> Refactorisé de la manière suivante 
+
+interface Flyable {
+    fly(): void;
+}
+
+class Bird {}
+
+class Sparrow extends Bird implements Flyable {
+    fly(): void {
+        console.log("Sparrow is flying");
+    }
+}
+
+class Penguin extends Bird {}
+
+````
+  
+</details>
+
+**Conclusion** : Respecter ce principe garantit que les classes dérivées peuvent être utilisées de manière interchangeable avec leurs classes de base.
+
+### 4. Interface Segregation Principle (ISP)
+
+**Concept** : Il vaut mieux avoir plusieurs interfaces spécifiques que de forcer les clients à implémenter une interface générale.
+
+**Exemple concret** :
+Au lieu d'avoir une interface `Animal` avec des méthodes `voler()`, `nager()`, et `courir()`, vous devriez avoir des interfaces séparées comme `Volant`, `Nageant`, et `Courant`.
+
+**Image** :
+*Un menu de restaurant où chaque section (interfaces) est clairement définie (entrées, plats principaux, desserts).*
+
+**Exemple détaillé**
+
+Dans cet exemple, l'interface ````Worker```` force toutes les classes à implémenter des méthodes qu'elles n'utilisent pas nécessairement. Nous allons séparer les interfaces en ````Workable, Eatable````, et ````Sleepable````
+
+<details>
+  <summary>Code de l'exemple</summary>
+
+````typescript
+interface Worker {
+    work(): void;
+    eat(): void;
+    sleep(): void;
+}
+
+class Human implements Worker {
+    work(): void {
+        console.log("Human is working");
+    }
+
+    eat(): void {
+        console.log("Human is eating");
+    }
+
+    sleep(): void {
+        console.log("Human is sleeping");
+    }
+}
+
+class Robot implements Worker {
+    work(): void {
+        console.log("Robot is working");
+    }
+
+    eat(): void {
+        throw new Error("Robots can't eat!");
+    }
+
+    sleep(): void {
+        throw new Error("Robots can't sleep!");
+    }
+}
+
+>>>> Refactorisé de la manière suivante
+
+interface Workable {
+    work(): void;
+}
+
+interface Eatable {
+    eat(): void;
+}
+
+interface Sleepable {
+    sleep(): void;
+}
+
+class Human implements Workable, Eatable, Sleepable {
+    work(): void {
+        console.log("Human is working");
+    }
+
+    eat(): void {
+        console.log("Human is eating");
+    }
+
+    sleep(): void {
+        console.log("Human is sleeping");
+    }
+}
+
+class Robot implements Workable {
+    work(): void {
+        console.log("Robot is working");
+    }
+}
+
+````
+  
+</details>
+
+**Conclusion** : Ce principe permet de créer des interfaces plus spécifiques et donc plus faciles à implémenter.
+
+### 5. Dependency Inversion Principle (DIP)
+
+**Concept** : Les modules de haut niveau ne doivent pas dépendre des modules de bas niveau, mais des abstractions.
+
+**Exemple concret** :
+Au lieu de faire dépendre une classe ````PaymentProcessor```` directement d'une classe ````PayPalService````, elle devrait dépendre d'une interface ````IPaymentService````.
+
+**Image** :
+*Une prise électrique où vous pouvez brancher différents appareils (abstractions) sans vous soucier de leur fonctionnement interne (modules de bas niveau).*
+
+**Exemple détaillé**
+
+Dans cet exemple, la classe ````OrderProcessor```` dépend directement de ````EmailService````, ce qui rend difficile le changement du service d'envoi d'emails. Nous allons utiliser une interface ````NotificationService```` pour inverser la dépendance.
+
+<details>
+  <summary>Code de l 'exemple</summary>
+
+````typescript
+class EmailService {
+    send(to: string, message: string): void {
+        console.log(`Sending email to ${to}: ${message}`);
+    }
+}
+
+class OrderProcessor {
+    private emailService: EmailService;
+
+    constructor() {
+        this.emailService = new EmailService();
+    }
+
+    processOrder(orderId: string): void {
+        // Logique pour traiter la commande
+        this.emailService.send("customer@example.com", "Your order has been processed.");
+    }
+}
+
+>>>> Refactorisé de la manière suivante
+
+interface NotificationService {
+    send(to: string, message: string): void;
+}
+
+class EmailService implements NotificationService {
+    send(to: string, message: string): void {
+        console.log(`Sending email to ${to}: ${message}`);
+    }
+}
+
+class SMSNotificationService implements NotificationService {
+    send(to: string, message: string): void {
+        console.log(`Sending SMS to ${to}: ${message}`);
+    }
+}
+
+class OrderProcessor {
+    constructor(private notificationService: NotificationService) {}
+
+    processOrder(orderId: string): void {
+        // Logique pour traiter la commande
+        this.notificationService.send("customer@example.com", "Your order has been processed.");
+    }
+}
+
+// Utilisation avec EmailService
+const emailService = new EmailService();
+const orderProcessorWithEmail = new OrderProcessor(emailService);
+orderProcessorWithEmail.processOrder("12345");
+
+// Utilisation avec SMSNotificationService
+const smsService = new SMSNotificationService();
+const orderProcessorWithSMS = new OrderProcessor(smsService);
+orderProcessorWithSMS.processOrder("12345");
+````
+  
+</details>
+
+**Conclusion** : Ce principe réduit les dépendances entre les modules, facilitant ainsi les modifications et les extensions.
+
+---
+
+## Principe KISS : Keep It Simple, Stupid
+
+**Concept** : Les systèmes fonctionnent mieux lorsqu'ils sont simples plutôt que complexes. La simplicité doit être un objectif clé du design.
+
+**Exemple concret** :
+Imaginez que vous devez créer une fonction pour additionner deux nombres. Une approche complexe pourrait impliquer des vérifications inutiles et des optimisations prématurées. Une approche simple serait de simplement écrire `return a + b;`.
+
+**Image** :
+*Un crayon à papier. Il est simple, efficace et fait exactement ce pour quoi il est conçu.*
+
+**Exemple détaillé**
+
+<details>
+  <summary>Code de l'exemple</summary>
+
+````typescript
+function isValidEmail(email: string): boolean {
+    if (!email) return false;
+    const atIndex = email.indexOf('@');
+    if (atIndex < 1) return false;
+    const dotIndex = email.indexOf('.', atIndex);
+    if (dotIndex < atIndex + 2) return false;
+    if (dotIndex === email.length - 1) return false;
+    return true;
+}
+
+>>>> Refactorisé de la manière suivante
+
+function isValidEmail(email: string): boolean {
+    const pattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    return pattern.test(email);
+}
+
+````
+
+</details>
+
+**Conseils pour appliquer KISS** :
+- Évitez les optimisations prématurées.
+- Écrivez du code lisible et compréhensible.
+- Réduisez la complexité en divisant les problèmes en sous-problèmes plus simples.
+
+---
+
+## Principe DRY (Don't Repeat Yourself)
+
+**Concept** : Chaque morceau de code doit avoir une seule représentation, unitaire, autoritaire et définitive dans le système.
+
+**Exemple concret** :
+Si vous avez une fonction qui calcule la TVA dans plusieurs endroits de votre code, vous devriez extraire cette logique dans une fonction unique et l'appeler partout où c'est nécessaire.
+
+**Image** :
+*Un livre de recettes où chaque recette est écrite une seule fois. Si vous avez besoin de la recette, vous allez à la page correspondante au lieu de la réécrire.*
+
+**Conseils pour appliquer DRY** :
+- Utilisez des fonctions et des méthodes pour encapsuler la logique répétitive.
+- Utilisez des constantes pour les valeurs répétées.
+- Refactorisez le code pour éliminer les duplications.
+
+## Pour aller plus loin
+
+[Pour approfondir le sujet, voici une vidéo d'une heure sur les principes du clean code](https://www.youtube.com/watch?v=VioMQpZMtnA&ab_channel=JulienLucas)
+
+ 
+</details>
 
 ## Généralités 
 
