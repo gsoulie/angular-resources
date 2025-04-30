@@ -10,8 +10,9 @@ Cette configuration peut être facilement étendue aux projet Angular si nécess
 
 ### Extensions VSCode
 La première étape consiste à installer les extensions VSCode suivante : 
-* **ELSint**
+* **ESLint**
 * **Prettier**
+* **SonarQube for IDE**
 
 Une fois les extensions installées, il faut redémarrer le serveur typescript en faisant **CTRL+P** puis dans la toolbar qui s'ouvre, saisir :
 
