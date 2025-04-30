@@ -123,6 +123,61 @@ const eslintConfig = [
 export default eslintConfig;
 ````
 
+
+### Quelques règles Clean Code
+
+Voici un exemple de quelques règles permettant de respecter les principes Clean Code : SOLID, KISS, DRY 
+
+<details>
+  <summary>règles</summary>
+
+````typescript
+rules: {
+    // Principes SOLID
+    'max-classes-per-file': ['error', 1], // SRP: Une classe par fichier
+    'import/no-cycle': 'error', // DIP: Pas de dépendances cycliques
+    'import/no-mutable-exports': 'error', // OCP: Les exports doivent être immuables
+
+    // Principes KISS
+    'complexity': ['error', { max: 10 }], // Limite la complexité cyclomatique
+    'max-depth': ['error', 3], // Limite la profondeur des blocs imbriqués
+    'max-params': ['error', 4], // Limite le nombre de paramètres des fonctions
+
+    // Principes DRY
+    'no-duplicate-imports': 'error', // Évite les imports dupliqués
+    'no-duplicate-case': 'error', // Évite les cas dupliqués dans les switch
+    'no-dupe-keys': 'error', // Évite les clés dupliquées dans les objets
+
+    // Bonnes pratiques de clean code
+    'no-unused-vars': 'error', // Évite les variables inutilisées
+    'no-use-before-define': 'error', // Évite d'utiliser des variables avant leur définition
+    'no-magic-numbers': ['error', { ignore: [0, 1] }], // Évite les nombres magiques
+    'prefer-const': 'error', // Préfère const à let
+    'prefer-template': 'error', // Préfère les templates strings aux concaténations
+
+    // Nommage clair et cohérent
+    'camelcase': 'error', // Utilise le camelCase pour les noms de variables et fonctions
+    'new-cap': 'error', // Les constructeurs doivent commencer par une majuscule
+    'no-underscore-dangle': 'error', // Évite les underscores dans les noms
+
+    // Tests unitaires
+    'jest/no-disabled-tests': 'warn', // Avertit si des tests sont désactivés
+    'jest/no-focused-tests': 'error', // Interdit les tests focusés
+    'jest/no-identical-title': 'error', // Interdit les titres de tests identiques
+    'jest/valid-expect': 'error', // Vérifie que les assertions sont valides
+
+    // Tri des imports
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
+
+    // React spécifique
+    'react/prop-types': 'off', // Désactive la vérification des prop-types (si tu utilises TypeScript)
+    'react/react-in-jsx-scope': 'off', // Désactive la vérification de l'import de React dans les fichiers JSX (Next.js le fait automatiquement)
+  },
+````
+  
+</details>
+
 ### Prise en compte du formattage à la sauvegarde
 
 Créer un fichier *.vscode/settings.json* à la racine du projet et y insérer le code suivant :
