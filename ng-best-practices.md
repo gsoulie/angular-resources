@@ -38,6 +38,8 @@ Il est crucial de ne pas hésiter à corriger et refactoriser le code, même si 
 
 Les principes **SOLID** sont des concepts fondamentaux en développement logiciel qui visent à améliorer la qualité et la maintenabilité du code.
 
+> [Principes SOLID implémentés dans Angular](https://dev.to/syncfusion/solid-principles-in-angular-1i)     
+
 ### 1. Single Responsibility Principle (SRP)
 
 **Concept** : Une classe / composant / fonction, doit avoir une, et une seule, raison de changer, une seule responsabilité.
