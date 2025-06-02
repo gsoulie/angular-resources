@@ -2,6 +2,7 @@
 
 # Nouveautés
 
+* [v20](#angular-v20)    
 * [v19.2](#angular-v19-.-2)    
 * [v19](#angular-v19)    
 * [v18](#angular-v18)    
@@ -15,6 +16,212 @@
 * [v14](#v14)
 * [AnalogJS](#analogjs)
 * [Dépréciations](#dépréciations)
+
+# Angular v20
+
+<details>
+	<summary>Nouveautés de la version 20</summary>
+
+````02/06/2025````
+
+> [Angular 20 - Medium](https://blog.angular.dev/announcing-angular-v20-b5c9c06cf301)    
+
+# En résumé
+
+* Stabilisation des APIs ````effect````, ````linkedSignal````, ````toSignal````, hydratation incrémentielle, configuration du mode de rendu au niveau route et aperçu du mode zoneless en developer preview
+* Amélioration du debuggage sous Chrome avec Angular DevTools
+* Amélioration de l'expérience développeur avec des mises à jour du guide de style, la vérification des types et la prise en charge du service de langage pour les liaisons hôtes, la prise en charge des expressions littérales dans les templates, le remplacement de module à chaud par défaut dans les templates
+* **Dépréciation des directives** *ngIf*, *ngFor* et *ngSwitch* prévue dans Angular 22
+
+# Apis Experimentales
+
+l'api ````httpResource```` permettant de faire des requêtes Http avec un API reactive basée sur Signal, ainsi que l'api *resource streaming* sont disponibles dans Angular 20 comme apis  expérimentales.
+
+l'API ````resource```` permet d'initier une action asynchrone lorsqu'un signal change et expose le résultat de cette action en tant que signal :
+
+````typescript
+const userId: Signal<string> = getUserId();
+
+const userResource = resource({
+  params: () => ({id: userId()}),
+  loader: ({request, abortSignal}): Promise<User> => {
+  
+    // fetch cancels any outstanding HTTP requests when the given `AbortSignal`
+    // indicates that the request has been aborted.
+    return fetch(`users/${request.id}`, {signal: abortSignal});
+  },
+});
+````
+
+Dans le code ci-dessus, l'action ira faire un fetch vers '/users' en lui passant un identifiant utilisateur, à chaque fois que le Signal ````userId```` changera.
+
+Maintenant, supposons que nous récupèrons les données via un websocket, pour ce faire nous pouvons utiliser un *streaming resource* :
+
+````typescript
+@Component({
+  template: `{{ dataStream.value() }}`
+})
+export class App {
+  // WebSocket initialization logic will live here...
+  // ...
+  // Initialization of the streaming resource
+  dataStream = resource({
+    stream: () => {
+      return new Promise<Signal<ResourceStreamItem<string[]>>>((resolve) => {
+        const resourceResult = signal<{ value: string[] }>({
+          value: [],
+        });
+
+        this.socket.onmessage = event => {
+          resourceResult.update(current => ({
+             value: [...current.value, event.data]
+          });
+        };
+
+        resolve(resourceResult);
+      });
+    },
+  });
+}
+````
+Dans cet exemple, nous declarons un *streaming resource* qui retourne la promise d'un Signal. Ce Signal est de type ````ResourceStreamItem<string[]>````, ce qui signifie qu'il peut retourner une valeur ````{value: string[]}```` ou une erreur ````{error: ...}````.
+
+Nous émettons les valeurs que nous recevons via le WebSocket via le signal ````resourceResult````
+
+
+L'API ````httpResource```` est également disponible en mode experimental : 
+
+````typescript
+@Component({
+  template: `{{ userResource.value() | json }}`
+})
+class UserProfile {
+  userId = signal(1);
+  userResource = httpResource<User>(() => 
+    `https://example.com/v1/users/${this.userId()}`
+  });
+}
+````
+
+Le code ci-dessus enverra une requête Http Get à l'url spécifiée, **à chaque fois** que la valeur du Signal ````userId```` change.
+````httpResource```` retourne une ````HttpResourceRef```` qui possède une propriété ````value```` de type Signal qui est utilisable directement dans le template.
+La variable ````userResource```` possède aussi d'autres valeur comme ````isLoading````, ````headers```` etc...
+
+Sous le capot, ````httpResource```` utilise ````HttpClient````, il est donc possible de spécifier des interceptors dans le provider de ````HttpClient```` :
+
+````typescript
+bootstrapApplication(AppComponent, {providers: [
+  provideHttpClient(
+    withInterceptors([loggingInterceptor, cachingInterceptor]),
+  )
+]});
+````
+
+# Stabilisation des Apis
+
+Les APIs ````effect````, ````linkedSignal````, ````toSignal````, hydratation incrémentielle, configuration du mode de rendu au niveau route sont désormais stables.
+
+## Hydratation partielle
+
+Pour utiliser l'hydratation partielle, il suffit d'ajouter la configuration suivante  :
+
+*app.config.ts*
+````typescript
+import { provideClientHydration, withIncrementalHydration } from '@angular/platform-browser';
+
+// ...
+provideClientHydration(withIncrementalHydration());
+````
+
+Ensuite il suffit d'utiliser les *defferable views* dans les templates
+
+````typescript
+@defer (hydrate on viewport) {
+  <shopping-cart />
+}
+````
+
+De cette manière, Angular ne téléchargera le composant ````<shopping-cart>```` ainsi que toutes ces dépendances qu'une fois que ce dernier entrera dans le viewport.
+
+## Rendu route-level
+
+En complément, il est désormais possible d'utilisert le mode de rendu au niveau route :
+
+*app.route.ts*
+
+````typescript
+export const routeConfig: ServerRoute = [
+  { path: '/login', mode: RenderMode.Server },    // Rendu serveur
+  { path: '/dashboard', mode: RenderMode.Client },     // Rendu client
+  {
+    path: '/product/:id',
+    mode: RenderMode.Prerender,    // Pré-rendu
+    async getPrerenderParams() {
+      const dataService = inject(ProductService);
+      const ids = await dataService.getIds(); // ["1", "2", "3"]
+      // `id` is used in place of `:id` in the route path.
+      return ids.map(id => ({ id }));
+    }
+  }
+];
+````
+
+Dans l'exemple ci-dessus, on note que la page ````/product```` requiert un paramètre ````id````. Afin de résoudre les identifiants de chaque produit, on peut utiliser une fonction asycnhrone ````getPrerenderParams()````. 
+Cette fonction retourne un objet dont les clés correspondent aux paramètres du routeur. Dans le cas de la page /product/:id, nous renvoyons un objet avec une propriété id
+
+# Nouvelle syntaxe d'expressions dans les templates
+
+Deux nouveaux opérateurs font leur apparaition côté template : ````**```` (puissance ^) et ````in````
+
+````typescript
+<!-- n on power two : n^2-->
+{{ n ** 2 }}
+
+<!-- checks if the person object contains the name property -->
+{{ name in person }}
+````
+
+Dans la version 20, il est également possible d'utiliser des littéraux non balisés directement dans les expressions.
+
+````typescript
+<div [class]="`layout col-${colWidth}`"></div>
+````
+
+# Mise à jour des conventions
+
+Désormais, le CLI ne génèrera plus de suffixes par défaut pour les composants, directives, services et pipes dans le but d'encourager un nommage plus intentionnel des abstractions et réduire le code.
+
+Il reste possible d'activer la génération de suffixe avec les règles suivantes :
+
+*angular.json*
+
+````json
+{
+  "projects": {
+    "app": {
+      ...
+      "schematics": {
+        "@schematics/angular:component": { "type": "component" },
+        "@schematics/angular:directive": { "type": "directive" },
+        "@schematics/angular:service": { "type": "service" },
+        "@schematics/angular:guard": { "typeSeparator": "." },
+        "@schematics/angular:interceptor": { "typeSeparator": "." },
+        "@schematics/angular:module": { "typeSeparator": "." },
+        "@schematics/angular:pipe": { "typeSeparator": "." },
+        "@schematics/angular:resolver": { "typeSeparator": "." }
+      },
+  ...
+}
+````
+
+# Support experimental de Vitest
+
+Avec la dépréciation de Karma, Angular travaille sur une solution de framework de test alternative. Vitest est donc utilisable en mode expérimental
+
+# Dépréciation de NgIf, NgFor et NgSwitch
+ 
+</details>
+
 
 # Angular v19.2
 
