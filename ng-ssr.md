@@ -120,7 +120,7 @@ if (isPlatformBrowser(this.platformId)) {
 Peut aussi être remplacé par 
 
 ````typescript
-afterRender(()=>{
+afterNextRender(()=>{
     // runs on client / browser
     console.log("prints only in browser not in server");
 })
@@ -137,7 +137,7 @@ export class AppComponent implements OnInit {
   constructor(){
     console.log("prints in both server and browser");
 	
-	afterRender(()=>{
+	afterNextRender(()=>{
 		// runs on client / browser
 		console.log("prints only in browser not in server");
     })
