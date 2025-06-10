@@ -147,7 +147,9 @@ De cette manière, Angular ne téléchargera le composant ````<shopping-cart>```
 
 En complément, il est désormais possible d'utilisert le mode de rendu au niveau route :
 
-*app.route.ts*
+> Pré-requis : il faut avoir créé l'application en mode ssr ou bien installer le package ````@angular/ssr````, ce qui devrait créer un fichier *app.routes.server.ts*
+
+*app.routes.server.ts*
 
 ````typescript
 export const routeConfig: ServerRoute = [
@@ -218,7 +220,45 @@ Il reste possible d'activer la génération de suffixe avec les règles suivante
 
 Avec la dépréciation de Karma, Angular travaille sur une solution de framework de test alternative. Vitest est donc utilisable en mode expérimental
 
-# Dépréciation de NgIf, NgFor et NgSwitch
+# Dépréciations
+
+* Disparition du support des syntaxes suivantes au niveau control flow : **NgIf, NgFor et NgSwitch**
+* Dépréciation du token **APP_INITIALIZER** [article sur sa conversion](https://www.techiediaries.com/app_initializer-deprecated-angular-19-provideappinitializer/). Très utilisé pour l'injection de configuration lors de l'initialisation de l'application, ce token est remplacé par la syntaxe suivante :
+
+**Ancienne syntaxe (< Angular 20)**
+
+*app.config.ts*
+````typescript
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter(routes),
+    provideClientHydration(),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (configFilePath: string) => initAuthAzureConfig(configFilePath),
+      deps: ['APP_AZURE_AUTH_CONFIG_FILE'],
+      multi: true
+    },
+    { provide: 'APP_AZURE_AUTH_CONFIG_FILE', useValue: '../assets/env/auth-azure-config.json' },
+
+
+````
+
+**Nouvelle syntaxe (> Angular 20)**
+
+*app.config.ts*
+````typescript
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter(routes),
+    provideClientHydration(),
+    
+    provideAppInitializer(() => {
+      const azureConfigService = inject(AuthAzureConfigService);
+      return azureConfigService.loadConfig('../assets/env/auth-azure-config.json')
+    }),
+
+````
  
 </details>
 
