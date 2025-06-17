@@ -24,7 +24,9 @@
 
 ````02/06/2025````
 
-> [Angular 20 - Medium](https://blog.angular.dev/announcing-angular-v20-b5c9c06cf301)    
+> [Angular 20 - Medium](https://blog.angular.dev/announcing-angular-v20-b5c9c06cf301)
+
+> [Angular 20 in short](https://www.youtube.com/watch?v=Nl-siWZ7ckQ&ab_channel=Angular)  
 
 # En résumé
 
@@ -32,12 +34,14 @@
 * Amélioration du debuggage sous Chrome avec Angular DevTools
 * Amélioration de l'expérience développeur avec des mises à jour du guide de style, la vérification des types et la prise en charge du service de langage pour les liaisons hôtes, la prise en charge des expressions littérales dans les templates, le remplacement de module à chaud par défaut dans les templates
 * **Dépréciation des directives** *ngIf*, *ngFor* et *ngSwitch* prévue dans Angular 22
+* Création dynamique de composants avec ````inputBinding()```` et ````outputBinding()````
+* mode **zoneless** en **developer preview** (lors de la création d'une application ANgular, il vous sera proposé de la créer en mode zoneless. Attention ce mode est en developer preview)
 
 # Apis Experimentales
 
 l'api ````httpResource```` permettant de faire des requêtes Http avec un API reactive basée sur Signal, ainsi que l'api *resource streaming* sont disponibles dans Angular 20 comme apis  expérimentales.
 
-l'API ````resource```` permet d'initier une action asynchrone lorsqu'un signal change et expose le résultat de cette action en tant que signal :
+> l'API ````resource```` permet d'initier une action **asynchrone** lorsqu'un signal change et expose le résultat de cette action en tant que signal :
 
 ````typescript
 const userId: Signal<string> = getUserId();
@@ -189,7 +193,7 @@ Dans la version 20, il est également possible d'utiliser des littéraux non bal
 <div [class]="`layout col-${colWidth}`"></div>
 ````
 
-# Mise à jour des conventions
+# Mise à jour des conventions de nommage
 
 Désormais, le CLI ne génèrera plus de suffixes par défaut pour les composants, directives, services et pipes dans le but d'encourager un nommage plus intentionnel des abstractions et réduire le code.
 
@@ -214,6 +218,24 @@ Il reste possible d'activer la génération de suffixe avec les règles suivante
       },
   ...
 }
+````
+
+Voici donc les nouvelles bonnes pratiques de nommage de fichier et de classe :
+
+````typescript
+// Ancienne syntaxe 
+product.component.ts
+product.component.html
+product.component.css
+
+export class ProductComponent {...}
+
+// Nouvelle syntaxe recommandée
+product.ts
+product.html
+product.css
+
+export class Product {...}
 ````
 
 # Support experimental de Vitest
