@@ -61,6 +61,9 @@ try {
 [1, 2, 3, 4].filter(num => num > 2) // [3, 4]
 [1, 2, 3, 4].findIndex(num => num > 2) // 2
 [1, 2, 3, 4].reduce((acc, num) => acc + num) // 10
+[1, 2, 3].concat([4, 5])	// [1, 2, 3, 4, 5]
+[1, 2, 3].slice(1, 3)	// [2, 3]
+[1, 4].splice(1, 0, 2, 3)	// [1, 2, 3, 4]
 ````
 
 ### Opérateur every
