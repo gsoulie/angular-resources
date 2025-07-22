@@ -1,5 +1,7 @@
 [< Back to main Menu](https://github.com/gsoulie/angular-resources/blob/master/ng-sheet.md)    
 
+* [Tuto bien fait](https://www.youtube.com/watch?v=4VhiNK_9QIY&ab_channel=DeborahKurata)     
+
 Angular v19.2 a introduit une fonction dédiée (et **expérimentale**) pour créer des ressources utilisant des requêtes HTTP : ````httpResource()```` dans le package @angular/common/http.
 
 Cette fonction utilise ````HttpClient```` en interne, permettant d'utiliser les intercepteurs, utilitaires de test, etc. habituels.
