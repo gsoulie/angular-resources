@@ -137,6 +137,8 @@
 	* [JWT authorization](https://dev-academy.com/angular-jwt/)      
 	* [Azure AD msal](https://github.com/gsoulie/ionic-angular-snippets/tree/master/msal-azure-ad-authentication/app)
  	* [msal-angular v2 + API NodeJS](https://github.com/gsoulie/angular-resources/blob/master/ng-msal-v2.md)
+  	* [Migration @azure/msal-angular 3.x -> 4.x](https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/v3-migration.md)    
+	* [Migration @azure/msal-browser 3.x -> 4.x](https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/v3-migration.md#allownativebroker-renamed-to-allowplatformbroker)       
   	* [Redirection vers app mobile](https://github.com/gsoulie/angular-resources/blob/master/ng-msal-redirection.md)     
 * [Performances](https://github.com/gsoulie/angular-resources/blob/master/ng-performance.md)
 	* [SSR](https://github.com/gsoulie/angular-resources/blob/master/ng-ssr.md)     
