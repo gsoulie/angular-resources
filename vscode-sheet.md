@@ -195,6 +195,26 @@ You can also specify differents scopes to manage italic for specific item, bold 
 *settings.json*
 ````json
 {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.organizeImports": "explicit"
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+}
+````
+
+<details>
+   <summary>Full config theme</summary>
+
+*settings.json*
+````json
+{
     "workbench.iconTheme": "material-icon-theme",
     "eslint.alwaysShowStatus": true,
     "eslint.format.enable": true,
@@ -286,3 +306,7 @@ You can also specify differents scopes to manage italic for specific item, bold 
     "editor.tabSize": 2
 }
 ````
+
+</details>
+
+
