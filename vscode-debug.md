@@ -5,6 +5,37 @@
 * [Debug mode](#debug-mode)     
 * [Testing prod build](#testing-prod-build)         
 
+
+## Principe debug avec point d'arrêt d'une application NextJS :
+
+**1 - créer un fichier .vscode/launch.json**
+
+Créer une configuration pour le debug  de la partie front avec chrome 
+
+*launch.json*
+
+````json
+{
+    "version": "0.2.0",
+    "configurations": [      
+      {
+        "name": "Debug Client (Chrome)",
+        "type": "chrome",
+        "request": "launch",
+        "url": "http://localhost:3000/", // URL de votre front en mode serve
+        "webRoot": "${workspaceFolder}/Frontends", // Répertoire de travail
+        "sourceMaps": true,
+        "skipFiles": ["<node_internals>/**"]
+      },
+]}
+````
+
+**2 - ajouter des breakpoints dans le code**
+
+**3 - Run de l'application depuis le terminal : npm run dev (ou via task vscode)**
+
+**4 - Run and Debug puis sélectionnez la configuration "Debug Client (Chome)" créée précédemment**
+
 ## Debug mode
 
 - 1 : Installer l'extension vscode debugger for chrome
