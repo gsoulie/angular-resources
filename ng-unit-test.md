@@ -2,6 +2,7 @@
 
 # Tests unitaires
 
+* [Ecriture de tests simplifiée avec Angular 20](#ecriture-de-tests-simplifiée-avec-angular-20)
 * [Tester le bundle généré dans le répertoire dist](#tester-le-bundle-généré-dans-le-répertoire-dist)         
 * [Tests unitaires et e2e tests](#tests-unitaires-et-e2e-tests)     
 * [Tests unitaires](#tests-unitaires)     
@@ -10,6 +11,12 @@
 * [Tests unitaires avec Jest](#tests-unitaires-avec-jest)
 * [Playwright](https://github.com/gsoulie/angular-resources/tree/master/playwright)
 * [Exemples de tests](#exemples-de-tests)    
+
+
+## Ecriture de tests simplifiée avec Angular 20    
+
+> [Voir l'article suivant : ](https://medium.com/@Angular_With_Ibrahim/finally-a-cleaner-way-to-write-angular-tests-with-signals-and-inputbinding-896df9e65739)      
+
 
 ## Tester le bundle généré dans le répertoire dist
 
