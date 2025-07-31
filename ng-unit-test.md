@@ -8,7 +8,8 @@
 * [e2e avec Cypress](#e2e-avec-cypress)     
 * [Karma (déprécié depuis Angular 16)]()
 * [Tests unitaires avec Jest](#tests-unitaires-avec-jest)
-* [Playwright](https://github.com/gsoulie/angular-resources/tree/master/playwright)        
+* [Playwright](https://github.com/gsoulie/angular-resources/tree/master/playwright)
+* [Exemples de tests](#exemples-de-tests)    
 
 ## Tester le bundle généré dans le répertoire dist
 
@@ -843,4 +844,97 @@ expect(arr).toBe([1, 2, 3]);     // failure; not the same array
 
 </details>
 
+## Exemples de tests
+
+<details>
+	<summary>Tests unitaires avec Angular 20</summary>
+
+````typescript
+EXEMPLE DE TESTS ANGULAR
+
+
+
+describe('testing output', () => {
+	it('example with Angular 20.1 outputBinding() ', () => {
+		const fixture = TestBed.createComponent(Widget, {
+			bindings: [
+				outputBinding('closed', () => expectedOutput.set(true))
+			]
+		});
+		
+		const closeBtn = fixture.debugElement.query(
+			By.css('[data-testId="close-btn"]')
+		)
+		
+		closeBtn.nativeElement.click();
+		
+		expect(expectedOutput()).toBe(true);
+	})
+	
+	
+	it('example with a spy', () => {
+		const fixture = TestBed.createComponent(Widget);
+		
+		const outputSpy = spyOn(fixture.componentInstance.closed, 'emit')
+		const closeBtn = fixture.debugElement.query(
+			By.css('[data-testId="close-btn"]')
+		)
+		
+		closeBtn.nativeElement.click();
+		
+		expect(outputSpy).toHaveBeenCalledWith();
+	})
+})
+
+describe('testing 2-way binding', () => {
+	@Component({
+		imports: [Widget],
+		template: `<app-widget [(collapsed)]="isCollapsed" />`
+	})
+	class Wrapper {
+		isCollapsed = signal(false);
+	}
+})
+
+describe('Widget', () => {
+	describe('Testing 2-way binding', () => {
+		it('Angular 20 should handle 2-way-binding with toWayBinding', async () => {
+			const isCollapsed = signal(false);
+			const fixture = TestBed.createComponent(Widget, {
+				bindings: [
+					twoWayBinding('collapsed', isCollapsed)
+				]
+			});
+			
+			// collpase
+			fixture.componentInstance.collapsed.set(true);
+			fixture.detectChanges();			
+			expect(isCollapsed()).toBe(true);
+			
+			// expand
+			isCollapsed.set(false);
+			fixture.detectChanges();			
+			expect(fixture.componentInstance.collapsed()).toBe(false);
+		})
+		
+		
+		it('CLASSIC-WAY should handle 2-way-binding', async () => {
+			const fixture = TestBed.createComponent(Widget);
+			const wrapper = fixture.componentInstance;
+			const widget: Widget = fixture.debugElement.query(By.directive(Widget)).componentInstance
+			
+			widget.collapsed.set(true);
+			fixture/detectChanges();
+			expect(wrapper.isCollapsed()).toBe(true);
+			
+			widget.collapsed.set(false);
+			fixture/detectChanges();
+			expect(wrapper.isCollapsed()).toBe(false);
+			
+		})
+	})
+})
+````
+ 
+</details>
 
