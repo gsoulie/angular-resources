@@ -2,6 +2,7 @@
 
 # Nouveautés
 
+* [v20.2](#angular-v20-.-2)     
 * [v20](#angular-v20)    
 * [v19.2](#angular-v19-.-2)    
 * [v19](#angular-v19)    
@@ -16,6 +17,171 @@
 * [v14](#v14)
 * [AnalogJS](#analogjs)
 * [Dépréciations](#dépréciations)
+
+# Angular v20.2
+
+<details>
+	<summary>Nouveautés de la version 20.2</summary>
+
+````21/08/2025````
+
+> [Article Ninja squad](https://blog.ninja-squad.com/2025/08/20/what-is-new-angular-20.2/)
+
+# Mode Zoneless stable
+
+Introduit en developer preview dans la version 20, le mode Zoneless est désormais stable. Il est donc désormais possible d'utiliser la configuration ````provideZonelessChangeDetection()```` en toute sécurité. 
+Les nouvelles application ne sont pas encore en mode zoneless par défaut mais cela sera bientôt le cas dans la future version majeure
+
+# Nouveau support d'animation
+
+Cette nouvelle version marque la dépréciation de ````@angular/animations```` qui est remplacé par une nouvelle api plus simple.
+En effet le package animations n'a jamais reçu de mise à jour majeure depuis sa publication par son auteur et n'a jamais été maintenu activement et avec le temps, la pluspart des animations ont pu s'écrire directement en css.
+Le css pur ne permettant pas de tout couvrir, Angular 20.2 apporte une nouvelle api stable pour gérer cela.
+
+Angular 20.2 introduit la nouvelle syntaxe ````animate.enter```` et ````animate.leave```` permettant d'ajouter une classe css à un élément lors de ces évènements
+
+````typescript
+@if (display()) {
+  <div animate.enter="fade-in" animate.leave="fade-out">Content</div>
+}
+````
+
+````css
+.fade-in {
+  /* initial state */
+  @starting-style {
+    opacity: 0;
+  }
+  transition: opacity 300ms;
+  opacity: 1;
+}
+
+.fade-out {
+  transition: opacity 300ms;
+  opacity: 0;
+}
+````
+
+Il est également possible de binder la valeur d'un signal (ex: qui retournerai un tableau de classes css)
+
+````typescript
+@if (display()) {
+  <div [animate.enter]="enterClasses()">Content</div>
+}
+````
+
+Ou encore utiliser des animations provenant d'autres librairies comme GSAP par exemple 
+
+````typescript
+@if (display()) {
+  <div (animate.leave)="rotate($event)">Content</div>
+}
+````
+
+````typescript
+protected rotate(event: AnimationCallbackEvent) {
+  gsap.to(event.target, {
+    rotation: 360,
+    duration: 0.3,
+    onComplete() {
+      event.animationComplete();
+    }
+  });
+}
+````
+
+# Templates
+
+## ARIA bindings
+
+Angular 20.2 rend plus intuitif l'utilisation des attribut ARIA. Auparavent, il fallait utiliser un préfixe ````attr.```` pour binder chaque attribut ARIA comme ceci : 
+````html
+<div role="progressbar" [attr.aria-valuenow]="value()"></div>
+````
+
+Désormais, il est possible de binder l'attribut directement :
+
+````html
+<div role="progressbar" [aria-valuenow]="value()"></div>
+
+<!-- Et même -->
+
+<div role="progressbar" [ariaValueNow]="value()"></div>
+````
+
+## Alias dans les blocs @else if
+
+Depuis Angular 20.2 il est possible de définir un alias dans les blocs ````@else if```` en plus des blocs ````@if````
+
+````typescript
+@if (admin(); as a) {
+  Welcome Admin {{ a.name }}!
+} @else if (user(); as u) {
+  Welcome {{ u.name }}!
+}
+````
+
+## Diagnostic étendu
+
+Une nouvelle fonction de diagnostic étendue ````uninvokedFunctionInTextInterpolation```` a été ajoutée pour vous avertir lorsque vous oubliez d'appeler une méthode dans une interpolation.
+
+Par exemple, si vous avez une méthode ````getUserName()```` qui renvoie le nom de l’utilisateur et que vous l’utilisez dans un modèle comme celui-ci
+
+````html
+<p>{{ getUserName }}</p>
+````
+
+Va lever une erreur ````[ERROR] NG8117: Function in text interpolation should be invoked: getUserName().````
+
+# Router
+
+La fonction ````Router.getCurrentNavigation```` est désormais dépréciée et remplacée par le Signal ````currentNavigation````. L'objet retourné est identique.
+
+# Performance
+
+L'algorithme interne de gestion des signaux a été modifié pour utiliser des *listes chaînées* à la place de tableaux, comme l'ont fait Preact, Vue et autres librairies. Ceci a pour effet d'améliorer les performances.
+
+# Service Worker
+
+Le package Service Worker a reçu des améliorations, notamment une meilleure gestion des erreurs et expérience développeur.
+
+Le service worker a également bénéficié d'une gestion améliorée du stockage avec une meilleure détection des scénarios de stockage saturé lors de la mise en cache des données. Cela évite les échecs silencieux et fournit un retour plus clair lorsque 95 % du quota de stockage du navigateur est atteint pendant les opérations de mise en cache des données.
+
+Une nouvelle option updateViaCache est désormais prise en charge dans provideServiceWorker(), offrant aux développeurs plus de contrôle sur la façon dont le service worker se met à jour.
+Cette option vous permet de spécifier si le script du service worker doit contourner le cache du navigateur lors de la recherche de mises à jour, qui peut être défini sur ````all````, ````none```` ou ````imports````.
+
+Enfin, le service worker informe désormais les clients des échecs de version avec des informations d'erreur plus détaillées. Lorsqu’une mise à jour d’un service worker échoue, les clients reçoivent désormais des événements VERSION_FAILED qui incluent des détails d’erreur spécifiques, ce qui facilite le débogage des problèmes de déploiement et la compréhension des raisons pour lesquelles une mise à jour d’un service worker n’a pas réussi.
+
+# Support Typescript 5.9
+
+# AI
+
+Une grande partie des nouvelles fonctionnalités du CLI concernent le domaine de l'IA. Une nouvelle commande vous permet de générer des fichiers de configuration pour les outils IA :
+
+````
+ng g ai-config --tool=<your-favorite-ai-tool>
+````
+
+Les outils supportés actuellement sont : gemini, claude, copilot, windsurf, jetbrains et cursor.
+
+Par exemple ````--tool=claude```` génère un fichier *.claude/CLAUDE.md* dans le répertoire et contient les meilleurs pratiques Angular.
+````ng new```` demandera aussi quel outil IA utiliser lors de la génération d'un nouveau projet
+
+La commande ````mcp```` accepte désormais également les options suivantes :
+
+* ````--local-only```` indique d’utiliser uniquement les outils locaux (pas d’accès réseau, donc la recherche de documentation n’est pas disponible)
+* ````--read-only```` indique d’utiliser uniquement les outils en lecture seule (pas d’accès en écriture, mais pour l’instant, tous les outils sont en lecture seule)
+* ````--experimental-tool <tool>```` indique d’utiliser un outil expérimental
+* 
+Deux nouveaux outils expérimentaux ont été ajoutés et peuvent être activés avec ````--experimental-tool```` :
+
+* un outil ````modernize````, qui aide à générer du code ou à mettre à jour des fichiers pour utiliser les meilleures pratiques et fonctionnalités les plus récentes. Lorsqu’il est utilisé, il informe le LLM des migrations disponibles, et le LLM peut déterminer celles qui sont utiles, puis proposer de les exécuter. Les migrations actuellement disponibles sont : ````control-flow````, ````self-closing-tags````, ````inject````, ````standalone````, ainsi que les migrations de signaux (input, output, queries).
+
+* un outil ````find_examples````, qui aide le LLM à générer du code en s’appuyant sur un ensemble d’exemples. Un seul exemple simple est disponible pour l’instant (un simple @if), mais la fonctionnalité permet d’enregistrer tes propres exemples dans un répertoire, puis d’utiliser la variable d’environnement NG_MCP_EXAMPLES_DIR pour indiquer à MCP l’emplacement des exemples.
+
+
+ 
+</details>
 
 # Angular v20
 
