@@ -897,7 +897,7 @@ ng generate @angular/core:signals
 
 Une nouvelle option permet désormais de signaler à l'IDE de supprimer automatiquement tout import non utilisé via le paramétrage suivant 
 
-*angular.json*
+*tsconfig.json*
 
 ````typescript
 {
