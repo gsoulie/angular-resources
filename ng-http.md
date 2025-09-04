@@ -68,6 +68,82 @@ fetchData() {
 ## HTTP Interceptor
 
 <details>
+	<summary>Interceptors Angular 20</summary>
+
+
+**Interceptor http permettant l'injection d'un Bearer token dans les en-tête**
+
+*http-auth-interceptor.ts*
+````typescript
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const auth = inject(Auth);    // Injection de votre service d'authentification
+
+  const authRequest = req.clone({  // Bonne pratique, cloner la requête initiale si on doit la modifier
+    setHeaders: {
+      Authorization: `Bearer ${auth.token}`
+    }
+  })
+  
+  return next(authRequest);
+}
+````
+
+**Interceptor http permettant la gestion d'erreurs**
+
+*global-http-error-interceptor.ts*
+````typescript
+export const globalHttpErrorInterceptor: HttpInterceptorFn = (req, next) => {
+  const snackBar = inject(MatSnackBar);
+  
+  return next(authRequest)
+  .pipe(
+    retry({count: 3, delay: 1000}),    // Retry si besoin...
+    tap({
+      error: (error: HttpErrorResponse) => {
+        snackBar.open(error.message, 'close', {
+          duration: 3000
+        }
+
+        // Variante avec filtre sur le status code :
+        // if ([500, 404].includes(error.status)) {
+          // Traitement custom, snackbar etc...
+        // }
+      }
+    }),
+    // CatchError Bloc non nécessaire ici car erreur traitée via la snackbar ci-dessus
+    // catchError((error: HttpErrorResponse) => {
+    //  // Traitement de l'erreur...
+    //  return throwError(() => error)
+    // })
+  );
+}
+````
+
+> **Bonne pratique** : On pourrait gérer l'affichage du snackbar directement dans le catchError() mais il est préférable que tout ce qui induit un effet de bord (comme l'affichage d'un snackbar) soit placé dans l'opérateur rxjs ````tap()````
+
+**Configuration des interceptors**
+
+> **Important** : les interceptors sont joués dans l'ordre dans lequel ils sont déclarés dans le app.config.ts
+
+*app.config.ts*
+
+````typescript
+export const appConfig: ApplicationConfig = {
+  providers: [    
+    provideRouter(routes, withComponentInputBinding()),
+    provideHttpClient(
+      withInterceptors([
+        authInterceptor,
+        globalHttpErrorInterceptor
+      ])
+    ),
+}
+````
+
+ 
+</details>
+
+<details>
 	<summary>Exemple interceptor depuis Angular 17</summary>
 
 *http.interceptor.ts*
@@ -116,7 +192,7 @@ export const appConfig: ApplicationConfig = {
  
 </details>
 
-### Gestion des erreurs Http avec HTTP_INTERCEPTORS
+### Old Gestion des erreurs Http avec HTTP_INTERCEPTORS
 
 https://www.youtube.com/watch?v=OHbWHO1Iq5o&ab_channel=ng-conf      
 
@@ -214,37 +290,6 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
 [Back to top](#requêtes-http)  
  
 </details>   
-
-### Gestion du Bearer depuis Angular 17
-
-````typescript
-import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-
-export const httpInterceptor: HttpInterceptorFn = (req, next) => {
-  const authToken = 'YOUR_AUTH_TOKEN_HERE';
-
-  // Clone the request and add the authorization header
-  const authReq = req.clone({
-    setHeaders: {
-      Authorization: `Bearer ${authToken}`
-    }
-  });
-
-  // Pass the cloned request with the updated header to the next handler
-  return next(authReq);
-};
-````
-
-*app.config.ts*
-````typescript
-export const appConfig: ApplicationConfig = {
-  providers: [    
-    provideRouter(routes, withComponentInputBinding()),
-    provideHttpClient(withInterceptors([
-      httpInterceptor
-    ])),
-}
-````
 
 ### Gestion du Bearer token avec Interceptor
 
