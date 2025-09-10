@@ -53,7 +53,7 @@ const eslintConfig = [
       "@next/next/no-page-custom-font": "off",
       "no-duplicate-imports": "error", // interdire les imports multiple d'un même fichier
       "@typescript-eslint/explicit-function-return-type": "warn", // Expliciter les types de retour des fonctions
-       @typescript-eslint/no-floating-promises": "error", // interdire d'ignorer les promises (ex: oublier await ou .catch)
+       "@typescript-eslint/no-floating-promises": "error", // interdire d'ignorer les promises (ex: oublier await ou .catch)
       //"@typescript-eslint/no-misused-promises": "error", // Empêche d'utiliser les promesses de manière incorrecte (ex : dans un if)
       "eqeqeq": ["warn", "always"], // Imposera l’usage de ===/!== plutôt que ==/!=
       "no-eval": "error", // Interdira l’utilisation d’`eval`, dangereux pour la sécurité
@@ -186,7 +186,8 @@ Créer un fichier *.vscode/settings.json* à la racine du projet et y insérer l
 {
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit"
+        "source.fixAll.eslint": "explicit",
+        "source.organizeImports": "explicit"
     },
     "eslint.validate": [
         "javascript",
