@@ -75,7 +75,8 @@
  	* Validation de schéma avec Zod
     	* httpResource    
 * [Serveur JSON local](https://github.com/gsoulie/angular-resources/blob/master/ng-json-server.md)         
-* [Form](https://github.com/gsoulie/angular-resources/blob/master/ng-form.md)     
+* [Form](https://github.com/gsoulie/angular-resources/blob/master/ng-form.md)
+	* Signal Forms     	 
 * [ViewChild](https://github.com/gsoulie/angular-resources/blob/master/ng-viewchild.md)     
 * [Directives](https://github.com/gsoulie/angular-resources/blob/master/ng-directive.md)       
 	* Composition Directive
