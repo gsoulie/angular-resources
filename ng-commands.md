@@ -5,7 +5,8 @@
 * [Démarrage](#démarrage)    
 * [Commandes basiques](#commandes-basiques)         
 * [Mettre à jour Angular](#mettre-à-jour-angular)     
-* [Mettre à jour npm](#mettre-à-jour-npm)        
+* [Mettre à jour npm](#mettre-à-jour-npm)
+* [Génération fichier SBOM](#génération-fichier-sbom)      
 
 ## Démarrage
 
@@ -89,4 +90,14 @@ npm install -g @angular/cli@latest
 npm install npm@latest -g
 npm install npm@6.14.9 -g // version spécifique
 ````
+
+
+## Génération fichier SBOM
+
+> https://github.com/CycloneDX/cyclonedx-node-npm
+
+Installation en mode dev `npm install --save-dev @cyclonedx/cyclonedx-npm`
+
+Génération du fichier : `npx @cyclonedx/cyclonedx-npm --of "JSON" -o <filename>`
+
 [Back to top](#commandes)
