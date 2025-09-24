@@ -7,7 +7,8 @@
 	* [Nouveautés](https://github.com/gsoulie/angular-resources/blob/master/ng-news.md)   <img src="https://img.shields.io/badge/Hot-Interest-DD0031.svg?logo=LOGO">
 		* AnalogJS
 		* Dépréciations 	
-	* [Commandes](https://github.com/gsoulie/angular-resources/blob/master/ng-commands.md)     
+	* [Commandes](https://github.com/gsoulie/angular-resources/blob/master/ng-commands.md)
+   		* Génération fichier SBOM avec CycloneDX    
 	* [Template projet personnalisé](https://github.com/gsoulie/angular-resources/blob/master/ng-degit.md)      
 	* [Arborescence projet](https://github.com/gsoulie/angular-resources/blob/master/ng-treemap.md)     
 	* [Notions de base - Fonctionnement Javascript](https://github.com/gsoulie/angular-resources/blob/master/ng-basics.md)    
