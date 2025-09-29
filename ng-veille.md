@@ -590,9 +590,40 @@ npx prisma init
 [Back to top](#veille)     
 
 ### NestJS 
-Framework Server Side pour NodeJS, compatible TS qui permet de faire du backend avec la même architecture / syntaxe qu'un front angular. Cela facilite la maintenance et l'organisation d'un projet NodeJS. Il vient en complément de Express. 
-	- Il y a même un paquet pour gérer swagger
-	- gère le mode monorepos
+
+#### Présentation rapide
+NestJS est un framework backend Node.js construit sur TypeScript (mais compatible JS), inspiré des principes d’Angular (modules, décorateurs, injection de dépendances).
+Il fournit une structure d’application opinionée et modulaire, orientée vers la création d’APIs REST, GraphQL, microservices ou applications server-side robustes
+
+#### Avantages 
+* Structure claire et modulaire : séparation par modules, facilite la maintenabilité et la montée en puissance.
+* TypeScript natif : meilleure productivité et robustesse du code.
+* Injection de dépendances intégrée : favorise les bonnes pratiques de conception (SOLID, testabilité).
+* Polyvalence : support REST, GraphQL, WebSockets, gRPC, microservices.
+* Ecosystème mature : intégration simple avec TypeORM, Prisma, Swagger, OpenAPI, validation (class-validator), sécurité (Passport, JWT).
+* Proche d’Angular : les développeurs front Angular s’y retrouvent rapidement grâce aux concepts communs (décorateurs, modules).
+* Performances solides : basé sur Express/Fastify
+
+#### Points fabiles
+* Courbe d’apprentissage initiale : surtout pour des équipes venant de l’écosystème Node/Express plus "libre" et concepts avancés (décorateurs, guards, interceptors...)
+* Opinionated : sa structure rigide peut frustrer dans des projets très simples ou des POC rapides.
+* Overhead : plus "lourd" qu’Express ou Fastify, notamment en termes de complexité et de performances pures (NestJS utilise souvent Express ou Fastify sous le capot).
+* Documentation large mais parfois trop générique : certaines intégrations nécessitent de fouiller la communauté.
+* Moins adapté aux microservices ultra-légers : son framework complet peut être excessif face à des solutions plus minimalistes.
+
+####  Recommandé pour
+* Applications enterprise complexes nécessitant une architecture solide
+* APIs REST/GraphQL avec de nombreux endpoints et logique métier
+* Microservices grâce aux outils natifs de communication inter-services
+* Projets à long terme où la maintenabilité est critique
+* Applications nécessitant de nombreuses intégrations (BDD, cache, queues, etc.)
+
+#### Déconseillé pour 
+* Prototypes rapides ou MVPs simples
+* APIs minimalistes avec peu d'endpoints
+* Projets avec contraintes de performance extrêmes où chaque milliseconde compte
+* Équipes débutantes en TypeScript ou architecture avancée
+
 
 [Back to top](#veille)     
 
