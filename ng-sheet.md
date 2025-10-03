@@ -91,7 +91,8 @@
 	* Svg custom et mat-icon
 	* Global sass variable
 	* Theming     
-	* Dynamic styling     
+	* Dynamic styling
+ 	* [Theming et customisation Angular Material 20](https://github.com/gsoulie/angular-resources/blob/master/angular-material-20.md)     
 	* [Surcharges angular material et css](https://github.com/gsoulie/angular-resources/blob/master/ng-material-tips.md)     
 	* [mémo flexbox](https://github.com/gsoulie/angular-resources/blob/master/css-flexbox.png)     
 	* [Angular material tips](https://github.com/gsoulie/angular-resources/blob/master/ng-material-tips.md)     
