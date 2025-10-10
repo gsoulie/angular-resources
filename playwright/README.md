@@ -8,6 +8,137 @@ Playwright est un outil de test automatisé développé par Microsoft qui permet
 
 > [Best practices](https://playwright.dev/docs/best-practices)    
 
+
+## Il y a le mauvais test et le bon test, le bon test c'est...
+
+Dans la pluspart des tutoriaux que l'on peut trouver en ligne, on voit dans la quasi totalité des cas, des tests triviaux qui servent à montrer que la page affiche bien le bon titre de page, ou que cette dernière contient bien le bouton login...
+
+*Tests triviaux peu pertinents*
+
+````typescript
+// Test trop basique
+test('la page a un titre', async ({ page }) => {
+  await page.goto('/dashboard');
+  await expect(page.locator('h1')).toHaveText('Dashboard');
+});
+
+// Test qui vérifie juste la présence d'un bouton
+test('le bouton existe', async ({ page }) => {
+  await page.goto('/products');
+  await expect(page.getByRole('button', { name: 'Ajouter' })).toBeVisible();
+});
+````
+
+Ces tests peuvent avoir un certain intérêt si l'on se focalise sur des détails très précis.
+
+> **Un test pertinent doit se concentrer sur un parcours utilisateur complet, tester les flux métiers critiques (les parcours qui ont une valeur business)**
+
+**PRINCIPES D'UN BON E2E**
+
+|Principe|Description|
+|-|-|
+|Value-driven|Teste ce qui apporte de la valeur métier|
+|User-centric|Simule un vrai comportement utilisateur|
+|End-to-end|Traverse plusieurs couches (UI, API, BDD)|
+|Independant|Peut s'exécuter seul, dans n'importe quel ordre|
+|Maintenable|Utilise des abstractions (Page Objects, fixtures)|
+|Rapide|Évite les tests redondants, privilégie les tests critiques|
+
+> **REGLE D'OR** : Si vous pouvez tester la même chose avec un test unitaire ou d'intégration, ne le testez pas en E2E.
+
+*Exemple de test complet*
+
+````typescript
+test('un utilisateur peut créer un compte et se connecter', async ({ page }) => {
+  // Scénario complet du point de vue utilisateur
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Inscription' }).click();
+  
+  await page.getByLabel('Email').fill('user@example.com');
+  await page.getByLabel('Mot de passe').fill('SecurePass123!');
+  await page.getByRole('button', { name: 'Créer mon compte' }).click();
+  
+  // Vérification du résultat attendu
+  await expect(page).toHaveURL('/dashboard');
+  await expect(page.getByText('Bienvenue user@example.com')).toBeVisible();
+});
+````
+<details>
+  <summary>Exemple de test d'un flux de commande</summary>
+
+````typescript
+test('tunnel de commande complet', async ({ page }) => {
+  // Connexion
+  await login(page, 'customer@test.com', 'password');
+  
+  // Ajout au panier
+  await page.goto('/products/laptop-pro');
+  await page.getByRole('button', { name: 'Ajouter au panier' }).click();
+  
+  // Validation panier
+  await page.getByRole('link', { name: 'Panier' }).click();
+  await expect(page.getByText('Laptop Pro')).toBeVisible();
+  await expect(page.getByText('1 499,00 €')).toBeVisible();
+  
+  // Paiement
+  await page.getByRole('button', { name: 'Commander' }).click();
+  await page.getByLabel('Numéro de carte').fill('4242424242424242');
+  await page.getByRole('button', { name: 'Payer' }).click();
+  
+  // Confirmation
+  await expect(page.getByRole('heading', { name: 'Commande confirmée' })).toBeVisible();
+  await expect(page.getByText(/Numéro de commande: #\d+/)).toBeVisible();
+});
+````
+  
+</details>
+
+<details>
+  <summary>Exemple de test d'intégration entre les composants</summary>
+
+````typescript
+test('la recherche filtre et affiche les résultats en temps réel', async ({ page }) => {
+  await page.goto('/products');
+  
+  // Interaction complexe
+  await page.getByPlaceholder('Rechercher un produit').fill('laptop');
+  
+  // Vérifier que le filtrage fonctionne
+  await expect(page.getByRole('article')).toHaveCount(3);
+  await expect(page.getByText('Laptop Pro')).toBeVisible();
+  await expect(page.getByText('Laptop Gaming')).toBeVisible();
+  
+  // Affiner la recherche
+  await page.getByLabel('Prix maximum').fill('1000');
+  await page.getByRole('button', { name: 'Filtrer' }).click();
+  
+  await expect(page.getByRole('article')).toHaveCount(1);
+});
+````
+  
+</details>
+
+<details>
+  <summary>Exemple de test de cas d'Erreur</summary>
+
+````typescript
+test('message d\'erreur clair si le paiement échoue', async ({ page }) => {
+  // Setup: panier avec articles
+  await addToCart(page, 'product-123');
+  await page.goto('/checkout');
+  
+  // Utiliser une carte qui échoue
+  await page.getByLabel('Numéro de carte').fill('4000000000000002');
+  await page.getByRole('button', { name: 'Payer' }).click();
+  
+  // Vérifier la gestion d'erreur
+  await expect(page.getByRole('alert')).toContainText('Le paiement a été refusé');
+  await expect(page).toHaveURL('/checkout'); // Reste sur la page
+});
+````
+  
+</details>
+
 ## Commandes principales
 
 *Créer un test via l'enregistrement codegen*
