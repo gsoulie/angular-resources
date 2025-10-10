@@ -121,6 +121,14 @@ test.use({
 
 Placez vos tests E2E dans un répertoire dédié, par exemple *tests/e2e*. Utilisez les fixtures et les fonctions fournies par Playwright pour écrire vos tests.
 
+> **Bonne pratique** : PW exécute les tests par **ordre alphabétique** des chemins complets des fichiers spec.ts. Il convient donc de nommer les fichiers de tests en les préfixants par un numéro :
+>
+> tests/    
+  auth.setup.ts    
+  01-auth.spec.ts   
+  02-user-profile.spec.ts   
+  03-checkout.spec.ts 
+
 ````typescript
 import { test, expect } from '@playwright/test';
 
