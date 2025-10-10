@@ -2,7 +2,7 @@
 # Création de thème et customisation avec Material 20
 
 
-Ressource : https://www.youtube.com/watch?v=ppNEwZ8RYgk
+> Ressource vidéo : [https://www.youtube.com/watch?v=ppNEwZ8RYgk](https://www.youtube.com/watch?v=ppNEwZ8RYgk)
   
 ## Création du projet
 
@@ -51,18 +51,18 @@ your application. Yes
 path such as 'src/app/styles/' or leave blank to generate at your project root)
 ````
 
-Une fois le thème généré, modifier le fichier styles.scss pour utiliser le thème custom :
+Une fois le thème généré, modifier le fichier *styles.scss* pour utiliser le thème custom :
 
 ````css
 @use '@angular/material' as mat;
 
-@use '../src/app/styles/themestheme.css';
+@use '../src/app/styles/themestheme.css';   // Utilisation du nouveau thème généré
 
 html {
   @include mat.theme((
-    // color: (
-    //   primary: mat.$azure-palette,
-    //   tertiary: mat.$blue-palette,
+    // color: (   // Code généré par défaut
+    //   primary: mat.$azure-palette,   // Code généré par défaut
+    //   tertiary: mat.$blue-palette,   // Code généré par défaut
     // ),
     typography: Roboto,
     density: 0,
@@ -73,7 +73,7 @@ html {
 
 ## Customiser les composants material
 
-La rubrique *Styling* des composants, de la documentation montre un exemple de surcharge
+La rubrique **STYLING** des composants, de la documentation montre un exemple de surcharge
 
 *exemple tiré de la doc*
 ````css
@@ -89,7 +89,7 @@ La rubrique *Styling* des composants, de la documentation montre un exemple de s
 ````
 
 Chercher dans la documentation la surcharge qui nous intéresse. Par exemple si l'on souhaite surcharger 
-les boutons, chercher la section *button-overrides* puis dans le filtre choisir *color* par exemple.
+les boutons, chercher la section **button-overrides** puis dans le filtre choisir **color** par exemple.
 
 Ceci va nous donner tous les tokens que l'on peut modifier
 
