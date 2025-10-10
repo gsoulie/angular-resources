@@ -164,6 +164,29 @@ test.skip(process.env.AUTH === '1')
 test.skip(({isMobile}) => isMobile)
 ````
 
+## Créer plusieurs projets de tests séquentiels
+
+Vous pouvez définir plusieurs projets qui s'exécutent séquentiellement :
+
+*playwright.config.ts*
+
+````typescript
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  projects: [
+    {
+      name: 'setup',
+      testMatch: /.*\.setup\.spec\.ts/,
+    },
+    {
+      name: 'tests',
+      testMatch: /.*\.spec\.ts/,
+      dependencies: ['setup'], // Attend que 'setup' soit terminé
+    },
+  ],
+});
+````
 
 ## Enregistrer des scénarios avec Codegen
 
