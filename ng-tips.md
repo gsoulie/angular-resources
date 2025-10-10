@@ -7,7 +7,8 @@
 * [Conversion Date vers chaîne YYYY-MM-DD](#conversion-date-vers-chaîne-yyyy-mm-dd)     
 * [Gérer les dates en locale FR](#gérer-les-dates-en-locale-fr)      
 * [dayjs](#dayjs)        
-* [Console en couleur](#console-en-couleur)     
+* [Console en couleur](#console-en-couleur)
+* [@Attribute decorator](#décorateur-@attribute)     
 
 ## Mémoriser une variable de controller
 
@@ -116,6 +117,57 @@ console.table(listeJours);
 console.log('%cHello world', 'color:red;');
 console.log('%cHello world', 'color:green;');
 console.log('%cHello world', 'color:yellow;');
+````
+
+## Décorateur @Attribute
+
+[Cas d'usage](https://javascript.plainenglish.io/deep-dive-into-angulars-attribute-decorator-real-world-applications-and-tips-7cc4fabf284f)   
+
+Ce décorateur permet d'extraire les attributs d'un élément html
+
+ex: 
+
+````typescript
+<app-custom-element data-title="My Custom Element"></app-custom-element>
+
+import { Component, Attribute } from '@angular/core';
+
+@Component({
+  selector: 'app-custom-element',
+  template: '<p>{{ customTitle }}</p>'
+})
+export class CustomElementComponent {
+  constructor(@Attribute('data-title') public customTitle: string) {}
+}
+````
+
+Exemple concret 
+
+````typescript
+<button appColorChange [enabled]="true">Change Color</button>
+
+/**
+ * Directive pour changer la couleur de l'élément en fonction de son attribut
+**/
+import { Directive, ElementRef, Renderer2, Attribute } from '@angular/core';
+
+@Directive({
+  selector: '[appColorChange]'
+})
+export class ColorChangeDirective {
+  constructor(private el: ElementRef, private renderer: Renderer2, @Attribute('enabled') private enabled: string) {
+    // 'enabled' attribute value is available in the 'enabled' property
+    this.setButtonColor();
+  }
+
+  private setButtonColor() {
+    if (this.enabled === 'true') {
+      this.renderer.setStyle(this.el.nativeElement, 'background-color', 'green');
+    } else {
+      this.renderer.setStyle(this.el.nativeElement, 'background-color', 'red');
+    }
+  }
+}
 ````
 
 [Back to top](#astuces)    
