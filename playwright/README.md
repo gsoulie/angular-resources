@@ -396,6 +396,17 @@ Lancez les tests avec la commande suivante :
 Si l'on souhaite jouer les tests en localhost (en mode dev) il suffit de rajouter la configuration suivante dans le fichier *playwright.conf.ts*
 
 ````typescript
+// Angular
+export default defineConfig({
+webServer: {
+    command: "npm run start",
+    url: "http://localhost:4200",
+    reuseExistingServer: !process.env.CI,
+  },
+})
+
+// Autre config
+
 export default defineConfig({
 webServer: {
     command: "npm run dev",
