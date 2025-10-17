@@ -256,7 +256,12 @@ You can also specify differents scopes to manage italic for specific item, bold 
     "editor.formatOnType": true,
     "editor.formatOnPaste": true,
     "editor.tokenColorCustomizations": {
-      "comments": "#39bf87",//"#39bf87",//3ac4a1
+      "comments": "#677099",//"#39bf87",//3ac4a1
+    //"keywords": "#FF0000",  // if, else, for, return, let, export ...
+    //"functions": "#EADA49", // nom de fonctions
+    //"types": "#75B49B", // types: string, any, void...// TypeScript types et interfaces
+    // "variables": "#7adbb4", // nom de variables, JSON. etc...
+    //"strings": "#9ece6a",
       "textMateRules": [
         {
           "name": "italic font",
@@ -272,6 +277,25 @@ You can also specify differents scopes to manage italic for specific item, bold 
             "fontStyle": "italic"
           }
         },
+      // Noms de fonctions
+      // {
+      //   "scope": "entity.name.function",
+      //   "settings": { "foreground": "#4e1cd6" }
+      // }
+      // Opérateurs : |, &, . etc...
+      // {
+      //   "scope": "keyword.operator",
+      //   "settings": { "foreground": "#bb9af7" }
+      // }// Noms de fonctions
+      // {
+      //   "scope": "entity.name.function",
+      //   "settings": { "foreground": "#4e1cd6" }
+      // }
+      // Opérateurs : |, &, . etc...
+      // {
+      //   "scope": "keyword.operator",
+      //   "settings": { "foreground": "#bb9af7" }
+      // }
       ]
     },
     "[json]": {
