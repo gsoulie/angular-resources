@@ -24,11 +24,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 ## Signal Forms
 
-````15/09/2025````
+````21/10/2025````
 
-> **ATTENTION** : Feature **expérimentale** à ce jour (sept 2025). Version stable prévue pour la **version 21**
+> **ATTENTION** : Feature **expérimentale** à ce jour (v21 oct 2025).
 
-### Objectifs
+# Objectifs
 
 * Exploiter le système de réactivité d'Angular
 * Fournir une API plus intuitive pour la création et la gestion des formulaires
@@ -36,8 +36,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 * Simplifier la validation des formulaires et la gestion des erreurs
 * Intégration transparente avec les fonctionnalités modernes d'Angular basées sur les signaux
 
-### Concept
-#### FieldState
+# Concept
+## FieldState
 
 Le premier concept est le ````FieldState```` qui permet de connaître l'état d'un champ :
 
@@ -55,9 +55,9 @@ interface FieldState<TValue> {
 ````
 Contrairement au ````ReactiveForm````, les propriétés du ````FieldState```` sont désormais des **Signals**, ce qui permet d'être cohérent avec le nouveau système de réactivité et de pouvoir utiliser ces propriétés avec des signaux ````computed()````
 
-#### La directive Control 
+## La directive Field 
 
-La directive ````[control]```` permet de connecter les composants UI aux champs du formulaire (connecte l'état des champs aux contrôles du formulaire)
+La directive ````[field]```` permet de connecter les composants UI aux champs du formulaire (connecte l'état des champs aux contrôles du formulaire)
 
 Cette directive gère automatiquement :
 * Le binding bi-directionnel entre la valeur du champs et le composant UI
@@ -65,7 +65,7 @@ Cette directive gère automatiquement :
 * Marquer les champs comme touchés lors d'une saisie
 * Compatibilité avec les ReactiveForms existants
 
-#### Exemple de Signal Form basique
+## Exemple de Signal Form basique
 
 ````typescript
 import { signal } from '@angular/core';
@@ -76,10 +76,10 @@ import { form } from '@angular/forms/signals';
   template: `
     <form>
       <label for="title">Book Title</label>
-      <input id="title" [control]="titleField" />
+      <input id="title" [field]="titleField" />
 
       <label for="author">Author</label>
-      <input id="author" [control]="authorField" />
+      <input id="author" [field]="authorField" />
 
       <button [disabled]="!reviewForm().valid()">Submit Review</button>
     </form>
@@ -105,7 +105,7 @@ export class BookReviewComponent {
 
 > Le formulaire crée automatiquement une structure de champ qui reflète votre modèle de données, et les modifications apportées aux valeurs de champ mettent à jour directement le signal d'origine.
 
-### Validation de schéma
+## Validation de schéma
 
 Une des évolutions majeures des Signal Forms est son approche de la validation de schéma qui se rapproche de ce que proposent **Zod** ou **Yup**.
 L'API utilise une fonction ````schema()```` et permet d'enchaîner des règles de validation d'une manière familière aux autres bibliothèques de validation de schéma.
@@ -145,7 +145,7 @@ export class EventRegistrationComponent {
 }
 ````
 
-#### Validateurs intégrés
+### Validateurs intégrés
 
 Signal Forms fourni un ensemble de validateurs natifs :
 
@@ -168,7 +168,7 @@ pattern(path, /^[A-Za-z]+$/, { message: 'Letters only' });
 email(path);
 ````
 
-#### Validateurs personnalisés
+### Validateurs personnalisés
 
 
 <details>
@@ -213,16 +213,16 @@ function validateShippingAddress(
   template: `
     <form>
       <label for="country">Country</label>
-      <select id="country" [control]="form.country">
+      <select id="country" [field]="form.country">
         <option value="US">United States</option>
         <option value="CA">Canada</option>
       </select>
 
       <label for="state">State</label>
-      <input id="state" [control]="form.state" />
+      <input id="state" [field]="form.state" />
 
       <label for="zipCode">ZIP Code</label>
-      <input id="zipCode" [control]="form.zipCode" />
+      <input id="zipCode" [field]="form.zipCode" />
 
       @for (error of form().errors(); track error.kind) {
         <span class="error">{{ error.message }}</span>
@@ -249,7 +249,7 @@ export class ShippingFormComponent {
   
 </details>
 
-### Envoi de formulaire et Gestion des erreurs
+## Envoi de formulaire et Gestion des erreurs
 
 Les erreurs sont transmises dans une propriété ````errors()```` de type tableau.
 
@@ -303,7 +303,7 @@ export class RecipeFormComponent {
 }
 ````
 
-#### Form Control custom
+### Form Control custom
 
 <details>
   <summary>Signal Form rend plus simple la création de champs personnalisé :</summary>
@@ -342,9 +342,9 @@ export class CustomSliderComponent implements FormValueControl<number> {
 
 
 
-### Fonctionnalités avancées
+## Fonctionnalités avancées
 
-#### Logique conditionnelle
+### Logique conditionnelle
 
 <details>
   <summary>Utilisation de logique conditionnelle : disabled, hidden, readonly</summary>
@@ -375,7 +375,7 @@ jobApplicationForm = form(this.applicationData, application => {
 
 </details>
 
-#### Formulaires imbriqués et tableaux
+### Formulaires imbriqués et tableaux
 
 <details>
   <summary>Utilisation de structures complexes</summary>
@@ -427,7 +427,7 @@ menuForm = form(this.menuItemsData, menuItems => {
 ````
 </details>
 
-#### Validation asynchrone
+### Validation asynchrone
 
 <details>
   <summary>Validation asynchrone pour un contrôle côté serveur</summary>
@@ -481,7 +481,7 @@ export class BlogFormComponent {
 ````
 </details>
 
-### Exemple complet
+# Exemple complet
 
 ````typescript
 import { Component, signal } from '@angular/core';
@@ -509,23 +509,23 @@ const nameSchema: Schema<string> = schema((path) => {
   template: `
     <h3>SignUp Signal Form</h3>
     <form (submit)="onSubmit($event)">
-      <input [control]="signupForm.firstName" placeholder="Enter Your Name" type="text" />
+      <input [field]="signupForm.firstName" placeholder="Enter Your Name" type="text" />
       @for (error of signupForm.firstName().errors(); track $index) {
         <div class="error">{{error.message}}</div>        
       }
       
-      <input [control]="signupForm.lastName" placeholder="Your Last Name" type="text" />
+      <input [field]="signupForm.lastName" placeholder="Your Last Name" type="text" />
       @for (error of signupForm.lastName().errors(); track $index) {
         <div class="error">{{error.message}}</div>        
       }
       
-      <input [control]="signupForm.email" placeholder="Provide valid Email" type="email" />
+      <input [field]="signupForm.email" placeholder="Provide valid Email" type="email" />
       @for (error of signupForm.email().errors(); track $index) {
         <div class="error">{{error.message}}</div>        
       }
       
       <label> Notify By Email:
-        <input [control]="signupForm.notifyByEmail" type="checkbox" />
+        <input [field]="signupForm.notifyByEmail" type="checkbox" />
       </label>
       <button [disabled]="signupForm().submitting() || !signupForm().valid()" type="submit">Save</button>
     </form>
