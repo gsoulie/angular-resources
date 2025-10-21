@@ -2,6 +2,7 @@
 
 # Nouveautés
 
+* [v21](#angular-v21)   
 * [v20.2](#angular-v20-.-2)     
 * [v20](#angular-v20)    
 * [v19.2](#angular-v19-.-2)    
@@ -17,6 +18,171 @@
 * [v14](#v14)
 * [AnalogJS](#analogjs)
 * [Dépréciations](#dépréciations)
+
+
+# Angular b21
+
+<details>
+	<summary>Nouveautés de la version 21</summary>
+
+````17/10/2025````
+
+
+
+# NgConf 2025
+
+La NgConf 2025 a été l'occasion de présenter la **v21 d'Angular**. Voici les principales nouveautés et amélioration présentées :
+
+* (stable) effect
+* (stable) linkedSignal()
+* (stable) hydratation incrémentielle
+* (stable) mode zoneless
+* (new) Signal Forms
+* (new) Angular Aria
+* (new) Rendu hybride en SSR
+* (new) createComponent() 
+* (new) event.target type narrowing
+* (new) alias **as** dans ````@else if````
+* (new) aria-bindings sans ````attr````
+* (new) animate.enter / animate.leave
+* (new) Google AiStudio génère maintenant des application en Angular
+* (improvment) devtools (visualisation des Signals, @defer et des routes)
+* (improvment) nouveau paneau (performance) dans devtool
+
+##  (experimental) Signal Forms
+
+Sans doute l'une des nouveautés la plus attendue, mais qui restera en mode **experimental** dans la v21.
+
+*Exemple de déclaration de formulaire*
+````typescript
+<!-- View -->
+<form>
+	<input id="userName" type="text" [field]="loginForm.name" />
+	<input id="userPassword" type="text" [field]="loginForm.password" />
+</form>
+
+export class App {
+	// Définir un form model
+	protected readonly userLogin = signal<UserProfile>({
+		name: 'johndoe',
+		password: 'secure-password'
+	})
+	
+	// Créer le formulaire basé sur le model qui est un signal
+	loginForm = form(this.userLogin); 
+}
+````
+
+La nouvelle propriété **[field]** permet de binder les champs du formulaire.
+
+> Voir article sur Signal Forms pour plus de détails
+
+## Angular Aria
+
+En complément de la nouveauté apportée par Angular 20.2 (voir article 20.2), Angular aria pousse d'un cran la personnalisation des composants :
+
+*Exemple simple de liste déroulante.* 
+
+````typescript
+<div ngListbox>
+	@for(fruit of fruits: track fruit) {
+		<div [value]="fruit" ngOption>{{ fruit }}</div>
+	}
+</div>
+````
+
+Les propriétés **ngListbox** et **ngOption** permettent à Angular de considérer le container comme un objet liste. Ceci permet de personnaliser ce type de composant **exactement** comme on le souhaite !
+
+*Liste des composants déjà compatibles :*
+* accordion
+* combobox
+* listbox
+* radio-group
+* tabs
+* toolbar
+* d'autres composants à venir
+
+## mode Zoneless
+
+Le mode zoneless est enfin en version stable. Il apporte les évolutions suivantes :
+* Amélioration des performances
+* Amélioration des Core Web Vitals
+* Meilleure expérience de débuggage
+* Meilleure compatibilité de l'écosystème
+
+**Activer le mode zoneless**
+
+*app.config.ts*
+````typescript
+bootstrapApplication(MyApp, { providers: [
+	provideZonelessChangeDetection()
+] }
+````
+
+*Utilisation*
+
+````typescript
+@Component({
+	selector: 'my-app',
+	changeDetection: ChangeDetectionStrategy.OnPush // non obligatoire mais BONNE PRATIQUE
+})
+````
+
+> On peut ensuite supprimer la dépendance à zone.js
+
+## Rendu hybride en SSR
+
+````typescript
+export const serverRoutes: ServerRoute[] = [
+{ 
+	path: '', // la route / sera rendue côté client (CSR)
+	renderMode: RenderMode.Client
+},{
+	path: 'about', // Cette page est statique donc on utilise le rendu SSG
+	renderMode: RenderMode.Prerender
+}, {
+	path: 'profile', // nécessite des données spécifiques à l'utilisateur, donc on utilise le rendu SSR
+	renderMode: RenderMode.Server
+}]
+````
+
+## alias as dans @else if
+
+Il est désormais possible de déclarer un alias dans les ````@else if````, ce qui n'était pas le cas auparavant.
+
+*Avant*
+````typescript
+@if (flag; as flagResult) {
+...
+} @else if (secondFlag) {
+
+}
+````
+
+*Maintenant*
+````typescript
+@if (flag; as flagResult) {
+...
+} @else if (secondFlag; as secondFlagresult) {
+
+}
+````
+
+## animate.enter / animate.leave
+
+Comme annoncé lors de la v20.2 (voir l'article sur 20.2), la gestion des animations a été simplifiée avec la disparition du package angular-animation.
+
+Il est désormais facile en css pur de créer des animations complexes, angular facilite donc cette utilisation via deux nouvelles propriétés ````in```` et ````out````
+
+````typescript
+<cmp in="pretty-animation-class" />
+<other-cmp in="animateFn()" />
+
+<cmp out="fancy-animation-class" />
+<other-cmp out="animateFn()" />
+````
+	
+</details>
 
 # Angular v20.2
 
