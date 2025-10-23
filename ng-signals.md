@@ -666,3 +666,50 @@ this.console.log(this.choice()); // fig
 this.options.set(['peach', 'kiwi']);
 console.log(this.choice()); // peach
 ````
+
+
+**Autre exemple plus concret**
+
+````typescript
+import { signal, linkedSignal } from '@angular/core';
+
+@Component({
+  // ...
+})
+export class UserFormComponent {
+  // Signal parent
+  user = signal({
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'john.doe@example.com'
+  });
+  
+  // Signaux liés - remarquez qu'on extrait directement les propriétés !
+  firstName = linkedSignal(
+    this.user,
+    (user) => user.firstName,
+    (user, newFirstName) => ({ ...user, firstName: newFirstName })
+  );
+  
+  lastName = linkedSignal(
+    this.user,
+    (user) => user.lastName,
+    (user, newLastName) => ({ ...user, lastName: newLastName })
+  );
+  
+  // Maintenant, on peut faire ça :
+  updateFirstName(name: string) {
+    this.firstName.set(name); // Met aussi à jour this.user !
+  }
+  
+  // OU mettre à jour directement le parent :
+  resetForm() {
+    this.user.set({
+      firstName: '',
+      lastName: '',
+      email: ''
+    });
+    // Les signaux liés sont automatiquement mis à jour !
+  }
+}
+````
