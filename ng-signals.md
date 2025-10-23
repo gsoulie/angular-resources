@@ -8,7 +8,8 @@
 * [Bonnes pratiques](#bonnes-pratiques)     
 * [Avantages et inconvénients](#avantages-et-inconvénients)     
 * [Signal vs RxJS](#signal-vs-rxjs)
-* [toObservable, fromObservable](#toObservable-fromObservable)     
+* [toObservable, fromObservable](#toObservable-fromObservable)
+* [linkedSignal](#linkedSignal)     
 
 > [Documentation angular officielle](https://angular.io/guide/signals)     
 
@@ -645,3 +646,23 @@ export class DessertsComponent {
 }
 ````
 </details>
+
+## linkedSignal
+````linkedSignal```` permet de créer un signal writable (contrairement à ````computed()```` lié à un autre signal. Il peut se réinitialiser en cas de modification du signal source.
+
+Cela le rend particulièrement utile dans les situations où l'état local doit rester synchronisé avec les données dynamiques.
+
+ ````typescript
+ const options = signal(['apple', 'banana', 'fig']);
+
+// Choice defaults to the first option, but can be changed.
+const choice = linkedSignal(() => this.options()[0]);
+console.log(this.choice()); // apple
+
+this.choice.set('fig');
+this.console.log(this.choice()); // fig
+
+// When options change, choice resets to the new default value.
+this.options.set(['peach', 'kiwi']);
+console.log(this.choice()); // peach
+````
