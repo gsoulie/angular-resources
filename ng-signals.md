@@ -713,3 +713,53 @@ export class UserFormComponent {
   }
 }
 ````
+
+
+> Chaque modification d’un signal lié met à jour le signal parent, et vice-versa. C’est comme avoir une synchronisation bidirectionnelle sans les inconvénients de la double liaison de données !
+
+**Quels intérêts ?**
+
+* **Moins de code** : Fini les nombreux computed() qui ne font que refléter l'état
+* **Cohérence garantie** : Impossible d’oublier de mettre à jour un signal dérivé
+* **Structure de données immuable** : On préserve l’immutabilité tout en ayant une API pratique
+* **Lisibilité améliorée** : Votre code exprime clairement les relations entre les données
+* **Performances optimisées** : Moins de recalculs inutiles comparé à des computed() en cascade
+
+**Attention aux pièges !**
+Comme toute bonne chose dans la vie, ````linkedSignal()```` vient avec **quelques avertissements** :
+
+* Évitez les références circulaires (oui, c’est possible, et non, ce n’est pas joli)
+* N’abusez pas des signaux liés pour des structures de données trop profondes
+* Souvenez-vous que chaque mise à jour du signal parent crée un nouvel objet
+
+### Cas d’usage parfaits
+````linkedSignal()```` brille particulièrement dans ces scénarios :
+
+**1. Formulaires complexes**
+Parfait pour les formulaires avec de nombreux champs qui doivent tous être synchronisés avec un modèle de données.
+
+````typescript
+// État global du formulaire
+formData = signal({ name: '', email: '', address: { street: '', city: '' } });
+
+// Extraction d'un sous-objet
+addressData = linkedSignal(
+  this.formData,
+  (data) => data.address,
+  (data, newAddress) => ({ ...data, address: newAddress })
+);
+
+// Et on peut encore extraire plus profondément
+street = linkedSignal(
+  this.addressData,
+  (addr) => addr.street,
+  (addr, newStreet) => ({ ...addr, street: newStreet })
+);
+````
+
+**2. État partagé entre composants**
+Lorsque plusieurs composants partagent un même état mais ont besoin d’accéder à des parties différentes.
+
+**3. Architecture en oignon pour vos données**
+Créez une hiérarchie propre de signaux qui reflète la structure de vos données.
+
