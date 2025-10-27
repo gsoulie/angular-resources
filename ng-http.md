@@ -77,14 +77,26 @@ fetchData() {
 ````typescript
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const auth = inject(Auth);    // Injection de votre service d'authentification
+  const token = auth.getAccessToken();
 
-  const authRequest = req.clone({  // Bonne pratique, cloner la requête initiale si on doit la modifier
-    setHeaders: {
-      Authorization: `Bearer ${auth.token}`
-    }
-  })
-  
-  return next(authRequest);
+  if (token) {
+    const authRequest = req.clone({  // Bonne pratique, cloner la requête initiale si on doit la modifier
+      setHeaders: {
+        Authorization: `Bearer ${auth.getAccessToken()}`
+      }
+    })
+
+    return next(authRequest).pipe(
+      catchError((error: HttpErrorResponse) => {
+        // Handle 401 Unauthorized responses
+        if (error.status === 401) {
+          keycloakService.logout();
+        }
+        return throwError(() => error);
+      })
+    );
+  }
+  return next(req);
 }
 ````
 
