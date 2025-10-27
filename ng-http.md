@@ -2,6 +2,7 @@
 
 # requêtes Http
 
+* [Interceptors prêts à l'emploi](#interceptors-prêts-à-l-emploi)     
 * [Bonnes pratiques](https://levelup.gitconnected.com/the-correct-way-to-make-api-requests-in-an-angular-application-22a079fe8413)     
 * [Import HttpClientModule standalone component](#import-httpClientModule-standalone-component)      
 * [Catch](#catch)     
@@ -14,6 +15,453 @@
 * [CORS](#cors)
 * [Validation de schéma avec Zod](#validation-de-schéma-avec-zod)      
 * [Angular 19 HttpResource](#angular-19-httpresource)     
+
+## Interceptors prêts à l'emploi
+
+Voici une liste d'interceptors propres à utiliser dans les applications Angular
+
+## authInterceptor
+
+<details>
+  <summary>Description de l'intercepteur</summary>
+
+*auth.ts*
+````typescript
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const auth = inject(Auth);    // Injection de votre service d'authentification
+  const token = auth.getAccessToken();
+
+  if (token) {
+    const authRequest = req.clone({  // Bonne pratique, cloner la requête initiale si on doit la modifier
+      setHeaders: {
+        Authorization: `Bearer ${auth.getAccessToken()}`
+      }
+    })
+
+    return next(authRequest).pipe(
+      catchError((error: HttpErrorResponse) => {
+        // Handle 401 Unauthorized responses
+        if (error.status === 401) {
+          keycloakService.logout();
+        }
+        return throwError(() => error);
+      })
+    );
+  }
+  return next(req);
+}
+````
+
+*app.config.ts*
+
+````typescript
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter(routes, withComponentInputBinding()),
+    provideHttpClient(
+      withInterceptors([
+        errorInterceptor,
+        authInterceptor
+      ])
+    )
+  ]
+}
+
+````
+  
+</details>
+
+
+## loadingSpinnerInterceptor
+
+<details>
+  <summary>Description de l'intercepteur</summary>
+
+*spinner.ts*
+
+````typescript
+import { Injectable, signal } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SpinnerOverlayService {
+  // Utilise un signal pour un état réactif
+  private loadingCount = signal(0);
+  
+  // Signal calculé pour l'état de chargement
+  public readonly isLoading = signal(false);
+
+  /**
+   * Incrémente le compteur de requêtes en cours
+   */
+  show(): void {
+    this.loadingCount.update(count => count + 1);
+    this.updateLoadingState();
+  }
+
+  /**
+   * Décrémente le compteur de requêtes en cours
+   */
+  hide(): void {
+    this.loadingCount.update(count => Math.max(0, count - 1));
+    this.updateLoadingState();
+  }
+
+  /**
+   * Réinitialise complètement le spinner
+   */
+  reset(): void {
+    this.loadingCount.set(0);
+    this.isLoading.set(false);
+  }
+
+  /**
+   * Met à jour l'état isLoading en fonction du compteur
+   */
+  private updateLoadingState(): void {
+    this.isLoading.set(this.loadingCount() > 0);
+  }
+}
+````
+
+*spinnerIntercepptor.ts*
+
+````typescript
+import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { finalize } from 'rxjs/operators';
+import { SpinnerOverlayService } from './spinner-overlay.service';
+
+/**
+ * Affiche automatiquement le spinner pour chaque requête HTTP
+ */
+export const spinnerInterceptor: HttpInterceptorFn = (req, next) => {
+  const spinnerService = inject(SpinnerOverlayService);
+  
+  // Affiche le spinner au début de la requête
+  spinnerService.show();
+
+  // Continue la requête et cache le spinner à la fin (succès ou erreur)
+  return next(req).pipe(
+    finalize(() => {
+      spinnerService.hide();
+    })
+  );
+};
+
+/**
+ * Configuration optionnelle pour exclure certaines URLs
+ * Exemple d'usage avancé si besoin
+ */
+export const spinnerInterceptorWithExclusions = (
+  excludedUrls: string[] = []
+): HttpInterceptorFn => {
+  return (req, next) => {
+    const spinnerService = inject(SpinnerOverlayService);
+    
+    // Vérifie si l'URL doit être exclue
+    const shouldShowSpinner = !excludedUrls.some(url => 
+      req.url.includes(url)
+    );
+
+    if (shouldShowSpinner) {
+      spinnerService.show();
+    }
+
+    return next(req).pipe(
+      finalize(() => {
+        if (shouldShowSpinner) {
+          spinnerService.hide();
+        }
+      })
+    );
+  };
+};
+````
+
+*app.config.ts*
+
+````typescript
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter(routes, withComponentInputBinding()),
+    provideHttpClient(
+      withInterceptors([
+        spinnerInterceptor
+      ])
+    )
+  ]
+}
+
+````
+
+*app.html*
+
+````html
+<div class="app-container">
+  <!-- Overlay spinner -->
+  @if (spinnerService.isLoading()) {
+    <div class="spinner-overlay">
+      <div class="spinner">
+        <!-- Vous pouvez remplacer ce spinner par n'importe quel composant UI -->
+        <div class="spinner-border"></div>
+      </div>
+    </div>
+  }
+
+  <!-- Contenu principal de l'application -->
+  <router-outlet />
+</div>
+````
+  
+</details>
+
+## errorInterceptor
+
+<details>
+  <summary>Description de l'intercepteur</summary>
+
+*error.ts*
+````typescript
+import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { catchError, throwError } from 'rxjs';
+import { ErrorService } from './error.service';
+
+/**
+ * Interceptor qui gère toutes les erreurs HTTP de manière centralisée
+ */
+export const errorInterceptor: HttpInterceptorFn = (req, next) => {
+  const errorService = inject(ErrorService);
+
+  return next(req).pipe(
+    catchError((error: HttpErrorResponse) => {
+      // Ne pas afficher d'erreur si c'est une erreur réseau (déjà gérée par networkInterceptor)
+      if (error.status === 0) {
+        return throwError(() => error);
+      }
+
+      // Gestion des différents codes d'erreur HTTP
+      const errorMessage = getErrorMessage(error);
+
+      // Gérer l'affichage et/ou le log des erreurs via un service custom (affichage notification ou autres...)
+      errorService.showError(
+        errorMessage.title,
+        errorMessage.message,
+        error.status
+      );
+
+      // Propage l'erreur pour que les composants puissent la gérer si nécessaire
+      return throwError(() => error);
+    })
+  );
+};
+
+/**
+ * Détermine le message d'erreur en fonction du code HTTP
+ */
+function getErrorMessage(error: HttpErrorResponse): { title: string; message: string } {
+  // Erreurs 4xx - Erreurs client
+  if (error.status >= 400 && error.status < 500) {
+    switch (error.status) {
+      case 400:
+        return {
+          title: 'Requête invalide',
+          message: error.error?.message || 'Les données envoyées sont incorrectes.'
+        };
+      case 401:
+        return {
+          title: 'Non authentifié',
+          message: 'Vous devez vous connecter pour accéder à cette ressource.'
+        };
+      case 403:
+        return {
+          title: 'Accès refusé',
+          message: "Vous n'avez pas les droits nécessaires pour effectuer cette action."
+        };
+      case 404:
+        return {
+          title: 'Ressource introuvable',
+          message: 'La ressource demandée est introuvable.'
+        };
+      case 409:
+        return {
+          title: 'Conflit',
+          message: error.error?.message || 'Cette opération entre en conflit avec une ressource existante.'
+        };
+      case 422:
+        return {
+          title: 'Validation échouée',
+          message: error.error?.message || 'Les données fournies ne sont pas valides.'
+        };
+      case 429:
+        return {
+          title: 'Trop de requêtes',
+          message: 'Vous avez effectué trop de requêtes. Veuillez réessayer plus tard.'
+        };
+      default:
+        return {
+          title: 'Erreur client',
+          message: error.error?.message || 'Une erreur est survenue lors de votre demande.'
+        };
+    }
+  }
+````
+
+*app.config.ts*
+
+````typescript
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter(routes, withComponentInputBinding()),
+    provideHttpClient(
+      withInterceptors([
+        errorInterceptor
+      ])
+    )
+  ]
+}
+
+````
+    
+</details>
+
+## networkStateInterceptor
+
+<details>
+  <summary>Description de l'intercepteur</summary>
+
+*network-service.ts*
+````typescript
+import { Injectable, signal, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { fromEvent, merge, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class NetworkService {
+  private platformId = inject(PLATFORM_ID);
+  
+  // Signal pour l'état de la connexion
+  public readonly isOnline = signal(true);
+  
+  // Signal pour afficher le message de déconnexion
+  public readonly showOfflineMessage = signal(false);
+
+  constructor() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.initNetworkListener();
+      // Initialise l'état avec la valeur actuelle
+      this.isOnline.set(navigator.onLine);
+    }
+  }
+
+  /**
+   * Écoute les événements online/offline du navigateur
+   */
+  private initNetworkListener(): void {
+    const online$ = fromEvent(window, 'online').pipe(map(() => true));
+    const offline$ = fromEvent(window, 'offline').pipe(map(() => false));
+
+    merge(online$, offline$).subscribe((isOnline) => {
+      this.isOnline.set(isOnline);
+      
+      if (!isOnline) {
+        // Affiche le message quand on perd la connexion
+        this.showOfflineMessage.set(true);
+      } else {
+        // Cache le message après un délai quand on retrouve la connexion
+        setTimeout(() => {
+          this.showOfflineMessage.set(false);
+        }, 3000);
+      }
+    });
+  }
+
+  /**
+   * Force la vérification de la connexion
+   */
+  checkConnection(): boolean {
+    if (isPlatformBrowser(this.platformId)) {
+      const online = navigator.onLine;
+      this.isOnline.set(online);
+      return online;
+    }
+    return true;
+  }
+
+  /**
+   * Ferme manuellement le message
+   */
+  dismissMessage(): void {
+    this.showOfflineMessage.set(false);
+  }
+}
+````
+
+*network.ts*
+````typescript
+import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { catchError, throwError } from 'rxjs';
+import { NetworkService } from './network.service';
+
+/**
+ * Interceptor qui détecte les erreurs réseau et met à jour le service
+ */
+export const networkInterceptor: HttpInterceptorFn = (req, next) => {
+  const networkService = inject(NetworkService);
+
+  // Vérifie la connexion avant d'envoyer la requête
+  if (!networkService.checkConnection()) {
+    networkService.showOfflineMessage.set(true);
+    return throwError(() => new HttpErrorResponse({
+      error: 'No internet connection',
+      status: 0,
+      statusText: 'Network Error',
+      url: req.url
+    }));
+  }
+
+  return next(req).pipe(
+    catchError((error: HttpErrorResponse) => {
+      // Détecte les erreurs réseau (status 0 = pas de connexion)
+      if (error.status === 0) {
+        networkService.isOnline.set(false);
+        networkService.showOfflineMessage.set(true);
+      }
+      
+      // Détecte les timeouts ou erreurs serveur qui peuvent indiquer un problème réseau
+      if (error.status === 504 || error.status === 503) {
+        networkService.showOfflineMessage.set(true);
+      }
+
+      return throwError(() => error);
+    })
+  );
+};
+````
+
+*app.config.ts*
+
+````typescript
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter(routes, withComponentInputBinding()),
+    provideHttpClient(
+      withInterceptors([
+        betworkInterceptor
+      ])
+    )
+  ]
+}
+
+````
+    
+</details>
 
 ## Documentation
 
