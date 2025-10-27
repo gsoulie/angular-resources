@@ -152,6 +152,7 @@ ngOnDestroy() {
 
 *Error service*	
 ````	
+
 export enum LogErrorLevel {
   Trace = 0,
   Debug = 1,
@@ -160,8 +161,20 @@ export enum LogErrorLevel {
   Error = 4,
   Critical = 5
 }
-	
-	
+
+type LogObject = {
+  functionName: string,
+  content: any
+}
+
+type UncatchedErrorObj = {
+  level?: number,
+  fileName: string | undefined,
+  lineNumber?: number,
+  message: string | Event | undefined
+}
+type LogObj = UncatchedErrorObj & { timestamp?: Date | string } 
+  
 export const logUncatchedErrorToAPI = (logObj: UncatchedErrorObj) => {
   
   try {
@@ -175,7 +188,7 @@ export const logUncatchedErrorToAPI = (logObj: UncatchedErrorObj) => {
       //timestamp: currentTimestamp.toISOString()
     }
 
-    fetch(<error-api-url>, {
+    fetch(<error-api-url>), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
