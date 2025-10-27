@@ -4,7 +4,8 @@
 
 * [Try-catch](#try--catch)    
 * [Gestion globale erreur http avec retry](#gestion-globale-erreur-http-avec-retry)     
-* [Erreur côté client](#erreur-côté-client)    
+* [Erreur côté client](#erreur-côté-client)
+* [Gérer les erreurs uncatched](#gérer-les-erreurs-uncatched)     
 
 documentation : https://angular.io/api/core/ErrorHandler
 
@@ -118,4 +119,93 @@ ngOnInit() {
 
 * Bugsnag     
 * Sentry     
-* Rollbar     
+* Rollbar
+
+## Gérer les erreurs uncatched
+
+A placer dans le composant principal de l'application 
+
+````typescript
+window.onerror = (message, source, lineno, colno, error) => {
+  
+  logUncatchedErrorToAPI({
+	level: LogErrorLevel.Critical,
+	fileName: source,
+	lineNumber: lineno,
+	message
+  });
+
+  reportError(error || { message, source, lineno, colno });
+  return false;
+};
+
+window.addEventListener("unhandledrejection", (event) => {
+  reportError(event.reason);	// fonction native)
+});
+
+// OnDestroy
+ngOnDestroy() {
+  window.onerror = null;
+  window.removeEventListener("unhandledrejection", reportError);
+};
+````	
+
+*Error service*	
+````	
+export enum LogErrorLevel {
+  Trace = 0,
+  Debug = 1,
+  Information = 2,
+  Warning = 3,
+  Error = 4,
+  Critical = 5
+}
+	
+	
+export const logUncatchedErrorToAPI = (logObj: UncatchedErrorObj) => {
+  
+  try {
+    const currentTimestamp = new Date();
+
+    const errorObj: LogObj = {
+      level: logObj.level ?? LogErrorLevel.Critical,
+      fileName: `Frontend - ${logObj.fileName}`,
+      lineNumber: logObj.lineNumber ?? 0,
+      message: `[${currentTimestamp.toISOString()}] --> ${logObj.message}`,
+      //timestamp: currentTimestamp.toISOString()
+    }
+
+    fetch(<error-api-url>, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        error: errorObj
+      }),
+    });
+  } catch (e) {
+    logError({ functionName: 'logUncatchedErrorToAPI', content: e})
+  }
+};
+
+export const logError = (errorObj: LogObject, logLevel: LogErrorLevel = 4) => {
+  const title = getLogErrorTitle(logLevel);
+  console.log(`${title} ${errorObj.functionName} : ${JSON.stringify(errorObj)}`);
+}
+
+const getLogErrorTitle = (logLevel: LogErrorLevel): string => {  
+  switch (logLevel) {
+    case 0:
+      return "[logTrace]";
+    case 1:
+      return "[logDebug]";
+    case 2:
+      return "[logInfo]";
+    case 3:
+      return "[logWarning]";
+    default:
+      return "[logError]";
+  }
+}
+````
