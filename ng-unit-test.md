@@ -956,7 +956,7 @@ describe('Widget', () => {
 
 VSCode dispose d'une extension VSCode pour Playwright (capture) qui permet de faciliter l'installation de Playwright et propose un volet pratique pour gérer les tests.
 
-1. Installer l'extension (capture)
+1. Installer l'extension VSCode *Playwright Test for VSCode* (de microsoft)
 2. Ouvrir la palette de commande et chercher: **Test: install Playwright**. Ceci va installer playwright dans le projet et créer un fichier de config, ainsi qu'un fichier de test d'exemple
 3. Configurer le fichier *playwright.config.ts*
 
