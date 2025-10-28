@@ -9,7 +9,8 @@
 * [e2e avec Cypress](#e2e-avec-cypress)     
 * [Karma (déprécié depuis Angular 16)]()
 * [Tests unitaires avec Jest](#tests-unitaires-avec-jest)
-* [Playwright](https://github.com/gsoulie/angular-resources/tree/master/playwright)
+* [Playwright Angular](#playwright-angular)    
+* [Playwright (détail)](https://github.com/gsoulie/angular-resources/tree/master/playwright)
 * [Exemples de tests](#exemples-de-tests)    
 
 
@@ -945,3 +946,97 @@ describe('Widget', () => {
  
 </details>
 
+## Playwright Angular
+
+
+> [Ressource vidéo](https://www.youtube.com/watch?v=WvsLGZnHmzw)    
+
+
+### Intégration dans VSCode et configuration
+
+VSCode dispose d'une extension VSCode pour Playwright (capture) qui permet de faciliter l'installation de Playwright et propose un volet pratique pour gérer les tests.
+
+1. Installer l'extension (capture)
+2. Ouvrir la palette de commande et chercher: **Test: install Playwright**. Ceci va installer playwright dans le projet et créer un fichier de config, ainsi qu'un fichier de test d'exemple
+3. Configurer le fichier *playwright.config.ts*
+
+<details>
+	<summary>Fichier de configuration basique pour Angular</summary>
+
+*playwright.config.ts*	
+````
+import { defineConfig, devices } from '@playwright/test';
+
+/**
+ * Read environment variables from file.
+ * https://github.com/motdotla/dotenv
+ */
+// import dotenv from 'dotenv';
+// import path from 'path';
+// dotenv.config({ path: path.resolve(__dirname, '.env') });
+
+const baseURL = "http://localhost:4200";
+
+/**
+ * See https://playwright.dev/docs/test-configuration.
+ */
+export default defineConfig({
+  testDir: './tests',
+  /* Run tests in files in parallel */
+  fullyParallel: true,
+  /* Fail the build on CI if you accidentally left test.only in the source code. */
+  forbidOnly: !!process.env.CI,
+  /* Retry on CI only */
+  retries: process.env.CI ? 2 : 0,
+  /* Opt out of parallel tests on CI. */
+  workers: process.env.CI ? 1 : undefined,
+  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+  reporter: [["list"], ["html"]],
+  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  use: {
+    /* Base URL to use in actions like `await page.goto('')`. */
+    baseURL: baseURL,
+
+    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+    trace: 'on-first-retry',
+  },
+
+  /* Configure projects for major browsers */
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+  ],
+
+  /* Run your local dev server before starting the tests */
+   webServer: {
+    command: "npm run start",
+    url: "http://localhost:4200",
+    reuseExistingServer: !process.env.CI,
+  },
+});
+````
+</details>
+
+4. Il ne reste plus qu'à créer les tests dans le répertoire *tests*
+
+### Volet Test
+
+Le volet Test de l'extension Playwright, permet de visualiser  la liste des tests présents dans le répertoire *tests* créé lors de l'installation. 
+Depuis ce volet il est  possible d'exécuter les tests unitairement ou de manière groupée, de créer de nouveaux tests, de configurer les options de tests etc...
+
+**Settings**
+* *Show browser* : permet de lancer les tests dans un browser, permettant ainsi de voir le déroulementn des tests. 
+* *Show trace viewer* : permet de visualiser le détail des tests (frame par frame) dans une interface dédiée et de consulter chaque étape et chaque élément du test
+
+**Tools**
+* **Record New** : peprmet de créer un nouveau test en mode enregistrement depuis le browser. Il suffit ensuite de jouer avec les différents boutons de l'enregistreur pour définir ce qu'on 
+soushaite tester sur chaque élément. 
+
+*Options d'enregistrement*
+* *Assert Visibility* puis cliquer sur un élément pour ajouter le test de visibilité de cet élément. Va générer le test ````await expect(page.getByTestId('submit-todo-button')).toBeVisible();````
+* *Assert Text* (texte visible d'un élément) puis cliquer sur un élément contenant du texte, pour ajouter le test sur la valeur affichée par l'élément. Va générer le test ````await expect(page.getByTestId('submit-todo-button')).toContainText('Ajouter');```` 
+* *Assert Value* (pour les champs de formulaire) puis cliquer sur l'élément voulu. Va générer le test ````await expect(page.getByTestId('todo-title-input')).toHaveValue('my test value');````
+
+> Remarque : En mode record new, le browser se lance mais ne récupère pas l'url configurée. Pour une application Angular, il faut donc renseigner l'url "http://localhost:4200" dans le browser ouvert par le test pour accéder à l'application
