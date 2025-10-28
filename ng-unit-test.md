@@ -954,7 +954,7 @@ describe('Widget', () => {
 
 ### Intégration dans VSCode et configuration
 
-VSCode dispose d'une extension VSCode pour Playwright (capture) qui permet de faciliter l'installation de Playwright et propose un volet pratique pour gérer les tests.
+VSCode dispose d'une extension VSCode pour Playwright qui permet de faciliter l'installation de Playwright et propose un volet pratique pour gérer les tests.
 
 1. Installer l'extension VSCode *Playwright Test for VSCode* (de microsoft)
 2. Ouvrir la palette de commande et chercher: **Test: install Playwright**. Ceci va installer playwright dans le projet et créer un fichier de config, ainsi qu'un fichier de test d'exemple
@@ -1023,16 +1023,17 @@ export default defineConfig({
 
 ### Volet Test
 
-Le volet Test de l'extension Playwright, permet de visualiser  la liste des tests présents dans le répertoire *tests* créé lors de l'installation. 
-Depuis ce volet il est  possible d'exécuter les tests unitairement ou de manière groupée, de créer de nouveaux tests, de configurer les options de tests etc...
+Le volet Test de l'extension Playwright, permet de visualiser la liste des tests présents dans le répertoire *tests* créé lors de l'installation. 
+Depuis ce volet il est possible d'exécuter les tests unitairement ou de manière groupée, de créer de nouveaux tests, de configurer les options de tests etc...
 
 **Settings**
 * *Show browser* : permet de lancer les tests dans un browser, permettant ainsi de voir le déroulementn des tests. 
 * *Show trace viewer* : permet de visualiser le détail des tests (frame par frame) dans une interface dédiée et de consulter chaque étape et chaque élément du test
 
 **Tools**
-* **Record New** : peprmet de créer un nouveau test en mode enregistrement depuis le browser. Il suffit ensuite de jouer avec les différents boutons de l'enregistreur pour définir ce qu'on 
-soushaite tester sur chaque élément. 
+* **Record New** : permet de créer un nouveau test en mode enregistrement depuis le browser. Il suffit ensuite de jouer avec les différents boutons de l'enregistreur pour définir ce qu'on 
+souhaite tester sur chaque élément.
+* **Record at cursor** : positionner son curseur sur une ligne du test et lancer un enregistrement à paprtir de cette position
 
 *Options d'enregistrement*
 * *Assert Visibility* puis cliquer sur un élément pour ajouter le test de visibilité de cet élément. Va générer le test ````await expect(page.getByTestId('submit-todo-button')).toBeVisible();````
