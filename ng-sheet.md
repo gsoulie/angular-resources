@@ -125,7 +125,8 @@
 	* tester le bundle de production dist
 	* e2e avec Cypress
 	* tests unitaires avec Jest
-	* e2e tests avec Playwright     	
+	* e2e tests avec Playwright
+ 	* intégration Lighthouse dans Playwright     	
 * Helper
 	* [Helper mat-dialog](https://github.com/gsoulie/ionic-angular-snippets/tree/master/helpers/dialog)
  	* [Helper mat-dialog avec template](https://github.com/gsoulie/angular-resources/blob/master/angular-dialog-template.md)
