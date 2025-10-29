@@ -11,7 +11,8 @@
 * [Tests unitaires avec Jest](#tests-unitaires-avec-jest)
 * [Playwright Angular](#playwright-angular)    
 * [Playwright (détail)](https://github.com/gsoulie/angular-resources/tree/master/playwright)
-* [Exemples de tests](#exemples-de-tests)    
+* [Exemples de tests](#exemples-de-tests)
+* [Intégration Lighthouse dans Playwright](#intégration-lighthouse-dans-playwright)    
 
 
 ## Ecriture de tests simplifiée avec Angular 20    
@@ -1041,3 +1042,72 @@ souhaite tester sur chaque élément.
 * *Assert Value* (pour les champs de formulaire) puis cliquer sur l'élément voulu. Va générer le test ````await expect(page.getByTestId('todo-title-input')).toHaveValue('my test value');````
 
 > Remarque : En mode record new, le browser se lance mais ne récupère pas l'url configurée. Pour une application Angular, il faut donc renseigner l'url "http://localhost:4200" dans le browser ouvert par le test pour accéder à l'application
+
+
+## Intégration Lighthouse dans playwright
+
+Playwright permet également d'intégrer les audits lighthouse dans les tests automatisés.
+
+**Installation des dépendances Lighthouse**
+
+````
+npm install --save-dev playwright-lighthouse playwright lighthouse
+````
+
+Ensuite il suffit d'utiliser lighthouse dans un fichier de test playwright. On peut d'ailleurs faire appel à l'audit playwright après chaque test ou bien sur chaque page, bref on peut le câbler où l'on souhaite dans les tests.
+
+**Fichier de test basique d'appel de l'audit**
+
+*audit-lighthouse.spec.ts*
+````typescript
+import { test } from '@playwright/test';
+import { playAudit, playwrightLighthouseConfig } from 'playwright-lighthouse';
+import playwright from 'playwright';
+
+const lighthouseConfig: playwrightLighthouseConfig['thresholds'] = {
+    performance: 90,
+    accessibility: 90,
+    'best-practices': 90,
+    seo: 50
+    // pwa etc...
+}
+
+test.describe('Audit de performance Lighthouse', () => {
+    test.beforeEach(async ({ page }) => {
+       // Code à effectuer avant si besoin...
+    });
+
+    // gérer le multi-url (optionnel)
+    const urls = [{ name: 'dashboard', path: '/' }, { name: 'user', path: '/user' }];
+
+    for (const url of urls) {
+        
+        test('open browser for : ' + url.name, async () => {
+            const browser = await playwright['chromium'].launch({
+            args: ['--remote-debugging-port=9222'],
+            });
+            const page = await browser.newPage();
+            await page.goto(url.path);
+            
+            await playAudit({
+            page: page,
+                port: 9222,
+                thresholds: lighthouseConfig,
+                opts: {
+                    logLevel: "info"
+                },
+                ignoreError: true,  // Ne pas mettre le test en erreur
+                reports: {
+                    "formats": { html: true, json: true },
+                    name: "lighthouse-report",
+                    directory: `lighthouse-report/${url.name}/report-${Date.now().toString()}`
+                }
+            });
+    
+            await browser.close();
+        });
+    }
+})
+````
+
+> **A retenir** : penser à exclure le chemin des rapports lighthouse dans le *.gitignore*
