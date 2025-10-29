@@ -1063,21 +1063,23 @@ Ensuite il suffit d'utiliser lighthouse dans un fichier de test playwright. On p
 import { test } from '@playwright/test';
 import { playAudit, playwrightLighthouseConfig } from 'playwright-lighthouse';
 import playwright from 'playwright';
+import * as fs from 'fs';
 
 const lighthouseConfig: playwrightLighthouseConfig['thresholds'] = {
     performance: 90,
     accessibility: 90,
     'best-practices': 90,
     seo: 50
-    // pwa etc...
 }
 
 test.describe('Audit de performance Lighthouse', () => {
     test.beforeEach(async ({ page }) => {
-       // Code à effectuer avant si besoin...
+        // Nettoyer le localStorage avant chaque test
+        await page.goto('/');
+        await page.evaluate(() => localStorage.clear());
+        await page.reload();
     });
 
-    // gérer le multi-url (optionnel)
     const urls = [{ name: 'dashboard', path: '/' }, { name: 'user', path: '/user' }];
 
     for (const url of urls) {
@@ -1088,9 +1090,11 @@ test.describe('Audit de performance Lighthouse', () => {
             });
             const page = await browser.newPage();
             await page.goto(url.path);
+
+            const testTimestamp = Date.now().toString();
             
-            await playAudit({
-            page: page,
+            const result = await playAudit({
+                page: page,
                 port: 9222,
                 thresholds: lighthouseConfig,
                 opts: {
@@ -1100,13 +1104,30 @@ test.describe('Audit de performance Lighthouse', () => {
                 reports: {
                     "formats": { html: true, json: true },
                     name: "lighthouse-report",
-                    directory: `lighthouse-report/${url.name}/report-${Date.now().toString()}`
+                    directory: `lighthouse-report/${url.name}/report-${testTimestamp}`
                 }
             });
+
+            // Sauvegarder les scores pour analyse
+            const scores = {
+                performance: (result.lhr.categories.performance.score ?? 0) * 100,
+                accessibility: (result.lhr.categories.accessibility.score ?? 0) * 100,
+                bestPractices: (result.lhr.categories['best-practices'].score ?? 0) * 100,
+                seo: (result.lhr.categories.seo.score ?? 0)* 100,
+            };
+
+            fs.writeFileSync(`lighthouse-report/${url.name}/scores-${testTimestamp}.json`,
+            JSON.stringify(scores, null, 2)
+            );
+
+            // Le test échoue si les seuils ne sont pas atteints
+            // expect(scores.performance).toBeGreaterThanOrEqual(90);
+            // expect(scores.accessibility).toBeGreaterThanOrEqual(90);
     
             await browser.close();
         });
     }
+
 })
 ````
 
