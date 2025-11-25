@@ -77,7 +77,8 @@
     	* httpResource    
 * [Serveur JSON local](https://github.com/gsoulie/angular-resources/blob/master/ng-json-server.md)         
 * [Form](https://github.com/gsoulie/angular-resources/blob/master/ng-form.md)
-	* Signal Forms     	 
+	* Signal Forms
+ 	* [Signal form example](https://github.com/gsoulie/angular-resources/blob/master/ng-signal-form.ts)		 
 * [ViewChild](https://github.com/gsoulie/angular-resources/blob/master/ng-viewchild.md)     
 * [Directives](https://github.com/gsoulie/angular-resources/blob/master/ng-directive.md)       
 	* Composition Directive
