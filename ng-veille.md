@@ -526,6 +526,18 @@ Concurrent de **NExtJS** pour *ReactJS*
 [Back to top](#veille)     
 
 ## Svelte
+
+> [Comparatif vs Angular 2025](https://www.aquilapp.fr/ressources/projet-web/angular-vs-svelte-quel-framework-web-choisir-pour-votre-projet)
+
+Dans les grandes lignes, Svelte 
+
+* plus léger
+* courbe d'apprentissage plus rapide
+* idéal pour les MVP ou petites app (Pours les ERP ou grosses web app, Angular est plus approprié)
+* plus performant
+* bundle beaucoup plus légers
+* communauté moins grande
+
 => framework-**compilateur** js très proche de React et Vue mais améliore les performances car il effectue le plus gros du travail lors de la compilation ce qui implique des paquets moins volumineux. 
 C'est donc plutôt un hybride, à la fois **framework** et **compilateur**. **Aucune librairie** à embarquer, **pas de DOM virtuel** contrairement à React / Vue / Angular / Ionic... 
 Il propose un cadre de travail, avec ses méthodes et ses fonctionnalités, mais en plus il va compiler votre code en temps réel en JavaScript natif.
