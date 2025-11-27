@@ -9,7 +9,7 @@
 * [Observables imbriqués](#observables-imbriqués)     
 * [Exemples cold et hot](#exemples-cold-et-hot)     
 * [Chaîner les observables](#chaîner-les-observables)     
-* [Unsubscribe to all / takeUntil](#unsubscribe-to-all)
+* [Unsubscribe to all / takeUntilDestroy / takeUntil](#unsubscribe-to-all)
 * [Unsubscribe auto avec signal](#unsubscribe-auto-avec-signal)           
 * [async pipe](#async-pipe)    
 * [Exemples code](#exemples-code)      
@@ -836,84 +836,97 @@ ngOnInit(): void {
 ## Unsubscribe to all
 [Back to top](#observables)
 
-### Etendre un service Unsubscriber
+> **Toute souscription à un observable DOIT OBLIGATOIREMENT avoir un désabonnement associé**
 
-<details>
-	<summary>Service custom de type unsubscriber</summary>
+Pour rappel, un observable représente un flux de données. Ce dernier ne s'exécute pas tant qu'on ne s'y abonne pas (````.subscribe````).
+En revanche, ce dernier **reste ouvert tant qu'on ne s'en désabonnement pas explicitement**, ce qui peut entrainer des **fuites mémoires**
 
-Créer un service *Unsubscriber* [https://github.com/gsoulie/ionic-angular-snippets/blob/master/unsubscriber.service.ts](https://github.com/gsoulie/ionic-angular-snippets/blob/master/unsubscriber.service.ts) et étendre ce service dans les composants.
- 
-</details>
+### Bonnes pratiques
+#### Méthode avec pipe takeUntilDestroyed recommandée depuis Angular 16
 
-<details>
-	<summary>Utilisation du package subsink</summary>
+**Depuis Angular 16** un nouveau pipe **takeUntilDestroyed** fait son apparition et facilite l'écriture du désabonnement des observables :
 
-Astuce pour économiser du code lors du désabonnement aux observable. La méthode suivante permet de faciliter l'action de désabonnement à plusieurs observable en une seule ligne. Cette méthode s'appuie sur le package **subsink**
+````typescript
+import { DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-[subsink documentation](https://www.npmjs.com/package/subsink)       
+export class MyComponent implements OnInit {
+  private dataService = inject(DataService);
+  private destroyRef = inject(DestroyRef);
+  myData;
 
-````
-npm install subsink
-````
-
-*utilisation*
-````javascript
-export class SomeComponent implements OnDestroy {
-  private subs = new SubSink();
-
-  ...
-
-  this.subs.add(observable$.subscribe(...)); 
-
-  this.subs.add(observable$.subscribe(...)); 
-
-  // Ajout de plusieurs souscription en même temps
-  this.subs.add( 
-    observable$.subscribe(...),
-    anotherObservable$.subscribe(...)
-  ); 
-
-  ...
-
-  // Désabonnement
-  ngOnDestroy() {
-    this.subs.unsubscribe();
+  ngOnInit() {
+    this.dataService.fetchData()
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(response => this.myData = response);
   }
 }
 ````
- 
-</details>
 
-### utilisation du takeUntil
+#### Méthode DestroyRef (depuis Angular 16)
 
-Une autre solution pour unsubscribe, consiste à utiliser l'opérateur ````takeUntil````
+Une autre façon de gérer les désabonnements de manière plus moderne est l'utilisation de *DestroyRef*. Cette solution évite d'implémenter l'interface *OnDestroy*
 
 ````typescript
+import { Injectable , DestroyRef } de  '@angular/core' ; 
+class ExampleComponent {
+  constructor() {
+    inject(DestroyRef).onDestroy(() => {
+      // do something when the component is destroyed
+    })
+  }
+}
+````
 
-Public ngOnInit(): void {
+*Exemple type*
 
-   private onDestroy$ = new Subject<void>();
+````typescript
+export class UsersComponent implements OnInit {
 
-   const subscriberCount1 = this.luckyService.getSubscribersCount();
-   this.luckyService.getLuckyNumber()
-     .pipe(takeUntil(this.onDestroy$))
-     .subscribe((luckyNumber: number) => {
-       this.number1 = luckyNumber;
-       console.log('Retrieved lucky number ${this.number1} for subscriber ${subscriberCount1}');
-   });
+  userService = inject(UserService);
+  userSubscription: Subscription | undefined;
+  users: User[] = [];
 
-   const subscriberCount2 = this.luckyService.getSubscribersCount();
-   this.luckyService.getLuckyNumber()
-     .pipe(takeUntil(this.onDestroy$))
-     .subscribe((luckyNumber: number) => {
-       this.number2 = luckyNumber;
-       console.log('Retrieved lucky number ${this.number2} for subscriber ${subscriberCount2}');
-   });
- }
+  constructor() {
+    inject(DestroyRef).onDestroy(() => {
+      if (this.userSubscription) {
+        this.userSubscription?.unsubscribe();
+      }
+    })
+  }
 
- public ngOnDestroy(): void {
-   this.onDestroy$.next();
- }
+  ngOnInit(): void {
+    this.userSubscription = this.userService.fetchUsers()
+    .subscribe((res) => this.users = res);
+  }
+}
+````
+
+
+#### Méthode traditionnelle avec OnDestroy
+
+La méthode la plus courante pour se désabonner des observables est l'utilisation du pipe ````takeUntil```` dont voici une illustration :
+
+````typescript
+export class Component implements OnInit, OnDestroy {
+  data;
+  destroyed = new Subject()
+
+  ngOnInit(): void {
+    this.service.getData()
+      .pipe(
+        takeUntil(this.destroyed),
+      )
+      .subscribe(
+        response => this.data = response
+      )
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed.next();
+    this.destroyed.complete();
+  }
+}
 ````
 
 ## Unsubscribe auto avec signal
