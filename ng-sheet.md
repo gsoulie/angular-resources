@@ -70,7 +70,7 @@
 * [Http](https://github.com/gsoulie/angular-resources/blob/master/ng-http.md)     
 	* Http interceptor : (gestion bearer, loading spinner...)     	
 	* Codes retours Http 
-	* Multipart Form Data      	
+	* Multipart  Data      	
 	* Chargement de données via json      
 	* CORS
  	* Validation de schéma avec Zod
@@ -78,7 +78,8 @@
 * [Serveur JSON local](https://github.com/gsoulie/angular-resources/blob/master/ng-json-server.md)         
 * [Form](https://github.com/gsoulie/angular-resources/blob/master/ng-form.md)
 	* Signal Forms
- 	* [Signal form example](https://github.com/gsoulie/angular-resources/blob/master/ng-signal-form.ts)		 
+ 	* [Signal form example](https://github.com/gsoulie/angular-resources/blob/master/ng-signal-form.ts)
+    * [Signal form example 2](https://github.com/gsoulie/angular-resources/blob/master/ng-signal-form-example.ts)		 
 * [ViewChild](https://github.com/gsoulie/angular-resources/blob/master/ng-viewchild.md)     
 * [Directives](https://github.com/gsoulie/angular-resources/blob/master/ng-directive.md)       
 	* Composition Directive
