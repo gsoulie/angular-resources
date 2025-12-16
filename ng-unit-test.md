@@ -12,7 +12,8 @@
 * [Playwright Angular](#playwright-angular)    
 * [Playwright (détail)](https://github.com/gsoulie/angular-resources/tree/master/playwright)
 * [Exemples de tests](#exemples-de-tests)
-* [Intégration Lighthouse dans Playwright](#intégration-lighthouse-dans-playwright)    
+* [Intégration Lighthouse dans Playwright](#intégration-lighthouse-dans-playwright)
+* [Pipeline CI lighthouse](#pipeline-ci-lighthouse)    
 
 
 ## Ecriture de tests simplifiée avec Angular 20    
@@ -1059,6 +1060,10 @@ Ensuite il suffit d'utiliser lighthouse dans un fichier de test playwright. On p
 **Fichier de test basique d'appel de l'audit**
 
 *audit-lighthouse.spec.ts*
+
+<details>
+	<summary>code</summary>
+
 ````typescript
 import { test } from '@playwright/test';
 import { playAudit, playwrightLighthouseConfig } from 'playwright-lighthouse';
@@ -1132,3 +1137,284 @@ test.describe('Audit de performance Lighthouse', () => {
 ````
 
 > **A retenir** : penser à exclure le chemin des rapports lighthouse dans le *.gitignore*
+	
+</details>
+
+
+# Pipeline CI Lighthouse
+
+Ce document présente la manière de mettre en place un audit Lighthouse via une pipeline CI dans un front en environnement Javascript/Typescript (ie: Angular, NextJS...)
+
+# Mise en oeuvre
+
+La mise en place de ce type de pipeline nécessite les étapes suivantes :
+
+1. Création d'un fichier **.lighthouserc.js** contenant le paramétrage de l'audit
+2. Ajout des scripts d'exécution dans le fichier **package.json**
+3. Création d'un fichier **lighthouse-ci.yaml** décrivant les scripts à jouer dans la pipeline
+4. **(optionnel)** spécifique Angular : Créer un fichier d'environnement dédié à lighthouse
+
+## 1. Fichier de configuration lighthouse
+
+A la racine du projet, créer un fichier **.lighthouserc.js** avec la structure suivante :
+
+*.lighthouserc.js*
+
+<details>
+	<summary>code</summary>
+
+````typescript
+module.exports = {
+  ci: {
+    collect: {  // Collecter les données
+      url: [  // Lister les Urls à analyser
+        'http://localhost:4200/',
+        'http://localhost:4200/home',
+        'http://localhost:4200/products',
+        'http://localhost:4200/users',
+      ],
+      settings: {
+        // Temps d'attente maximum pour le chargement d'une page (en ms). Par défaut ce temps est de 45s
+        maxWaitForLoad: 60000,  
+      },
+      // Commande permettant de lancer l'audit dans  le projet (correspond au script défini dans le package.json)
+      startServerCommand: 'npm run start:lighthouse', 
+
+      // Pattern regex Angular pour détecter que le serveur est prêt
+      startServerReadyPattern: 'Local:.*http://localhost:4200',
+
+      // Temps maximum d'attente pour que le serveur se lance (en ms). Par défaut 10s, souvent trop court pour Angular
+      startServerReadyTimeout: 120000, 
+    },
+    assert: { // Critères de réussite ou d'échec
+      preset: 'lighthouse:recommended', // Ce preset active ~100 audits standards (autres preset : lighthouse:all / lighthouse:pwa)
+      assertions: {
+        'categories:performance': ['warn', { minScore: 0.9 }],  // warn ne fait pas échouer le build
+        'categories:accessibility': ['error', { minScore: 0.9 }],
+        'categories:best-practices': ['error', { minScore: 0.9 }],
+        'categories:seo': ['error', { minScore: 0.9 }],
+      },
+    },
+    upload: { // Où stocker les résultats
+      target: 'temporary-public-storage',
+    },
+  },
+};
+````
+	
+</details>
+
+### Quelques explications
+* Lighthouse réalise 3 audits par Urls afin d'obtenir une moyenne stable. Les résultats sont ensuite agrégés ppour avoir un score médian.
+* Chaque Url augmente le temps d'exécution (~30-60s par Url)
+* Lighthouse ne lance les audits que lorsqu'il détecte que le serveur est prêt. Pour ce faire il se base sur le pattern défini dans la variable ````startServerReadyPattern```` (**attention :** différent selon les technos ou même les versions de la technos du projet, à adapter donc). De plus, si le pattern n'est pas bon, Lighthouse attendra **indéfiniment** !
+> **Astuce** : se baser sur le résultat d'une commande ````ng serve```` ou ````npm run dev```` pour connaître la syntaxe du pattern attendu
+*Exemple de pattern Angular*
+````
+# Angular 20+
+➜  Local:   http://localhost:4200/
+➜  Network: http://192.168.1.100:4200/
+
+# Angular 17+
+Application bundle generation complete
+
+# Angular 16
+Angular Live Development Server is listening
+
+# Permissif*
+'listening|Local|ready' (match plusieurs patterns)
+````
+
+* Ajuster le paramètre ````startServerReadyTimeout````. Par défaut réglé à 10s, ce temps est souvent insuffisant pour un serveur Angular. En effet, ce dernier est parfois long à compiler, d'autre part le script ````npm install```` peut être assez long dans la CI. Si une erreur ````ERROR: Timed out waiting for server to start```` survient, c'est qu'il faut augmenter ce temps.
+* Catégorie ````categories:best-practices```` teste les éléments suivants
+  - Utilisation Https
+  - Pas d'erreurs dans la console
+  - Bibliothèques JS à jour et sans vulnérabilités
+  - Images avec bonnes dimensions
+  - Pas d'API dépréciées
+* Catégorie ````categories:seo```` teste les éléments suivants
+  - Balise ````<title>```` présente
+  - Meta description
+  - Balises ````<meta>```` viewport
+  - Texte lisible (contraste, taille)
+  - Liens avec texte informatif
+  - Images avec attribut ````alt````
+
+## 2. Scripts d'exécution
+
+Ajouter les scripts d'exécution lighthouse suivants dans le fichier *package.json* (front en environnement NodeJS)
+
+*package.json*
+````json
+"scripts": {
+    "start:lighthouse": "ng serve --host 0.0.0.0 --port 4200 --configuration=lighthouse",
+    "build:lighthouse": "ng build --configuration=lighthouse",
+  }
+````
+
+> **Remarque** : ici nous spécifions un environnement particulier avec l'option ````--configuration=lighthouse````. Ceci est spécifique pour Angular dans le cas où l'on souhaite auditer la route racine avec redirection automatique, comme expliqué plus bas dans le point 4
+
+## 3. Pipeline CI
+
+Exemple de pipeline CI (ici une github Action)
+
+*lighthouse-ci.yaml*
+
+<details>
+	<summary>code</summary>
+
+````yaml
+name: Lighthouse CI
+#on: [push] # Exécute à chaque push
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.14
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.15.x
+
+      - name: Run Lighthouse CI
+        run: lhci autorun
+
+````
+	
+</details>
+
+> Explication : C'est la commande ````lhci autorun```` qui va aller chercher à  la racine du projet s'il existe un fichier *.lighthouserc.js* et l'exécuter si elle le trouve
+
+## 4. Créer un environnement spécifique Lighthouse pour Angular
+
+### Problématique
+Lighthouse ne sait pas gérer la redirection automatique pratiquée telle que ci-dessous par Angular avec la route par défaut 
+
+*app.routes.ts*
+````typescript
+{
+  path: '',                    // Route racine http://localhost:4200/
+  redirectTo: 'home',          // Redirige vers /home
+  pathMatch: 'full'
+}
+````
+
+#### Explications :
+**Fonctionnement du routeur Angular**
+
+Voici ce qu'il se passe lorsque l'utilisateur navigue sur ````http://localhost:4200```` (ou sur la route racine de l'appplication déployée peu importe l'environnement) :
+1. Angular détecte le chemin ````path: ''````
+2. Il redirige donc automatiquement ce chemin vers ````http://localhost:4200/home````
+3. La page se charge
+
+Ceci est le **fonctionnement normal d'Angular**.
+
+**Que se passe t'il au niveau de Lighthouse avec ce fonctionnement ?**
+
+Dans la configuration de lighthouse, nous avons choisi d'auditer la route ````http://localhost:4200/````
+
+1. Lighthouse charge donc l'url ````http://localhost:4200/````
+2. Angular, lui, redirige vers ````http://localhost:4200/home````
+3. Lighthouse détecte le changement de route,  sauf qu'il s'attend à auditer la route ````http://localhost:4200/````
+4. Lighthouse considère donc ceci comme un traitement inattendu et plante
+
+#### Quelles conséquences ?
+
+**Pourquoi c'est problématique ?**
+1. **Scores faussés**
+Lighthouse mesure le temps de chargement. Avec la redirection :
+
+* Temps de la première requête (/)
+* en plus du Temps de la redirection
+* en plus du Temps de la deuxième requête (/home)
+
+**Résultat :** Scores de performance artificiellement plus bas à cause du temps de redirection.
+
+2. **URL finale différente**
+   
+Lighthouse génère un rapport pour ````http://localhost:4200/```` mais analyse en réalité ````http://localhost:4200/home````.
+
+**Résultat :** Confusion dans les rapports, données incohérentes.
+
+3. **Comportement imprévisible en CI**
+   
+En environnement CI (GitHub Actions), les redirections peuvent être encore plus problématiques :
+
+* Timeouts plus fréquents
+* Erreurs de navigation
+* Tests qui passent en local mais échouent en CI
+
+### Solutions
+
+Deux solutions à ce problème sont possibles. 
+
+#### Ne pas auditer la route racine
+
+La première est de **ne pas auditer la route racine**. Pour cela il suffit de retirer la route ````http://localhost:4200```` dans la liste des urls du fichier **.lighthouserc.js**
+
+#### Créer un environnement spécifique pour lighthouse
+La seconde solution consiste à créer un fichier d'environnement spécifique pour l'exécution des audits lighthouse.
+
+**1. Créer un fichier *environments/environment.lighthouse.ts***
+
+````typescript
+export const environment = {
+  production: true
+  disableRootRedirect: true,  // Désactive les redirections automatiques
+};
+````
+**2. Ajouter l'option ````--configuration=lighthouse```` dans les scripts du fichier *package.json***
+
+**3. Mettre à jour le fichier *angular.json*** pour y ajouter le nouvel environnement dans les sections *serve* et *build*
+````json
+"build": {
+  "configuratiion": {
+    "lighthouse": {
+      "fileReplacements": [
+        {
+          "replace": "src/app/environments/environment.ts",
+           "with": "src/app/environments/environment.lighthouse.ts"
+        }
+      ]
+    }
+  }
+},
+"serve": {
+  "configuratiion": {
+    "lighthouse": {
+        "buildTarget": "myProjectName:build:lighthouse"
+    }
+  }
+}
+````
+
+**4. Modifier le chargement de la route racine**
+*app.routes.ts*
+````typescript
+export const routes: Routes = [
+  {
+    path: '',
+    // redirectTo: 'home',
+    // pathMatch: 'full'
+    
+    // Si `disableRootRedirect` , on charge directement le composant sans redirection
+    ...(environment.disableRootRedirect
+      ? { loadComponent: () => import('./components/home/home.component') }
+      : { redirectTo: 'home', pathMatch: 'full' }),
+  }
+]
+````
