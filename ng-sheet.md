@@ -79,7 +79,8 @@
 * [Form](https://github.com/gsoulie/angular-resources/blob/master/ng-form.md)
 	* Signal Forms
  	* [Signal form example](https://github.com/gsoulie/angular-resources/blob/master/ng-signal-form.ts)
-    * [Signal form example 2](https://github.com/gsoulie/angular-resources/blob/master/ng-signal-form-example.ts)		 
+    * [Signal form example 2](https://github.com/gsoulie/angular-resources/blob/master/ng-signal-form-example.ts)
+    * [Signal form example 3 champs dépendants](https://github.com/gsoulie/angular-resources/blob/master/ng-signal-form-3.ts)     
 * [ViewChild](https://github.com/gsoulie/angular-resources/blob/master/ng-viewchild.md)     
 * [Directives](https://github.com/gsoulie/angular-resources/blob/master/ng-directive.md)       
 	* Composition Directive
