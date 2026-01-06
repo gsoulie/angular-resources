@@ -220,9 +220,9 @@ Si l'on souhaite uniquement *détecter* le changement de valeur d'un signal, on 
 ✔️ Intégrer une lib non-réactive     
 
 ### Ne pas faire
-❌ Modifier un signal dans un effect qui dépend de ce même signal → boucle infinie
-❌ Utiliser un effect pour calculer une valeur → utiliser computed
-❌ Mettre de la logique métier complexe → réserver l'effect aux réactions
+❌ Modifier un signal dans un effect qui dépend de ce même signal → boucle infinie     
+❌ Utiliser un effect pour calculer une valeur → utiliser computed    
+❌ Mettre de la logique métier complexe → réserver l'effect aux réactions      
 
 **IMPORTANT** Pour traquer le changement de valeur, il faut utiliser le signal dans le ````effect()````. De plus, ce dernier ne se déclenche pas si la valeur observée n'est pas modifiée. 
 
