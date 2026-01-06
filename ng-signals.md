@@ -224,9 +224,52 @@ Si l'on souhaite uniquement *détecter* le changement de valeur d'un signal, on 
 ❌ Utiliser un effect pour calculer une valeur → utiliser computed    
 ❌ Mettre de la logique métier complexe → réserver l'effect aux réactions      
 
+### Bonnes pratiques Angular
+✔️ À faire     
+Créer les effects dans :
+* constructeur
+* inject() context
+* Les garder courts et lisibles
+* Extraire la logique métier ailleurs
+* Utiliser computed dès que possible
+
+❌ À éviter     
+* Chaîner des effects entre eux
+* Muter les mêmes signals
+* Mélanger calcul et effet
+
 **IMPORTANT** Pour traquer le changement de valeur, il faut utiliser le signal dans le ````effect()````. De plus, ce dernier ne se déclenche pas si la valeur observée n'est pas modifiée. 
 
-*exemple 1*
+*exemple : Synchronisation du localStorage*
+
+````typescript
+const theme = signal<'light' | 'dark'>('light');
+
+effect(() => {
+  localStorage.setItem('theme', theme());
+});
+````
+
+*exemple : Searchbar*
+
+````typescript
+export class SearchComponent {
+  query = signal('');
+
+  results = signal<Result[]>([]);
+
+  constructor(private api: SearchApi) {
+    effect(() => {
+      const q = this.query().trim();
+      if (q.length < 3) return;
+
+      this.api.search(q).subscribe(r => this.results.set(r));
+    });
+  }
+}
+````
+
+*exemple*
 
 ````typescript
 //The effect will be re-run whenever any 
@@ -248,7 +291,7 @@ effect(() => {
 
 Dans le code suivant, l'effect est déclenché à l'initialisation et affichera 'Effect runs with : true' :
 
-*Exemple 2*
+*exemple*
 
 ````typescript
 @Component({
