@@ -1,6 +1,6 @@
 [< Back to main Menu](https://github.com/gsoulie/Mobile-App-Development)    
 
-# AI Promptingn
+# AI Prompting
 
 * [Collection de prompts](#collection-de-prompts)    
 
