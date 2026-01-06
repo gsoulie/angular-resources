@@ -212,12 +212,12 @@ Les signaux **computed** se basent sur la valeur actuelle (la plus récente) des
 Si l'on souhaite uniquement *détecter* le changement de valeur d'un signal, on peut utiliser la fonction **effect()**. Cette dernière doit s'exécuter dans un contexte d'injection (temps du constructeur) car il injecte **DestroyRef** en arrière plan pour fournir un auto-nettoyage. Il est **déclenché** lorsque la valeur des signaux qui sont à l'intérieur du bloc de code sont mises à jour.
 
 ### Quand utiliser un effect ?
-✔️ Appeler une API
-✔️ Synchroniser un état avec le stockage local
-✔️ Logger des actions utilisateur
-✔️ Déclencher une navigation
-✔️ Mettre à jour un service externe
-✔️ Intégrer une lib non-réactive
+✔️ Appeler une API     
+✔️ Synchroniser un état avec le stockage local     
+✔️ Logger des actions utilisateur    
+✔️ Déclencher une navigation       
+✔️ Mettre à jour un service externe    
+✔️ Intégrer une lib non-réactive     
 
 ### Ne pas faire
 ❌ Modifier un signal dans un effect qui dépend de ce même signal → boucle infinie
