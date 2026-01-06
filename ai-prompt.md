@@ -225,7 +225,7 @@ Créer tes prompts templates personnels :
 * Tests
 * Refactor
 
-# Collection de prompt
+# Collection de prompts
 
 ## Analyse projet
 
