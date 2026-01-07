@@ -527,6 +527,37 @@ FORMAT :
 ## Test
 
 <details>
+  <summary>Génération tests e2e avec Playwright</summary>
+
+````
+Agis comme un QA senior.
+
+À partir de cette user story, propose :
+- scénarios de test E2E
+- cas limites
+- erreurs utilisateur fréquentes
+
+Ne génère PAS de code Playwright.
+
+````
+
+**Génération de code Playwright sous contraintes strictes**
+
+````
+Génère un test Playwright pour le scénario suivant.
+
+Contraintes :
+- Utiliser des data-testid
+- Pas de sélecteurs CSS fragiles
+- Attentes explicites (no waitForTimeout)
+- Test indépendant et idempotent
+
+Framework : Playwright + TypeScript
+````
+  
+</details>
+
+<details>
   <summary>Génération de tests de qualité</summary>
   
 ````
