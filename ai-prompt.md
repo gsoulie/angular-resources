@@ -143,7 +143,7 @@ Toujours préciser :
 * conventions
 * limites
 
-Rè## gle n°2 : découper les prompts
+## Règle n°2 : découper les prompts
 
 ❌ Un gros prompt fourre-tout      
 ✅ Une séquence :     
