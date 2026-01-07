@@ -72,6 +72,21 @@ FORMAT DE SORTIE :
 
 👉 Tu obtiens moins de surprises, plus de constance.
 
+
+### Donne toujours un rôle explicite
+
+Les modèles réagissent très fortement à la projection de rôle.
+
+**Rôles efficaces pour un sénior**
+* Architecte logiciel
+* Tech lead frontend
+* Reviewer de pull request
+* Staff engineer
+* Expert performance / sécurité / accessibilité
+* Mainteneur long terme d’un produit critique
+
+> 📌 Règle : 1 prompt = 1 rôle clair
+
 # 3. Patterns de prompting avancé pour développeurs
 ## 3.1 Prompt “Reviewer strict” (essentiel)
 
