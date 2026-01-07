@@ -155,7 +155,7 @@
 * [Gestion des logs](https://github.com/gsoulie/angular-resources/blob/master/ng-log.md)       
 * [Téléchargement et upload de fichiers](https://github.com/gsoulie/angular-resources/blob/master/ng-download.md)       
 * [Veille](https://github.com/gsoulie/angular-resources/blob/master/ng-veille.md)         
-	* React,  Vue, Nx, NestJS, Next, Nuxt, Svelte, Prisma, Flutter, Supabase, Remix, Nativescript, GraphQL, SSE (Server Sent actions)           
+	* React,  Vue, Nx, NestJS, Next, Nuxt, Svelte, Prisma, Flutter, Supabase, Remix, Nativescript, GraphQL, SSE (Server Sent actions), gRPC                
 	* Angular 14       
 * [Firebase - Angularfire](https://github.com/gsoulie/ionic2-resources/blob/master/ng-angular-fire.md)     
 * [Supabase](https://github.com/gsoulie/angular-resources/blob/master/ng-supabase.md)      
