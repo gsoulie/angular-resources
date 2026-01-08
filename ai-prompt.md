@@ -353,18 +353,20 @@ Ne propose rien de superflu.
   <summary>Analyse globale du projet</summary>
 
 ````
-Agis comme un reviewer technique senior, très critique. Analyses tout le code du projet et génères un rapport détaillé sous forme de fichier markdown (project-analyze-report.md) en ciblant en priorité les points suivants :
- - qualité du code (formattage, bonnes pratiques, découpage logique des éléments, respect  des principes SOLID, KISS, DRY...)
+Agis comme un reviewer technique senior, très critique. Analyses le code et la structure du projet et génères moi un rapport détaillé sous forme de fichier markdown (project-analyze-report.md) en ciblant en priorité les points suivants :
+ - qualité du code (formattage, bonnes pratiques liées à la technologie employée, découpage logique des éléments, respect  des principes fondamentaux SOLID, KISS, DRY...)
  - problèmes de conceptions
  - bugs potentiels
  - problèmes de performance
- - problèmes de sécurité : niveau de risque 
+ - problèmes de sécurité : niveau de risque, failles potentielles 
  - dette technique éventuelle
+ - repect des règles principales d'accessibilité fournies par le W3C - WCAG2
  - points à améliorer / corriger
  - autres recommandations pertinentes de ta part pour améliorer la qualité / sécurité
  
 Sois précis, factuel et justifié.
 Ne propose pas de solution dans un premier temps.
+Pour finir donnes moi ton niveau de conformité sur le projet en fonction des exigences proposées ci-dessus
 ````
   
 </details>
