@@ -20,7 +20,7 @@
 * [Dépréciations](#dépréciations)
 
 
-# Angular b21
+# Angular v21
 
 <details>
 	<summary>Nouveautés de la version 21</summary>
@@ -57,8 +57,8 @@ Sans doute l'une des nouveautés la plus attendue, mais qui restera en mode **ex
 ````typescript
 <!-- View -->
 <form>
-	<input id="userName" type="text" [field]="loginForm.name" />
-	<input id="userPassword" type="text" [field]="loginForm.password" />
+	<input id="userName" type="text" [formField]="loginForm.name" />
+	<input id="userPassword" type="text" [formField]="loginForm.password" />
 </form>
 
 export class App {
@@ -73,7 +73,7 @@ export class App {
 }
 ````
 
-La nouvelle propriété **[field]** permet de binder les champs du formulaire.
+La nouvelle propriété *[field]* (**[formField]** depuis 21.0.7) permet de binder les champs du formulaire.
 
 > Voir article sur Signal Forms pour plus de détails
 
