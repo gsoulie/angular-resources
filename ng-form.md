@@ -57,7 +57,7 @@ Contrairement au ````ReactiveForm````, les propriétés du ````FieldState```` so
 
 ## La directive Field 
 
-La directive ````[field]```` permet de connecter les composants UI aux champs du formulaire (connecte l'état des champs aux contrôles du formulaire)
+La directive *[field]* (**[formField]** depuis 21.0.7) permet de connecter les composants UI aux champs du formulaire (connecte l'état des champs aux contrôles du formulaire)
 
 Cette directive gère automatiquement :
 * Le binding bi-directionnel entre la valeur du champs et le composant UI
@@ -76,10 +76,10 @@ import { form } from '@angular/forms/signals';
   template: `
     <form>
       <label for="title">Book Title</label>
-      <input id="title" [field]="titleField" />
+      <input id="title" [formField]="titleField" />
 
       <label for="author">Author</label>
-      <input id="author" [field]="authorField" />
+      <input id="author" [formField]="authorField" />
 
       <button [disabled]="!reviewForm().valid()">Submit Review</button>
     </form>
@@ -213,16 +213,16 @@ function validateShippingAddress(
   template: `
     <form>
       <label for="country">Country</label>
-      <select id="country" [field]="form.country">
+      <select id="country" [formField]="form.country">
         <option value="US">United States</option>
         <option value="CA">Canada</option>
       </select>
 
       <label for="state">State</label>
-      <input id="state" [field]="form.state" />
+      <input id="state" [formField]="form.state" />
 
       <label for="zipCode">ZIP Code</label>
-      <input id="zipCode" [field]="form.zipCode" />
+      <input id="zipCode" [formField]="form.zipCode" />
 
       @for (error of form().errors(); track error.kind) {
         <span class="error">{{ error.message }}</span>
@@ -509,23 +509,23 @@ const nameSchema: Schema<string> = schema((path) => {
   template: `
     <h3>SignUp Signal Form</h3>
     <form (submit)="onSubmit($event)">
-      <input [field]="signupForm.firstName" placeholder="Enter Your Name" type="text" />
+      <input [formField]="signupForm.firstName" placeholder="Enter Your Name" type="text" />
       @for (error of signupForm.firstName().errors(); track $index) {
         <div class="error">{{error.message}}</div>        
       }
       
-      <input [field]="signupForm.lastName" placeholder="Your Last Name" type="text" />
+      <input [formField]="signupForm.lastName" placeholder="Your Last Name" type="text" />
       @for (error of signupForm.lastName().errors(); track $index) {
         <div class="error">{{error.message}}</div>        
       }
       
-      <input [field]="signupForm.email" placeholder="Provide valid Email" type="email" />
+      <input [formField]="signupForm.email" placeholder="Provide valid Email" type="email" />
       @for (error of signupForm.email().errors(); track $index) {
         <div class="error">{{error.message}}</div>        
       }
       
       <label> Notify By Email:
-        <input [field]="signupForm.notifyByEmail" type="checkbox" />
+        <input [formField]="signupForm.notifyByEmail" type="checkbox" />
       </label>
       <button [disabled]="signupForm().submitting() || !signupForm().valid()" type="submit">Save</button>
     </form>
