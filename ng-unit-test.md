@@ -13,7 +13,8 @@
 * [Playwright (détail)](https://github.com/gsoulie/angular-resources/tree/master/playwright)
 * [Exemples de tests](#exemples-de-tests)
 * [Intégration Lighthouse dans Playwright](#intégration-lighthouse-dans-playwright)
-* [Pipeline CI lighthouse](#pipeline-ci-lighthouse)    
+* [Pipeline CI lighthouse](#pipeline-ci-lighthouse)
+* [Exécuter lighthouse depuis CLI](#exécuter-lighthouse-depuis-cli)     
 
 
 ## Ecriture de tests simplifiée avec Angular 20    
@@ -1417,4 +1418,38 @@ export const routes: Routes = [
       : { redirectTo: 'home', pathMatch: 'full' }),
   }
 ]
+````
+
+# Exécuter Lighthouse depuis CLI
+
+Il est possible d'exécuter un audit lighthouse depuis la CLI npm.
+
+**1 - Installation**
+
+````
+# temporary via npx
+npx lighthouse --version
+
+# or add as dev dependency
+npm install --save-dev lighthouse
+````
+
+**2 - Exécuter l'application dans un terminal**
+````
+ng serve -o
+
+# Ou audit sur la build en mode production :
+npm run build
+npx http-server ./dist/<your-app-folder> -p 8080
+````
+
+**3 - Lancer l'audit sur la page  souhaitée**
+````
+npx lighthouse http://localhost:4200/users --output html --output-path ./lighthouse-report.html --view
+
+# only run specific categories
+npx lighthouse http://localhost:4200 --only-categories=performance,accessibility --output json --output-path ./lh.json
+
+# basic (uses your installed Chrome)
+npx lighthouse http://localhost:4200 --output html --output-path ./lighthouse-report.html
 ````
