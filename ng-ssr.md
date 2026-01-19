@@ -2,20 +2,232 @@
 
 # Server-Side Rendering
 
+* [SSR depuis Angular 20](#ssr-depuis-angular-20)     
 * [Présentation et rappel](#présentation-et-rappel)
 * [CSR vs SSR](#csr-vs-ssr)
 * [Historique](#historique)     
 * [Angular 17 SSR](#angular-17-ssr)    
 
+
+## SSR depuis angular 20
+
+Mémo sur le SSR depuis Angular 20
+
+
+## Modes de rendus 
+
+### SSR (Server Side Rendering)  
+
+La page est :
+1. Rendue sur le serveur
+2. HTML envoyé complet
+3. Hydratée côté client
+
+**Avantages**
+
+✅ SEO maximal     
+✅ LCP excellent    
+✅ Données visibles immédiatement    
+✅ Preview link social OK     
+
+**Inconvénients**
+
+❌ Coût serveur     
+❌ Latence réseau backend    
+❌ Plus complexe     
+
+**Cas d'utilisation**
+
+Page produit e-commerce
+
+Pourquoi ?
+* Google doit indexer
+* Meta OG tags dynamiques
+* Vitrine marketing
+* Conversion
+
+**Quand utiliser SERVER ?**
+
+👉 Pages publiques SEO   
+👉 Landing pages     
+👉 Articles     
+👉 Pages marketing     
+👉 Catalogue     
+👉 Page vitrine    
+
+
+### SSG (Static Side Generation)
+
+Pages générées :
+* Au build time
+* Sauvegardées en HTML
+* Servies via CDN
+
+**Avantages**
+
+🚀 Ultra rapide    
+💸 Zéro coût serveur     
+🛡️ Ultra sécurisé     
+🌍 CDN ready     
+⚡ TTFB imbattable    
+
+**Inconvénients**
+
+❌ Données figées    
+❌ Build plus long    
+❌ Pas dynamique par user    
+
+
+**Cas d'utilisation**
+
+Page de blog
+
+Parfait pour :
+* Contenu stable
+* SEO
+* Lecture passive
+
+**Quand utiliser STATIC ?**
+
+👉 Documentation      
+👉 Blog    
+👉 Landing pages figées    
+👉 Pages SEO non personnalisées    
+👉 Legal pages    
+
+### CSR (Client Side Rendering)
+
+La page est :
+* Vide côté serveur
+* Chargée par JS
+* Rendue dans le navigateur
+
+**Avantages**
+
+✅ Pas de coût serveur    
+✅ Simplicité    
+✅ Idéal app métier    
+✅ Interactivité lourde     
+
+**Inconvénients**
+
+❌ SEO faible     
+❌ First paint lent     
+❌ JS blocking     
+
+**Cas d'utilisation**
+
+Page dashboard admin
+
+Pourquoi ?
+* Login requis
+* SEO inutile
+* Data realtime
+* Graphiques lourds
+
+**Quand utiliser CLIENT ?**
+
+👉 Backoffice   
+👉 Applications métier   
+👉 Admin    
+👉 Interfaces internes   
+👉 Tools privés   
+
+### Matrice de décision simple (à mémoriser)
+
+Questions à se poser :
+
+|Question|Oui|Non|
+|-|-|-|
+|**1. SEO important ?**|SERVER ou STATIC|Client|
+|**2. Contenu personnalisé par utilisateur ?**|SERVER ou CLIENT   |STATIC|
+|**3. Données temps réel ?**|CLIENT|SERVER / STATIC|
+|**4. Volume trafic élevé ?**|STATIC ou CDN SSR|SERVER ok|
+|**5. Données critiques SEO (Meta, OG) ?**|SERVER ou STATIC||
+
+
+## Règles d'or
+
+### Aucun accès direct aux api browser
+
+* window
+* document
+* localStorage
+* navigator
+
+Utiliser :
+
+````typescript
+import { isPlatformBrowser } from '@angular/common';
+
+if (isPlatformBrowser(this.platformId)) {
+  localStorage.getItem(...)
+}
+````
+
+### Gérer le cache dans les requêtes serveur : 
+
+````typescript
+http.get('/api/data', {
+  cache: 'force-cache'
+})
+````
+
+### Gérer l'affichage quand le contenu est prêt avec :
+
+````html
+@defer {
+  <heavy-component />
+}
+````
+
+### SEO dynamique
+
+````typescript
+inject(Meta).updateTag({
+  name: 'description',
+  content: 'SEO SSR ready'
+});
+````
+
+### Angular permet les routes serveur (API internes) comme NextJS
+
+````
+// server/api/user.ts
+
+export const GET = () => {
+  return new Response(JSON.stringify(data))
+}
+````
+
+### Sécurité : activer CSP
+
+*server.ts*
+````
+res.setHeader(
+ 'Content-Security-Policy',
+ "default-src 'self'"
+);
+````
+
+Utiliser aussi ````provideTrustedTypes()```` qui est anti XSS runtime
+
 ## Présentation et rappel
-Angular 16 apporte une avancée majeure avec la nouvelle hydratation non-destructive pour le rendu côté serveur (SSR)
+
+<details>
+	<summary>Angular 16 apporte une avancée majeure avec la nouvelle hydratation non-destructive pour le rendu côté serveur (SSR)</summary>
+
 
 Avant de plonger dans les détails de l'hydratation non-destructive, il est important de comprendre la différence entre le rendu côté client (CSR) et le rendu côté serveur (SSR). Dans une application monopage (SPA) utilisant le rendu côté client, l'application génère le HTML dans le navigateur à l'aide de JavaScript. Lorsque l'application envoie une requête initiale, le serveur web renvoie un fichier HTML minimal qui sert de conteneur pour l'application. Le navigateur procède ensuite au téléchargement et à l'exécution des fichiers JavaScript référencés dans le fichier HTML pour démarrer l'application.
 
 > Article source : [Server-side rendering in Angular 16](https://blog.logrocket.com/server-side-rendering-angular-16/)
-> 
+	
+</details>
+
 ## CSR vs SSR
-Le rendu côté client (CSR) présente quelques inconvénients, notamment :
+
+<details>
+	<summary>Le rendu côté client (CSR) présente quelques inconvénients, notamment :</summary>
 
 * **Une page vierge pendant le temps de chargement initial** : Il y a un délai avant que le bundle JavaScript ne soit téléchargé et que l'application ne soit complètement démarrée. Pendant ce laps de temps, les utilisateurs peuvent voir une page vierge, ce qui impacte leur expérience utilisateur.
 * **Non adapté au référencement (SEO)** : Les pages basées sur le rendu côté client contiennent principalement un HTML minimal avec des liens vers le bundle JavaScript, ce qui peut rendre difficile l'indexation du contenu de la page par les moteurs de recherche, réduisant ainsi leur visibilité dans les résultats de recherche.
@@ -23,6 +235,9 @@ Le rendu côté client (CSR) présente quelques inconvénients, notamment :
 Le rendu côté serveur (SSR) résout ces problèmes. 
 
 Avec le **SSR**, le HTML est généré côté serveur, ce qui permet d'obtenir des pages complètement formées et adaptées au référencement. De plus, le temps de chargement initial est plus rapide, car le HTML est renvoyé au navigateur et affiché avant le téléchargement des bundles JavaScript. Ainsi, lorsque le référencement et le temps de chargement initial sont prioritaires, le SSR est l'option recommandée.
+
+	
+</details>
 
 ## Historique
 Angular prend en charge le SSR grâce à **Angular Universal**, son package de rendu côté serveur qui permet de générer le rendu à la fois côté client et côté serveur. Angular Universal offre des fonctionnalités de rendu côté serveur dynamique et de prérendu statique. Cependant, cette forme de SSR avait quelques limitations en raison de sa nature **"destructive"**.
@@ -69,6 +284,9 @@ L'utilisation de Next.js facilite grandement la prise en charge du SSR avec Reac
 En résumé, Angular 16 Universal offre un niveau de SSR similaire à Next.js + React, mais Next.js dispose d'un support plus abouti dans certaines fonctionnalités telles que l'ISR et la combinaison de différentes stratégies de rendu.
 
 ## Angular 17 SSR
+
+<details>
+	<summary>details</summary>
 
 * https://www.youtube.com/watch?v=oRg065Ebb7U&ab_channel=Ga%C3%ABtanRouzi%C3%A8s
 * https://www.youtube.com/watch?v=U1MP4uCuUVI&ab_channel=AngularUniversity
@@ -172,6 +390,10 @@ Nous avons vu qu'après compilation, nous avons 2 répertoires (browser et serve
 ````
 ng build --configuration production --deploy-url=<YOUR_CDN>
 ````
+	
+</details>
+
+
 
 * La première chose à faire est de déployer le server express sur un serveur NodeJS et de run le ````main.js````
 * Ensuite déployer la partie browser sur le serveur ou un CDN (firebase, aws, etc...)
