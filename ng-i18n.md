@@ -4,7 +4,9 @@
 
 > [Documentation officielle](https://www.youtube.com/watch?v=KNTN-nsbV7M&t=761s&ab_channel=Angular)
 
-> [Autre source plus poussée](https://lokalise.com/blog/angular-i18n/)     
+> [Autre source plus poussée](https://lokalise.com/blog/angular-i18n/)
+
+* [ngx-translate](#ngx-translate)    
 
 ## Installation et configuration
 
@@ -229,6 +231,140 @@ ng serve dist/i18n-project/
           "defaultConfiguration": "development"
         },
 ````
+
+## ngx-translate
+
+<details>
+	<summary>Gestion des traductions avec ngx-translate</summary>
+
+
+### Installation et configuration
+
+**Insntallation**
+````
+npm install @ngx-translate/core @ngx-translate/http-loader
+````
+
+**Configuration globale**
+
+*app.config.ts*
+````typescript
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideBrowserGlobalErrorListeners,
+  provideZoneChangeDetection,
+} from "@angular/core";
+import { provideRouter } from "@angular/router";
+
+import { routes } from "./app.routes";
+import { MERMAID_OPTIONS, provideMarkdown } from "ngx-markdown";
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    // { provide: LOCALE_ID, useValue: 'fr-FR'},
+    provideMarkdown({
+      mermaidOptions: {
+        provide: MERMAID_OPTIONS,
+        useValue: {
+          darkMode: true,
+          look: "handDrawn",
+        },
+      },
+    }),
+     provideTranslateService({
+          loader: provideTranslateHttpLoader({prefix:"/assets/i18n/", suffix: 'json'}),
+          fallbackLang: 'en',
+          lang: 'fr'
+      })
+  ],  
+};
+
+````
+
+**Fichiers de traduction**
+
+Créer ensuite les fichier de langue : 
+
+````
+app/assets/i18n/en.json
+app/assets/i18n/fr.json
+````
+
+*Exemple de fichier langue (en)* :
+````json
+{
+	"dashboard": {
+		"title": "My dashboard title",
+		"subTitle": "Lorem ipsum dolor"
+	}
+}
+````
+
+**Service global pour gérer la préférence de la langue**
+
+*langage-service.ts*
+
+````typescript
+import { inject, Injectable, signal } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
+const STORAGE_KEY = 'preferred_language';
+
+@Injectable({ providedIn: 'root' })
+export class LanguageService {
+    private readonly translate = inject(TranslateService)
+  readonly currentLang = signal<string>('fr');
+
+  constructor() {
+    this.init();
+  }
+
+  private init() {
+    const savedLang = localStorage.getItem(STORAGE_KEY) ?? 'fr';
+
+    this.setLanguage(savedLang);
+  }
+
+  setLanguage(lang: string) {
+    this.translate.use(lang);
+    this.currentLang.set(lang);
+    localStorage.setItem(STORAGE_KEY, lang);
+  }
+
+  toggleLanguage() {
+    const newLang = this.currentLang() === 'en' ? 'fr' : 'en';
+    this.setLanguage(newLang);
+  }
+}
+
+````
+
+### Utilisation
+
+Ajouter l'import suivant dans les composants :
+
+````typescript
+import { TranslatePipe } from "@ngx-translate/core";
+
+@Components({
+	imports: [TranslatePipe]
+})
+````
+
+Utiliser ensuite le pipe dans les templates :
+
+````html
+<h1>{{ 'dashboard.title' | translate }}</h1>
+````
+	
+</details>
 
 ````
 ng serve -o --configuration=en
