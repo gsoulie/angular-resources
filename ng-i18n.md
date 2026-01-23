@@ -346,6 +346,32 @@ export class LanguageService {
 
 ````
 
+**Exemple de bouton pour switch de langue**
+
+````typescript
+import { Component, inject } from "@angular/core";
+import { LanguageService } from "../../../services/language-service";
+
+@Component({
+    selector: 'app-language-switch',
+    template: `
+    <button (click)="toggle()">
+      {{ lang() === 'en' ? 'FR 🇫🇷' : 'EN 🇬🇧' }}
+    </button>
+
+    `
+})
+export class LangSwitchComponent {
+private readonly languageService = inject(LanguageService);
+
+  lang = this.languageService.currentLang;
+
+  toggle() {
+    this.languageService.toggleLanguage();
+  }
+}
+````
+
 ### Utilisation
 
 Ajouter l'import suivant dans les composants :
