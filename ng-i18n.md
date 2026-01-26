@@ -255,30 +255,14 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from "@angular/core";
-import { provideRouter } from "@angular/router";
-
-import { routes } from "./app.routes";
-import { MERMAID_OPTIONS, provideMarkdown } from "ngx-markdown";
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
     // { provide: LOCALE_ID, useValue: 'fr-FR'},
-    provideMarkdown({
-      mermaidOptions: {
-        provide: MERMAID_OPTIONS,
-        useValue: {
-          darkMode: true,
-          look: "handDrawn",
-        },
-      },
-    }),
-     provideTranslateService({
+    provideTranslateService({
           loader: provideTranslateHttpLoader({prefix:"/assets/i18n/", suffix: 'json'}),
           fallbackLang: 'en',
           lang: 'fr'
