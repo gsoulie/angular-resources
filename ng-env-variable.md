@@ -2,10 +2,186 @@
 
 # Variables environnement
 
+* [Gestion des variables d’environnement avec vault](#gestion-des-variables-d--environnement-avec-vault)     
 * [Utilisation au runtime](#utilisation-au-runtime)     
 * [Solution avec assets http](#solution-avec-assets-http)     
 * [APP_INITIALIZER](#app_initializer)       
 * [Solution avec factory](#solution-avec-factory)     
+
+
+
+
+# Gestion des variables d’environnement avec vault
+
+<details>
+	<summary>Ce document explique comment gérer de manière sécurisée les variables d’environnement dans un projet Angular, pour le développement local et la production via un vault (GitHub, Azure, …).</summary>
+
+## 1. Principe général
+
+Le process repose sur trois éléments clés :
+
+**1. Développement local** : utiliser un fichier ````environment.ts```` avec les clés et URL nécessaires uniquement pour le dev.
+
+**2. CI/CD / Production** : utiliser un fichier template ````environment.template.ts```` contenant des placeholders ````${VAR_NAME}````, remplacés par des valeurs sécurisées provenant d’un vault.
+
+**3. Pipeline CI/CD** : injecter les valeurs du vault dans le fichier template et compiler Angular avec ce fichier généré.
+
+## 2. Structure projet
+
+````
+src/
+  app/
+    environments/
+      environment.ts          # Dev local, non versionné
+      environment.template.ts # Versionné, pour CI/CD
+````
+
+### 2.1 Dev local
+
+* ````environment.ts```` contient vos credentials en clair pour le dev local.
+* À ajouter dans ````.gitignore```` pour ne jamais versionner vos secrets.
+
+````typescript
+// environment.ts
+export const environment = {
+  production: false,
+  authConfig: {
+    issuer: "https://dev-issuer.com",
+    appId: "DEV_APP_ID",
+    ...
+  }
+};
+````
+
+### 2.2 Template pour CI/CD
+
+* ````environment.template.ts```` contient des placeholders ````${VAR_NAME}````.
+* Versionné dans Git.
+
+*Exemple :*
+````typescript
+// environment.template.ts
+export const environment = {
+  production: true,
+  authConfig: {
+    issuer: "${NG_AUTH_ISSUER}",
+    appId: "${NG_APP_ID}",
+    ...
+  }
+};
+````
+
+## 3. Utilisation dans le code Angular
+
+Le service peut rester indépendant de l’environnement :
+
+````typescript
+import { environment } from "../environments/environment";
+
+@Injectable({ providedIn: "root" })
+export class ConfigService {
+  constructor() {
+    this.app = initializeApp(environment.authConfig);
+  }
+}
+````
+
+* Angular compilera le fichier ````environment.ts```` existant au moment du build (local ou généré par CI/CD).
+
+## 4. Gestion des secrets dans un vault
+
+* Ajouter toutes les variables d’environnement (Firebase, API Keys, URLs, etc.) dans votre vault :
+	* GitHub Secrets
+	* Azure Key Vault
+* Nommez-les clairement, en respectant le même nom que les placeholders du template, par exemple :
+
+````
+NG_AUTH_ISSUER
+NG_APP_ID
+NG_APP_FIREBASE_API_KEY
+...
+````
+
+## 5. Pipeline CI/CD
+
+Exemple d’une pipeline GitHub Actions pour Angular
+
+````yml
+name: Build and Deploy to Netlify
+
+on:
+  push:
+    branches: [main, master, develop, secure-env-variable]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      NG_APP_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+      NG_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+      NG_APP_FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+      NG_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+      NG_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+      NG_APP_FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+      NG_APP_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # ⭐ Injection des variables dans environment.prod.ts
+      - name: Inject environment variables
+        run: |
+          envsubst < src/app/environments/environment.template.ts > src/app/environments/environment.ts
+      #    mv src/environments/environment.ts src/environments/environment.prod.ts
+
+      # POUR DEBUG UNIQUEMENT
+      # - name: Debug environment content
+      #   run: |
+      #     echo "===== environment.ts ====="
+      #     cat src/app/environments/environment.ts
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      # POUR DEBUG UNIQUEMENT
+      #- name: Verify Angular environment file used
+      #  run: |
+      #    grep -R "NG_APP_" src/environments || true
+      # attendu : (no output)
+
+      - name: Build Angular app
+        run: npm run build -- --configuration=production
+
+      # POUR DEBUG UNIQUEMENT
+      #- name: Inspect dist output
+      #  run: |
+      #    grep -R "NG_APP_" dist || true
+      # attendu : (no output)
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: angular-build
+          path: dist/ia-stock-portfolio/browser
+     
+````
+
+### Notes pratiques
+
+* Les étapes de debug (````cat environment.ts````, ````grep NG_APP_````) sont optionnelles et peuvent être activées pour vérifier que toutes les variables ont bien été remplacées.
+* Ne jamais versionner vos secrets dans Git.
+
+</details>
 
 Dans certains cas il est nécessaire de pouvoir changer certaines variables d'environnement après compilation (ex : déploiement multi-sites, multi-environnements etc...)
 
