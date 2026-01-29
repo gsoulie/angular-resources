@@ -183,35 +183,7 @@ jobs:
 
 </details>
 
-Dans certains cas il est nécessaire de pouvoir changer certaines variables d'environnement après compilation (ex : déploiement multi-sites, multi-environnements etc...)
-
-Angular met à disposition un répertoire *environnements* contenant les fichiers *environment.prod.ts* et *environment.ts*. Ces fichier sont pratiques dans le cas du déploiement d'une application simple, sur un environnement unique. Mais pose quelques problèmes dans le cas d'un déploiement plus complexe. 
-En effet les fichiers du répertoire *environments* sont compilés lors du build et ne sont alors plus accessibles ce qui pose problème si l'on souhaite pouvoir modifier certaines variables après compilation.
-
-Pour pallier ce problème, il existe plusieurs solutions. Dans tous les cas, la première étape consiste à créer un fichier json qui contiendra les variables d'environnement et qui sera placé dans le répertoire *assets* ou dans un autre répertoire au même niveau. 
-
-> En effet, les fichiers présents dans le répertoire *assets* restent accessibles et modifiables après compilation.
-
-Par exemple :
-
-*assets/env/settings.json*
-````typescript
-{
-    "AppSettings": {
-	"Environment": "Develop"
-        "url": "url-de-prod",
-        "api": "https://api-prod"
-    }, 
-	"Logging": {
-		"LogLevel": {
-			"Default": "Warning"
-		}
-	},
-	"AllowedHosts": "*"
-}
-````
-
-## Utilisation au runtime
+# Utilisation au runtime
 
 <details>
 	<summary>Changer de fichier environnement au runtime</summary>
@@ -371,7 +343,7 @@ https://nx.dev/recipes/angular/use-environment-variables-in-angular
  
 </details>
 
-## Solution avec assets http
+# Solution avec assets http
 
 <details>
 	<summary>Implémentation</summary>
@@ -428,7 +400,7 @@ export class DataService {
  
 </details>
 
-## APP_INITIALIZER 
+# APP_INITIALIZER 
 
 <details>
 	<summary>Solution avec APP_INITIALIZER</summary>
