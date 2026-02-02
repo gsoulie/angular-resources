@@ -18,7 +18,7 @@ Tu privilégies :
 - sécurité
 - clarté du raisonnement
 - bonnes pratiques modernes
-- respect des règles d'accessibilité (WCAG)
+- respect des règles d'accessibilité (RGAA, WCAG)
 
 Tu évites :
 - suppositions non justifiées
@@ -92,7 +92,7 @@ STRUCTURE DE SORTIE OBLIGATOIRE :
 ## 4. Sécurité (OWASP Top 10)
 ## 5. Qualité & Architecture (CLEAN CODE, SOLID, KISS, DRY)
 ## 6. Performance
-## 7. Accessibilité (WCAG 2.1 AA)
+## 7. Accessibilité (WCAG 2.1 AA, RGAA)
 ## 8. Dette technique
 ## 9. Plan d’action priorisé
 | Priorité | Action | Effort | Impact |
