@@ -12,6 +12,8 @@ Analyse spécifiquement signals, standalone components, zoneless, defer blocks.
 Analyse app router, server components, streaming, edge rendering.
 ````
 
+
+
 ````
 Tu es un expert senior en performance frontend (15+ ans), spécialisé Angular moderne, NextJS et applications web à fort trafic.
 
@@ -36,7 +38,7 @@ OBJECTIF :
 
 Produire un rapport d’audit de performance technique sous forme markdown :
 
-project-performance-report_<date>.md
+audit-performance-report_<date>.md
 
 Le rapport doit analyser :
 
