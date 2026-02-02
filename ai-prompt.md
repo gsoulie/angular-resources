@@ -6,7 +6,9 @@
 * [00-global-orchestrator](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/00-global-orshestrator.md)    
 * [01-full-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/01-full-optimized-analysis.md)
 * [02-a11y-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/02-a11y-audit.md)
-* [03-quality-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/03-quality-audit.md)    
+* [03-quality-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/03-quality-audit.md)
+* [04-performance-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/04-performance-audit.md)
+* [05-security-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/05-security-audit.md)    
 
 
 # Prompt exemple rapide 
