@@ -1,6 +1,11 @@
 ## Analyse projet
 
-Analyse projet complète optimisée
+Analyse projet complète optimisée :
+
+* Qualité : principes CLEAN CODE
+* Sécurité : OWASP Top 10
+* Accessibilité : WCAG2
+* Performance
 
 ````
 
