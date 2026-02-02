@@ -37,7 +37,7 @@ OBJECTIF :
 
 Produire un rapport d’audit technique orienté qualité et performance sous forme markdown :
 
-project-quality-perf-report_<date>.md
+audit-quality-perf-report_<date>.md
 
 Le rapport doit évaluer :
 
