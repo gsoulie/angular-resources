@@ -9,7 +9,7 @@ OBJECTIF :
 
 Produire un rapport d’audit technique professionnel sous forme markdown :
 
-project-a11y-analyze-report_<date>.md
+audit-a11y-analyze-report_<date>.md
 
 L’audit doit évaluer la conformité légale française et européenne.
 
