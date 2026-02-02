@@ -2,7 +2,9 @@
 
 # AI Prompting
 
-* [Collection de prompts](#collection-de-prompts)    
+* [Collection de prompts](#collection-de-prompts)
+* [01-full-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/01-full-optimized-analysis.md)
+* [02-a11y-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/02-a11y-audit.md)     
 
 
 # Prompt exemple rapide 
