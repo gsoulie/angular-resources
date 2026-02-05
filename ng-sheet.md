@@ -124,7 +124,8 @@
 * [Workspace](https://github.com/gsoulie/angular-resources/blob/master/ng-workspace.md)      
 	* configuration et partage de lib       
 	* sharing assets	    
-* [Variables d'environnement](https://github.com/gsoulie/angular-resources/blob/master/ng-env-variable.md)     
+* [Variables d'environnement](https://github.com/gsoulie/angular-resources/blob/master/ng-env-variable.md)
+* [Versioning avec Git Tag](https://github.com/gsoulie/angular-resources/blob/master/ng-versioning.md)       
 * [Tests unitaires](https://github.com/gsoulie/angular-resources/blob/master/ng-unit-test.md)     
 	* tester le bundle de production dist
 	* e2e avec Cypress
@@ -132,7 +133,6 @@
 	* e2e tests avec Playwright
  	* intégration Lighthouse dans Playwright
   	* pipeline CI lighthouse
-* [Versioning avec Git Tag](https://github.com/gsoulie/angular-resources/blob/master/ng-versioning.md)       )
 * Accessibilité
 	* [Créer une pipeline axe-core  pour auditer les pages](https://github.com/gsoulie/angular-resources/blob/master/ng-axe-core.md)       
 * Helper
