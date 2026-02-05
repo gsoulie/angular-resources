@@ -131,7 +131,8 @@
 	* tests unitaires avec Jest
 	* e2e tests avec Playwright
  	* intégration Lighthouse dans Playwright
-  	* pipeline CI lighthouse     
+  	* pipeline CI lighthouse
+* [Versioning avec Git Tag](https://github.com/gsoulie/angular-resources/blob/master/ng-versioning.md)       )
 * Accessibilité
 	* [Créer une pipeline axe-core  pour auditer les pages](https://github.com/gsoulie/angular-resources/blob/master/ng-axe-core.md)       
 * Helper
