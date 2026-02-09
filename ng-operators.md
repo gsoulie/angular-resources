@@ -14,7 +14,7 @@
 * [Types génériques](#types-génériques)
 * [Comparaison de 2 objets avec copie des propriétés manquantes](#comparaison-de-2-objets-avec-copie-des-propriétés-manquantes)
 * [Astuce construction de chaînes avec join](#astuce-construction-de-chaîne-avec-join)
-* [Filtrer les propriétés d'un objet par type](#filtrer-les-propriétés-d--un-objet-par-type)     
+* [Filtrer les propriétés d'un objet par type](#filtrer-les-propriétés-dun-objet-par-type)     
 
 ## Typescript expert : https://angularexperts.io/blog/advanced-typescript      
 
