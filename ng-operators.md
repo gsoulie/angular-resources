@@ -13,7 +13,8 @@
 * [Valeurs en doublon et opérateur Set](#valeurs-en-doublon-et-opérateur-set)      
 * [Types génériques](#types-génériques)
 * [Comparaison de 2 objets avec copie des propriétés manquantes](#comparaison-de-2-objets-avec-copie-des-propriétés-manquantes)
-* [Astuce construction de chaînes avec join](#astuce-construction-de-chaîne-avec-join)     
+* [Astuce construction de chaînes avec join](#astuce-construction-de-chaîne-avec-join)
+* [Filtrer les propriétés d'un objet par type](#filtrer-les-propriétés-d--un-objet-par-type)     
 
 ## Typescript expert : https://angularexperts.io/blog/advanced-typescript      
 
@@ -714,6 +715,26 @@ L'utilisation de ````filter(Boolean)```` sur un tableau de valeur aura pour effe
 // cas concret
 const { code = '', version = '', orderNumber = '' } = props
 const title = [code, version, orderNumber].filter(Boolean).join('.'); // xxx.xxx.xxx
+````
+
+## Filtrer les propriétés d'un objet par type
+
+````typescript
+type OmitByType<T, ValueType> = {
+	[K in keyof T as T[K] extends ValueType ? never : K]: T[K];
+}
+
+interface User {
+	id: strinng;
+	name: string;
+	email: string;
+	age: number;
+	save: () => void;
+	delete: () => void;
+}
+
+type UserDTO = OmitByType<User, Function>;
+// Result : { id: string, name: string, email: string, age: number }
 ````
 
 [Back to top](#opérateurs)     
