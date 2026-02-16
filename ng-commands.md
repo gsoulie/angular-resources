@@ -6,7 +6,8 @@
 * [Commandes basiques](#commandes-basiques)         
 * [Mettre à jour Angular](#mettre-à-jour-angular)     
 * [Mettre à jour npm](#mettre-à-jour-npm)
-* [Génération fichier SBOM](#génération-fichier-sbom)      
+* [Génération fichier SBOM](#génération-fichier-sbom)
+* [Contrôler une dépendance](#contrôler-une-dépendance)    
 
 ## Démarrage
 
@@ -101,3 +102,11 @@ Installation en mode dev `npm install --save-dev @cyclonedx/cyclonedx-npm`
 Génération du fichier : `npx @cyclonedx/cyclonedx-npm --of "JSON" -o <filename>`
 
 [Back to top](#commandes)
+
+## Contrôler une dépendance
+
+Dans le cas de la détection d'une CVE suru une dépendance tierce par exemple, une première action consiste à lister les packages utilisant la dépendance infectée :
+
+````
+npm ls @babel/runtime // ex avec babel runtime ici
+````
