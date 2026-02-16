@@ -9,7 +9,7 @@
 * [03-quality-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/03-quality-audit.md)
 * [04-performance-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/04-performance-audit.md)
 * [05-security-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/05-security-audit.md)    
-
+* [06-CVE-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/06-cve-audit.md)    
 
 # Prompt exemple rapide 
 
