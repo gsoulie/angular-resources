@@ -105,7 +105,7 @@ Génération du fichier : `npx @cyclonedx/cyclonedx-npm --of "JSON" -o <filename
 
 ## Contrôler une dépendance
 
-Dans le cas de la détection d'une CVE suru une dépendance tierce par exemple, une première action consiste à lister les packages utilisant la dépendance infectée :
+Dans le cas de la détection d'une CVE sur une dépendance tierce par exemple, une première action consiste à lister les packages utilisant la dépendance infectée :
 
 ````
 npm ls @babel/runtime // ex avec babel runtime ici
