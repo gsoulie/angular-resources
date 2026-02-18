@@ -8,7 +8,8 @@
 		* AnalogJS
 		* Dépréciations 	
 	* [Commandes](https://github.com/gsoulie/angular-resources/blob/master/ng-commands.md)
-   		* Génération fichier SBOM avec CycloneDX    
+   		* Génération fichier SBOM avec CycloneDX
+     	* [Initialiser un projet avec MCP Angular](https://arcadioquintero.com/en/blog/stop-writing-outdated-angular-code-mcp-setup-with-cursor-and-claude-code)     
 	* [Template projet personnalisé](https://github.com/gsoulie/angular-resources/blob/master/ng-degit.md)      
 	* [Arborescence projet](https://github.com/gsoulie/angular-resources/blob/master/ng-treemap.md)     
 	* [Notions de base - Fonctionnement Javascript](https://github.com/gsoulie/angular-resources/blob/master/ng-basics.md)    
