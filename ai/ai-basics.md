@@ -1,4 +1,4 @@
-[< Back to menu]()    
+[< Back to menu](https://github.com/gsoulie/angular-resources/blob/master/ai-prompt.md)     
 
 
 # 1. Fonctionnement des LLMs (niveau conceptuel suffisant)
