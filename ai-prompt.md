@@ -1,5 +1,9 @@
 [< Back to main Menu](https://github.com/gsoulie/Mobile-App-Development)    
 
+# AI Concepts
+
+* [Les bases](https://github.com/gsoulie/angular-resources/blob/master/ai/basics.md)     
+
 # AI Prompting
 
 * [Collection de prompts](#collection-de-prompts)
