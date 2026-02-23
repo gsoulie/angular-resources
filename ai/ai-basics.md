@@ -21,6 +21,28 @@ C'est tout. Le reste (cohérence, raisonnement apparent) émerge de cette mécan
 **Le mécanisme d'attention** permet au modèle de pondérer l'importance de chaque token du contexte par rapport aux autres. Tu n'as pas besoin de maîtriser les maths, mais comprendre que :
 **"l'attention = la capacité à relier des informations distantes dans le texte"** est suffisant.
 
+#### Les embeddings — transformer les mots en vecteurs
+Chaque token est d'abord converti en un vecteur de plusieurs milliers de dimensions. Des mots sémantiquement proches ont des vecteurs proches dans cet espace. C'est la représentation numérique du sens.
+````
+"roi"   → [0.2, 0.8, -0.1, ...]
+"reine" → [0.2, 0.7, -0.1, ...]  ← proche de "roi"
+"pizza" → [-0.9, 0.1, 0.7, ...]  ← loin
+````
+
+#### L'attention — relier les informations à distance
+C'est l'innovation centrale du Transformer. Pour chaque token, le mécanisme d'attention calcule sa relation avec tous les autres tokens du contexte, en leur assignant un poids.
+````
+"La banque a refusé mon prêt car elle estimait que 
+ mon dossier était trop risqué."
+                                    ↑
+  Quand le modèle traite "elle", l'attention pointe fortement 
+  vers "banque" — pas vers "dossier" ni "prêt"
+````
+C'est ce qui permet au modèle de résoudre les ambiguïtés, de maintenir la cohérence sur de longs textes, et de "comprendre" le contexte. Sans attention, le modèle perdrait le fil après quelques phrases.
+
+Le Transformer empile plusieurs couches de ce mécanisme. Les premières couches captent la syntaxe, les suivantes la sémantique, les dernières les concepts abstraits.
+
+
 ### La fenêtre de contexte (context window)
 C'est la mémoire de travail du modèle. Tout ce qui n'est pas dans cette fenêtre n'existe pas pour lui. En 2025, on parle de 128k à 1M tokens selon les modèles. 
 C'est un paramètre architectural critique pour tes décisions produit.
