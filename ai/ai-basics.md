@@ -1,5 +1,11 @@
 [< Back to menu](https://github.com/gsoulie/angular-resources/blob/master/ai-prompt.md)     
 
+* [1. Fonctionnement des LLMs](#1-Fonctionnement-des-LLMs-niveau-conceptuel-suffisant)    
+* [2. RAG](#2-RAG--Retrieval-Augmented-Generation)
+* [3. Agents & Prompts structurés](#3-Agents--Prompts-structurés)
+* [4. Les limites](#4-Les-limites-à-intégrer-dans-ta-pensée-produit)
+* [5. Risques Sécurité & RGPD](#5-Risques-Sécurité--RGPD)
+* [6. Patterns d'architecture](#6-Patterns-darchitecture)     
 
 # 1. Fonctionnement des LLMs (niveau conceptuel suffisant)
 Ce qu'un LLM fait réellement ? 
