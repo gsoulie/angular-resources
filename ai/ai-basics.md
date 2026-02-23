@@ -152,7 +152,7 @@ Un appel LLM prend 1-10 secondes. Un agent multi-étapes peut prendre 30-60s. Le
 ### Context window poisoning / distraction
 Au-delà d'un certain volume de contexte, les performances dégradent. Les modèles ont tendance à moins bien utiliser les informations au milieu du contexte (lost in the middle)
 
-5. Risques Sécurité & RGPD
+# 5. Risques Sécurité & RGPD
 ### Prompt injection
 Un utilisateur malveillant injecte des instructions dans ses inputs pour détourner le comportement du modèle. Particulièrement critique dans les agents qui exécutent des actions. Mitigation : validation stricte des inputs/outputs, principe de moindre privilège sur les tools, ne jamais exposer le system prompt complet.
 
