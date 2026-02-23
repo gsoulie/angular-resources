@@ -29,6 +29,10 @@ C'est un paramètre architectural critique pour tes décisions produit.
 # 2. RAG — Retrieval-Augmented Generation
 Le problème que ça résout : un LLM a une connaissance figée à sa date de coupure, et ne connaît pas tes données métier. Le fine-tuning est coûteux et rigide. Le RAG injecte dynamiquement du contexte pertinent dans le prompt au moment de l'inférence.
 
+*Exemple concret* : Imagine que tu recrutes un consultant expert généraliste — très cultivé, mais dont les connaissances s'arrêtent à début 2024. Tu lui demandes : "Quel est le chiffre d'affaires de notre entreprise ce trimestre ?" Il ne peut pas répondre. Il ne connaît pas ta boîte, et même s'il la connaissait, ses infos sont périmées.
+
+Tu as deux options : soit tu le formes pendant 6 mois sur tes données internes (= fine-tuning, coûteux et rigide), soit avant chaque question tu lui poses sur le bureau les documents pertinents et tu lui dis "lis ça, puis réponds". C'est exactement le RAG.
+
 **Le pipeline RAG standard :**
 
 ````
@@ -43,7 +47,47 @@ Les **embeddings** sont des vecteurs numériques (ex: 1536 dimensions) qui encod
 
 Le **vector store** (Pinecone, Weaviate, pgvector, Qdrant) stocke et indexe ces vecteurs pour des recherches ultra-rapides par similarité cosinus.
 
-**Les points de friction RAG en prod :**
+### Exemple chatbot
+
+Le pipeline concrètement :
+
+Disons que tu construis un chatbot pour la documentation interne de ton entreprise.
+
+**Étape 1 — Ingestion (offline, une seule fois)**
+Tu prends tous tes documents (Confluence, Notion, PDFs...), tu les découpes en petits morceaux (chunks), et pour chaque chunk tu génères un embedding — un vecteur numérique qui encode le sens du texte. Tu stockes tout ça dans une base vectorielle.
+````
+"Notre politique de congés est de 25 jours par an..."
+        ↓ embedding model
+[0.23, -0.87, 0.45, 0.12, ...] (1536 nombres)
+        ↓ stocké dans pgvector / Pinecone
+````
+
+**Étape 2 — Query (online, à chaque question)**
+L'utilisateur pose une question. Tu transformes cette question en embedding avec le même modèle. Puis tu cherches dans ta base les chunks dont le vecteur est le plus proche de celui de la question — "proche" au sens mathématique = sémantiquement similaire.
+````
+"Combien de jours de vacances j'ai ?" 
+        ↓ embedding
+[0.21, -0.91, 0.43, ...] ← proche du vecteur du chunk sur les congés
+````
+
+**Étape 3 — Augmentation**
+Tu construis un prompt en injectant les chunks trouvés, puis tu envoies ça au LLM :
+````
+System: Tu es l'assistant RH de l'entreprise. Réponds uniquement 
+        en te basant sur le contexte fourni.
+
+Contexte récupéré:
+[chunk 1] "Notre politique de congés est de 25 jours par an..."
+[chunk 2] "Les congés supplémentaires pour ancienneté sont..."
+
+Question: Combien de jours de vacances j'ai ?
+````
+Le LLM répond en se basant sur ces documents, pas sur sa mémoire générale. C'est ce qui évite les hallucinations sur tes données métier.
+
+**Pourquoi "vectoriel" plutôt qu'une simple recherche par mots-clés ?**
+Si l'utilisateur demande "combien de jours off par an", une recherche classique ne trouvera pas le chunk qui parle de "politique de congés" — les mots sont différents. La recherche vectorielle, elle, comprend que les deux phrases veulent dire la même chose, parce que leurs vecteurs sont proches dans l'espace sémantique.
+
+### Les points de friction RAG en prod
 
 * La qualité du chunking (fragmentation) est critique (trop petit = perte de contexte, trop grand = bruit)
 * Le recall n'est pas garanti — si le bon chunk n'est pas retrouvé, la réponse sera mauvaise
@@ -80,6 +124,11 @@ Le LLM choisit parmi des tools (fonctions exposées avec leur signature et descr
 
 Les frameworks à connaître : LangGraph (graph-based, très utilisé), Vercel AI SDK (excellent DX pour Next.js), CrewAI, AutoGen.
 
+### Les tools
+Un LLM de base ne fait que du texte → texte. Il ne peut ni appeler une API, ni lire une base de données, ni exécuter du code. Les tools (ou function calling) sont le mécanisme qui lui donne des "mains".
+
+> Les tools lui donnent des capacités d'action (APIs, BDD, exécution de code). Les agents sophistiqués utilisent les deux ensemble.
+
 # 4. Les limites à intégrer dans ta pensée produit
 
 ### Hallucination
@@ -96,14 +145,6 @@ Un appel LLM prend 1-10 secondes. Un agent multi-étapes peut prendre 30-60s. Le
 
 ### Context window poisoning / distraction
 Au-delà d'un certain volume de contexte, les performances dégradent. Les modèles ont tendance à moins bien utiliser les informations au milieu du contexte (lost in the middle)
-
-
-# 4. Les limites à intégrer dans ta pensée produit
-Hallucination — le modèle génère du texte plausible mais factuellement faux, avec une confiance apparente totale. Il ne "sait" pas qu'il ne sait pas. Mitigation : RAG + grounding sur des sources vérifiables + validation humaine sur les outputs critiques.
-Coût — tout se calcule en tokens. GPT-4o coûte ~$5/M tokens input, ~$15/M output (ordre de grandeur 2024). Un agent avec beaucoup d'itérations peut coûter 10-50x plus qu'un appel simple. C'est un vrai enjeu architectural : minimiser les tokens, cacher les résultats, choisir le bon modèle pour chaque tâche (ne pas utiliser GPT-4 pour classifier du texte simple).
-Latence — un appel LLM prend 1-10 secondes. Un agent multi-étapes peut prendre 30-60s. Le streaming (SSE) est quasi-obligatoire côté UX. La parallélisation des appels indépendants est un levier majeur.
-Non-déterminisme — à température > 0, deux appels identiques donnent des résultats différents. C'est un changement de paradigme par rapport au développement classique : tu testes des distributions de comportements, pas des cas déterministes.
-Context window poisoning / distraction — au-delà d'un certain volume de contexte, les performances dégradent. Les modèles ont tendance à moins bien utiliser les informations au milieu du contexte (lost in the middle).
 
 5. Risques Sécurité & RGPD
 ### Prompt injection
