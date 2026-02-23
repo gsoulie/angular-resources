@@ -174,7 +174,7 @@ Risque produit : les utilisateurs font confiance à des outputs non vérifiés. 
 
 # 6. Patterns d'architecture
 **Pattern 1 — LLM as a microservice**
-Le plus simple : l'IA est un service isolé appelé via API. Ton frontend Next.js appelle une route API qui appelle OpenAI. Bien pour démarrer, mais crée un couplage et des problèmes d'observabilité à l'échelle.
+Le plus simple : l'IA est un service isolé appelé via API. Le frontend appelle une route API qui appelle OpenAI. Bien pour démarrer, mais crée un couplage et des problèmes d'observabilité à l'échelle.
 
 **Pattern 2 — Gateway LLM**
 Un service centralisé gère tous les appels LLM : rate limiting, logging, routing vers différents modèles, gestion des coûts. C'est le pattern recommandé en entreprise. LiteLLM est un exemple open source.
