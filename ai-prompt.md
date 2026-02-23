@@ -2,7 +2,8 @@
 
 # AI Concepts
 
-* [Les bases](https://github.com/gsoulie/angular-resources/blob/master/ai/basics.md)     
+* [Les bases](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-basics.md)
+  * LLM, RAG, Agents, Limites, Risques, Patterns
 
 # AI Prompting
 
