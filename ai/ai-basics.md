@@ -2,8 +2,10 @@
 
 
 # 1. Fonctionnement des LLMs (niveau conceptuel suffisant)
-Ce qu'un LLM fait réellement : **il prédit le prochain token le plus probable, en tenant compte de tout le contexte précédent**. C'est tout. 
-Le reste (cohérence, raisonnement apparent) émerge de cette mécanique simple à très grande échelle.
+Ce qu'un LLM fait réellement ? 
+
+> **il prédit le prochain token le plus probable, en tenant compte de tout le contexte précédent**.
+C'est tout. Le reste (cohérence, raisonnement apparent) émerge de cette mécanique simple à très grande échelle.
 
 ## Les concepts clés à retenir
 
