@@ -5,7 +5,8 @@
 * [3. Agents & Prompts structurés](#3-Agents--Prompts-structurés)
 * [4. Les limites](#4-Les-limites-à-intégrer-dans-ta-pensée-produit)
 * [5. Risques Sécurité & RGPD](#5-Risques-Sécurité--RGPD)
-* [6. Patterns d'architecture](#6-Patterns-darchitecture)     
+* [6. Patterns d'architecture](#6-Patterns-darchitecture)
+* [7. Outils](#7-outils)    
 
 # 1. Fonctionnement des LLMs (niveau conceptuel suffisant)
 Ce qu'un LLM fait réellement ? 
@@ -194,3 +195,7 @@ Pour les tâches complexes multi-étapes. Le pattern clé : définir des fronti�
 * **Observabilité** : tracer chaque appel LLM avec ses tokens, sa latence, son coût (LangSmith, Langfuse, Helicone)
 * **Fallback & circuit breaker** : les APIs LLM tombent — avoir un fallback vers un modèle alternatif
 * **Cache sémantique** : mettre en cache les réponses à des questions sémantiquement similaires (GPTCache, Semantic Cache de Upstash)
+
+# 7. Outils
+
+* **LangChain** est un framework d'orchestration Open Source qui simplifie la création d'applications avec des grands modèles de langage (LLM)
