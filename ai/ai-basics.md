@@ -138,7 +138,9 @@ Un LLM de base ne fait que du texte → texte. Il ne peut ni appeler une API, ni
 # 4. Les limites à intégrer dans ta pensée produit
 
 ### Hallucination
-Le modèle génère du texte plausible mais factuellement faux, avec une confiance apparente totale. Il ne "sait" pas qu'il ne sait pas. Mitigation : RAG + grounding sur des sources vérifiables + validation humaine sur les outputs critiques.
+Le modèle génère du texte plausible mais factuellement faux, avec une confiance apparente totale. Il ne "sait" pas qu'il ne sait pas. 
+
+Atténuation : RAG + grounding sur des sources vérifiables + validation humaine sur les outputs critiques.
 
 ### Coût
 Tout se calcule en tokens. GPT-4o coûte ~$5/M tokens input, ~$15/M output (ordre de grandeur 2024). Un agent avec beaucoup d'itérations peut coûter 10-50x plus qu'un appel simple. C'est un vrai enjeu architectural : minimiser les tokens, cacher les résultats, choisir le bon modèle pour chaque tâche (ne pas utiliser GPT-4 pour classifier du texte simple).
@@ -154,7 +156,9 @@ Au-delà d'un certain volume de contexte, les performances dégradent. Les modè
 
 # 5. Risques Sécurité & RGPD
 ### Prompt injection
-Un utilisateur malveillant injecte des instructions dans ses inputs pour détourner le comportement du modèle. Particulièrement critique dans les agents qui exécutent des actions. Mitigation : validation stricte des inputs/outputs, principe de moindre privilège sur les tools, ne jamais exposer le system prompt complet.
+Un utilisateur malveillant injecte des instructions dans ses inputs pour détourner le comportement du modèle. Particulièrement critique dans les agents qui exécutent des actions. 
+
+Aténuation : validation stricte des inputs/outputs, principe de moindre privilège sur les tools, ne jamais exposer le system prompt complet.
 
 ### Data leakage
 Le modèle peut involontairement révéler des informations d'autres utilisateurs si le contexte est mal isolé (dans un contexte multi-tenant par exemple). Attention particulière au design des prompts système partagés.
