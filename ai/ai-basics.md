@@ -29,9 +29,9 @@ C'est un paramètre architectural critique pour tes décisions produit.
 **Unité de base** (~¾ de mot en anglais, un peu moins en français). Tout est facturé, latencé et limité en tokens.
 
 ### Pre-training vs Fine-tuning vs RLHF
-* Le modèle de base est entraîné sur des milliards de documents (pre-training). 
-* Le fine-tuning spécialise sur un domaine. 
-* Le RLHF (Reinforcement Learning from Human Feedback) aligne le modèle pour qu'il soit "utile et inoffensif" — c'est ce qui transforme un modèle brut en assistant.
+* Phase 1 - Le modèle de base est entraîné sur des milliards de documents (pre-training). 
+* Phase 2 - Le fine-tuning spécialise sur un domaine (question -> bonne réponse). 
+* Phase 3 - Le RLHF (Reinforcement Learning from Human Feedback) aligne le modèle pour qu'il soit "utile et inoffensif" — c'est ce qui transforme un modèle brut en assistant. Des humains comparent des paires de réponses (laquelle est la meilleure ?). On apprend à scorer la qualité de la réponse
 
 # 2. RAG — Retrieval-Augmented Generation
 Le problème que ça résout : un LLM a une connaissance figée à sa date de coupure, et ne connaît pas tes données métier. Le fine-tuning est coûteux et rigide. Le RAG injecte dynamiquement du contexte pertinent dans le prompt au moment de l'inférence.
