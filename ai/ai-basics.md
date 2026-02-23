@@ -158,7 +158,7 @@ Au-delà d'un certain volume de contexte, les performances dégradent. Les modè
 ### Prompt injection
 Un utilisateur malveillant injecte des instructions dans ses inputs pour détourner le comportement du modèle. Particulièrement critique dans les agents qui exécutent des actions. 
 
-Aténuation : validation stricte des inputs/outputs, principe de moindre privilège sur les tools, ne jamais exposer le system prompt complet.
+Atténuation : validation stricte des inputs/outputs, principe de moindre privilège sur les tools, ne jamais exposer le system prompt complet.
 
 ### Data leakage
 Le modèle peut involontairement révéler des informations d'autres utilisateurs si le contexte est mal isolé (dans un contexte multi-tenant par exemple). Attention particulière au design des prompts système partagés.
