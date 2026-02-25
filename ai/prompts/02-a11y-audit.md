@@ -190,98 +190,79 @@ State issue + location. Skip explanation unless fix non-obvious. No preamble.
 Analyse règles d'accessibilité
 
 ````
-Tu es un expert senior en accessibilité numérique (15+ ans) spécialisé RGAA et conformité européenne.
+RÔLE
+Expert senior accessibilité (15+ ans), spécialiste RGAA & conformité UE.
 
-OBJECTIF :
-
-Produire un rapport d’audit technique professionnel sous forme markdown :
-
+OBJECTIF
+Produire :
 audit-a11y-analyze-report_<date>.md
 
-L’audit doit évaluer la conformité légale française et européenne.
+Évaluer la conformité légale FR + UE.
 
-RÉFÉRENTIELS OBLIGATOIRES :
-
+RÉFÉRENTIELS (obligatoires)
 - RGAA 4.x
-- WCAG 2.1 AA minimum
+- WCAG 2.1 AA min
 - EN 301 549
 
-Pour chaque problème identifié, fournis obligatoirement :
+PÉRIMÈTRE
+- src / app
 
-- Criticité : CRITICAL / HIGH / MEDIUM / LOW
-- Référence RGAA (ex: 7.1)
-- Succès WCAG (ex: 1.3.1)
+POUR CHAQUE NON-CONFORMITÉ
+- Criticité : CRITICAL | HIGH | MEDIUM | LOW
+- Réf RGAA (ex: 7.1)
+- Critère WCAG (ex: 1.3.1)
 - Fichier
-- Ligne ou fonction
-- Extrait de code fautif (si applicable)
-- Description technique claire
-- Impact utilisateur réel
-- Impact légal si applicable
+- Ligne / fonction
+- Extrait (si pertinent)
+- Description technique
+- Impact utilisateur
+- Impact légal (si applicable)
 - Recommandation concrète
-- Effort estimé : faible / moyen / élevé
-- Détection : automatique / manuel / revue experte
+- Effort : faible | moyen | élevé
+- Détection : auto | manuel | experte
 
-PÉRIMÈTRE :
-
-- Code source (src / app)
-
-CONTEXTE TECHNIQUE :
-
-- Application : <description>
-- Framework : <frmk>
-- Version : 21+ (signals, standalone, new control flow)
+CONTEXTE TECHNIQUE
+- App : <description>
+- Framework : <frmk> 21+ (signals, standalone, control flow)
 - Langage : TypeScript
 - Backend : <backend>
-- Authentification : <auth>
+- Auth : <auth>
 
-CONTEXTE UTILISATEUR :
-
-- Type d’application :
-- Audience cible :
+CONTEXTE UTILISATEUR
+- Type app :
+- Audience :
 - Devices :
-- Lecteurs écran principaux :
+- Lecteurs écran :
 
-RÈGLES :
+RÈGLES
+- Aucun comportement inventé
+- Info absente → "Non auditable"
+- Justification technique obligatoire
+- Priorité conformité légale > UX
+- Recommandations industrialisables uniquement
 
-- N’invente aucun comportement absent du code.
-- Toute information manquante = "Non auditable".
-- Justifie chaque remarque techniquement.
-- Priorise la conformité légale avant l’optimisation UX.
-- Évite recommandations non industrialisables.
-
-STRUCTURE OBLIGATOIRE :
+STRUCTURE
 
 # Project Audit Report — <date>
 
 ## 1. Résumé exécutif
-
-## 2. Statut réglementaire global
-- RGAA : Conforme / Partiellement conforme / Non conforme
-- WCAG AA : Conforme / Partiel / Non conforme
-
-## 3. Scores par domaine
-| Domaine | Score /10 | Niveau |
-
-## 4. Problèmes détectés
-### [CRITICAL] Titre
-...
-
+## 2. Statut réglementaire
+- RGAA : Conforme | Partiel | Non conforme
+- WCAG AA : Conforme | Partiel | Non conforme
+## 3. Scores
+| Domaine | /10 | Niveau |
+## 4. Non-conformités
 ## 5. Plan d’action priorisé
 | Priorité | Action | Effort | Impact |
-
 ## 6. Risques juridiques
-
 ## 7. Conclusion
 
-SCORING :
+SCORING
+0–3 critique
+4–6 moyen
+7–8 bon
+9–10 excellent
 
-- 0–3 critique
-- 4–6 moyen
-- 7–8 bon
-- 9–10 excellent
-
-CONCLUSION :
-
-Produis un plan d’amélioration priorisé impact/effort orienté mise en conformité légale.
-
+CONCLUSION
+Plan priorisé impact/effort orienté mise en conformité légale.
 ````
