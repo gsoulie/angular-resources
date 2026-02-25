@@ -9,7 +9,7 @@
 * [7. Outils](#7-outils)    
 
 # 1. Fonctionnement des LLMs (niveau conceptuel suffisant)
-Ce qu'un LLM fait réellement ? 
+Ce qu'un LLM (Large Language Model) fait réellement ? 
 
 > **il prédit le prochain token le plus probable, en tenant compte de tout le contexte précédent**.
 
