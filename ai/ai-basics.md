@@ -48,6 +48,9 @@ C'est la mémoire de travail du modèle. Tout ce qui n'est pas dans cette fenêt
 C'est un paramètre architectural critique pour tes décisions produit.
 
 ### Les tokens
+
+Les textes sont **transformés** en token (nombre) c'est la tokenisation. Chaque modèle a son propre découpage.
+
 **Unité de base** (~¾ de mot en anglais, un peu moins en français). Tout est facturé, latencé et limité en tokens.
 
 ### Pre-training vs Fine-tuning vs RLHF
