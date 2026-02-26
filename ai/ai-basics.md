@@ -61,6 +61,10 @@ Les textes sont **transformés** en token (nombre) c'est la tokenisation. Chaque
 # 2. RAG — Retrieval-Augmented Generation
 Le problème que ça résout : un LLM a une connaissance figée à sa date de coupure, et ne connaît pas tes données métier. Le fine-tuning est coûteux et rigide. Le RAG injecte dynamiquement du contexte pertinent dans le prompt au moment de l'inférence.
 
+* R (Retrieval) : On récupère des données / du contexte dans une  base de connaissance
+* A (Augmented) : On va rajouter ces données dans le prompt
+* G (Generation) : Génération de la réponse
+
 *Exemple concret* : Imagine que tu recrutes un consultant expert généraliste — très cultivé, mais dont les connaissances s'arrêtent à début 2024. Tu lui demandes : "Quel est le chiffre d'affaires de notre entreprise ce trimestre ?" Il ne peut pas répondre. Il ne connaît pas ta boîte, et même s'il la connaissait, ses infos sont périmées.
 
 Tu as deux options : soit tu le formes pendant 6 mois sur tes données internes (= fine-tuning, coûteux et rigide), soit avant chaque question tu lui poses sur le bureau les documents pertinents et tu lui dis "lis ça, puis réponds". C'est exactement le RAG.
