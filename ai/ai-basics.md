@@ -7,6 +7,7 @@
 * [5. Risques Sécurité & RGPD](#5-Risques-Sécurité--RGPD)
 * [6. Patterns d'architecture](#6-Patterns-darchitecture)
 * [7. Outils](#7-outils)
+* [Méthode pour structurer un programme d'IA agentique](#méthode-pour-structurer-un-programme-dIA-agentique)     
 
 # 1. Fonctionnement des LLMs (niveau conceptuel suffisant)
 Ce qu'un LLM (Large Language Model) fait réellement ? 
@@ -250,3 +251,14 @@ Pour les tâches complexes multi-étapes. Le pattern clé : définir des fronti�
 # 7. Outils
 
 * **LangChain** est un framework d'orchestration Open Source qui simplifie la création d'applications avec des grands modèles de langage (LLM)
+
+# Méthode pour structurer un programme d'IA agentique
+
+| | | |
+|---|---|---|
+| **Communication interne & externe** | | |
+| Innovation / R&D | Culture / gestion du changement | Confidentialité des données |
+| Conformité / éthique | Compétences & organisation | Cybersécurité |
+| Business case / ROI | Delivery model | Composants IA agentique |
+| *AI by design* — Transformation des processus métiers | **Gouvernance IA agentique** — Contrôle humain / suivi de la qualité / rôles et responsabilités | **Plateforme data** — Stockage / structuration des données / capacités de calcul |
+| **Opportunités business** | **Modèle opérationnel** | **Socle technologique** |
