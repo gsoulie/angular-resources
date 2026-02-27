@@ -262,3 +262,10 @@ Pour les tâches complexes multi-étapes. Le pattern clé : définir des fronti�
 | Business case / ROI | Delivery model | Composants IA agentique |
 | *AI by design* — Transformation des processus métiers | **Gouvernance IA agentique** — Contrôle humain / suivi de la qualité / rôles et responsabilités | **Plateforme data** — Stockage / structuration des données / capacités de calcul |
 | **Opportunités business** | **Modèle opérationnel** | **Socle technologique** |
+
+# Aperçu rapide des principaux outils sans code pour les agents IA
+
+| | **n8n** | **Make** | **Zapier** |
+|---|---|---|---|
+| **Avantages** | - Eventuellement gratuit<br>- Open source, auto-hébergement<br>- Hautement personnalisable (code) | - Capacités de flux de travail avancées<br>- SaaS et support | - Interface utilisateur très conviviale<br>- Intégrations intégrées étendues (7 000+)<br>- Plateforme, SaaS et support bien connus |
+| **Inconvénients** | - Courbe d'apprentissage plus dure<br>- Moins d'intégrations prédéfinies<br>- Plus de charge pour gérer un déploiement | - Courbe d'apprentissage moyenne<br>- SaaS uniquement | - Flux de travail plus simple<br>- Personnalisation limitée (pas de codage)<br>- SaaS uniquement |
