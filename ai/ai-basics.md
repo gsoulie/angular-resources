@@ -67,6 +67,8 @@ Le problème que ça résout : un LLM a une connaissance figée à sa date de co
 
 Les données de la base de données vectorielle du RAG sont des données personnalisées provenant d'une base de connaissance spécifique (documents d'une entreprise, documentation scientifique sur un domaine précis etc...)
 
+Remarque : on pourrait très bien ré-enntraîner le modèle avec nos données actualisées, mais cela reste bien plus couteux que de mettre à jour la base du RAG qui sera ensuite injectée dans les prompts.
+
 *Exemple concret* : Imagine que tu recrutes un consultant expert généraliste — très cultivé, mais dont les connaissances s'arrêtent à début 2024. Tu lui demandes : "Quel est le chiffre d'affaires de notre entreprise ce trimestre ?" Il ne peut pas répondre. Il ne connaît pas ta boîte, et même s'il la connaissait, ses infos sont périmées.
 
 Tu as deux options : soit tu le formes pendant 6 mois sur tes données internes (= fine-tuning, coûteux et rigide), soit avant chaque question tu lui poses sur le bureau les documents pertinents et tu lui dis "lis ça, puis réponds". C'est exactement le RAG.
