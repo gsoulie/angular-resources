@@ -169,6 +169,7 @@ Un LLM de base ne fait que du texte → texte. Il ne peut ni appeler une API, ni
 
 ### Hallucination
 Le modèle génère du texte plausible mais factuellement faux, avec une confiance apparente totale. Il ne "sait" pas qu'il ne sait pas. 
+Dans la majorité des cas, les hallucinations sont dues à un contexte pertinent, ou ne savent pas à quelles données se référer.
 
 Atténuation : RAG + grounding sur des sources vérifiables + validation humaine sur les outputs critiques.
 
