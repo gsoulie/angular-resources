@@ -7,7 +7,12 @@
 * [5. Risques Sécurité & RGPD](#5-Risques-Sécurité--RGPD)
 * [6. Patterns d'architecture](#6-Patterns-darchitecture)
 * [7. Outils](#7-outils)
-* [Méthode pour structurer un programme d'IA agentique](#méthode-pour-structurer-un-programme-dIA-agentique)     
+* [Méthode pour structurer un programme d'IA agentique](#méthode-pour-structurer-un-programme-dIA-agentique)
+
+# RESSOURCES 
+
+https://inforeole.fr/agentic-design-patterns/
+
 
 # 1. Fonctionnement des LLMs (niveau conceptuel suffisant)
 Ce qu'un LLM (Large Language Model) fait réellement ? 
