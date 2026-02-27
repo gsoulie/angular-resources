@@ -6,7 +6,7 @@
 * [4. Les limites](#4-Les-limites-à-intégrer-dans-ta-pensée-produit)
 * [5. Risques Sécurité & RGPD](#5-Risques-Sécurité--RGPD)
 * [6. Patterns d'architecture](#6-Patterns-darchitecture)
-* [7. Outils](#7-outils)    
+* [7. Outils](#7-outils)
 
 # 1. Fonctionnement des LLMs (niveau conceptuel suffisant)
 Ce qu'un LLM (Large Language Model) fait réellement ? 
@@ -163,6 +163,23 @@ Le LLM choisit parmi des tools (fonctions exposées avec leur signature et descr
 * **Human-in-the-loop** : un humain valide certaines étapes — pattern indispensable en prod pour les actions à impact
 
 Les frameworks à connaître : LangGraph (graph-based, très utilisé), Vercel AI SDK (excellent DX pour Next.js), CrewAI, AutoGen.
+
+Les app IA classiques suivent une architecture linéaire qui repose sur un unique prompt détaillé. A l'inverse**LangGraph** propose une approche sur des graphes, ou chaque étape représente un noeud.
+
+Les limites :
+* Courbe d'apprentissage élevée
+* pour les développeur
+* difficile d'appréhension
+* documentation perfectible
+* très accès ChatGPT
+
+## Définir un agent IA Fonctionnellement 
+
+1. **Rôle** : Mission & instructions
+2. **Données** : Donnnées et connaissances accessibles
+3. **Actions** : Opérations réalisables (sur les SI, messages, etc...)
+4. **Conformité** : Garde-fous mis en place, contrôle, validation
+5. **Canaux** : Modes d'interactions (email, chat, SI, etc...)
 
 ### Les tools
 Un LLM de base ne fait que du texte → texte. Il ne peut ni appeler une API, ni lire une base de données, ni exécuter du code. Les tools (ou function calling) sont le mécanisme qui lui donne des "mains".
