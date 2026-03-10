@@ -15,6 +15,7 @@
 * [04-performance-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/04-performance-audit.md)
 * [05-security-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/05-security-audit.md)    
 * [06-CVE-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/06-cve-audit.md)
+* [76-AVV-estimation-macro](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/07-estimation-avv.md)    
 * [CLAUDE.md](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/claude.md)    
 
 # Prompt exemple rapide 
