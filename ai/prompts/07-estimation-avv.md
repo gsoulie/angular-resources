@@ -1,4 +1,4 @@
-# Estimation maco AVV
+# Estimation macro AVV
 
 <details>
   <summary>Estimation macro classique</summary>
