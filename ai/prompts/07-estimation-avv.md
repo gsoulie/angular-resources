@@ -108,13 +108,13 @@ En plus des écrans, inclure également :
 
 Suivre les étapes suivantes :
 
-1️⃣ Comprendre le besoin métier
+1. Comprendre le besoin métier
 
 * identifier les fonctionnalités principales
 * identifier les utilisateurs
 * identifier les workflows principaux
 
-2️⃣ Déduire les écrans nécessaires
+2. Déduire les écrans nécessaires
 
 Lister :
 
@@ -124,7 +124,7 @@ Lister :
 * modales
 * écrans de détail
 
-3️⃣ Estimer chaque écran
+3. Estimer chaque écran
 
 Pour chaque écran fournir :
 
@@ -139,14 +139,14 @@ Ordres de grandeur recommandés :
 * écran CRUD standard : 1 à 2 jours
 * écran complexe : 2 à 4 jours
 
-4️⃣ Construire un tableau d’estimation
+4. Construire un tableau d’estimation
 
 Format :
 
 | Écran | Description | Estimation (jours) |
 | ----- | ----------- | ------------------ |
 
-5️⃣ Ajouter les charges transverses
+5. Ajouter les charges transverses
 
 Inclure :
 
@@ -156,7 +156,7 @@ Inclure :
 * pipeline CI/CD
 * déploiement
 
-6️⃣ Calculer une estimation globale
+6. Calculer une estimation globale
 
 Fournir :
 
@@ -359,7 +359,7 @@ Exemples :
 
 # MÉTHODOLOGIE
 
-1️⃣ Comprendre le produit
+1. Comprendre le produit
 
 Identifier :
 
@@ -367,7 +367,7 @@ Identifier :
 * fonctionnalités principales
 * workflows métier
 
-2️⃣ Déduire les écrans nécessaires
+2. Déduire les écrans nécessaires
 
 Lister :
 
@@ -376,13 +376,13 @@ Lister :
 * modales
 * écrans de détail
 
-3️⃣ Attribuer une complexité à chaque écran
+3. Attribuer une complexité à chaque écran
 
-4️⃣ Appliquer le moteur d’estimation
+4. Appliquer le moteur d’estimation
 
-5️⃣ Ajouter les charges techniques globales
+5. Ajouter les charges techniques globales
 
-6️⃣ Calculer l’estimation globale
+6. Calculer l’estimation globale
 
 ---
 
