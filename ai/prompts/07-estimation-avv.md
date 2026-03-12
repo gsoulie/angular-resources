@@ -97,7 +97,7 @@ En plus des écrans, inclure également :
 * setup projet
 * configuration authentification
 * routing
-* architecture frontend
+* architecture frontend (décrit brièvement ce que cela comprend)
 * configuration tests
 * création pipeline CI/CD
 * préparation déploiement
@@ -300,7 +300,7 @@ Chaque écran inclut :
 Charges globales à inclure :
 
 * setup projet
-* architecture frontend
+* architecture frontend (décrit brièvement ce que cela comprend)
 * authentification
 * routing
 * configuration tests
