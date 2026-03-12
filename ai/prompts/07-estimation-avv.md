@@ -56,7 +56,7 @@ Stack frontend :
 
 Angular :
 
-* Angular
+* Angular <version>
 * Angular Material
 * TailwindCSS
 
@@ -64,8 +64,9 @@ OU
 
 NextJS :
 
-* NextJS avec SSR
+* NextJS <version> avec SSR
 * TailwindCSS
+* ShadcnUI
 
 Dans les deux cas :
 
@@ -101,6 +102,7 @@ En plus des écrans, inclure également :
 * configuration tests
 * création pipeline CI/CD
 * préparation déploiement
+* intégration charte graphique (si applicable)
 
 ---
 
@@ -135,6 +137,7 @@ Les estimations doivent rester **macro**.
 
 Ordres de grandeur recommandés :
 
+* écran très simple : 0.25 à 0.5 jours
 * écran simple : 0.5 à 1 jour
 * écran CRUD standard : 1 à 2 jours
 * écran complexe : 2 à 4 jours
@@ -166,7 +169,6 @@ Fournir :
 ---
 
 # FORMAT DE SORTIE ATTENDU
-
 ## 1. Compréhension du besoin
 
 Résumé rapide du produit.
