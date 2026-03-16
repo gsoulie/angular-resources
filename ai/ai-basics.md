@@ -6,8 +6,9 @@
 * [4. Les limites](#4-Les-limites-à-intégrer-dans-ta-pensée-produit)
 * [5. Risques Sécurité & RGPD](#5-Risques-Sécurité--RGPD)
 * [6. Patterns d'architecture](#6-Patterns-darchitecture)
-* [7. Outils](#7-outils)   
-* [8. Lost in the middle](#8-lost-in-the-middle)    
+* [7. Flux agent](#7-flux-agent)    
+* [8. Outils](#7-outils)   
+* [9. Lost in the middle](#8-lost-in-the-middle)    
 * [Méthode pour structurer un programme d'IA agentique](#méthode-pour-structurer-un-programme-dIA-agentique)   
 
 # RESSOURCES 
@@ -254,13 +255,17 @@ Pour les tâches complexes multi-étapes. Le pattern clé : définir des fronti�
 * **Fallback & circuit breaker** : les APIs LLM tombent — avoir un fallback vers un modèle alternatif
 * **Cache sémantique** : mettre en cache les réponses à des questions sémantiquement similaires (GPTCache, Semantic Cache de Upstash)
 
-![image](https://github.com/gsoulie/angular-resources/blob/master/ai/openclaw.png)     
+![image](https://github.com/gsoulie/angular-resources/blob/master/ai/images/openclaw.png)     
 
-# 7. Outils
+# 7. Flux agent
+
+![image](https://github.com/gsoulie/angular-resources/blob/master/ai/images/agentworkflow1.png)     
+
+# 8. Outils
 
 * **LangChain** est un framework d'orchestration Open Source qui simplifie la création d'applications avec des grands modèles de langage (LLM)
 
-# 8. Lost in the middle
+# 9. Lost in the middle
 
 Le phénomène "lost in the middle" (perdu au milieu) désigne la tendance des grands modèles de langage (LLMs) à moins bien prendre en compte les informations placées au milieu d’un long contexte (par exemple, un texte de plusieurs milliers de mots). En revanche, ils retiennent mieux ce qui est au début ou à la fin du texte, un peu comme notre mémoire humaine qui se souvient mieux du début et de la fin d’une liste.
 
