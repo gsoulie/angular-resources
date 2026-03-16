@@ -254,6 +254,8 @@ Pour les tâches complexes multi-étapes. Le pattern clé : définir des fronti�
 * **Fallback & circuit breaker** : les APIs LLM tombent — avoir un fallback vers un modèle alternatif
 * **Cache sémantique** : mettre en cache les réponses à des questions sémantiquement similaires (GPTCache, Semantic Cache de Upstash)
 
+![image](https://github.com/gsoulie/angular-resources/blob/master/ai/openclaw.png)     
+
 # 7. Outils
 
 * **LangChain** est un framework d'orchestration Open Source qui simplifie la création d'applications avec des grands modèles de langage (LLM)
