@@ -1,5 +1,8 @@
 [< Back to menu](https://github.com/gsoulie/angular-resources/blob/master/ai-prompt.md)     
 
+# Claude Code
+
+Claude code est un outil de programmation agentique. Il peut être utilisé directement via son CLI ou être intégré dans un IDE.
 
 # Tools with Claude Code
 
