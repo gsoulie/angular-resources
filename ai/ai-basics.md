@@ -11,6 +11,7 @@
 * [9. Lost in the middle](#8-lost-in-the-middle)    
 * [Méthode pour structurer un programme d'IA agentique](#méthode-pour-structurer-un-programme-dIA-agentique)   
 
+![image](https://github.com/gsoulie/angular-resources/blob/master/ai/images/iacomparison.png)     
 # RESSOURCES 
 
 https://inforeole.fr/agentic-design-patterns/
