@@ -1,15 +1,16 @@
 [< Back to menu](https://github.com/gsoulie/angular-resources/blob/master/ai-prompt.md)     
 
-* [1. Fonctionnement des LLMs](#1-Fonctionnement-des-LLMs-niveau-conceptuel-suffisant)    
-* [2. RAG](#2-RAG--Retrieval-Augmented-Generation)
-* [3. Agents & Prompts structurés](#3-Agents--Prompts-structurés)
-* [4. Les limites](#4-Les-limites-à-intégrer-dans-ta-pensée-produit)
-* [5. Risques Sécurité & RGPD](#5-Risques-Sécurité--RGPD)
-* [6. Patterns d'architecture](#6-Patterns-darchitecture)
-* [7. Flux agent](#7-flux-agent)    
-* [8. Outils](#7-outils)   
-* [9. Lost in the middle](#8-lost-in-the-middle)    
-* [Méthode pour structurer un programme d'IA agentique](#méthode-pour-structurer-un-programme-dIA-agentique)   
+* [Fonctionnement des LLMs](#1-Fonctionnement-des-LLMs-niveau-conceptuel-suffisant)    
+* [RAG](#2-RAG--Retrieval-Augmented-Generation)
+* [Agents & Prompts structurés](#3-Agents--Prompts-structurés)
+* [Les limites](#4-Les-limites-à-intégrer-dans-ta-pensée-produit)
+* [Risques Sécurité & RGPD](#5-Risques-Sécurité--RGPD)
+* [Patterns d'architecture](#6-Patterns-darchitecture)
+* [Flux agent](#7-flux-agent)    
+* [Outils](#7-outils)   
+* [Lost in the middle](#8-lost-in-the-middle)    
+* [Méthode pour structurer un programme d'IA agentique](#méthode-pour-structurer-un-programme-dIA-agentique)
+* [AI Fluency](#ai-fluency)    
 
 <img src="https://github.com/gsoulie/angular-resources/blob/master/ai/images/iacomparison.png" width="600">
 
@@ -318,3 +319,55 @@ Supposons que vous cherchez une réponse dans un long document technique. Au lie
 |---|---|---|---|
 | **Avantages** | - Eventuellement gratuit<br>- Open source, auto-hébergement<br>- Hautement personnalisable (code) | - Capacités de flux de travail avancées<br>- SaaS et support | - Interface utilisateur très conviviale<br>- Intégrations intégrées étendues (7 000+)<br>- Plateforme, SaaS et support bien connus |
 | **Inconvénients** | - Courbe d'apprentissage plus dure<br>- Moins d'intégrations prédéfinies<br>- Plus de charge pour gérer un déploiement | - Courbe d'apprentissage moyenne<br>- SaaS uniquement | - Flux de travail plus simple<br>- Personnalisation limitée (pas de codage)<br>- SaaS uniquement |
+
+# AI Fluency
+
+Les 3 modes d'intéraction avec l'IA :
+
+* **Automation** : L'IA travaille en suivant les instructions explicites d'un humain
+* **Augmentation** : L'IA et l'humain collaborent ensemble (réflexion et création)
+* **Agency** : L'IA travaille en autonomie sous l'autorité d'un humain
+
+## Les pilliers du Framework 4D :
+
+* **Delegation** : Quand et Comment utiliser l'IA. Réfléchir à la répartition des tâches, choisir judicieusement les tâches à confier à l'IA plutôt que de les déléguer à un humain
+	- Comprendre l'objectif et le problème que l'on essaye de résoudre
+	- Savoir ce que l'IA sait ou ne sait pas bien faire, connaître les capacités de ses outils, leurs limites
+	- Découper un problème complexe en plus petites parties
+	- Décider comment répartir le travail entre l'IA et l'humain	
+	- Choisir le bon mode d'intéraction (Automation, Augmentation ou Agency)
+	
+* **Description** : Communiquer clairement avec l'IA.	
+	- Expliquer les tâches, fournir du contexte, répondre aux questions, guider l'intéraction, format attendu, audiance, style, éviter les supositions etc...
+	- Partager un contexte de réflexion entre l'IA et l'humain
+	- Spécifier des données, des tâches clés, un ordre préféré etc...
+	
+* **Discernement** : Evaluer les résultats et le comportement de l'IA avec un regard critique
+	- La réponse est-elle utile et correcte ?
+	- L'IA adopte t'elle la bonne approche ?
+	- L'IA se comporte t'elle comme attendu ?	
+	
+* **Diligence** : Veiller à intéragir de manière responsable avec l'IA
+	- Garantir l'exactitude et asssumer la responsabilité
+	- Honnêteté et transaprence
+	- Usage éthique et conscience critique
+	
+### Delegation
+
+> **L'objectif principal ici est la capacité à définir clairement les objectifs et comprendre quel travail est nécessaire avant d'impliquer l'IA**
+
+**Définir clairement l'objectif**
+* Qu'est-ce que j'essaye de résoudre ?
+* A quoi doit ressembler le résultat ?
+* Quelle type de réflexion est nécessaire pour y parvenir ?
+
+**Connaître les compétences de l'IA**
+* Quelles sont ses capacités / limites ?
+* Quel modèle est le plus efficace pour le travail que je souhaite réaliser ?
+* Quel systèmes proprise la rapidité, la créativité, la profondeur ou la précision ?
+
+**Déléguer lse tâches**
+* Qu'est-ce qui peut être automatisé de manière éfficace ?
+* Où l'augmentation peut créer plus de valeur qu'un travail séparé ?
+* Qu'est-ce qui devrait être réalisé par un humain seul ?
+* Qu'est-ce qui devrait être réalisé par un agent autonome sous notre supervision ?
