@@ -280,6 +280,8 @@ Architecture :
 * formulaires
 * validation
 * gestion erreurs
+* gestion du multilingue si spécifié
+* gestion d'un mode hors-ligne si spécifié
 
 Type de produit :
 
