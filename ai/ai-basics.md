@@ -322,6 +322,8 @@ Supposons que vous cherchez une réponse dans un long document technique. Au lie
 
 # AI Fluency
 
+<img src="https://github.com/gsoulie/angular-resources/blob/master/ai/images/aifluency-cheat-sheet.png">
+
 Les 3 modes d'intéraction avec l'IA :
 
 * **Automation** : L'IA travaille en suivant les instructions explicites d'un humain
