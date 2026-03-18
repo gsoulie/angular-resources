@@ -274,7 +274,7 @@ NextJS
 Architecture :
 
 * API REST
-* authentification Keycloak
+* authentification (Keycloak par défaut)
 * gestion des rôles
 * responsive desktop/mobile
 * formulaires
