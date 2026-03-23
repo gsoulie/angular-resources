@@ -14,7 +14,8 @@
 * [Exemples de tests](#exemples-de-tests)
 * [Intégration Lighthouse dans Playwright](#intégration-lighthouse-dans-playwright)
 * [Pipeline CI lighthouse](#pipeline-ci-lighthouse)
-* [Exécuter lighthouse depuis CLI](#exécuter-lighthouse-depuis-cli)     
+* [Exécuter lighthouse depuis CLI](#exécuter-lighthouse-depuis-cli)
+* [2026 - TU avec vitest](https://blog.angular-university.io/angular-testing-vitest/)      
 
 
 ## Ecriture de tests simplifiée avec Angular 20    
