@@ -1043,7 +1043,7 @@ souhaite tester sur chaque élément.
 * *Assert Text* (texte visible d'un élément) puis cliquer sur un élément contenant du texte, pour ajouter le test sur la valeur affichée par l'élément. Va générer le test ````await expect(page.getByTestId('submit-todo-button')).toContainText('Ajouter');```` 
 * *Assert Value* (pour les champs de formulaire) puis cliquer sur l'élément voulu. Va générer le test ````await expect(page.getByTestId('todo-title-input')).toHaveValue('my test value');````
 
-> Remarque : En mode record new, le browser se lance mais ne récupère pas l'url configurée. Pour une application Angular, il faut donc renseigner l'url "http://localhost:4200" dans le browser ouvert par le test pour accéder à l'application
+> Remarque : En mode record new, il faut au préalable **lancer l'application** (ng serve), ensuite lorsque le browser (playwright) se lance mais ne récupère pas l'url configurée. Pour une application Angular, il faut donc renseigner l'url "http://localhost:4200" dans le browser ouvert par le test pour accéder à l'application
 
 
 ## Intégration Lighthouse dans playwright
