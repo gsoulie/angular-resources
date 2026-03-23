@@ -217,8 +217,8 @@ Un appel LLM prend 1-10 secondes. Un agent multi-étapes peut prendre 30-60s. Le
 ### Température
 
 Influence la distribution des probabilités du token suivant.
-* température basse (très déterministe): va toujours sélectionner le token ayant la probabilité la plus haute
-* températeure haute (proche de 1) : Le modèle distribue la probabilité de manière plus uniforme parmis tous les tokens possible. Intrdotuit plus d'aléatoire
+* température basse (très déterministe): va toujours sélectionner le token ayant la probabilité la plus haute : Assistant codage, réponses factuelles, extraction de données...
+* températeure haute (proche de 1) : Le modèle distribue la probabilité de manière plus uniforme parmis tous les tokens possible. Intrdotuit plus d'aléatoire : Mode créatif, brainstorming, marketing
 
 
 ### Context window poisoning / distraction
