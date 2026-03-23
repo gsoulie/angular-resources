@@ -214,6 +214,13 @@ Un appel LLM prend 1-10 secondes. Un agent multi-étapes peut prendre 30-60s. Le
 ### Non-déterminisme
 à température > 0, deux appels identiques donnent des résultats différents. C'est un changement de paradigme par rapport au développement classique : tu testes des distributions de comportements, pas des cas déterministes.
 
+### Température
+
+Influence la distribution des probabilités du token suivant.
+* température basse (très déterministe): va toujours sélectionner le token ayant la probabilité la plus haute
+* températeure haute (proche de 1) : Le modèle distribue la probabilité de manière plus uniforme parmis tous les tokens possible. Intrdotuit plus d'aléatoire
+
+
 ### Context window poisoning / distraction
 Au-delà d'un certain volume de contexte, les performances dégradent. Les modèles ont tendance à moins bien utiliser les informations au milieu du contexte (lost in the middle)
 
