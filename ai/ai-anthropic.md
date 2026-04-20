@@ -41,7 +41,7 @@ Enfin un fichier ````~/.claude/CLAUDE.md```` peut être créé pour être utilis
 **En résumé**
 |Fichier|Description|
 |-|-|
-|````CLAUDE.md````|Fichier de contexte d'un projet, partagé à l'équipe. Contient les instructions / bonnes pratiques à appliquer au projet|
+|````repos/.claude/CLAUDE.md````|Fichier de contexte d'un projet, partagé à l'équipe. Contient les instructions / bonnes pratiques à appliquer au projet|
 |````CLAUDE.local.md````|Fichier de contexte local non partagé|
 |````~/.claude/CLAUDE.md````|Fichier de contexte global à la machine. Contient les instructions à appliquer à l'ensemble des projets sur la machine|
 
