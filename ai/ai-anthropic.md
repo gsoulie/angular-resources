@@ -26,8 +26,9 @@ Claude code est un outil de programmation agentique. Il peut être utilisé dire
 
 # CLAUDE.md
 
-Le fichier ````CLAUDE.md```` est **inclut par la suite dans toutes les requêtes faites à claude**. Ce fichier inclut le **contexte projet**, soit un résumé du projet, 
-liste les commandes importantes, l'architecture du projet et les règles de codage etc... On peut modifier ce fichier à souhait.
+Le fichier ````CLAUDE.md```` est **inclut par la suite dans TOUTES les requêtes faites à claude**. Ce fichier inclut le **contexte projet**, soit un résumé du projet, liste les commandes importantes, l'architecture du projet et les règles de codage etc... 
+
+On peut modifier ce fichier à souhait, et il doit dans l'idéal contenir toutes les contraintes qui doivent systématiquement être appliquées (ex: normes de dev, préférences, choses à ne jamais faire etc...) . Les contraintes plus spécifiques ou éphémères qui ne s'appliquent pas systématiquement doivent être définies plutôt dans les fichiers skills.
 
 Ce fichier est commité, donc partagé à tous les membres du projet. 
 
@@ -138,6 +139,8 @@ Liste des hooks existants :
 
 [**Voire aussi la documentation complète ici**](https://code.claude.com/docs/en/skills) 
 
+Contrairement au fichier *CLAUDE.md*, les skills ne sont chargés qu'à la demande. Au démarrage, Claude ne va charger que le nom et la description de chaque skill (afin de constituer sa base). Par la suite, un skill sera chargé uniquement à la demande, c'est à ce moment que le fichier complet du skill sera chargé.
+
 Tout comme le fichier CLAUDE.md, les skills peuvent être définis au niveau de la machine ou du projet.
 
 Pour définir les skills au niveau du projet, il suffit de créer un répertoire ````project/.claude/skills/<skill-name>/SKILL.md```` et y créer les fichiers skills que l'on souhaite (ex: custom-guidelines.md, pr-review.md, security-review.md ...)
@@ -152,8 +155,6 @@ Voici l'ordre de priorité pour la prise en compte des skills :
 **2. Personal** — répertoire home (````~/.claude/skills````)      
 **3. Project** — répertoire ````project/.claude/skills````      
 **4. Plugins** — plugins installés, priorité la plus basse (````project/.claude-plugins/skills````)        
-
-> A noter qu'au démarrage, Claude ne charge que le nom et la description du skill. Il ne chargera le fichier complet que lors de son utilisation.
 
 
 *Exemple de fichier skill Angular moderne*
