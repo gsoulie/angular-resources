@@ -145,10 +145,10 @@ Que ce passe t'il si un projet cloné possède un skill qui a le même nom qu'un
 
 Voici l'ordre de priorité pour la prise en compte des skills :
 
-**1. Enterprise** — managed settings, highest priority (managed-settings.json)
-**2. Personal** — your home directory (~/.claude/skills)
-**3. Project** — the .claude/skills directory inside a repository
-*4. Plugins** — installed plugins, lowest priority
+**1. Enterprise** — managed settings, priorité la plus haute (managed-settings.json)
+**2. Personal** — répertoire home (````~/.claude/skills````)
+**3. Project** — répertoire ````project/.claude/skills````
+**4. Plugins** — plugins installés, priorité la plus basse (````project/.claude-plugins/skills````)
 
 *Exemple de fichier skill Angular moderne*
 
