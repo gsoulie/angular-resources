@@ -4,7 +4,8 @@
 
 * [Les bases](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-basics.md)
   * LLM, RAG, Agents, Limites, Risques, Patterns
-* [Formation Anthropic](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-anthropic.md)     
+* [Formation Anthropic](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-anthropic.md)
+* [Sécurisation environnement](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-security.md)     
 
 # AI Prompting
 
