@@ -138,4 +138,4 @@ Liste des hooks existants :
 
 Tout comme le fichier CLAUDE.md, les skills peuvent être définis au niveau de la machine ou du projet.
 
-Pour définir les skills au niveau du projet, il suffit de créer un répertoire ````repos/.claude/skills/```` et y créer les fichiers skills que l'on souhaite (ex: pr-review.md, security-review.md ...)
+Pour définir les skills au niveau du projet, il suffit de créer un répertoire ````repos/.claude/skills/```` et y créer les fichiers skills que l'on souhaite (ex: custom-guidelines.md, pr-review.md, security-review.md ...)
