@@ -153,6 +153,9 @@ Voici l'ordre de priorité pour la prise en compte des skills :
 **3. Project** — répertoire ````project/.claude/skills````      
 **4. Plugins** — plugins installés, priorité la plus basse (````project/.claude-plugins/skills````)        
 
+> A noter qu'au démarrage, Claude ne charge que le nom et la description du skill. Il ne chargera le fichier complet que lors de son utilisation.
+
+
 *Exemple de fichier skill Angular moderne*
 
 <details>
@@ -514,3 +517,18 @@ describe('CartStore', () => {
 
 	
 </details>
+
+## Bonne pratique
+Les skills partagent la fenêtre de contexte de Claude avec votre conversation. Lorsqu'il active une compétence, le contenu du fichier SKILL.md correspondant est chargé dans le contexte. Or, il arrive que vous ayez besoin de références, d'exemples ou de scripts utilitaires dont la compétence dépend.
+
+Tout condenser dans un seul fichier de 2 000 lignes pose deux problèmes : cela occupe beaucoup d’espace dans la fenêtre de contexte et ce n’est pas agréable à maintenir.
+
+La divulgation progressive résout ce problème. Conservez les instructions essentielles dans le fichier ````SKILL.md```` et placez les documents de référence détaillés dans des fichiers séparés que Claude ne consultera qu'en cas de besoin (dans des sous-répertoires du répertoire skill).
+
+La norme ouverte suggère d'organiser votre répertoire de compétences comme suit :
+
+* scripts/ — Code exécutable     
+* references/ — Documentation supplémentaire      
+* resources/ — Images, modèles ou autres fichiers de données
+* 
+Ensuite, dans SKILL.md, insérez un lien vers les fichiers de support en fournissant des instructions claires sur le moment où les charger.
