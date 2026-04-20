@@ -140,7 +140,8 @@ Tout comme le fichier CLAUDE.md, les skills peuvent être définis au niveau de 
 
 Pour définir les skills au niveau du projet, il suffit de créer un répertoire ````project/.claude/skills/<skill-name>/SKILL.md```` et y créer les fichiers skills que l'on souhaite (ex: custom-guidelines.md, pr-review.md, security-review.md ...)
 
-**Skill Priority**
+**Skill Priority**    
+
 Que ce passe t'il si un projet cloné possède un skill qui a le même nom qu'un skill personnel ?
 
 Voici l'ordre de priorité pour la prise en compte des skills :
