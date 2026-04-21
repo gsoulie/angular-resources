@@ -7,6 +7,10 @@
 * [Formation Anthropic](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-anthropic.md)
 * [Sécurisation environnement](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-security.md)     
 
+# Cursor skills
+
+* [skills](https://github.com/gsoulie/angular-resources/tree/master/ai/cursor/skills)     
+
 # AI Prompting
 
 * [Collection de prompts](#collection-de-prompts)
