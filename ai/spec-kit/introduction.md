@@ -41,6 +41,9 @@
 - **Syntaxe** :
 ```plaintext
 /specify <description-de-la-feature>
+
+// ex
+/specify drag and drop - let's make it so that users can reorder goals by dragging and dropping them above or below other goals in the list.
 ```
 - **Résultat** : Crée un fichier de spécification dans specs/<feature>.md.    
 
