@@ -9,7 +9,11 @@
 
 # Cursor skills
 
-* [skills](https://github.com/gsoulie/angular-resources/tree/master/ai/cursor/skills)     
+* [skills](https://github.com/gsoulie/angular-resources/tree/master/ai/cursor/skills)
+
+# Github Spec Kit
+
+* [Spec kit](https://github.com/gsoulie/angular-resources/blob/master/ai/spec-kit/introduction.md)         
 
 # AI Prompting
 
