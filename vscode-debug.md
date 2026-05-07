@@ -2,13 +2,13 @@
 
 # Debugging in VSCode
 
-* [Solution simple et rapide](#solution-simple-et-rapide)     
+* [Solution simple et rapide - les pointsd'arrêts Google Chrome](#solution-simple-et-rapide)     
 * [Debug mode](#debug-mode)     
 * [Testing prod build](#testing-prod-build)         
 
 ## Solution simple et rapide
 
-Solution utilisant chrome
+Cette solution fonctionne pour Chrome. Elle consiste à mettre des points d'arrêts dans le code, de manière dynamique, directement depuis le volet *Sources/Workspace* de Chrome. Ceci fonctionne pour toutes les technos web.
 
 1. Exécuter le projet `ng serve -o`
 2. Ouvrir le volet developpeur de chrome
@@ -17,9 +17,19 @@ Solution utilisant chrome
 5. Ouvrir le projet et naviguer dans les sources pour sélectionner le fichier à debugger
 6. Ajouter des points d'arrêts sur les lignes voulues
 
-> Il est également possible de placer des points d'arrêts dans le html des composants (pas sur les balise directement mais sur leurs attributs ou interactions)
+> Il est également possible de placer des points d'arrêts dans le html des composants (pas sur les balise directement mais sur leurs attributs ou interactions). Ceci est rendu possible car le code html est compilé en javascript
 
 <img width="1692" height="909" alt="image" src="https://github.com/user-attachments/assets/ec58e6af-1f27-40e2-9b91-76b3287f420f" />
+
+### Point d'arrêt conditionnel
+
+Il est possible de déclencher un point d'arrêt sur une condition précise. 
+
+1. Faire un clic droit sur le point d'arrêt
+2. Choisir l'option "Edit breakpoint"
+3. Saisir la condition
+
+<img width="477" height="468" alt="image" src="https://github.com/user-attachments/assets/a0ae3559-0bf3-40ac-aa62-774e546fb647" />
 
 
 ## Principe debug avec point d'arrêt d'une application NextJS :
