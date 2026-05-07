@@ -2,8 +2,22 @@
 
 # Debugging in VSCode
 
+* [Solution simple et rapide](#solution-simple-et-rapide)     
 * [Debug mode](#debug-mode)     
 * [Testing prod build](#testing-prod-build)         
+
+## Solution simple et rapide
+
+Solution utilisant chrome
+
+1. Exécuter le projet `ng serve -o`
+2. Ouvrir le volet developpeur de chrome
+3. Aller dans la section **Source**
+4. Se placer sur le **Workspace** (Si le projet ne s'ouvre pas, il est possible de l'ajouter manuellement)
+5. Ouvrir le projet et naviguer dans les sources pour sélectionner le fichier à debugger
+6. Ajouter des points d'arrêts sur les lignes voulues
+
+<img width="1692" height="909" alt="image" src="https://github.com/user-attachments/assets/ec58e6af-1f27-40e2-9b91-76b3287f420f" />
 
 
 ## Principe debug avec point d'arrêt d'une application NextJS :
