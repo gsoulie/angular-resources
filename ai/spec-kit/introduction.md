@@ -26,7 +26,7 @@
 ## 📜 **1. Configuration Initiale**
 ### `/constitution`
 - **Quand l'utiliser** : **Une seule fois**, à la création du projet.
-- **Objectif** : Définir les **règles globales** du projet (bonnes pratiques, contraintes techniques, etc.).
+- **Objectif** : Définir les **règles globales** du projet (bonnes pratiques, contraintes techniques, SOLID, a11y,  etc.).
 - **Exemple de prompt** :
   ```plaintext
   /constitution declare principles for clean code, simple UX, responsive design and minimal dependencies.
