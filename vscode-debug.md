@@ -38,6 +38,8 @@ Créer une configuration pour le debug  de la partie front avec chrome
 
 ## Debug mode
 
+[Angular Debugging](https://www.youtube.com/watch?v=LYP_iLQZLQg)    
+
 - 1 : Installer l'extension vscode debugger for chrome
 - 2 : Dans l'onglet debug, créer une nouvelle configuration. Ceci va créer un répertoire .vscode contenant un fichier *launch.json*
 
@@ -107,8 +109,11 @@ Créer une configuration pour le debug  de la partie front avec chrome
 ````
 
 - 4 : placer des points d'arrêts dans le code ou le mot "debugger" aux endroits stratégiques
-- 5 : faire un run du projet normalement : ````ng serve```` pour angular ou ````npm run dev```` pour Nexts / React
-- 6 : aller dans l'onglet debug et exécuter le fichier *launch.json* en sélectionnant la configuration désirée (important : il est possible qu'il faille le lancer 2 fois).
+- 5 : exécuter le projet via l'onglet debug *Run and Debug*
+
+*(Les étapes suivantes ne sont plus nécessaires)*
+- 6 : faire un run du projet normalement : ````ng serve```` pour angular ou ````npm run dev```` pour Nexts / React
+- 7 : aller dans l'onglet debug et exécuter le fichier *launch.json* en sélectionnant la configuration désirée (important : il est possible qu'il faille le lancer 2 fois).
   	* Un second navigateur chrome va alors s'ouvrir
 
 Depuis le volet debug on a alors accès aux variables du scope dans le volet *variables* et il est possible d'ajouter des variables spécifiques à surveiller en les ajoutant dans l'onglet *watch*
