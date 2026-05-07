@@ -14,7 +14,8 @@
 	* [Template projet personnalisé](https://github.com/gsoulie/angular-resources/blob/master/ng-degit.md)      
 	* [Arborescence projet](https://github.com/gsoulie/angular-resources/blob/master/ng-treemap.md)     
 	* [Notions de base - Fonctionnement Javascript](https://github.com/gsoulie/angular-resources/blob/master/ng-basics.md)    
-		* Rendering    
+		* Rendering
+  	* [Debugging](https://github.com/gsoulie/angular-resources/edit/master/vscode-debug.md)      
 	* [Fonctionnement Change Detection](https://github.com/gsoulie/angular-resources/blob/master/ng-change-detection.md)      
 	* [Service Injection](https://github.com/gsoulie/angular-resources/blob/master/ng-inject.md)    
 	* [Injection token et useFactory](https://github.com/gsoulie/angular-resources/blob/master/ng-injection-token.md)      
