@@ -17,6 +17,8 @@ Solution utilisant chrome
 5. Ouvrir le projet et naviguer dans les sources pour sélectionner le fichier à debugger
 6. Ajouter des points d'arrêts sur les lignes voulues
 
+> Il est également possible de placer des points d'arrêts dans le html des composants (pas sur les balise directement mais sur leurs attributs ou interactions)
+
 <img width="1692" height="909" alt="image" src="https://github.com/user-attachments/assets/ec58e6af-1f27-40e2-9b91-76b3287f420f" />
 
 
