@@ -289,17 +289,17 @@ Pour contourner ce problème, plusieurs stratégies sont utilisées en productio
 **a. Réorganisation stratégique du contexte**      
  
 * Placer les informations clés au début ou à la fin du prompt.      
-* Utiliser un système de "two-stage retrieval" : d’abord une recherche large pour identifier les documents pertinents, puis un réordonnancement (reranking) pour placer les passages les plus importants en tête ou en queuegetmaxim.ai+1.
+* Utiliser un système de "two-stage retrieval" : d’abord une recherche large pour identifier les documents pertinents, puis un réordonnancement (reranking) pour placer les passages les plus importants en tête ou en queue.
 
 **b. Techniques avancées de RAG (Retrieval-Augmented Generation)**
 
 * Hybrid search : Combiner recherche sémantique (compréhension du sens) et recherche lexicale (mots-clés) pour mieux identifier les passages pertinents.
-* Contextual retrieval : Ajouter un résumé ou un contexte global avant chaque extrait pour aider le modèle à comprendre le lien entre les morceauxgetmaxim.ai.
+* Contextual retrieval : Ajouter un résumé ou un contexte global avant chaque extrait pour aider le modèle à comprendre le lien entre les morceaux.
 
 **c. Méthodes architecturales**
 
 * Attention calibration : Ajuster les mécanismes d’attention pour réduire le biais positionnel.
-* Meta-Prompting : Utiliser un premier LLM pour résumer et nettoyer le contexte avant de le passer au modèle principalpub.towardsai.net+1.
+* Meta-Prompting : Utiliser un premier LLM pour résumer et nettoyer le contexte avant de le passer au modèle principal.
 
 **d. Exemple concret en RAG**
 Supposons que vous cherchez une réponse dans un long document technique. Au lieu de tout envoyer d’un coup, vous :
