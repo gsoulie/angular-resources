@@ -187,7 +187,7 @@ Les limites :
 ## Définir un agent IA Fonctionnellement 
 
 1. **Rôle** : Mission & instructions
-2. **Données** : Donnnées et connaissances accessibles
+2. **Données** : Données et connaissances accessibles
 3. **Actions** : Opérations réalisables (sur les SI, messages, etc...)
 4. **Conformité** : Garde-fous mis en place, contrôle, validation
 5. **Canaux** : Modes d'interactions (email, chat, SI, etc...)
@@ -285,10 +285,10 @@ Le phénomène "lost in the middle" (perdu au milieu) désigne la tendance des g
 * Cela s’explique par des **biais positionnels** dans l’architecture des modèles (comme le Rotary Position Embedding, RoPE), qui atténuent l’importance des tokens situés au centre d’une longue séquence
 
 ## 2. Exemples concrets de solutions
-Pour contourner ce problème, plusieurs stratégies sont utilisées en production :
-**a. Réorganisation stratégique du contexte**
-
-* Placer les informations clés au début ou à la fin du prompt.
+Pour contourner ce problème, plusieurs stratégies sont utilisées en production :      
+**a. Réorganisation stratégique du contexte**      
+ 
+* Placer les informations clés au début ou à la fin du prompt.      
 * Utiliser un système de "two-stage retrieval" : d’abord une recherche large pour identifier les documents pertinents, puis un réordonnancement (reranking) pour placer les passages les plus importants en tête ou en queuegetmaxim.ai+1.
 
 **b. Techniques avancées de RAG (Retrieval-Augmented Generation)**
