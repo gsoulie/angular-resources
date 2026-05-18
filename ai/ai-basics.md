@@ -375,7 +375,7 @@ Les 3 modes d'intéraction avec l'IA :
 * Quel modèle est le plus efficace pour le travail que je souhaite réaliser ?
 * Quel systèmes proprise la rapidité, la créativité, la profondeur ou la précision ?
 
-**Déléguer lse tâches**
+**Déléguer les tâches**
 * Qu'est-ce qui peut être automatisé de manière éfficace ?
 * Où l'augmentation peut créer plus de valeur qu'un travail séparé ?
 * Qu'est-ce qui devrait être réalisé par un humain seul ?
