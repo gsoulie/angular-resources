@@ -59,7 +59,9 @@ Claude code est un outil de programmation agentique. Il peut être utilisé dire
 
 # CLAUDE.md
 
-Le fichier ````CLAUDE.md```` est la *"mémoire"* du projet (architecture, conventions, préférences, commandes...). Il est **inclut par la suite dans TOUTES les requêtes faites à claude**. Ce fichier inclut le **contexte projet**, soit un résumé du projet, liste les commandes importantes, l'architecture du projet et les règles de codage etc... 
+Le fichier ````CLAUDE.md```` est la *"mémoire"* du projet (architecture, conventions, préférences, commandes, points d'attentions, à ne pas faire...). 
+
+Il est **inclut par la suite dans TOUTES les requêtes faites à claude**. Ce fichier inclut le **contexte projet**, soit un résumé du projet, liste les commandes importantes, l'architecture du projet et les règles de codage etc... 
 
 On peut modifier ce fichier à souhait, et il doit dans l'idéal contenir toutes les contraintes qui doivent systématiquement être appliquées (ex: normes de dev, préférences, choses à ne jamais faire etc...) . Les contraintes plus spécifiques ou éphémères qui ne s'appliquent pas systématiquement doivent être définies plutôt dans les fichiers skills.
 
