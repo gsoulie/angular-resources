@@ -85,7 +85,8 @@ Enfin un fichier ````~/.claude/CLAUDE.md```` peut être créé pour être utilis
 |````~/.claude/CLAUDE.md````|Fichier de contexte global à la machine. Contient les instructions à appliquer à l'ensemble des projets sur la machine|
 
 ## Bonnes pratiques
-- bien spécifier à Claude de créer du code modulaire et évolutif    
+- bien spécifier à Claude de créer du code modulaire et évolutif
+- respecter la séparation des responsabilité dans le code généré     
 - spécifier de privilégier du code simple et clair      
 - lui demander d'ajouter une entrée dans un fichier CHANGELOG.md à chaque ajout de nouvelle fonctionnalité     
 - 
