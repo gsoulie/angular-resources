@@ -10,11 +10,13 @@
 * [Modes de raisonnement](#modes-de-raisonnement)
 * [Hooks](#hooks)
 * [Skills](#skills)
-* [Sub-agents](#sub-agents)    
+* [Sub-agents](#sub-agents)
 
 # Claude Code
 
 Claude code est un outil de programmation agentique. Il peut être utilisé directement via son CLI ou être intégré dans un IDE.
+
+[Série de vidéos formation](https://www.youtube.com/watch?v=Bge_XJu7fzg)     
 
 # Installation
 
