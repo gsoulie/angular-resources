@@ -26,9 +26,13 @@ Claude code est un outil de programmation agentique. Il peut être utilisé dire
 |commande|description|
 |-|-|
 |`/claude`|démarrer une session|
-|`/clear`|nettoyage du contexte|
-|`/compact`|résumer le contexte actuel|
+|`/init`|à exécuter uniquement la première fois, va générer le fichier CLAUDE.md|
+|`/clear`|nettoyage du contexte. Tout est perdu sauf l'info du CLAUDE.md|
 |`/agents`|créer un nouvel agent|
+|`/context`|visualiser l'état de la fenêtre de contexte actuelle|
+|`/compact`|résumer le contexte actuel (à jouer lorsque le contexte approche de sa limite)|
+|`/model`|changer de modèle|
+
 
 # Status line
 
@@ -55,7 +59,7 @@ Claude code est un outil de programmation agentique. Il peut être utilisé dire
 
 # CLAUDE.md
 
-Le fichier ````CLAUDE.md```` est **inclut par la suite dans TOUTES les requêtes faites à claude**. Ce fichier inclut le **contexte projet**, soit un résumé du projet, liste les commandes importantes, l'architecture du projet et les règles de codage etc... 
+Le fichier ````CLAUDE.md```` est la *"mémoire"* du projet (architecture, conventions, préférences, commandes...). Il est **inclut par la suite dans TOUTES les requêtes faites à claude**. Ce fichier inclut le **contexte projet**, soit un résumé du projet, liste les commandes importantes, l'architecture du projet et les règles de codage etc... 
 
 On peut modifier ce fichier à souhait, et il doit dans l'idéal contenir toutes les contraintes qui doivent systématiquement être appliquées (ex: normes de dev, préférences, choses à ne jamais faire etc...) . Les contraintes plus spécifiques ou éphémères qui ne s'appliquent pas systématiquement doivent être définies plutôt dans les fichiers skills.
 
@@ -91,7 +95,7 @@ Si on souhaite conserver tout l'historique, ne pas hésiter à tout copier dans 
 *token de sortie* : les IA parlent trop (très verbeux). Ne pas hésiter à orienter le format de sortie,
 ou demander à l'IA de répondre de manière consise 
 
-- Utiliser **le bon modèle pour la bonne utilisation**. On a pas besoin d'un opus 4.7 pour faire un résumé de texte, préférer Sonet.    
+- Utiliser **le bon modèle pour la bonne utilisation**. On a pas besoin d'un opus 4.7 pour faire un résumé de texte, **préférer Sonet pour les tâches courantes**.    
 - Ne pas activer les mcp par défaut. Les activer au besoin, unitairement    
 - Ne pas surcharger le fichier CLAUDE.md    
 - Faire attention aux fichiers envoyés au LLM : le texte basique est le plus optimisé. PDF/DOC = 10x plus de token utilisés, Image / screen = 20x plus de token utiliés que du texte de base (ou du md)    
