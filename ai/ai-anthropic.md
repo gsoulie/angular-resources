@@ -164,8 +164,7 @@ Les *Hooks* permettent d'exécuter une commande **avant** (preToolUse) ou **apr�
 On peut créer un hook manuellement ou utiliser la commande ````/hooks````
 
 Les hooks sont définis dans :
-|||
-|-|-|
+
 |**Global**|````~/.claude/settings.json````|
 |**Project**|````.claude/settings.json````|
 |**Project (not committed)**|````.claude/settings.local.json````|
