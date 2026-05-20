@@ -4,6 +4,25 @@
 
 Claude code est un outil de programmation agentique. Il peut être utilisé directement via son CLI ou être intégré dans un IDE.
 
+
+
+# Installation
+
+1. Window powershell `irm https://claude.ai/install.ps1 | iex`     
+2. démarrer une session (se positionner dans le répertoire cible voulu) et exécuter la	commande `claude`    
+3. installer l'extension VSCode Claude Code     
+
+# Commandes
+
+|commande|description|
+|-|-|
+|`/clear`|nettoyage du contexte|
+|`/compact`|résumer le contexte actuel|
+|`/agents`|créer un nouvel agent|
+
+# Status line
+
+
 # Tools with Claude Code
 
 | Name           | Purpose                                      |
@@ -45,6 +64,33 @@ Enfin un fichier ````~/.claude/CLAUDE.md```` peut être créé pour être utilis
 |````project/.claude/CLAUDE.md````|Fichier de contexte d'un projet, partagé à l'équipe. Contient les instructions / bonnes pratiques à appliquer au projet|
 |````CLAUDE.local.md````|Fichier de contexte local non partagé|
 |````~/.claude/CLAUDE.md````|Fichier de contexte global à la machine. Contient les instructions à appliquer à l'ensemble des projets sur la machine|
+
+## Bonnes pratiques
+- bien spécifier à Claude de créer du code modulaire et évolutif    
+- spécifier de privilégier du code simple et clair      
+- lui demander d'ajouter une entrée dans un fichier CHANGELOG.md à chaque ajout de nouvelle fonctionnalité     
+- 
+
+
+# Economiser les tokens
+
+*token d'entrée* : lorsque le contexte arrive aux alkentour de 40%, utiliser la commande `/compact` (claude code) ou `/clear` pour 
+vider le contexte si on en a plus besoin. 
+Si on souhaite conserver tout l'historique, ne pas hésiter à tout copier dans un fichier et à le donner au modèle.
+
+*token de sortie* : les IA parlent trop (très verbeux). Ne pas hésiter à orienter le format de sortie,
+ou demander à l'IA de répondre de manière consise 
+
+- Utiliser le bon modèle pour la bonne utilisation. On a pas besoin d'un opus 4.7 pour faire un résumé de texte.    
+
+- Ne pas activer les mcp par défaut. Les activer au besoin, unitairement    
+
+- Ne pas surcharger le fichier CLAUDE.md    
+
+- Faire attention aux fichiers envoyés au LLM : le texte basique est le plus optimisé. PDF/DOC = 10x plus de token utilisés, Image / screen = 20x plus de token utiliés que du texte de base (ou du md)    
+
+- Utiliser les sous-agents uniquement pour des tâches isolées. Sinon plusieurs agents pourraient relire le contexte principal pour effectuer leur tâche. Ainsi un contexte principal pourrait être consommé x fois.    
+
 
 
 # Modes de raisonnement
@@ -136,6 +182,8 @@ Liste des hooks existants :
 |SessionEnd||
 
 # Skills
+
+[**Bibliothèque de skills**](https://skillsmp.com/)    
 
 [**Voire aussi la documentation complète ici**](https://code.claude.com/docs/en/skills) 
 
@@ -519,7 +567,7 @@ describe('CartStore', () => {
 	
 </details>
 
-## Bonne pratique
+## Bonnes pratiques
 Les skills partagent la fenêtre de contexte de Claude avec votre conversation. Lorsqu'il active une compétence, le contenu du fichier SKILL.md correspondant est chargé dans le contexte. Or, il arrive que vous ayez besoin de références, d'exemples ou de scripts utilitaires dont la compétence dépend.
 
 Tout condenser dans un seul fichier de 2 000 lignes pose deux problèmes : cela occupe beaucoup d’espace dans la fenêtre de contexte et ce n’est pas agréable à maintenir.
@@ -533,3 +581,31 @@ La norme ouverte suggère d'organiser votre répertoire de compétences comme su
 * resources/ — Images, modèles ou autres fichiers de données
 * 
 Ensuite, dans SKILL.md, insérez un lien vers les fichiers de support en fournissant des instructions claires sur le moment où les charger.
+
+
+# Sub-agents
+
+La commande `/agents` permet de créer des agents spécialisés en fonction de ses besoins.
+
+*exemple création d'un agent code reviewer en ligne de commande*
+
+````
+claude --agents @'
+{
+  "code-reviewer": {
+    "description": "Expert code reviewer. Use proactively after code changes.",
+    "prompt": "You are a senior code reviewer. Focus on code quality, security, and best practices.",
+    "tools": ["Read", "Grep", "Glob", "Bash"],
+    "model": "sonnet"
+  },
+  "debugger": {
+    "description": "Debugging specialist for errors and test failures.",
+    "prompt": "You are an expert debugger. Analyze errors, identify root causes, and provide fixes."
+  }
+}
+'@
+````
+
+Les agents sont ensuite créés dans le répertoire `.claude/agents` du projet ou de la machine
+
+Pour utiliser l'agent, dans le prompt, spécifier à claude le nom de l'agent à utiliser
