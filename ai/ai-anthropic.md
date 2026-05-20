@@ -11,6 +11,7 @@
 * [Hooks](#hooks)
 * [Skills](#skills)
 * [Sub-agents](#sub-agents)
+* [Debugging](#debugging)    
 
 # Claude Code
 
@@ -37,7 +38,7 @@ Claude code est un outil de programmation agentique. Il peut être utilisé dire
 |`/model`|changer de modèle|
 
 - CTRL+L vider le prompt
-- 
+- @ : permet de sélectionner un fichier
 
 # Status line
 
@@ -632,3 +633,14 @@ claude --agents @'
 Les agents sont ensuite créés dans le répertoire `.claude/agents` du projet ou de la machine
 
 Pour utiliser l'agent, dans le prompt, spécifier à claude le nom de l'agent à utiliser
+
+# Debugging
+
+Comment bien utiliser Claude pour solutionner un bug :
+
+*template à fournir*
+- Comportement attendu
+- Comportement actuel
+- Etapes de reproduction
+- Contexte technique (+ stacktrace)
+- Ce qui a déjà été testé
