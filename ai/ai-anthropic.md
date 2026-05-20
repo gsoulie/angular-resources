@@ -92,6 +92,7 @@ Enfin un fichier ````~/.claude/CLAUDE.md```` peut être créé pour être utilis
 - spécifier de privilégier du code simple et clair      
 - lui demander d'ajouter une entrée dans un fichier CHANGELOG.md à chaque ajout de nouvelle fonctionnalité     
 - créer des sessions thématiques
+- demander à claude de mettre à jour le fichier CLAUDE.md régulièrement
 
 # Settings
 
