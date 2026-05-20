@@ -25,6 +25,7 @@ Claude code est un outil de programmation agentique. Il peut être utilisé dire
 
 |commande|description|
 |-|-|
+|`/claude`|démarrer une session|
 |`/clear`|nettoyage du contexte|
 |`/compact`|résumer le contexte actuel|
 |`/agents`|créer un nouvel agent|
