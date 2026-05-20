@@ -42,6 +42,34 @@ Claude code est un outil de programmation agentique. Il peut être utilisé dire
 
 ## Commande custom <TODO>
 
+Des commandes personnalisées peuvent être créées dans le répertoire `.claude/commands/<custom-command>.md`
+
+*Exemple : refactor.md*
+````
+Refactor the selected code to improve readability and maintainability.
+Focus on clean code principles and best practices.
+````
+
+*Exemple : security-check.md*
+
+````
+---
+allowed-tools: Read, Grep, Glob
+description: Run security vulnerability scan
+model: claude-opus-4-7
+---
+
+Analyze the codebase for security vulnerabilities including:
+- SQL injection risks
+- XSS vulnerabilities
+- Exposed credentials
+- Insecure configurations
+````
+
+- Les commandes peuvent inclure des fichiers particuliers  : utiliser le préfixe `@<nom-fichier>` dans le .md
+- Les commandes peuvent prendre des arguments : utiliser `$1 $2 ... $X` dans le .md
+
+
 # Status line <TODO>
 
 
@@ -600,6 +628,118 @@ describe('CartStore', () => {
 ````
 
 	
+</details>
+
+<details>
+	<summary>Exemple skill code-reviewer</summary>
+
+````
+skills/code-reviewer/
+    | SKILL.md
+	| guidelines.md
+````
+
+*SKILL.md*
+````
+---
+name: code-reviewer
+description: Review le code pour les bonnes pratiques et les problèmes potentiels. Utilise quand l'utilisateur demande une review de code, un check de PR, ou une analyse de qualité.
+allowed-tools: Read, Grep, Glob
+---
+
+# Code Reviewer
+
+## Instructions
+
+1. Lis les fichiers cibles avec l'outil Read
+2. Cherche des patterns avec Grep
+3. Trouve les fichiers liés avec Glob
+4. Fournis un feedback détaillé
+
+## Checklist de review
+
+Pour chaque fichier, vérifie :
+
+### 1. Organisation et structure
+- [ ] Le code est-il bien organisé ?
+- [ ] Les fonctions sont-elles courtes et focalisées ?
+- [ ] Les noms sont-ils descriptifs ?
+
+### 2. Gestion des erreurs
+- [ ] Les erreurs sont-elles gérées correctement ?
+- [ ] Y a-t-il des try/catch appropriés ?
+- [ ] Les messages d'erreur sont-ils clairs ?
+
+### 3. Performance
+- [ ] Y a-t-il des boucles inefficaces ?
+- [ ] Les requêtes sont-elles optimisées ?
+- [ ] Y a-t-il des re-renders inutiles (React) ?
+
+### 4. Sécurité
+- [ ] Les inputs sont-ils validés ?
+- [ ] Y a-t-il des données sensibles exposées ?
+- [ ] Les dépendances sont-elles à jour ?
+
+### 5. Tests
+- [ ] Le code est-il testable ?
+- [ ] Les edge cases sont-ils couverts ?
+
+Pour les guidelines détaillées, voir [guidelines.md](guidelines.md).
+
+## Format de sortie
+
+Structure ta review ainsi :
+
+    ## Résumé
+    [Impression générale en 2-3 phrases]
+    
+    ## Points positifs
+    - [Ce qui est bien fait]
+    
+    ## Problèmes critiques
+    - [Bugs, failles de sécurité]
+    
+    ## Suggestions d'amélioration
+    - [Optimisations, refactoring]
+    
+    ## Score : X/10
+````
+
+*guidelines.md*
+
+````
+# Guidelines détaillées
+
+## React / TypeScript
+
+### Hooks
+- Toujours mettre les dépendances correctes dans useEffect
+- Éviter les hooks conditionnels
+- Extraire la logique complexe dans des custom hooks
+
+### Types
+- Éviter `any` — utiliser `unknown` si nécessaire
+- Définir des interfaces pour les props
+- Utiliser les generics quand approprié
+
+### Performance
+- Mémoiser avec useMemo/useCallback quand nécessaire
+- Éviter les re-renders avec React.memo
+- Lazy load les composants lourds
+
+## Node.js / Express
+
+### Sécurité
+- Valider tous les inputs avec Zod ou Joi
+- Utiliser helmet pour les headers HTTP
+- Rate limiting sur les endpoints sensibles
+
+### Erreurs
+- Utiliser un error handler centralisé
+- Logger les erreurs avec contexte
+- Ne jamais exposer les stack traces en prod
+````
+
 </details>
 
 ## Bonnes pratiques
