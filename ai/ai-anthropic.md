@@ -40,7 +40,9 @@ Claude code est un outil de programmation agentique. Il peut être utilisé dire
 - CTRL+L vider le prompt
 - @ : permet de sélectionner un fichier
 
-# Status line
+## Commande custom <TODO>
+
+# Status line <TODO>
 
 
 # Tools
@@ -216,6 +218,15 @@ Contrairement au fichier *CLAUDE.md*, les skills ne sont chargés qu'à la deman
 Tout comme le fichier CLAUDE.md, les skills peuvent être définis au niveau de la machine ou du projet.
 
 Pour définir les skills au niveau du projet, il suffit de créer un répertoire ````project/.claude/skills/<skill-name>/SKILL.md```` et y créer les fichiers skills que l'on souhaite (ex: custom-guidelines.md, pr-review.md, security-review.md ...)
+
+````
+mon-skill/
+    |- SKILL.md
+    |- reference.md (optionnel - documentation) 
+    |- example.md   (optionnel - exemples)
+    |- scripts/     (optionnel - scripts utilitaires)
+          |- helper.py
+````
 
 **Skill Priority**    
 
