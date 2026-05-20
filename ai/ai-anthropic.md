@@ -5,6 +5,7 @@
 * [Status line](#status-line)
 * [Tools](#tools)
 * [CLAUDE.md](#CLAUDEmd)
+* [Settings](#settings)     
 * [Economiser les tokens](#economiser-les-tokens)
 * [Modes de raisonnement](#modes-de-raisonnement)
 * [Hooks](#hooks)
@@ -87,6 +88,9 @@ Enfin un fichier ````~/.claude/CLAUDE.md```` peut être créé pour être utilis
 - lui demander d'ajouter une entrée dans un fichier CHANGELOG.md à chaque ajout de nouvelle fonctionnalité     
 - 
 
+# Settings
+
+Le fichier `.claude/settings.json` permet entre autre de configurer les permissions de claude
 
 # Economiser les tokens
 
