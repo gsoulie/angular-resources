@@ -268,6 +268,11 @@ Voici l'ordre de priorité pour la prise en compte des skills :
 **4. Plugins** — plugins installés, priorité la plus basse (````project/.claude-plugins/skills````)        
 
 
+## Bonnes pratiques 
+- **Toujours ajouter une description** au skill : permet à Claude de savoir s'il doit l'utiliser ou non
+- Créer des **skills spécialisés** : ne pas créer un gros skill qui fait tout. 1 tâche = 1 skill
+
+## Exemples 
 *Exemple de fichier skill Angular moderne*
 
 <details>
