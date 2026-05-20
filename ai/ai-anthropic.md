@@ -90,14 +90,10 @@ Si on souhaite conserver tout l'historique, ne pas hésiter à tout copier dans 
 *token de sortie* : les IA parlent trop (très verbeux). Ne pas hésiter à orienter le format de sortie,
 ou demander à l'IA de répondre de manière consise 
 
-- Utiliser le bon modèle pour la bonne utilisation. On a pas besoin d'un opus 4.7 pour faire un résumé de texte.    
-
+- Utiliser **le bon modèle pour la bonne utilisation**. On a pas besoin d'un opus 4.7 pour faire un résumé de texte, préférer Sonet.    
 - Ne pas activer les mcp par défaut. Les activer au besoin, unitairement    
-
 - Ne pas surcharger le fichier CLAUDE.md    
-
 - Faire attention aux fichiers envoyés au LLM : le texte basique est le plus optimisé. PDF/DOC = 10x plus de token utilisés, Image / screen = 20x plus de token utiliés que du texte de base (ou du md)    
-
 - Utiliser les sous-agents uniquement pour des tâches isolées. Sinon plusieurs agents pourraient relire le contexte principal pour effectuer leur tâche. Ainsi un contexte principal pourrait être consommé x fois.    
 
 
