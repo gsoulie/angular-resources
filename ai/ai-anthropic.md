@@ -95,7 +95,15 @@ Analyze the codebase for security vulnerabilities including:
 
 # CLAUDE.md
 
-Le fichier ````CLAUDE.md```` est la *"mémoire"* du projet (architecture, conventions, préférences, commandes, points d'attentions, à ne pas faire...). 
+Le fichier ````CLAUDE.md```` est la *"mémoire"* du projet :
+- architecture
+- structure repo     
+- conventions     
+- préférences    
+- commandes     
+- points d'attentions     
+- workflows     
+- à ne pas faire...). 
 
 Il est **inclut par la suite dans TOUTES les requêtes faites à claude**. Ce fichier inclut le **contexte projet**, soit un résumé du projet, liste les commandes importantes, l'architecture du projet et les règles de codage etc... 
 
