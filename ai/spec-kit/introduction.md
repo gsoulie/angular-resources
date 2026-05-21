@@ -34,6 +34,10 @@
   Absolutely no testing (no unit tests, no integration tests, no e2e tests) for the moment.
 - **Résultat** : Génère un fichier constitution.md avec les principes à respecter.
 
+Exemples de fichiers *constitution.md* : 
+- [exemple 1](https://github.com/gsoulie/angular-resources/blob/master/ai/spec-kit/constitution-1.md)
+- [exemple 2](https://github.com/gsoulie/angular-resources/blob/master/ai/spec-kit/constitution-2.md)     
+
 ## 🔍 2. Spécification des Fonctionnalités
 ### `/specify`
 - **Objectif** : Décrire les fonctionnalités et leurs règles (UX/UI, interactions, contraintes).
