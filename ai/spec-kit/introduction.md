@@ -34,6 +34,17 @@ specify init --here
 ````
 ---
 
+## Commandes
+
+Les commandes doivent être préfixées si elles sont utilisées depuis un autre agent que copilot :
+
+````
+/speckit.constitution
+/speckit.plan
+````
+
+---
+
 ## 📜 **1. Configuration Initiale**
 ### `/constitution`
 - **Quand l'utiliser** : **Une seule fois**, à la création du projet.
