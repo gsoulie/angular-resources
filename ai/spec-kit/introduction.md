@@ -25,7 +25,7 @@
 
 ## Initialiser un projet
 
-`specify init <my-project>`
+````specify init <my-project>````
 ---
 
 ## 📜 **1. Configuration Initiale**
