@@ -25,7 +25,13 @@
 
 ## Initialiser un projet
 
-````specify init <my-project>````
+````
+// Nouveau projet
+specify init <my-project>
+
+// run dans un projet existant
+specify init --here
+````
 ---
 
 ## 📜 **1. Configuration Initiale**
