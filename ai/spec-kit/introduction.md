@@ -34,7 +34,8 @@
   Absolutely no testing (no unit tests, no integration tests, no e2e tests) for the moment.
 
 ````
-\constitution Créé des principes axés sur la qualité du code, les standards de test, la cohérence de l'expérience utilisateur et les exigences de sécurité, d'accessibilité et de performance
+\constitution Créé des principes axés sur la qualité du code, les standards de test,
+la cohérence de l'expérience utilisateur et les exigences de sécurité, d'accessibilité et de performance
 ````
 
 - **Résultat** : Génère un fichier constitution.md avec les principes à respecter.
