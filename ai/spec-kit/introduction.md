@@ -23,6 +23,11 @@
 
 ---
 
+## Initialiser un projet
+
+`specify init <my-project>`
+---
+
 ## 📜 **1. Configuration Initiale**
 ### `/constitution`
 - **Quand l'utiliser** : **Une seule fois**, à la création du projet.
