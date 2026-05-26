@@ -91,8 +91,8 @@ Exemples de fichiers *constitution.md* :
 ### `/plan`
 
 - **Objectif** : Détailler les aspects techniques :    
-  * Technologies/librairies (ex: TailwindCSS, shadcnUI).          
-  * Services tiers (ex: Auth0, Firebase).       
+  * Technologies/librairies (ex: Angular, TailwindCSS, shadcnUI).          
+  * Services tiers (ex: Authentification keycloak, Firebase, cache redis...).       
   * Gestion d'état, normes de développement, etc.      
 
  **Exemple de prompt** :
