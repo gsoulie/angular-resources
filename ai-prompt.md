@@ -28,6 +28,9 @@
 * [07-AVV-estimation-macro](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/07-estimation-avv.md)    
 * [CLAUDE.md](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/claude.md)    
 
+# Prompt Claude Code
+* [Exemples de prompts avec TDD](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/claude/add-feature.md)
+  
 # Prompt exemple rapide 
 
 <details>
