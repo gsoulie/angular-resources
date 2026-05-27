@@ -12,7 +12,7 @@
 * [Skills](#skills)
 * [Sub-agents](#sub-agents)
 * [Debugging](#debugging)
-* [Bonnes pratiques](#bonnes-pratiques)    
+* [Bonnes pratiques générales](#bonnes-pratiques-générales)    
 
 # Claude Code
 
@@ -816,6 +816,6 @@ Comment bien utiliser Claude pour solutionner un bug :
 - Contexte technique (+ stacktrace)
 - Ce qui a déjà été testé
 
-# Bonnes pratiques 
+# Bonnes pratiques générales
 
 - Demander à Claude de mettre à jour un fichier CHANGELOG.md en fin de session de travail afin d'avoir un suivi des modifications
