@@ -1,4 +1,4 @@
-
+[Back](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-anthropic.md#hooks)    
 # Tout en un : les 5 hooks combinés
 Voici le `settings.json` complet qui active les 4 hooks d'un coup
 
