@@ -1,5 +1,5 @@
 [Back](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-anthropic.md#hooks)    
-# Tout en un : les 5 hooks combinés
+# Exemple de 3 hooks utiles combinés
 Voici le `settings.json` complet qui active les 4 hooks d'un coup
 
 Copier ce JSON dans le répertoire `.claude/settings.json`, puis placer les trois scripts (guard-bash.sh, protect-files.sh, session-context.sh) dans `.claude/hooks/` et les rendre exécutables avec `chmod +x .claude/hooks/*.sh`
