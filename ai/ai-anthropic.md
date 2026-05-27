@@ -139,10 +139,6 @@ Enfin un fichier ````~/.claude/CLAUDE.md```` peut être créé pour être utilis
 	- TDD (Test Driven Development) : écrire les tests AVANT l'implémentation
 	- Cycle : Red (test échoue) → Green (implémentation minimale) → Refactor
 	````
-- demander à claude de mettre à jour le fichier CLAUDE.md en fin de session de travail pour mettre à jour les fonctionnalités
-  ````
-  Mets à jour le CLAUDE.md pour refléter les fonctionnalités créées. Ajoute une section 'Fonctionnaltiés' décrivant les fonctionnalités impactées et mentionne la couverture de tests 
-  ````
 
 # Settings
 
