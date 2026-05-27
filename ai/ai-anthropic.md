@@ -37,6 +37,8 @@ Claude code est un outil de programmation agentique. Il peut être utilisé dire
 |`/context`|visualiser l'état de la fenêtre de contexte actuelle|
 |`/compact`|résumer le contexte actuel (à jouer lorsque le contexte approche de sa limite)|
 |`/model`|changer de modèle|
+|`/usage`|consulter sa consommation|
+|`/statusline`||
 
 - CTRL+L vider le prompt
 - @ : permet de sélectionner un fichier
