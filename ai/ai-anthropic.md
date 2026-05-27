@@ -132,6 +132,12 @@ Enfin un fichier ````~/.claude/CLAUDE.md```` peut être créé pour être utilis
 - lui demander d'ajouter une entrée dans un fichier CHANGELOG.md à chaque ajout de nouvelle fonctionnalité     
 - créer des sessions thématiques
 - demander à claude de mettre à jour le fichier CLAUDE.md régulièrement
+- spécifier d'utiliser la méthodologie TDD
+	* ````
+   ## Méthodologie
+	- TDD (Test Driven Development) : écrire les tests AVANT l'implémentation
+	- Cycle : Red (test échoue) → Green (implémentation minimale) → Refactor
+	````
 
 # Settings
 
