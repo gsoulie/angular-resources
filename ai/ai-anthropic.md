@@ -250,7 +250,7 @@ Liste des hooks existants :
 |SessionStart||
 |SessionEnd||
 
-[**Collection de hooks utiles**](https://github.com/gsoulie/angular-resources/tree/master/ai/claude/hooks)    
+## [Collection de hooks utiles](https://github.com/gsoulie/angular-resources/tree/master/ai/claude/hooks)    
 
 # Skills
 
