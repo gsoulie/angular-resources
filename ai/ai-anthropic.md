@@ -11,7 +11,8 @@
 * [Hooks](#hooks)
 * [Skills](#skills)
 * [Sub-agents](#sub-agents)
-* [Debugging](#debugging)    
+* [Debugging](#debugging)
+* [Bonnes pratiques](#bonnes-pratiques)    
 
 # Claude Code
 
@@ -138,6 +139,10 @@ Enfin un fichier ````~/.claude/CLAUDE.md```` peut être créé pour être utilis
 	- TDD (Test Driven Development) : écrire les tests AVANT l'implémentation
 	- Cycle : Red (test échoue) → Green (implémentation minimale) → Refactor
 	````
+- demander à claude de mettre à jour le fichier CLAUDE.md en fin de session de travail pour mettre à jour les fonctionnalités
+  ````
+  Mets à jour le CLAUDE.md pour refléter les fonctionnalités créées. Ajoute une section 'Fonctionnaltiés' décrivant les fonctionnalités impactées et mentionne la couverture de tests 
+  ````
 
 # Settings
 
@@ -814,3 +819,7 @@ Comment bien utiliser Claude pour solutionner un bug :
 - Etapes de reproduction
 - Contexte technique (+ stacktrace)
 - Ce qui a déjà été testé
+
+# Bonnes pratiques 
+
+- Demander à Claude de mettre à jour un fichier CHANGELOG.md en fin de session de travail afin d'avoir un suivi des modifications
