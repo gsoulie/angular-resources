@@ -32,13 +32,17 @@ Claude code est un outil de programmation agentique. Il peut être utilisé dire
 |-|-|
 |`/claude`|démarrer une session|
 |`/init`|à exécuter uniquement la première fois, va générer le fichier CLAUDE.md|
-|`/clear`|nettoyage du contexte. Tout est perdu sauf l'info du CLAUDE.md|
+|`/clear`|nettoyage du contexte. Tout est perdu sauf l'info du CLAUDE.md, skills et fichiers edités. **A utiliser lorsqu'on change de tâche ou si claude commence à dériver**|
+|`/compact`|résumer le contexte actuel (à jouer lorsque le contexte approche de sa limite)|
+|`/rewind`|annuler le code et les modifications jusqu'à un précédent snapshot|
 |`/agents`|créer un nouvel agent|
 |`/context`|visualiser l'état de la fenêtre de contexte actuelle|
-|`/compact`|résumer le contexte actuel (à jouer lorsque le contexte approche de sa limite)|
 |`/model`|changer de modèle|
 |`/usage`|consulter sa consommation|
 |`/statusline`||
+|`/loop`|exécuter un traitement en boucle|
+|`!<bash command>`|exécute la commande dans le prompt|
+|`/permission`||
 
 - CTRL+L vider le prompt
 - @ : permet de sélectionner un fichier
@@ -108,7 +112,7 @@ Le fichier ````CLAUDE.md```` est la *"mémoire"* du projet :
 - workflows     
 - à ne pas faire...). 
 
-Il est **inclut par la suite dans TOUTES les requêtes faites à claude**. Ce fichier inclut le **contexte projet**, soit un résumé du projet, liste les commandes importantes, l'architecture du projet et les règles de codage etc... 
+Il est **inclut par la suite dans TOUTES les requêtes faites à claude**. Ce fichier inclut le **contexte projet**, soit un résumé du projet, liste les commandes importantes, l'architecture du projet et les règles de codage etc...
 
 On peut modifier ce fichier à souhait, et il doit dans l'idéal contenir toutes les contraintes qui doivent systématiquement être appliquées (ex: normes de dev, préférences, choses à ne jamais faire etc...) . Les contraintes plus spécifiques ou éphémères qui ne s'appliquent pas systématiquement doivent être définies plutôt dans les fichiers skills.
 
@@ -822,4 +826,8 @@ Comment bien utiliser Claude pour solutionner un bug :
 
 # Bonnes pratiques générales
 
-- Demander à Claude de mettre à jour un fichier CHANGELOG.md en fin de session de travail afin d'avoir un suivi des modifications
+- Demander à Claude de mettre à jour un fichier CHANGELOG.md en fin de session de travail afin d'avoir un suivi des modifications    
+- Exécuter `/clear` à chaque changement de tâche ou lorsque claude commence à dériver    
+- Exécuter `/compact` lorsque le contexte arrive à 60% d'utilisation    
+- Utiliser le plan mode (shift + Tab)
+- Si un même tâche est réalisée plus de 2 fois par jour, alors la transformer en skill    
