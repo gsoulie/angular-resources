@@ -79,6 +79,22 @@ Analyze the codebase for security vulnerabilities including:
 
 # Status line <TODO>
 
+Il est possible ed créer une status line directement via claude avec la commande `/statusline <description de ce qu'on souhaite afficher>`. Ou bien suivre les étapes de customisation de la documentation
+
+````
+1. `/statusline j'utilise window. Ceci doit être set-up de manière globale. Utilise un fichierps1 séparé pour le script`
+2. Ajoute ces informations à la statusline dans l'ordre :$
+- Model name in cyan color
+- Progress bar : Green (< 50%), Yellow (50-75%), Red (>75%)
+- Percentage context used : same color as progress bar
+- Tokens : Magenta
+- Git branch : Gray
+````
+
+**Informations utiles à afficher**
+* % de consommation du contexte + progressbar      
+* nombre de token consommé / nb token total     
+* branche git active     
 
 # Tools
 
