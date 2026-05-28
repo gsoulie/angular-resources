@@ -958,6 +958,12 @@ describe('Widget', () => {
 
 ### Intégration dans VSCode et configuration
 
+#### Installation manuelle
+
+`npm init playwright@latest`
+
+#### Installation via extension VSCode
+
 VSCode dispose d'une extension VSCode pour Playwright qui permet de faciliter l'installation de Playwright et propose un volet pratique pour gérer les tests.
 
 1. Installer l'extension VSCode *Playwright Test for VSCode* (de microsoft)
@@ -1059,13 +1065,13 @@ npm install --save-dev playwright-lighthouse playwright lighthouse
 
 Ensuite il suffit d'utiliser lighthouse dans un fichier de test playwright. On peut d'ailleurs faire appel à l'audit playwright après chaque test ou bien sur chaque page, bref on peut le câbler où l'on souhaite dans les tests.
 
+
 **Fichier de test basique d'appel de l'audit**
 
-*audit-lighthouse.spec.ts*
-
 <details>
-	<summary>code</summary>
+  <summary>Exemple basique (sans authentification)</summary>
 
+*tests/audit-lighthouse.spec.ts*
 ````typescript
 import { test } from '@playwright/test';
 import { playAudit, playwrightLighthouseConfig } from 'playwright-lighthouse';
@@ -1076,7 +1082,8 @@ const lighthouseConfig: playwrightLighthouseConfig['thresholds'] = {
     performance: 90,
     accessibility: 90,
     'best-practices': 90,
-    seo: 50
+    seo: 50,
+    // pwa etc...
 }
 
 test.describe('Audit de performance Lighthouse', () => {
@@ -1137,9 +1144,191 @@ test.describe('Audit de performance Lighthouse', () => {
 
 })
 ````
+  
+</details>
 
-> **A retenir** : penser à exclure le chemin des rapports lighthouse dans le *.gitignore*
-	
+
+<details>
+  <summary>Exemple avec gestion de l'authentification (NextJS)</summary>
+
+**Optimisations possibles**
+- extraire la logique d'authentification avec sauvegarde du contexte pour réutilisation dans un fichier séparé
+- récupération des credentials avec variables d'environnement
+
+*tests/audit-lighthouse.spec.ts*
+````typescript
+import { expect, test } from "@playwright/test";
+import * as fs from "node:fs";
+import net from "node:net";
+import os from "node:os";
+import path from "node:path";
+import playwright from "playwright";
+import { playAudit, playwrightLighthouseConfig } from "playwright-lighthouse";
+
+const lighthouseConfig: playwrightLighthouseConfig["thresholds"] = {
+  performance: 90,
+  accessibility: 90,
+  "best-practices": 90,
+  seo: 50,
+  // pwa etc...
+};
+
+const BASE_URL = "http://localhost:3000";
+
+const getFreePort = async () => {
+  return new Promise<number>((resolve, reject) => {
+    const server = net.createServer();
+    server.listen(0, () => {
+      const address = server.address();
+      if (!address || typeof address === "string") {
+        server.close();
+        reject(new Error("Failed to get free port"));
+        return;
+      }
+      const port = address.port;
+      server.close(() => resolve(port));
+    });
+    server.on("error", reject);
+  });
+};
+
+const urls = [
+  {
+    name: "dashboard",
+    path: `${BASE_URL}/dev`,
+  },
+  {
+    name: "suppliers",
+    path: `${BASE_URL}/dev/suppliers`,
+  },
+];
+
+test.describe("Audit de performance Lighthouse", () => {
+  // test.setTimeout(120000)
+  test.setTimeout(60000);
+
+  for (const url of urls) {
+    test("Lighthouse audit for : " + url.name, async () => {
+      const port = await getFreePort();
+      const userDataDir = path.join(
+        os.tmpdir(),
+        `pw-lighthouse-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+      );
+      let context: playwright.BrowserContext | undefined;
+
+      try {
+        context = await playwright.chromium.launchPersistentContext(userDataDir, {
+          headless: true,
+          args: [`--remote-debugging-port=${port}`],
+        });
+
+        const page = await context.newPage();
+
+        // Login
+        await page.goto(`${BASE_URL}/dev/auth`, {
+          waitUntil: "networkidle",
+        });
+
+        await page
+          .getByRole("textbox", { name: "Adresse e-mail" })
+          .fill("xxxxx@xxxxxx.com");
+
+        await page
+          .getByRole("textbox", { name: "Entrez votre mot de passe" })
+          .fill("xxxxxx");
+
+        await page.getByRole("button", { name: "Se connecter" }).click();
+
+        await expect(
+          page.getByRole("heading", { name: "Tous nos fournisseurs" }),
+        ).toBeVisible();
+
+        // Page cible
+        await page.goto(url.path, {
+          waitUntil: "networkidle",
+        });
+
+        // S'assurer que la page cible est bien atteinte avant l'audit
+        await page.waitForURL(url.path, { timeout: 20000 });
+        expect(page.url()).toBe(url.path);
+
+        const testTimestamp = Date.now().toString();
+
+        // Très important avec NextJS 16 / React 19
+        // pour laisser :
+        // - hydratation
+        // - streaming RSC
+        // - requêtes client
+        // se stabiliser
+        await page.waitForTimeout(5000); // important avec NextJS pour laisser le temps à la page de se stabiliser avant l'audit
+
+        console.log(">>>>>>>>>>>>> Current URL before audit:", page.url());
+        const result = await playAudit({
+          page: page,
+          url: url.path,
+          port,
+          thresholds: lighthouseConfig,
+          opts: {
+            logLevel: "info",
+            disableStorageReset: true, // Important sinon lighthouse nettoie le storage avant l'audit
+          },
+          ignoreError: true, // Ne pas mettre le test en erreur
+          reports: {
+            formats: { html: true, json: true },
+            name: "lighthouse-report",
+            directory: `lighthouse-report/${url.name}/report-${testTimestamp}`,
+          },
+        });
+        console.log("<<<<<<<<<<<<<<< Final audited URL:", result.lhr.finalDisplayedUrl);
+
+        // Sauvegarder les scores pour analyse
+        const scores = {
+          performance: result.lhr.categories.performance?.score
+            ? result.lhr.categories.performance.score * 100
+            : "undefined",
+          accessibility: (result.lhr.categories.accessibility.score ?? 0) * 100,
+          bestPractices: (result.lhr.categories["best-practices"].score ?? 0) * 100,
+          seo: (result.lhr.categories.seo.score ?? 0) * 100,
+        };
+
+        console.log("Requested URL:", result.lhr.requestedUrl);
+
+        console.log("Final audited URL:", result.lhr.finalDisplayedUrl);
+
+        console.log("Performance:", (result.lhr.categories.performance.score ?? 0) * 100);
+
+        console.log(
+          "Accessibility:",
+          (result.lhr.categories.accessibility.score ?? 0) * 100,
+        );
+
+        console.log(
+          "Best Practices:",
+          (result.lhr.categories["best-practices"].score ?? 0) * 100,
+        );
+
+        console.log("SEO:", (result.lhr.categories.seo.score ?? 0) * 100);
+
+        fs.writeFileSync(
+          `lighthouse-report/${url.name}/scores-${testTimestamp}.json`,
+          JSON.stringify(scores, null, 2),
+        );
+
+        // Le test échoue si les seuils ne sont pas atteints
+        // expect(scores.performance).toBeGreaterThanOrEqual(90);
+        // expect(scores.accessibility).toBeGreaterThanOrEqual(90);
+      } finally {
+        if (context) {
+          await context.close();
+        }
+        await fs.promises.rm(userDataDir, { recursive: true, force: true });
+      }
+    });
+  }
+});
+
+````
+  
 </details>
 
 
