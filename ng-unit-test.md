@@ -1055,6 +1055,9 @@ souhaite tester sur chaque élément.
 
 ## Intégration Lighthouse dans playwright
 
+[Documentation utile](https://unlighthouse.dev/learn-lighthouse/playwright)    
+[Intégration dans la CI](https://unlighthouse.dev/learn-lighthouse/playwright/ci-cd)     
+
 Playwright permet également d'intégrer les audits lighthouse dans les tests automatisés.
 
 **Installation des dépendances Lighthouse**
