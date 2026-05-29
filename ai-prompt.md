@@ -4,7 +4,7 @@
 
 * [Les bases](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-basics.md)
   * LLM, RAG, Agents, Limites, Risques, Patterns
-* [Formation Anthropic](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-anthropic.md)
+* [Claude Code](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-anthropic.md)
 * [Sécurisation environnement](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-security.md)     
 
 # Cursor skills
