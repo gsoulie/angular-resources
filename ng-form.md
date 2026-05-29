@@ -24,9 +24,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 ## Signal Forms
 
-````21/10/2025````
+````29/05/2026````
 
-> **ATTENTION** : Feature **expérimentale** à ce jour (v21 oct 2025).
+> version stable depuis Angular 22
 
 # Objectifs
 
@@ -55,7 +55,7 @@ interface FieldState<TValue> {
 ````
 Contrairement au ````ReactiveForm````, les propriétés du ````FieldState```` sont désormais des **Signals**, ce qui permet d'être cohérent avec le nouveau système de réactivité et de pouvoir utiliser ces propriétés avec des signaux ````computed()````
 
-## La directive Field 
+## La directive `formField`
 
 La directive *[field]* (**[formField]** depuis 21.0.7) permet de connecter les composants UI aux champs du formulaire (connecte l'état des champs aux contrôles du formulaire)
 
@@ -124,21 +124,21 @@ export class EventRegistrationComponent {
     maxAttendees: 0,
   });
 
-  eventForm = form(this.eventData, event => {
-    required(event.eventName);
-    minLength(event.eventName, 5, {
+  eventForm = form(this.eventData, (schemaPath) => {
+    required(schemaPath.eventName);
+    minLength(schemaPath.eventName, 5, {
       message: 'Event name must be at least 5 characters',
     });
 
-    required(event.organizerEmail);
-    email(event.organizerEmail);
+    required(schemaPath.organizerEmail);
+    email(schemaPath.organizerEmail);
 
-    required(event.description);
-    minLength(event.description, 20, {
+    required(schemaPath.description);
+    minLength(schemaPath.description, 20, {
       message: 'Description must be at least 20 characters',
     });
 
-    max(event.maxAttendees, 1000, {
+    max(schemaPath.maxAttendees, 1000, {
       message: 'Maximum 1000 attendees allowed',
     });
   });
@@ -248,6 +248,44 @@ export class ShippingFormComponent {
 ````
   
 </details>
+
+## Api `submission`
+
+Depuis Angular 22, il est possible de définir l'action de sousmission directement depuis la déclaration du formulaire :
+````typescript
+protected readonly flightForm = form(this.flight, flightSchema, {
+  submission: {   // <--- Nouvelle Api submission
+    action: async (form) => this.save(form),
+    ignoreValidators: 'none',
+    onInvalid: (form) => this.reportValidationError(form),
+  },
+});
+
+
+protected async save(form: FieldTree<Flight>) {
+  try {
+    await this.store.saveFlight(form()).value();
+    return null;
+  } catch (error) {
+    return {
+      kind: 'processing_error',
+      error: extractError(error),
+    };
+  }
+}
+
+private reportValidationError(form: FieldTree<Flight>): void {
+  this.snackBar.open('Please correct the validation errors', 'OK');
+  this.focusInvalid(form);
+}
+
+private focusInvalid(form: FieldTree<Flight>) {
+  const errors = form().errorSummary();
+  if (errors.length > 0) {
+    errors[0].fieldTree().focusBoundControl();
+  }
+}
+````
 
 ## Envoi de formulaire et Gestion des erreurs
 
