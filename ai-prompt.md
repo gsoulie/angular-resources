@@ -18,6 +18,7 @@
 # AI Prompting
 
 * [Collection de prompts](#collection-de-prompts)
+* [Prise de connaissance projet](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/prompt_analyse_fonctionnelle_frontend_modernes.md)      
 * [00-global-orchestrator](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/00-global-orshestrator.md)    
 * [01-full-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/01-full-optimized-analysis.md)
 * [02-a11y-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/02-a11y-audit.md)
