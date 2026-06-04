@@ -57,6 +57,7 @@
 	* [PWA : Service worker - Web worker](https://github.com/gsoulie/angular-resources/blob/master/ng-service-worker.md)       
 	* [Gestion du state avec NgRx](https://github.com/gsoulie/angular-resources/blob/master/ng-ngrx.md)
  	* [Defer block](https://github.com/gsoulie/angular-resources/blob/master/ng-defer.md)
+    * [API ressource, httpResource et rxResource](https://github.com/gsoulie/angular-resources/blob/master/ng-resource-httpResourcerxResource.md)      
   	* [Angular 19 - Api Resource](https://github.com/gsoulie/angular-resources/blob/master/ng-resource-api.md)
   	* [Angular 19 - httpResource](https://github.com/gsoulie/angular-resources/blob/master/ng-http-resource.md)    
 * [Gestion des erreurs](https://github.com/gsoulie/angular-resources/blob/master/ng-error.md)       
