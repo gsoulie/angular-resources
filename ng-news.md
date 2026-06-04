@@ -2,6 +2,7 @@
 
 # Nouveautés
 
+* [v22](#angular-v22)     
 * [v21](#angular-v21)   
 * [v20.2](#angular-v20-.-2)     
 * [v20](#angular-v20)    
@@ -19,6 +20,252 @@
 * [AnalogJS](#analogjs)
 * [Dépréciations](#dépréciations)
 
+# Angular v22
+
+<details>
+	<summary>Nouveautés de la version 22</summary>
+
+> [Article officiel](https://blog.angular.dev/announcing-angular-v22-c52bb83a4664)   
+
+# Nouveautés
+
+* Signal forms **(stable)** et complètement compatible avec Angular Material et Aria
+* Resource API (`resource, rxResource, httpResource`) **(stable)**   
+* Angular Aria **(stable)**
+* Stratégie OnPush par défaut dans les composants
+* Commentaires `// et /* */` dans les templates html
+* Nouveau décorateur `@Service`
+
+## Multi-case Matching & Exhaustiveness Check (`@switch`)
+
+Fini le code verbeux lorsque plusieurs cas d'un switch partagent la même logique de rendu. Angular permet désormais de matcher plusieurs valeurs sur une seule ligne. 
+
+De plus, en combinant le cas `default` avec le type `never` de TypeScript, Angular introduit un exhaustive check à la compilation. Si vous ajoutez une valeur à un type Union sans mettre à jour le template, l'application refusera de compiler, éliminant ainsi les bugs d'UI désynchronisée.  
+
+````html
+@switch (orderStatus()) {
+  @case ('pending') { <p>En attente.</p> }
+  @case ('processing') { <p>En cours de traitement.</p> }
+  @case ('shipped'; case 'delivered') { <p>Votre commande est en route ou livrée !</p> }
+  @default {
+    <!-- Si 'orderStatus' évolue (ex: 'cancelled'), TypeScript lève une erreur ici -->
+    {{ orderStatus() | exhaustiveCheckError }}
+  }
+}
+````
+
+## Fonctions fléchées Inline (Arrow Functions)
+
+Il est désormais officiellement autorisé d'écrire de courtes fonctions fléchées directement dans vos templates pour éviter de polluer votre classe TypeScript.  
+
+* **Bonne pratique** : À réserver exclusivement pour des opérations ultra-rapides et courtes. Tout traitement lourd ou asynchrone doit rester dans la classe du composant.  
+
+````html
+<button (click)="users.update(list => [...list, newUser])">
+  Ajouter l'utilisateur
+</button>
+````
+
+## ChangeDetection strategy `OnPush` par défaut
+
+La stratégie de détection de changement sera désormais paramétrée en mode `OnPush` par défaut et n'aura plus besoin d'être explicitée dans le paramétrage du composant : 
+
+*Ancienne syntaxe*
+````typescript
+@Component({
+  selector: 'app-chart',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: ``
+})
+````
+
+*Nouvelle syntaxe*
+````typescript
+@Component({
+  selector: 'app-chart',
+  //changeDetection: ChangeDetectionStrategy.Eager,
+  // ⚠️ No changeDetection set= default to OnPush
+  // Pre-v22: silently Default → everything worked.
+  // v22+:    silently OnPush  → template bindings freeze.
+  template: ``
+})
+````
+
+**⚠️ Breaking change ⚠️**
+
+Dans la version 22, les nouveaux comportements sont les suivants :
+- *undefined* --> `OnPush`
+- *Default* --> `Eager`
+  
+Afin de conserver les comportements précédants des composants après la migration il est conseillé de spécifier explicitement `changeDetection: ChangeDetectionStrategy.Eager`
+
+* `Eager` est un **nouvel alias** introduit avec Angular 21.2
+* `Default` a été **déprécié** depuis la version 21.2 et sera **complètement retiré** dans la version 24
+
+**Migration**
+
+Lors de la migration vers Angular 22 : 
+* Si aucune strategie n'était spécifiée, alors la valeur `ChangeDetectionStrategy.Eager` sera appliquée
+* Si la valeur `OnPush` est déjà utilisée,  aucune modification ne sera faite
+* Si la valeur `Default` est utilisée, alors elle sera remplacée par `Eager`
+
+## Nouveau décorateur `@Service`
+
+Angular 22 introduit le décorateur `@Service()` comme une alternative plus simple et plus explicite à `@Injectable({ providedIn: 'root' })` pour les modèles de services courants.
+
+Il est conçu pour la plupart des services applicatifs, mais ne remplace pas intégralement chaque cas d'utilisation.
+
+Il s'appuie sur le scénario le plus fréquent : un service singleton fourni par la racine.
+
+Les différences clés sont les suivantes :
+
+- `providedIn: 'root'` est désormais l'option par défaut (désactivable par `autoProvided: false`)
+- Pas de `useClass / useValue / useExisting` : seulement une fonction "factory" optionnelle
+- Plus d'injection via le constructeur : fonction `inject()` uniquement. Sinon Angular lèvera une erreur
+
+*Nouvelle implémentation des services*
+````typescript
+@Service()
+export class PostService {
+  private readonly http = inject(HttpClient);
+  
+  getUserPosts() { 
+    return this.http.get('/api/posts'); 
+  }
+}
+````
+
+## Introduction de la directive `@boundary`
+
+C'est l'une des annonces phares de l'année (en Developer Preview pour le Q3 2026) : l'arrivée des Error Boundaries natifs dans les templates.  
+
+Auparavant, si un sous-composant ou une directive plantait pendant un cycle de détection de changements, l'application entière risquait de crash, laissant l'utilisateur devant un écran blanc. **`@boundary` permet d'isoler l'erreur et de définir une UI de secours (fallback)**.  
+
+````html
+<!-- Avant -->
+<section>
+	<app-promotional-widget/ >
+	<app-cart-summary />
+	<app-checkout-flow />
+</section>
+
+<!-- Avec @boundary -->
+<section>
+	@boundary {
+		<app-promotional-widget />
+	}
+	@error (let err) {
+		<app-default-promo-widget />
+	}
+	
+	<app-cart-summary />
+	<app-checkout-flow />
+</section>
+````
+
+Ainsi, une défaillance dans le bloc encadré par `@boundary` n'entrainera plus l'indisponibilité de la page entière.
+
+Note : L'équipe Angular travaille déjà sur des fonctionnalités futures liées à cette syntaxe, comme la possibilité de définir des logiques de retry automatique.  
+
+## Api `resource` et `httpResource` stabilisées
+
+Pour rappel, Angular 19 avait introduit ces nouvelles apis resource et httpResource. Ces dernières sont désormais stables et utilisables en production.
+
+| Critère                 | `resource()`                                                 | `httpResource()`                     |
+| ----------------------- | ------------------------------------------------------------ | ------------------------------------ |
+| Objectif                | Gérer n'importe quelle ressource asynchrone                  | Gérer spécifiquement des appels HTTP |
+| Dépendance à HttpClient | Non                                                          | Oui                                  |
+| Type de données         | Libre                                                        | Réponse HTTP                         |
+| Gestion de l'annulation | Oui                                                          | Oui                                  |
+| Parsing JSON            | Manuel                                                       | Automatique                          |
+| Intercepteurs Angular   | Non                                                          | Oui                                  |
+| Gestion headers/auth    | Manuel                                                       | Via HttpClient                       |
+| Cas d'usage             | API REST, IndexedDB, WebSocket, Firebase, Promesses diverses | API REST Angular classique           |
+
+
+## Angular Aria
+
+L'ambition d'Angular Aria est de fournir un ensemble de directives et de patterns UI (11 disponibles au lancement) entièrement accessibles (A11y) et 100 % personnalisables au niveau du design. Angular fournit la structure HTML accessible et le comportement, vous apportez votre CSS (ou Design System).  
+
+````html
+<!-- Structure nativement accessible fournie par Angular Aria -->
+<div ngToolbar>
+  <button ngToolbarWidget class="my-custom-neon-btn">Fichier</button>
+  <button ngToolbarWidget class="my-custom-neon-btn">Édition</button>
+</div>
+````
+
+*Style*
+````css
+@import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined');
+:host {
+  display: flex;
+  justify-content: center;
+}
+[ngToolbar] {
+  gap: 1.5rem;
+  display: flex;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--septenary-contrast);
+}
+.group {
+  gap: 0.5rem;
+  display: flex;
+}
+.separator {
+  width: 1px;
+  align-self: center;
+  height: calc(100% - 1rem);
+  background-color: var(--quinary-contrast);
+}
+[ngToolbarWidget] {
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 1.25rem;
+  background-color: transparent;
+  color: var(--primary-contrast);
+}
+[ngToolbarWidget]:hover {
+  background-color: color-mix(in srgb, var(--primary-contrast) 10%, transparent);
+}
+[ngToolbarWidget]:active {
+  background-color: color-mix(in srgb, var(--primary-contrast) 15%, transparent);
+}
+[ngToolbarWidget]:focus {
+  outline-offset: -1px;
+  outline: 1px solid color-mix(in srgb, var(--hot-pink) 60%, transparent);
+}
+[ngToolbarWidget][aria-pressed="true"],
+[ngToolbarWidget][aria-checked="true"] {
+  color: color-mix(in srgb, var(--hot-pink) 80%, var(--primary-contrast));
+  background-color: color-mix(in srgb, var(--hot-pink) 10%, transparent);
+}
+````
+
+## Angular MCP (Model Context Protocol)
+
+Angular propose son propre serveur MCP (ngmcp). Cela permet à des agents d'IA (utilisés dans vos IDE ou terminaux) d'interagir directement avec votre projet de manière standardisée. L'agent ne fait plus que "deviner", il pilote vos outils de build :  
+* `devServer.start` / `devServer.stop` : Permet à l'IA de lancer/couper l'application.  
+* vdevServer.waitForBuild` : L'IA applique une modification, attend la fin de la compilation, analyse le rendu et s'auto-corrige si nécessaire.
+
+Liste des serveurs MCP angular :
+* mcp_angular-cli_ai_tutor
+* mcp_angular-cli_devserver.start
+* mcp_angular-cli_devserver.stop
+* mcp_angular-cli_devserver.wait_for_build
+* mcp_angular-cli_find_examples
+* mcp_angular-cli_get_best_practices
+* mcp_angular-cli_list_projects
+* mcp_angular-cli_search_documentation
+
+## Agent Skills & Modernisation
+
+Des fichiers de configuration légers (moins de 140 lignes de code) appelés Agent Skills sont désormais disponibles (ex: dans le répertoire Angular/Angular sur GitHub). Ils permettent de contextualiser instantanément n'importe quel LLM sur les dernières pratiques d'Angular (comme la migration vers `onPush`, la modernisation vers les signaux ou l'implémentation d'Angular Aria) sans surcharger sa fenêtre de contexte.
+	
+</details>
 
 # Angular v21
 
