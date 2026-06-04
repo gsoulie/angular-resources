@@ -110,6 +110,31 @@ export class WeatherComponent {
   }
 }
 ````
+
+
+````typescript
+  protected readonly filter = signal({ from: 'Hamburg', to: 'Graz' });
+
+  protected readonly flightsResource = httpResource<Flight[]>(
+    () => ({
+      url: 'https://demo.angulararchitects.io/api/flight',
+      params: {
+        from: this.filter().from,
+        to: this.filter().to,
+      },
+    }),
+    { defaultValue: [] },
+  );
+
+  protected readonly flights = this.flightsResource.value;
+  protected readonly error = this.flightsResource.error;
+  protected readonly isLoading = this.flightsResource.isLoading;
+
+  protected search(): void {
+    this.flightsResource.reload();
+  }
+````
+
 Angular réalise automatiquement : `http.get(...)` et expose directement le résultat sous forme de Resource.
 
 ## Pourquoi Angular a créé httpResource ?
