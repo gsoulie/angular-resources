@@ -135,6 +135,30 @@ export class PostService {
 }
 ````
 
+
+### `injectAsync`
+
+Avec `injectAsync`, les dépendances peuvent être injectées à la demande, c'est-à-dire uniquement lorsqu'elles sont réellement nécessaires. Ceci est particulièrement utile pour les services qui chargent des bibliothèques volumineuses et ne sont requises que suite à une action spécifique de l'utilisateur.
+
+````typescript
+import { injectAsync } from '@angular/core';
+
+@Component({ [...] })
+export class CheckinPage {
+  private readonly upgradeService = injectAsync(() =>
+    import('./upgrade-service').then((m) => m.UpgradeService),
+  );
+
+  protected async upgrade(): Promise<void> {
+    const flightNumber = this.checkinFormModel().ticketId;
+    const upgradeService = await this.upgradeService();
+    upgradeService.upgrade(flightNumber);
+  }
+}
+````
+
+Pour que le chargement différé fonctionne, le service injecté doit être fourni automatiquement, c'est-à-dire décoré soit avec `@Injectable({ providedIn: 'root' })` soit avec le nouveau décorateur `@Service()`.
+
 ## Introduction de la directive `@boundary`
 
 C'est l'une des annonces phares de l'année (en Developer Preview pour le Q3 2026) : l'arrivée des Error Boundaries natifs dans les templates.  
