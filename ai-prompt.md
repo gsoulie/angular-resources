@@ -10,6 +10,7 @@
 # Cursor skills
 
 * [skills](https://github.com/gsoulie/angular-resources/tree/master/ai/cursor/skills)
+* [Matt pocock skills](https://github.com/mattpocock/skills)     
 
 # Github Spec Kit
 
