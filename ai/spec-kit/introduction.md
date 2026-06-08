@@ -17,6 +17,7 @@
 
 ## 🚀 **Introduction**
 - **Lien officiel** : [GitHub - Spec Kit](https://github.com/github/spec-kit)
+- **Tutoriel officiel** : [Spec kit guide](https://www.youtube.com/watch?v=a9eR1xsfvHg)     
 - **Tutoriel recommandé** : [YouTube - Introduction à Spec Kit](https://www.youtube.com/watch?v=61K-2VRaC6s&list=PL4cUxeGkcC9h9RbDpG8ZModUzwy45tLjb)
 - **Prérequis** :
   - Activer le **mode Agent** dans la fenêtre de chat pour exécuter les commandes.
