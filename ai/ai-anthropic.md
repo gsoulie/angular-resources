@@ -78,7 +78,7 @@ Analyze the codebase for security vulnerabilities including:
 - Les commandes peuvent prendre des arguments : utiliser `$1 $2 ... $X` dans le .md
 
 
-# Status line <TODO>
+# Status line
 
 Il est possible ed créer une status line directement via claude avec la commande `/statusline <description de ce qu'on souhaite afficher>`. Ou bien suivre les étapes de customisation de la documentation
 
