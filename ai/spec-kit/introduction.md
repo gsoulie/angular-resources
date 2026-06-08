@@ -66,7 +66,7 @@ Exemples de fichiers *constitution.md* :
 - [exemple 1](https://github.com/gsoulie/angular-resources/blob/master/ai/spec-kit/constitution-1.md)
 - [exemple 2](https://github.com/gsoulie/angular-resources/blob/master/ai/spec-kit/constitution-2.md)     
 
-### # `constitution.md` et `CLAUDE.md`
+### `constitution.md` et `CLAUDE.md`
 
 il est fortement recommandé de configurer les deux, car ils ne s'adressent pas du tout au même public ni au même moment du workflow.
 
