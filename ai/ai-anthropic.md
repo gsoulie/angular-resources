@@ -289,7 +289,7 @@ Pour définir les skills au niveau du projet, il suffit de créer un répertoire
 
 ````
 mon-skill/
-    |- SKILL.md
+    |- skill.md
     |- reference.md (optionnel - documentation) 
     |- example.md   (optionnel - exemples)
     |- scripts/     (optionnel - scripts utilitaires)
