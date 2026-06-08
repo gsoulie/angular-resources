@@ -72,7 +72,7 @@ il est fortement recommandé de configurer les deux, car ils ne s'adressent pas 
 
 Voici comment ils s'articulent, leurs priorités, et les bonnes pratiques pour éviter les doublons.
 
-### 🧭 1. Le Rôle Distinct de chaque fichier
+### 🧭 Le Rôle Distinct de chaque fichier
 Pour éviter les conflits, il faut voir ces deux fichiers comme deux types de manuels différents dans une usine :
 
 * `constitution.md` (Le Guide de Style du Projet - Spec Kit) :
