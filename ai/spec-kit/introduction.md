@@ -158,6 +158,11 @@ C'est dans le `CLAUDE.md` que vous rappelez à l'agent ses limites (interdiction
 /plan plan this using tailwindcss @theme for theme colours, local storage for goals and shadcnUI for UI component.
 No unit tests, no e2e tests needed.
 ````
+
+````plaintext
+/plan i'am going tu use Next.js with static site configuration, no database. data is embedded in the content for the mock episodes. Site is responsive and ready for Mobile.
+````
+
 - **Résultat** : Génère un plan technique.
 
 > ⚠️ **Important** : Lire le plan généré avant de créer les tâches.
