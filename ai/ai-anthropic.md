@@ -18,7 +18,8 @@
 
 Claude code est un outil de programmation agentique. Il peut être utilisé directement via son CLI ou être intégré dans un IDE.
 
-[Série de vidéos formation](https://www.youtube.com/watch?v=Bge_XJu7fzg)     
+[Les fondamentaux #1](https://www.youtube.com/watch?v=oHQkpV2Sgnk)     
+[Série de vidéos formation #2](https://www.youtube.com/watch?v=Bge_XJu7fzg)     
 
 # Installation
 
