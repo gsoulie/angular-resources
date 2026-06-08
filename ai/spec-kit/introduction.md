@@ -90,7 +90,7 @@ Pour éviter les conflits, il faut voir ces deux fichiers comme deux types de ma
 ### ⚡ Qui est prioritaire ?
 Il n'y a pas de "priorité" technique au sens où un fichier écraserait l'autre, car ils interviennent à des étapes différentes. Cependant, dans le flux logique du développement :
 
-🥇 `constitution.md` est supérieur sur le fond (L'Architecture).
+🥇 `constitution.md` est supérieur sur le fond (L'Architecture).       
 🥈 `CLAUDE.md` est supérieur sur la forme et l'exécution (L'Action).
 
 Si Claude Code lit un ordre dans le `CLAUDE.md` (ex: "Utilise le linter du projet"), il va l'exécuter. Mais quand il va générer du code via `/speckit.implement`, il va s'appuyer sur le plan technique généré par Spec Kit, qui lui-même aura été dicté par la `constitution.md`.
