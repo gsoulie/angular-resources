@@ -48,9 +48,9 @@ Claude code est un outil de programmation agentique. Il peut être utilisé dire
 - CTRL+L vider le prompt
 - @ : permet de sélectionner un fichier
 
-## Commande custom <TODO>
+## Commande custom 
 
-Des commandes personnalisées peuvent être créées dans le répertoire `.claude/commands/<custom-command>.md`
+Les commandes customs ont été fusionnées avec les skills. Créer une commande revient à créer un skill
 
 *Exemple : refactor.md*
 ````
@@ -289,7 +289,7 @@ Pour définir les skills au niveau du projet, il suffit de créer un répertoire
 
 ````
 mon-skill/
-    |- skill.md
+    |- SKILL.md
     |- reference.md (optionnel - documentation) 
     |- example.md   (optionnel - exemples)
     |- scripts/     (optionnel - scripts utilitaires)
