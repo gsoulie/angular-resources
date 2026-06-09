@@ -112,12 +112,18 @@ Dans votre `CLAUDE.md`, écrivez simplement ceci :
 #### 2. Répartissez strictement les responsabilités
 Utilisez cette matrice pour savoir où ranger une nouvelle règle :
 
-|Si la règle concerne...|📂 Rangez-la dans...|Exemple|
-|-|-|-|
-|La tech ou le design pattern|`constitution.md`|"Les requêtes SQL doivent passer par Prisma."|
-|La structure des fichiers|`constitution.md`|"Les composants UI vont dans `/src/components`."|
-|Le comportement de Claude|`CLAUDE.md`|"Ne me donne jamais de longues explications, sois concis."|
-|Les raccourcis / commandes|`CLAUDE.md`|"Déclaration des alias ou des hooks (`pre-task`, `post-task`)."|
+| Si la règle concerne... | 📂 Rangez-la dans... | Exigence classée | Pourquoi ? |
+| :--- | :--- | :--- | :--- |
+| **Le comportement de Claude** | `CLAUDE.md` | Dialoguer de manière directe sans être verbeux, on va directement à l'essentiel. | Cela définit le style de communication de l'agent au terminal. |
+| **Le comportement de Claude** | `CLAUDE.md` | Ne jamais marquer une tâche comme terminée sans prouver qu'elle fonctionne. | C'est une consigne opérationnelle sur sa façon de valider son avancement. |
+| **Le comportement de Claude** | `CLAUDE.md` | Se demander : "Un ingénieur senior approuverait-il ceci ?" | C'est un prompt de posture (un "persona") pour forcer Claude à s'auto-évaluer. |
+| **La tech ou le design pattern** | `constitution.md` | Le code généré doit être modulaire et évolutif. | C'est une exigence d'architecture logicielle globale. |
+| **La tech ou le design pattern** | `constitution.md` | Respecter les bonnes pratiques de développement : SOLID, KISS, DRY. | Ce sont les paradigmes de code que l'humain et l'IA doivent suivre. |
+| **La tech ou le design pattern** | `constitution.md` | Privilégier le code simple et clair. | Règle de lisibilité du code source. |
+| **La tech ou le design pattern** | `constitution.md` | Simplicité D'abord : Rendre chaque changement aussi simple que possible. Impact minimal sur le code. | Guide le style d'écriture et de refactoring du code. |
+| **La tech ou le design pattern** | `constitution.md` | Pas de Paresse : Trouver les causes profondes. Pas de correctifs temporaires. Normes de développeur senior. | Règle d'or sur la qualité de la dette technique tolérée sur le projet. |
+| **La tech ou le design pattern** | `constitution.md` | Impact Minimal : Les changements ne doivent toucher que ce qui est nécessaire. Éviter d'introduire des bugs. | Stratégie d'isolation des modifications de code. |
+| **Les raccourcis / commandes** | `CLAUDE.md` | Tracer l'ajout de toute nouvelle fonctionnalité dans un fichier `CHANGELOG.md` avec la date et la liste des fonctionnalités. | C'est une tâche de documentation post-développement. L'ordre d'automatiser cette écriture doit figurer dans le `CLAUDE.md` (idéalement dans un hook). |
 
 #### 3. Utilisez `CLAUDE.md` comme la passerelle de sécurité
 C'est dans le `CLAUDE.md` que vous rappelez à l'agent ses limites (interdiction de commit, obligation de demander l'avis de l'humain). Même si vous le mettez dans la constitution, Claude a besoin de le voir dans son fichier dédié pour ajuster son "système de pensée" dès le démarrage du terminal.
