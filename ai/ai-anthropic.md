@@ -169,7 +169,7 @@ Le fichier `.claude/settings.json` permet entre autre de configurer les permissi
 
 # Economiser les tokens
 
-*token d'entrée* : lorsque le contexte arrive aux alkentour de 40%, utiliser la commande `/compact` (claude code) ou `/clear` pour 
+*token d'entrée* : lorsque le contexte arrive aux alentour de 40%, utiliser la commande `/compact` (claude code) ou `/clear` pour 
 vider le contexte si on en a plus besoin. 
 Si on souhaite conserver tout l'historique, ne pas hésiter à tout copier dans un fichier et à le donner au modèle.
 
