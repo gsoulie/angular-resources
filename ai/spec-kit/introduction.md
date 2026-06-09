@@ -71,9 +71,10 @@ la cohérence de l'expérience utilisateur et les exigences de sécurité, d'acc
 ````
 
 ````
-/constitution Crée les principes en te concentrant sur la qualité du code,
-les standards de test, la cohérence de l'expérience utilisateur et les
-exigences de performance.
+/constitution Créé des principes axés sur la qualité du code (SOLID, KISS, DRY), les standards de test,
+la cohérence de l'expérience utilisateur et les exigences de sécurité, d'accessibilité et de performance.
+Privilégie le code simple, clair. Le code généré doit être modulaire et évolutif. L'application doit être responsive et embarquer uniquement les dépendances minimum nécessaires. Lit le fichier @package.json  pour obtenir plus d'informations sur la stack technique actuelle
+Rendre chaque changement aussi simple que possible avec un impact minimal sur le code.
 ````
 
 > **Astuce** : lui donner le package.json du projet peut être utile pour qu'il adapte les principes à la stack utilisée
