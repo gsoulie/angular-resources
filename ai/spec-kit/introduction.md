@@ -50,6 +50,15 @@ Les commandes doivent être préfixées si elles sont utilisées depuis un autre
 ### `/constitution`
 - **Quand l'utiliser** : **Une seule fois**, à la création du projet.
 - **Objectif** : Définir les **règles globales** du projet (bonnes pratiques, contraintes techniques, SOLID, a11y,  etc.).
+
+**Ce qu'il faut y mettre**
+* Le contenu idéal, ce sont des principes non négociables, déclaratifs et testables.
+* Principes de qualité et standards de code : conventions, exigences de test (par ex. un seuil de couverture, TDD si tu le pratiques), critères de performance, accessibilité. Si l'accessibilité compte pour ton projet, c'est exactement le type de garde-fou à inscrire.
+* Une section Governance : procédure d'amendement, politique de versioning de la constitution, attentes en matière de revue de conformité. C'est obligatoire dans le template.
+
+**Ce qu'il ne faut PAS y mettre**
+* Attention au paradoxe sur le framework. Tu peux indiquer « ce projet utilise Next.js / Angular » comme contrainte de stack, et c'est même recommandé pour orienter la génération. Mais évite d'aller plus loin en y mettant des choix d'architecture détaillés (structure de dossiers précise, patterns Redux vs signals, stratégie de data-fetching App Router, etc.) : ce niveau de décision relève du plan. 
+  
 - **Exemple de prompt** :
   ```plaintext
   /constitution declare principles for clean code, simple UX, responsive design and minimal dependencies.
@@ -60,6 +69,14 @@ Les commandes doivent être préfixées si elles sont utilisées depuis un autre
 /constitution Créé des principes axés sur la qualité du code, les standards de test,
 la cohérence de l'expérience utilisateur et les exigences de sécurité, d'accessibilité et de performance
 ````
+
+````
+/constitution Crée les principes en te concentrant sur la qualité du code,
+les standards de test, la cohérence de l'expérience utilisateur et les
+exigences de performance.
+````
+
+> **Astuce** : lui donner le package.json du projet peut être utile pour qu'il adapte les principes à la stack utilisée
 
 - **Résultat** : Génère un fichier constitution.md avec les principes à respecter.
 
