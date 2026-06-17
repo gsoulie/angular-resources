@@ -2,7 +2,7 @@
 
 # Debugging in VSCode
 
-* [Solution simple et rapide - les pointsd'arrêts Google Chrome](#solution-simple-et-rapide)     
+* [Solution simple et rapide - les points d'arrêts Google Chrome](#solution-simple-et-rapide)     
 * [Debug mode](#debug-mode)     
 * [Testing prod build](#testing-prod-build)         
 
