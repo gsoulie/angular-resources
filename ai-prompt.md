@@ -7,10 +7,14 @@
 * [Claude Code](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-anthropic.md)
 * [Sécurisation environnement](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-security.md)     
 
+# Skills
+* [Matt pocock skills](https://github.com/mattpocock/skills)     
+* [Claude Code skills](https://github.com/gsoulie/angular-resources/tree/master/ai/claude/skills)
+  
 # Cursor skills
 
 * [skills](https://github.com/gsoulie/angular-resources/tree/master/ai/cursor/skills)
-* [Matt pocock skills](https://github.com/mattpocock/skills)     
+
 
 # Github Spec Kit
 
