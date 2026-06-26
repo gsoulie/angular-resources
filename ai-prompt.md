@@ -18,7 +18,8 @@
 
 # Github Spec Kit
 
-* [Spec kit](https://github.com/gsoulie/angular-resources/blob/master/ai/spec-kit/introduction.md)         
+* [Spec kit](https://github.com/gsoulie/angular-resources/blob/master/ai/spec-kit/introduction.md)     
+* [Prompts speckit](https://github.com/gsoulie/angular-resources/tree/master/ai/spec-kit/prompts)     
 
 # AI Prompting
 
