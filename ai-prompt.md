@@ -15,6 +15,9 @@
 
 * [skills](https://github.com/gsoulie/angular-resources/tree/master/ai/cursor/skills)
 
+# Claude code
+
+* [CLAUDE.md Sections utiles](https://github.com/gsoulie/angular-resources/tree/master/ai/claude/claude.md)    
 
 # Github Spec Kit
 
