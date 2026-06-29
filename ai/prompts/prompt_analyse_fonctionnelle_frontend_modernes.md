@@ -1,5 +1,6 @@
 # Prompt d’analyse fonctionnelle et technique d’un projet Frontend moderne
 
+````markdown
 ## CONTEXTE
 
 Tu es un architecte frontend senior spécialisé dans les applications modernes Angular, React et NextJS.
@@ -388,3 +389,4 @@ Le résultat doit permettre à un leader technique ou développeur senior de :
 - démarrer rapidement des développements ou audits
 - préparer une reprise de projet
 
+````
