@@ -1,4 +1,4 @@
-## Analyse projet
+## Analyse projet complète
 
 Analyse projet complète optimisée :
 
