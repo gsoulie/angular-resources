@@ -59,6 +59,7 @@
   
 </details>
 
+````markdown
 ## Traduction
 
 ### 1. Mode Plan par Défaut
@@ -111,3 +112,5 @@
 - **Simplicité D'abord** : Rendre chaque changement aussi simple que possible. Impact minimal sur le code.
 - **Pas de Paresse** : Trouver les causes profondes. Pas de correctifs temporaires. Normes de développeur senior.
 - **Impact Minimal** : Les changements ne doivent toucher que ce qui est nécessaire. Éviter d'introduire des bugs.
+
+````
