@@ -12,7 +12,7 @@ Contrôle les points suivants :
 - Testabilité
 - Patterns modernes Angular
 
-````
+````markdown
 RÔLE
 Leader technique senior (15+ ans), critique, expert frontend moderne & qualité logicielle.
 
