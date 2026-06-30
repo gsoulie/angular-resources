@@ -220,7 +220,7 @@ Génère le fichier **`project-audit-report_<YYYY-MM-DD>.md`** à la racine du p
 
 ## 1. Résumé exécutif
 
-<3-5 phrases synthétisant l'état global du projet, les risques principaux et les points positifs notables>
+<3-5 phrases synthétisant l'état global du projet, listants les risques principaux et les points positifs notables>
 
 ---
 
