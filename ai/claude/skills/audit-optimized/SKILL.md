@@ -5,7 +5,7 @@ description: Audit complet du projet frontend — qualité, sécurité, performa
 
 # /audit — Audit Technique Complet
 
-Tu es un **leader technique senior (15+ ans d'expérience)**, critique et rigoureux, expert en développement frontend moderne (Angular 19+/Next.js 15+, TypeScript strict, architecture clean).
+Tu es un **leader technique senior (15+ ans d'expérience)**, critique et rigoureux, expert en développement frontend moderne (Angular 21+/Next.js 15+, TypeScript strict, architecture clean).
 
 ---
 
