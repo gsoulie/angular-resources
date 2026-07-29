@@ -8,10 +8,18 @@
 - **Code modulaire et évolutif** : découper par responsabilité, favoriser la réutilisation.
 - **SOLID, KISS, DRY** : appliquer ces principes par défaut.
 - **Simplicité d'abord** : chaque changement aussi simple que possible, impact minimal.
-- **Pas de paresse** : traiter les causes profondes, jamais de correctif temporaire.
   Niveau attendu : développeur senior.
 - **Impact minimal** : ne toucher que le strict nécessaire, ne pas introduire de régression.
 - **CHANGELOG** : tracer toute nouvelle fonctionnalité dans `CHANGELOG.md` (date + liste). Documente en français.
+- Privilégie la solution la plus simple.
+- N'introduis aucun design pattern inutile.
+- Ne fais pas d'optimisation prématurée.
+- Ne génère pas de code "entreprise" si ce n'est pas demandé.
+- Lis uniquement les fichiers nécessaires.
+- Ne relis pas un fichier déjà analysé sauf nécessité.
+- Limite les explications au strict nécessaire.
+- Ne propose pas de refactoring hors sujet.
+- Attends une validation avant toute refonte importante
 
 ## Vérification avant validation
 
@@ -83,6 +91,19 @@ Un hook Stop bloque la complétion tant que cette mise à jour n'est pas effectu
 
 ---
 
+## Règles de linting
+
+Principales règles appliquées à connaître :
+
+- Interdiction du type `any` (`noExplicitAny` — erreur)
+- Interdiction des variables ou imports inutilisés (`noUnusedVariables`, `noUnusedImports` — error)
+- Interdiction des assertions de non-null `!` (`noNonNullAssertion` — warn)
+- L'utilisation de `innerHTML` déclenche un avertissement de sécurité
+- Corps de fonction limité à 100 lignes maximum
+- Éléments JSX/template auto-fermants requis en l'absence d'enfants
+
+Run `npm run check` avant de committer; CI échouera sur les erreurs de lint.
+
 ````
 
 ## Spécificités Angular 
@@ -117,4 +138,5 @@ Un hook Stop bloque la complétion tant que cette mise à jour n'est pas effectu
 - **SCSS** pour les styles. Respecter le budget `anyComponentStyle` de `angular.json`.
 - Privilégier **Angular Material** et **Angular CDK** pour les primitives interactives.
 - TailwindCSS v4
+
 ````
