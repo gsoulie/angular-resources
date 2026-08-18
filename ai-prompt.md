@@ -30,12 +30,15 @@
 * [Prise de connaissance projet](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/prompt_analyse_fonctionnelle_frontend_modernes.md)      
 * [00-global-orchestrator](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/00-global-orshestrator.md)    
 * [01-full-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/01-full-optimized-analysis.md)
+* [10-audit-multi-techno](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/10-audit-multi-technos.md)    
 * [02-a11y-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/02-a11y-audit.md)
 * [03-quality-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/03-quality-audit.md)
 * [04-performance-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/04-performance-audit.md)
 * [05-security-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/05-security-audit.md)    
 * [06-CVE-audit](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/06-cve-audit.md)
-* [07-AVV-estimation-macro](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/07-estimation-avv.md)    
+* [07-AVV-estimation-macro](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/07-estimation-avv.md)
+* [08-brainstorm](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/08-brainstorm.md)
+* [09-implement-feature](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/09-implement-feature.md)
 * [CLAUDE.md](https://github.com/gsoulie/angular-resources/blob/master/ai/prompts/claude.md)    
 
 # Prompt Claude Code
