@@ -17,7 +17,8 @@
 
 # Claude code
 
-* [CLAUDE.md Sections utiles](https://github.com/gsoulie/angular-resources/tree/master/ai/claude/claude.md)    
+* [CLAUDE.md Sections utiles](https://github.com/gsoulie/angular-resources/tree/master/ai/claude/claude.md)
+* [Permissions - settings.json](https://github.com/gsoulie/angular-resources/tree/master/ai/claude/settings/settings.json)       
 
 # Github Spec Kit
 
