@@ -96,6 +96,15 @@ Pour les **fonctions complexes** (logique non triviale, effets de bord, gestion 
 - Secrets externalisés (jamais en code/config/CI).
 - PKCE obligatoire, ROPC interdit.
 
+## Politique de dépendances
+- Ne pas installer automatiquement de package.
+- Vérifier si une dépendance existante répond déjà au besoin.
+- Éviter les dépendances inutiles.
+- Privilégier les packages activement maintenus.
+- Vérifier les licences lorsque nécessaire.
+- Évaluer les vulnérabilités connues.
+- Éviter les dépendances transitives inutiles.
+
 ---
 
 # Accessibilité (non négociable)
