@@ -114,11 +114,22 @@ Pour les **fonctions complexes** (logique non triviale, effets de bord, gestion 
 - Préférer les éléments sémantiques natifs et les primitives CDK a11y aux rustines ARIA.
 - Couvrir les pages/flux par la suite Playwright + axe-core sous `e2e/accessibility/` ; zéro violation avant merge.
 
+# Vérification avant validation
+
+- **Ne jamais marquer une tâche terminée sans avoir vérifié son bon fonctionnement** : exécuter le lint pertinent, les tests pertinents et le build du sous-projet concerné. Ne pas considérer une tâche comme terminée tant que ces vérifications ne sont pas passées, sauf impossibilité explicitement signalée.
+- **Relecture senior** : avant de valider, se demander : « Un ingénieur senior approuverait-il ce changement en l'état ? » Vérifier notamment la lisibilité, la simplicité, la cohésion, la maintenabilité, la sécurité, la gestion des erreurs et l'absence de complexité ou d'abstraction inutile.
+- **Changelog** : après toute tâche validée constituant un changement **fonctionnel ou technique fort** (nouvelle fonctionnalité, changement de comportement visible, mise en place ou refonte d'un outillage structurant, changement d'architecture, correctif de bug impactant), ajouter une entrée **en haut** de `/CHANGELOG.md` (à la racine du repo), sous un titre portant la date de validation au format `YYYY-MM-DD`.
+Respecter le format Keep a Changelog (`Added` / `Changed` / `Fixed`) et rédiger l'entrée en français. La description doit rester concise et présenter le changement du point de vue du projet, pas détailler les étapes internes de son implémentation.
+- **Changelog — changements mineurs** : ne pas consigner les changements mineurs ou de détail : correctifs de lint/formatage ponctuels, ajustements de configuration sans impact fonctionnel, renommages, typos, mises à jour mineures de dépendances, retouches de commentaires ou de documentation.
+En cas de doute sur le franchissement du seuil, demander plutôt que de trancher seul.
+- **Contrôle de duplication** : relire le diff complet produit et se demander : « Ai-je ajouté un bloc qui ressemble à un bloc déjà présent dans un fichier que je touche ? » Si oui, rechercher la logique existante et la factoriser ou la réutiliser avant de valider. Ne pas conserver volontairement une duplication au seul motif que la modification du code existant augmenterait le diff.
+Effectuer également un contrôle plus général : « Ai-je introduit une fonction, constante, service, abstraction ou structure de données qui existe déjà ailleurs dans le projet ? » Si oui, réutiliser ou factoriser l'existant lorsque les responsabilités et comportements sont réellement communs.
+- **Tests après factorisation** : lorsqu'une factorisation ou une modification d'une logique existante a été effectuée, mettre à jour ou compléter les tests concernés dans le même changement et vérifier à nouveau que la suite pertinente est verte.
 ````
 
 ## VARIANTES PRINCIPES FONDAMENTAUX
 
-````
+````markdown
 - **SOLID, KISS, DRY** : appliquer ces principes par défaut. Une même règle métier ou logique technique ne doit pas être implémentée indépendamment à plusieurs zndroits lorsqu'elle peut raisonnablement être factorisée. En particulier, le moment à risque est l'ajout du _jumeau_ d'une chose existante : une 2ᵉ liste, un 2ᵉ export, un 2ᵉ filtre, un 2ᵉ appel réactif du même type, etc.
   Avant d'écrire ce jumeau, rechercher et lire la version existante, puis factoriser les deux usages **dans le même changement**. Ne jamais copier du code en prévoyant une factorisation ultérieure. Les commentaires ou formulations du type « symétrique de X », « comme X », « même logique que X » ou « à garder en phase avec X » signalent généralement une duplication qui doit être examinée. Ils ne constituent pas une justification pour maintenir deux implémentations indépendantes.
   La factorisation doit rester proportionnée : ne pas créer une abstraction artificielle uniquement pour supprimer quelques lignes de code similaires. Factoriser lorsque les éléments partagent réellement une responsabilité, une règle métier ou une logique évolutive commune.
