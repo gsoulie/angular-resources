@@ -116,6 +116,23 @@ Pour les **fonctions complexes** (logique non triviale, effets de bord, gestion 
 
 ````
 
+## VARIANTES PRINCIPES FONDAMENTAUX
+
+````
+- **SOLID, KISS, DRY** : appliquer ces principes par défaut. Une même règle métier ou logique technique ne doit pas être implémentée indépendamment à plusieurs zndroits lorsqu'elle peut raisonnablement être factorisée. En particulier, le moment à risque est l'ajout du _jumeau_ d'une chose existante : une 2ᵉ liste, un 2ᵉ export, un 2ᵉ filtre, un 2ᵉ appel réactif du même type, etc.
+  Avant d'écrire ce jumeau, rechercher et lire la version existante, puis factoriser les deux usages **dans le même changement**. Ne jamais copier du code en prévoyant une factorisation ultérieure. Les commentaires ou formulations du type « symétrique de X », « comme X », « même logique que X » ou « à garder en phase avec X » signalent généralement une duplication qui doit être examinée. Ils ne constituent pas une justification pour maintenir deux implémentations indépendantes.
+  La factorisation doit rester proportionnée : ne pas créer une abstraction artificielle uniquement pour supprimer quelques lignes de code similaires. Factoriser lorsque les éléments partagent réellement une responsabilité, une règle métier ou une logique évolutive commune.
+- **Simplicité d'abord** : chaque changement aussi simple que possible, impact minimal.
+- **Pas de paresse** : traiter les causes profondes, jamais de correctif temporaire. Niveau attendu : développeur senior.
+- **Impact minimal** : ne toucher que le strict nécessaire, ne pas introduire de régression et ne pas refactoriser hors périmètre. Le périmètre s'entend **par fichier touché**, pas par ligne : extraire une responsabilité ou factoriser un bloc existant avec celui que l'on ajoute, dans un fichier déjà modifié, fait partie du travail attendu.
+  En revanche, ne pas modifier des fichiers voisins non concernés par la tâche et ne pas changer de comportement existant sans nécessité fonctionnelle ou technique démontrée.
+  **Arbitrage** : dans un fichier déjà modifié, DRY l'emporte sur « impact minimal ». Dupliquer du code pour éviter de toucher au code voisin est un contournement, pas une précaution. Toute factorisation modifiant une logique existante doit être accompagnée de la mise à jour des tests concernés dans le même changement. Les tests existants et nouveaux doivent rester verts.
+- **Une responsabilité cohérente par fichier** : avant d'ajouter du code à un fichier existant, vérifier que la nouvelle logique relève de la responsabilité déjà portée par ce fichier.
+  Si ce n'est pas le cas, extraire la logique vers l'abstraction appropriée (fonction pure, service, store, composant, utilitaire, etc.) plutôt que d'ajouter une nouvelle responsabilité au fichier.
+  Ne pas créer artificiellement de nouveaux fichiers ou abstractions pour de simples fragments de code. L'extraction est justifiée lorsqu'elle améliore réellement la cohésion, la testabilité, la réutilisabilité ou la maintenabilité.
+  **« Impact minimal » n'autorise jamais à ajouter une Nième responsabilité à un fichier qui en porte déjà plusieurs, ni à y ajouter une copie d'une logique qu'il contient déjà.**
+````
+
 ## Spécificités Angular 
 
 ````markdown
