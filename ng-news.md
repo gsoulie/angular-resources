@@ -2,8 +2,12 @@
 
 # Nouveautés
 
+* [v22.2](#angular-v22-.-2)     
 * [v22](#angular-v22)     
-* [v21](#angular-v21)   
+* [v21](#angular-v21)
+<details>
+	<summary>Versions précédentes</summary>
+
 * [v20.2](#angular-v20-.-2)     
 * [v20](#angular-v20)    
 * [v19.2](#angular-v19-.-2)    
@@ -17,8 +21,195 @@
 * [v16](#v16)    
 * [v15](#v15)     
 * [v14](#v14)
+
+</details>
+
 * [AnalogJS](#analogjs)
 * [Dépréciations](#dépréciations)
+
+# Angular v22.2
+
+<details>
+	<summary>Nouveautés de la version 22.2</summary>
+
+`24/09/2026`
+
+> [Article Blog ninja squad](https://blog.ninja-squad.fr/2026/09/23/what-is-new-angular-22.2)
+
+## `@boundary` (developer preview)
+
+Ce nouveau mécanisme, inspiré de son équivalent React, permet de gérer proprement les erreurs de chargement des composants en fournissant un fallback UI.
+Sans le mécanisme de *boundary*, lorsqu'un composant lève une erreur lors de son chargement, c'est tout l'arbre des sous-composants qui est impacté et n'est pas rendu dans la page. L'utilisateur se retrouve alors devant une page blanche avec une erreur affichée dans la console.
+
+`@boundary` vient corriger ce comportement et permet de fournir un fallback UI à l'utilisateur lorsqu'un tel cas se produit.
+
+Dans l'exemple suivant, si le composant `<ns-chart>` lève une erreur lors de son chargement, le mécanisme de boundary affichera une div alternative, permettant ainsi de préserver le reste de l'arbre des composants
+
+````html
+<h1>Dashboard</h1>
+@boundary {
+  <ns-chart />
+} @error {
+  <div>Oops: {{ $error.message }}</div>
+}
+````
+
+A noter que l'on peut utiliser **`$error`** pour récupérer la cause de l'erreur
+
+Il est aussi possible de définir plusieurs blocs `@error` afin de gérer différents types d'errreur et leur apporter une réponse ciblée :
+
+````html
+<h1>Dashboard</h1>
+@boundary {
+  <ns-chart />
+} @error (when isDataError($error)) {
+  <div>Data error</div>
+} @error (let err; when isChartError(err)) {
+  <!-- 👇 You can access custom fields of the error -->
+  <div>Chart error ({{ err.chartType }})</div>
+} @error {
+  <div>Unknown error</div>
+}
+````
+
+Il est également possible de relanceer un chargement du composant grace à la fonction **`$reset`**
+
+````html
+<h1>Dashboard</h1>
+@boundary {
+  <ns-chart />
+} @error {
+  <div>Oops: {{ $error.message }}</div>
+  <button (click)="$reset()">Retry</button>
+}
+````
+
+Enfin, ce mécanisme peut être piloter depuis le controller : 
+
+````typescript
+viewContainer.createComponent(User, {
+  onError: (error: Error, errorDetails: ErrorDetails) => {
+    // 👇ErrorDetails contains the boundary component and reset function,
+    // and the component/directive class and instance where the error occurred
+    console.error('Error while creating', errorDetails.declarationType);
+  }
+});
+````
+
+## Router `resources` (developer preview)
+
+Cette nouvelle fonctionnalité vient résoudre un problème que les route `resolvers` actuels ne couvrent pas, à savoir la compatibilité avec Signal.
+Poura rappel, les `resolvers` de route permettent de charger des données **avant** l'activation d'une route. Une des problématiques des resolvers est qu'ils bloquent la navigation et les resolver sur les routes parentes et enfants s'exécutent séquentiellement, ce qui donne une impression de navigation lente.
+
+Avec les router `resources`, les ressources demandées sont chargées en parralèle, rendant la navigation plus fluide et supprimant l'effet de cascade entre les ressources parent et enfant.
+
+L'activation de cette nouvelle fonctionnalité se fait de la manière suivante dans le fichier *app.config.ts* 
+
+````
+provideRouter(routes, withComponentInputBinding(), withRouterResources())
+````
+
+La définition des ressources se fait ensuite de la manière suivante :
+
+````typescript
+{
+  path: 'races',
+  component: Races,
+  // 👇context contains params, queryParams, etc as signals
+  resources: context => {
+    const page = computed(() => context.queryParams()['page']);
+    const races = httpResource<Array<RaceModel>>(() => `/api/races?page=${page()}`);
+    // return a key/value object
+    // - the key is the name of the data
+    // - the value is the resource
+    return { races };
+  }
+}
+````
+
+L'accès à la ressource depuis le composant se fait ainsi : 
+
+````typescript
+export class Races {
+  protected readonly races = input.required<Array<RaceModel>>();
+````
+
+Si une navigation est effectuée vers le même itinéraire avec des paramètres différents, la ressource sera rechargée automatiquement.
+
+## Nettoyage automatisé des injectors
+
+La directive `withAutoCleanupInjectors` est désormais en version stable
+
+## Accès aux membres private depuis le template
+
+Il est désormais possible d'accéder aux membres déclarés en `private` dans les composants, depuis les templates
+
+````typescript
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+
+@Component({
+  selector: 'app-status',
+  template: `<p>{{ _status }}</p>`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class StatusComponent {
+  private readonly _status = 'Ready';
+}
+````
+
+> Ceci s'applique aux membres privés TypeScript du composant lui-même. Cela ne rend pas accessibles les propriétés privées d'un objet imbriqué, ni aux champs JavaScript `#private`.
+
+## Champ caché dans les formulaires
+
+Signal Forms permet désormais de masquer définitivement un champ. la fonction `hidden()` peut être appelée avec uniquement le chemin du champ, sans condition ni objet de configuration.
+
+````typescript
+import { signal } from '@angular/core';
+import { form, hidden } from '@angular/forms/signals';
+
+const profile = signal({
+  name: '',
+  internalId: '',
+});
+
+const profileForm = form(profile, (path) => {
+  hidden(path.internalId);
+});
+````
+
+Ceci est utile pour les champs qui appartiennent au modèle mais qui ne doivent jamais apparaître dans le formulaire actuel, tels que les identifiants internes ou les valeurs gérées par l'application.
+
+## API `containsTree ` pour la correspondance de route
+
+Le routeur exporte désormais `containsTree`, permettant aux applications et aux bibliothèques de comparer directement deux objets `UrlTree`.
+
+````typescript
+import { inject, Injectable } from '@angular/core';
+import { containsTree, Router } from '@angular/router';
+
+@Injectable({ providedIn: 'root' })
+export class UrlMatcher {
+  private readonly _router = inject(Router);
+
+  isInside(url: string, parent: string): boolean {
+    return containsTree(
+      this._router.parseUrl(url),
+      this._router.parseUrl(parent),
+    );
+  }
+}
+````
+
+> L'appel à `isInside('/products/42/details', '/products')` renvoie `true`. 
+
+Par défaut, les chemins et les paramètres de requête utilisent une correspondance par sous-ensemble. Vous pouvez spécifier des options telles que `{ paths: 'exact' }` pour un comportement plus strict.
+
+Ceci est utile pour les composants de navigation personnalisés, les fils d'Ariane et les bibliothèques de gestion des routes qui nécessitent une correspondance d'URL sans dépendre des mécanismes internes privés du routeur.
+	
+</details>
 
 # Angular v22
 
