@@ -25,6 +25,10 @@
 * [Spec kit](https://github.com/gsoulie/angular-resources/blob/master/ai/spec-kit/introduction.md)     
 * [Prompts speckit](https://github.com/gsoulie/angular-resources/tree/master/ai/spec-kit/prompts)     
 
+# Migration et réécriture 1 pour 1
+
+* [workflow](https://github.com/gsoulie/angular-resources/tree/master/ai/migration/workflow.md)
+
 # AI Prompting
 
 * [Collection de prompts](#collection-de-prompts)
