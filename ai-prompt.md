@@ -5,7 +5,8 @@
 * [Les bases](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-basics.md)
   * LLM, RAG, Agents, Limites, Risques, Patterns
 * [Claude Code](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-anthropic.md)
-* [Sécurisation environnement](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-security.md)     
+* [Sécurisation environnement](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-security.md)
+* [Vm WSL](https://github.com/gsoulie/angular-resources/blob/master/ai/ai-vm.md)
 
 # Skills
 * [Matt pocock skills](https://github.com/mattpocock/skills)     
